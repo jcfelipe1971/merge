@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TfrxHYReport Name="" Version="3.19" DotMatrixReport="False" EngineOptions.DoublePass="True" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="Default" ReportOptions.CreateDate="39323,4782850463" ReportOptions.Description.Text="" ReportOptions.LastChange="39323,4801052431" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end." StoreInDFM="False" FIBOptions.DataSet="DMMain.QListados" FIBOptions.KeyField="LISTADO" FIBOptions.BlobField="DEF_LISTADO" FIBOptions.NameField="TITULO" FIBOptions.GroupField="GRUPO" FIBOptions.TypeField="TIPO" PropData="044C65667403F00003546F70021A08446174617365747301010C2100000020446174615365744E616D653D2266727844424453514D4A75737469666963612200010C2000000020446174615365744E616D653D2266727844424453514D5465726365726F73220000095661726961626C657301010C11000000204E616D653D222043414245434552412200010C0F000000204E616D653D22456D70726573612200010C13000000204E616D653D22456D70726573615F4369662200010C19000000204E616D653D22456D70726573615F446972656363696F6E2200010C13000000204E616D653D22456D70726573615F436F642200010C14000000204E616D653D22456D70726573615F50726F762200010C14000000204E616D653D22456D70726573615F506169732200010C1A000000204E616D653D224665636861222056616C75653D22444154452200010C0E000000204E616D653D22496D6167656E2200010C10000000204E616D653D2254656C65666F6E6F2200010C0F000000204E616D653D2220566172696F732200010C1A000000204E616D653D224D61736361726150222056616C75653D22302200010C1A000000204E616D653D224D6173636172614E222056616C75653D22302200010C1A000000204E616D653D224D61736361726149222056616C75653D22302200010C1A000000204E616D653D224D6173636172614C222056616C75653D22302200010C09000000204E616D653D224C2200010C09000000204E616D653D22432200010C10000000204E616D653D2220444554414C4C452200010C16000000204E616D653D225449504F444952434C49454E54452200010C18000000204E616D653D224C4F43414C49444144434C49454E54452200010C18000000204E616D653D2250524F56494E434941434C49454E54452200010C13000000204E616D653D2250414953434C49454E5445220000055374796C650100">
+  <TfrxReportPage Name="Page1" Orientation="poLandscape" PaperWidth="296,899541666667" PaperHeight="209,999791666667" PaperSize="256" LeftMargin="5,29166666666667" RightMargin="5,29166666666667" TopMargin="5,29166666666667" BottomMargin="5,29166666666667" Columns="1" ColumnWidth="276,8996875" ColumnPositions.Text="0" HGuides.Text="" VGuides.Text="">
+    <TfrxMasterData Name="Band1" Height="72" Left="0" Top="105" Width="1082,14069888208" Columns="1" ColumnWidth="200" ColumnGap="20" DataSetName="frxDBDSQMTerceros" RowCount="0">
+      <TfrxMemoView Name="Memo13" Left="46" Top="23" Width="240" Height="28" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="[QMProveedor.&#34;TITULO&#34;]"/>
+      <TfrxMemoView Name="Memo15" Left="46" Top="0" Width="96" Height="16" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="NOMBRE"/>
+      <TfrxMemoView Name="Memo16" Left="6" Top="0" Width="28" Height="16" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="Nº"/>
+      <TfrxMemoView Name="Memo17" Left="6" Top="23" Width="36" Height="20" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" HAlign="haRight" ParentFont="False" Text=" [QMProveedor.&#34;PROVEEDOR&#34;]"/>
+      <TfrxMemoView Name="Memo29" Left="290" Top="0" Width="44" Height="16" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="TELF. 1"/>
+      <TfrxMemoView Name="Memo31" Left="374" Top="0" Width="48" Height="16" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="TELF. 2"/>
+      <TfrxMemoView Name="Memo30" Left="458" Top="0" Width="40" Height="16" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="FAX"/>
+      <TfrxMemoView Name="Memo32" Left="541" Top="0" Width="60" Height="16" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="E-MAIL"/>
+      <TfrxMemoView Name="Memo33" Left="748" Top="0" Width="52" Height="16" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="WEB"/>
+      <TfrxMemoView Name="Memo34" Left="290" Top="23" Width="80" Height="20" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" ParentFont="False" Text=" [QMTerceros.&#34;TELEFONO01&#34;]"/>
+      <TfrxMemoView Name="Memo35" Left="374" Top="23" Width="80" Height="20" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" ParentFont="False" Text=" [QMTerceros.&#34;TELEFONO02&#34;]"/>
+      <TfrxMemoView Name="Memo36" Left="458" Top="23" Width="80" Height="20" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="[QMTerceros.&#34;TELEFAX&#34;]"/>
+      <TfrxMemoView Name="Memo37" Left="541" Top="23" Width="200" Height="28" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="[QMTerceros.&#34;EMAIL&#34;]"/>
+      <TfrxMemoView Name="Memo38" Left="748" Top="23" Width="260" Height="28" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="[QMTerceros.&#34;WEB&#34;]"/>
+      <TfrxMemoView Name="Memo19" Left="48" Top="51" Width="76" Height="16" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="DOMICILIO"/>
+      <TfrxMemoView Name="Memo20" Left="440" Top="51" Width="72" Height="16" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="LOCALIDAD"/>
+      <TfrxMemoView Name="Memo21" Left="700" Top="51" Width="68" Height="16" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="PROVINCIA"/>
+      <TfrxLineView Name="Line1" Left="6" Top="20" Width="36" Height="0" Frame.Typ="4" Frame.Width="2"/>
+      <TfrxLineView Name="Line2" Left="46" Top="20" Width="100" Height="0" Frame.Typ="4" Frame.Width="2"/>
+      <TfrxLineView Name="Line3" Left="290" Top="20" Width="60" Height="0" Frame.Typ="4" Frame.Width="2"/>
+      <TfrxLineView Name="Line4" Left="374" Top="20" Width="60" Height="0" Frame.Typ="4" Frame.Width="2"/>
+      <TfrxLineView Name="Line6" Left="458" Top="20" Width="48" Height="0" Frame.Typ="4" Frame.Width="2"/>
+      <TfrxLineView Name="Line7" Left="541" Top="20" Width="60" Height="0" Frame.Typ="4" Frame.Width="2"/>
+      <TfrxLineView Name="Line8" Left="748" Top="20" Width="50" Height="0" Frame.Typ="4" Frame.Width="2"/>
+      <TfrxLineView Name="Line9" Left="48" Top="68" Width="316" Height="0" Frame.Typ="4" Frame.Width="2"/>
+      <TfrxLineView Name="Line10" Left="440" Top="68" Width="184" Height="0" Frame.Typ="4" Frame.Width="2"/>
+      <TfrxLineView Name="Line11" Left="700" Top="68" Width="156" Height="0" Frame.Typ="4" Frame.Width="2"/>
+    </TfrxMasterData>
+    <TfrxDetailData Name="Band3" Height="16" Left="0" Top="194" Width="1082,14069888208" Columns="1" ColumnWidth="200" ColumnGap="20" DataSetName="frxDBDSQMJustifica" RowCount="0">
+      <TfrxMemoView Name="Memo40" Left="7" Top="0" Width="991" Height="16" Color="12632256" Text="[L]"/>
+      <TfrxMemoView Name="Memo4" Left="48" Top="0" Width="316" Height="16" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="[QMJustifica.&#34;DIRECCION&#34;]"/>
+      <TfrxMemoView Name="Memo5" Left="444" Top="0" Width="188" Height="16" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="[QMJustifica.&#34;CODPOB&#34;]"/>
+      <TfrxMemoView Name="Memo6" Left="704" Top="0" Width="164" Height="16" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="[QMJustifica.&#34;PROVINCIA&#34;]"/>
+    </TfrxDetailData>
+    <TfrxPageFooter Name="Band4" Height="16" Left="0" Top="267" Width="1082,14069888208">
+      <TfrxMemoView Name="Memo39" Left="775" Top="1" Width="184" Height="16" HAlign="haRight" Text="[Page#] de [TotalPages]"/>
+    </TfrxPageFooter>
+    <TfrxColumnHeader Name="Band5" Height="32" Left="0" Top="16" Width="1082,14069888208">
+      <TfrxMemoView Name="Memo14" Left="0" Top="2" Width="320" Height="25" Font.Charset="1" Font.Color="0" Font.Height="-19" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="DATOS DE PROVEEDORES"/>
+    </TfrxColumnHeader>
+  </TfrxReportPage>
+</TfrxHYReport>

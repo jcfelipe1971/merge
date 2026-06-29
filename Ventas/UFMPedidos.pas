@@ -1,0 +1,5537 @@
+unit UFMPedidos;
+
+interface
+
+uses {IDIOMA_CODE}gnugettext{IDIOMA_CODE},
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  DBCtrls, StdCtrls, UEditPanel, ComCtrls, ExtCtrls, UNavigator, ToolWin,
+  Grids, DBGrids, UFIBDBEditfind, UDBDateTimePicker, Mask, Buttons, Menus,
+  UTeclas, UControlEdit, UHYDBGrid, UComponentesBusquedaFiltrada, ActnList,
+  UFormGest, Variants, DB, rxPlacemnt, NsDBGrid, rxToolEdit, RXDBCtrl,
+  ULFFormStorage, ULFActionList, ULFToolBar, ULFDBMemo, ULFDBCheckBox,
+  ULFDBEditFind2000, ULFDBEdit, ULFPageControl, ULFPanel, ULFEditFind2000,
+  TFlatCheckBoxUnit, ULFCheckBox, ULFLabel, ULFEdit, URecursos, HYFIBQuery, idGlobalProtocols, ULFDBDateEdit,
+  ULFMemo, Barras, ULFComboBox, UFPEditDetalle, UG2kTBLoc;
+
+type
+  TFMPedidos = class(TFPEditDetalle)
+     TSNotas: TTabSheet;
+     PNLCabNotas: TLFPanel;
+     PNLEdCabecera: TLFPanel;
+     LBLPedido: TLFLabel;
+     DBERIG: TLFDbedit;
+     LBLEstado: TLFLabel;
+     LBLFechaFicha: TLFLabel;
+     DBDTPFecha: TLFDBDateEdit;
+     LBLReferencia: TLFLabel;
+     DBESuReferencia: TLFDbedit;
+     LBLCliente: TLFLabel;
+     EFCliente: TLFDBEditFind2000;
+     DBETituloCliente: TLFDbedit;
+     EFDireccion: TLFDBEditFind2000;
+     DBETituloDireccion: TLFDbedit;
+     EFAgente: TLFDBEditFind2000;
+     DBETituloAgente: TLFDbedit;
+     LBLDir: TLFLabel;
+     LBLAgente: TLFLabel;
+     PNLEdNotas: TLFPanel;
+     DBEDtoPP: TLFDbedit;
+     LBLDtoPP: TLFLabel;
+     PNLTitNotas: TLFPanel;
+     DBENotasFechaCab: TLFDbedit;
+     LBLFechaNotas: TLFLabel;
+     DBENotasSuReferenciaCab: TLFDbedit;
+     LBLReferenciaNotas: TLFLabel;
+     DBENotasClienteTituloCab: TLFDbedit;
+     DBENotasRIGCab: TLFDbedit;
+     NavNotas: THYMNavigator;
+     DBEDtoCial: TLFDbedit;
+     CENotas: TControlEdit;
+     CENotasPMEdit: TPopUpTeclas;
+     LBLDtoCial: TLFLabel;
+     EFAlmacen: TLFDBEditFind2000;
+     DBETituloAlmacen: TLFDbedit;
+     DBDTPFechaEntrega: TLFDBDateEdit;
+     LBLEntrega: TLFLabel;
+     DBCHKServido: TLFDBCheckBox;
+     LBLAlmacen: TLFLabel;
+     EFFormaPago: TLFDBEditFind2000;
+     DBETituloFormaPago: TLFDbedit;
+     LBLFormaPago: TLFLabel;
+     ALPedidos: TLFActionList;
+     ANotasDetalle: TAction;
+     AInfoStocks: TAction;
+     AUnidadesExt: TAction;
+     APreciosTarifa: TAction;
+     AInfoHistorico: TAction;
+     PCPie: TLFPageControl;
+     TSPieGen: TTabSheet;
+     PNLPieGenerico: TLFPanel;
+     LBLBultos: TLFLabel;
+     LBLBaseImp: TLFLabel;
+     LBLCuotas: TLFLabel;
+     LBLLiquido: TLFLabel;
+     DBEBultos: TLFDbedit;
+     DBES_Bases: TLFDbedit;
+     DBELiquido: TLFDbedit;
+     DBECuotaIVA: TLFDbedit;
+     DBECuotaRec: TLFDbedit;
+     TSPieRetCom: TTabSheet;
+     PNLPieRetenciones: TLFPanel;
+     LBLBaseComision: TLFLabel;
+     LBLImporte: TLFLabel;
+     DBEBaseComision: TLFDbedit;
+     DBEImp_Comision: TLFDbedit;
+     TSPieCarDtos: TTabSheet;
+     PNLPNLieComisiones: TLFPanel;
+     LBLBaseDtoLinea: TLFLabel;
+     LBLImporteFicha: TLFLabel;
+     LBLImporteCargos: TLFLabel;
+     LBLImpBase: TLFLabel;
+     DBEBaseDtoEnLinea: TLFDbedit;
+     DBEImpDtoEnLinea: TLFDbedit;
+     DBEImpFinanciacion: TLFDbedit;
+     DBESumaBases: TLFDbedit;
+     TButtNotas: TToolButton;
+     TButtInfStocks: TToolButton;
+     TButtUnidades_Ext: TToolButton;
+     TButtPrecios: TToolButton;
+     TButtInfoHistorico: TToolButton;
+     TButtSeparador2: TToolButton;
+     TButtImprimeListado: TToolButton;
+     TButtSeparador6: TToolButton;
+     TbuttCambiarNombre: TToolButton;
+     LBLSerie: TLFLabel;
+     EFSerie: TLFEditFind2000;
+     PNLTitSerie: TLFPanel;
+     ETitSerie: TLFEdit;
+     DBETituloEstado: TLFDbedit;
+     ANewCliente: TAction;
+     ANewAgente: TAction;
+     ANewArticulo: TAction;
+     AACliente: TAction;
+     AAAgente: TAction;
+     SBACliente: TSpeedButton;
+     SBAAgente: TSpeedButton;
+     AImprime: TAction;
+     LTarifa: TLFLabel;
+     DBEFTarifa: TLFDBEditFind2000;
+     DBETitTarifa: TLFDbedit;
+     DBEFinanciacion: TLFDbedit;
+     LPorFinanciacion: TLFLabel;
+     AArticulo: TAction;
+     AArtCli: TAction;
+     ToolButton1: TToolButton;
+     TBArtCli: TToolButton;
+     LBNotas: TLFLabel;
+     RelojNotas: TTimer;
+     AAgrupaPedidosFiltradosKri: TAction;
+     DBEAgrupacionKri: TLFDBEdit;
+     LAgrupacionKri: TLFLabel;
+     TSEDI: TTabSheet;
+     PNLEDI: TLFPanel;
+     LEDICliente: TLFLabel;
+     LEDIAQuienSeFactura: TLFLabel;
+     LEDIDescuento: TLFLabel;
+     LEDIQuienPaga: TLFLabel;
+     LEDIQuienPide: TLFLabel;
+     LEDIReceptor: TLFLabel;
+     LEDIFechaEntrega: TLFLabel;
+     DBEEDICliente: TLFDbedit;
+     DBEEDIAQuienSeFactura: TLFDbedit;
+     DBEEDIDescuento: TLFDbedit;
+     DBEEDIQuienPaga: TLFDbedit;
+     DBEEDIQuienPide: TLFDbedit;
+     DBEEDIReceptor: TLFDbedit;
+     DBEEDIFechaEntrega: TLFDbedit;
+     ETitEDICliente: TLFEdit;
+     ETitEDIAQuienSeFactura: TLFEdit;
+     ETitEDIQuienPaga: TLFEdit;
+     ETitEDIQuienPide: TLFEdit;
+     ETitEDIReceptor: TLFEdit;
+     DBESumUnidades: TLFDBEdit;
+     LSumUnidades: TLFLabel;
+     AInformePedido: TAction;
+     AInformePedido2: TLFNoSaveAction;
+     AInformePedido3: TLFNoSaveAction;
+     AInformePedido4: TLFNoSaveAction;
+     AVisualizarPedidosFiltrados: TAction;
+     AImprimirPedidosFiltrados: TAction;
+     ASep: TAction;
+     AResumenPedidos: TAction;
+     AResumenPedidosFiltrados: TAction;
+     AImprimirResumenPedidosFiltrados: TAction;
+     ASep2: TAction;
+     LFCategoryAction1: TLFCategoryAction;
+     AConfPedidos: TAction;
+     AConfPedidosFechasClientes: TAction;
+     LFCategoryAction2: TLFCategoryAction;
+     ACambiarNombre: TAction;
+     ASep3: TAction;
+     AAAlbaran: TAction;
+     AAFactura: TAction;
+     ASep4: TAction;
+     AAbrirCerrar: TAction;
+     ASep5: TAction;
+     ADuplicar: TAction;
+     ACondicionesClientes: TAction;
+     ARefrescaDetalle: TAction;
+     AAnulaDocumento: TAction;
+     LFCategoryAction3: TLFCategoryAction;
+     TButtAbreCierra: TToolButton;
+     AHerencia: TAction;
+     APasoaPedProv: TAction;
+     APasoaPedProvAutomatico: TAction;
+     LFCategoryAction4: TLFCategoryAction;
+     DBDTPFecha_Rec: TLFDBDateEdit;
+     LBLFechaRec: TLFLabel;
+     TButtCambiaDescripcion: TToolButton;
+     ACambiaTitulo: TAction;
+     AEnviarPedidoMailPDF: TAction;
+     ANIFPedido: TAction;
+     AOrdenaLineas: TAction;
+     APecMulti: TAction;
+     AImportaPedidosEDI: TAction;
+     ADescargaLector: TAction;
+     ABuscarArticulos: TAction;
+     ToolButton3: TToolButton;
+     TBDescargaLector: TToolButton;
+     ALstCodigoBarras: TAction;
+     LOperarioKri: TLFLabel;
+     DBEFOperarioKri: TLFDBEditFind2000;
+     EOperarioKri: TLFEdit;
+     LContacto: TLFLabel;
+     DBEFContacto: TLFDBEditFind2000;
+     DBEContacto: TLFDBEdit;
+     ADivisiones: TAction;
+     DBMargenKri: TLFDbedit;
+     LMargenKri: TLFLabel;
+     TBDivisiones: TToolButton;
+     TButtHerencia: TToolButton;
+     TButtBuscarArticulo: TToolButton;
+     ASubirLinea: TAction;
+     ABajarLinea: TAction;
+     ToolButton4: TToolButton;
+     TBBajarLinea: TToolButton;
+     TBSubirLinea: TToolButton;
+     LFechaCreacion: TLFLabel;
+     DBDEFechaCreacionKri: TLFDBDateEdit;
+     DBEClienteKri: TLFDbedit;
+     TButtBuscaNIFKRI: TToolButton;
+     ABuscaNIFKRI: TAction;
+     EFBuscaNIFKRI: TLFEditFind2000;
+     DBRENotas: TDBRichEdit;
+     DBRENotasInternasKri: TDBRichEdit;
+     TBRichNotas: TLFToolBar;
+     TButtNotasNegrita: TToolButton;
+     TButtNotasItalica: TToolButton;
+     TButtNotasSubrayado: TToolButton;
+     ToolButton13: TToolButton;
+     TButtNotasAlinIzq: TToolButton;
+     TButtNotasAlinCent: TToolButton;
+     TButtNotasAlinDer: TToolButton;
+     ToolButton17: TToolButton;
+     TButtNotasBullets: TToolButton;
+     ToolButton19: TToolButton;
+     CBFontName: TLFComboBox;
+     ToolButton6: TToolButton;
+     PNLTamano: TLFPanel;
+     EFontSizeNotas: TLFEdit;
+     UpDown1: TUpDown;
+     LFCategoryAction5: TLFCategoryAction;
+     AAdjuntosPedido: TAction;
+     AAdjuntosCliente: TAction;
+     AAdjuntosTercero: TAction;
+     AAdjuntosAgente: TAction;
+     ATipoUnidadLogistica: TAction;
+     AEnviarPedidoMailPDF2: TAction;
+     DBEFPortes: TLFDBEditFind2000;
+     LPortes: TLFLabel;
+     ETituloPortes: TLFEdit;
+     DBEPorPortes: TLFDbedit;
+     DBEIPortes: TLFDbedit;
+     DBEFRango: TLFDBEditFind2000;
+     DBEFIndice: TLFDBEditFind2000;
+     DBERango: TLFDbedit;
+     DBEIndice: TLFDbedit;
+     LRango: TLFLabel;
+     LIndice: TLFLabel;
+     TBEscandall: TToolButton;
+     TBOrden: TToolButton;
+     AProCrearEscandallo: TAction;
+     AProCrearOF: TAction;
+     AAEscandall: TAction;
+     PMSeleccEsc: TPopupMenu;
+     MICrearEscandallo: TMenuItem;
+     MIReasignarEscandallo: TMenuItem;
+     AProReasigEsc: TAction;
+     TBDatosEsp: TToolButton;
+     AProADatosEsc: TAction;
+     AInformePedidoEspecial: TAction;
+     AConfOrdenesPedidos: TAction;
+     ASep8: TAction;
+     LPedidoCli: TLFLabel;
+     DBEPedidoCli: TLFDbedit;
+     TSep1: TToolButton;
+     EFTransportista: TLFDBEditFind2000;
+     LTransportista: TLFLabel;
+     ETituloTransportista: TLFEdit;
+     LTelefono: TLFLabel;
+     DBCHKListado: TLFDBCheckBox;
+     TButtCondicionesVenta: TToolButton;
+     ACondicionesDeVenta: TAction;
+     ACambiaCampanyaFiltrados: TAction;
+     AMarcaPedido: TAction;
+     ADuplicarPedidoEDI: TAction;
+     AGenerarPackingList: TAction;
+     TButtDetalleArticulo: TToolButton;
+     ZAInformeEspecial: TAction;
+     ZAConfPedidoEspecial: TAction;
+     ZAInformeDetallado: TAction;
+     ZAConfPedidoDetallado: TAction;
+     ZASep2: TAction;
+     CodBarras: TCodeBar;
+     TButtOrdenProd: TToolButton;
+     PNLEstadoOrden: TLFPanel;
+     ChkBEstadoOrden: TLFCheckBox;
+     DBEDiasEntCli: TLFDbedit;
+     TButtVerFicherosAsociados: TToolButton;
+     zAFicherosAsociados: TAction;
+     ZALstEtiquetas: TAction;
+     ZALstEtiPed: TAction;
+     ZLstEspEtiqueta: TAction;
+     AEliminarPackingList: TAction;
+     ASep6: TAction;
+     ALstRentabilidad: TAction;
+     ToolButton2: TToolButton;
+     ToolButton5: TToolButton;
+     TBDespiece: TToolButton;
+     ADespiece: TAction;
+     AOrdenarLineasPorDireccionEntrega: TAction;
+     AExportarPedidosFiltrados: TAction;
+     AListarEtiquetas: TAction;
+     TBProduccion: TLFToolBar;
+     ABuscarOrdenDeProduccion: TAction;
+     TButtBuscarOrden: TToolButton;
+     ADuplicarLinea: TAction;
+     TButtDuplicarLinea: TToolButton;
+     ADetallesDeLinea: TAction;
+     TButtDetalles: TToolButton;
+     ACrearRuta: TAction;
+     DBDTPFechaPrevista: TDBDateTimePicker;
+     DBDTPFechaRecepcion: TDBDateTimePicker;
+     ADetalleArticulo: TAction;
+     DBCHKListoParaPreparar: TLFDBCheckBox;
+     DBCBValorado: TLFDBCheckBox;
+     ACrearAlquiler: TAction;
+     TButtBuscarLoteSimple: TToolButton;
+     ABuscarLoteSimple: TAction;
+     AHojaDeTrabajo: TAction;
+     ACreaAnticipo: TAction;
+     AAsignaEmpleado: TAction;
+     ARecibos: TAction;
+     TButtRecibos: TToolButton;
+     TBCondicionesClientes: TToolButton;
+     TBCreaAnticipo: TToolButton;
+     DBCBDocumentoMuestras: TLFDBCheckBox;
+     TButtTraspaso: TToolButton;
+     PMTraspaso: TPopupMenu;
+     MITraspasoaAlbaran: TMenuItem;
+     MITraspasoaFactura: TMenuItem;
+     MIDuplicarPedido: TMenuItem;
+     LBLTotalAnticipado: TLFLabel;
+     DBETotal_Anticipado: TLFDbedit;
+     DBEMargen: TLFDbedit;
+     LMargen: TLFLabel;
+     TSOtros: TTabSheet;
+     PNLCabOtros: TLFPanel;
+     PNLTitOtros: TLFPanel;
+     LLBLFechaOtros: TLFLabel;
+     LBLReferenciaOtros: TLFLabel;
+     DBEOtrosFechaCab: TLFDbedit;
+     DBEOtrosSuReferenciaCab: TLFDbedit;
+     DBEOtrosClienteTituloCab: TLFDbedit;
+     DBEOtrosRIGCab: TLFDbedit;
+     NavOtros: THYMNavigator;
+     CEOtros: TControlEdit;
+     PNLEdOtros: TPanel;
+     CEOtrosPMEdit: TPopUpTeclas;
+     CEOtrosMifirst: TMenuItem;
+     CEOtrosMiprior: TMenuItem;
+     CEOtrosMiNext: TMenuItem;
+     CEOtrosMiLast: TMenuItem;
+     CEOtrosMiInsert: TMenuItem;
+     CEOtrosMiDelete: TMenuItem;
+     CEOtrosMiEdit: TMenuItem;
+     CEOtrosMipost: TMenuItem;
+     CEOtrosMiCancel: TMenuItem;
+     CEOtrosMiRefresh: TMenuItem;
+     LMoneda: TLFLabel;
+     DBEFMoneda: TLFDBEditFind2000;
+     DBETitMoneda: TLFDbedit;
+     LBLCampanya: TLFLabel;
+     EFCampanya: TLFDBEditFind2000;
+     DBETituloCampanya: TLFDbedit;
+     LBLProyecto: TLFLabel;
+     EFProyecto: TLFDBEditFind2000;
+     DBETitProyecto: TLFDbedit;
+     LBIdioma: TLFLabel;
+     DBEFIdioma: TLFDBEditFind2000;
+     DBETituloIdioma: TLFDbedit;
+     DBCHKCambio: TLFDBCheckBox;
+     LValorCambio: TLFLabel;
+     DBEValorCambio: TLFDbedit;
+     LTipoLineaKri: TLFLabel;
+     DBEFTipoLineaKri: TLFDBEditFind2000;
+     ETipoLineaKri: TLFEdit;
+     LCodBarras: TLFLabel;
+     ICodBarras: TImage;
+     DBECodBarras: TLFDbedit;
+     LFechaPedidoKri: TLFLabel;
+     DBEFechaPedidoKri: TLFDBDateEdit;
+     CKInversionSujetoPasivo: TLFDBCheckBox;
+     PNLClinica: TLFPanel;
+     LProyectoClinica: TLFLabel;
+     DBEFProyectoClinica: TLFDBEditFind2000;
+     DBETituloProyectoClinica: TLFDbedit;
+     DBEAutorizacion: TLFDbedit;
+     DBEPoliza: TLFDbedit;
+     LPoliza: TLFLabel;
+     LAutorizacion: TLFLabel;
+     LPaciente: TLFLabel;
+     LAsegurado: TLFLabel;
+     DBEAsegurado: TLFDbedit;
+     DBEPaciente: TLFDbedit;
+     LFechaRecIh: TLFLabel;
+     DBDEFecRecIH: TLFDBDateEdit;
+     DBDTPFecRecIH: TDBDateTimePicker;
+     LMonedaFicha: TLFLabel;
+     DBEFMonedaFicha: TLFDBEditFind2000;
+     DBTValorCambioFijo: TDBText;
+     ZAInformeEspecialFinal: TAction;
+     AProyecto: TAction;
+     SBAProyecto: TSpeedButton;
+     AImportarDetalle: TAction;
+     TButtImportarDetalle: TToolButton;
+     PNLFirma: TLFPanel;
+     ImgFirma: TImage;
+     DBTFirmaNombre: TDBText;
+     DBTNIFFirma: TDBText;
+     LFirma: TLFLabel;
+     APedirFirma: TAction;
+     ABorrarFirma: TAction;
+     LBancoDireccion: TLFLabel;
+     DBEFBancoDireccion: TLFDBEditFind2000;
+     EBancoDireccion: TLFEdit;
+     AOrdenaPedidosLineas: TAction;
+     DBENombreComercial: TLFDbedit;
+     LNombreComercial: TLFLabel;
+     SBATercero: TSpeedButton;
+     ATercero: TAction;
+     RelojAdjuntos: TTimer;
+     LAdjuntos: TLFLabel;
+     LEmail: TLFLabel;
+     RelojEmail: TTimer;
+     ACrearHerenciaManual: TAction;
+     PMCreacionOrdenes: TPopupMenu;
+     MICrearOrdendeProduccion: TMenuItem;
+     AProCrearTodasOF: TAction;
+     MICreaOrdenesdeProduccinparatodaslaslineas: TMenuItem;
+     AModificarFechaEntregaPrev: TAction;
+     AMuestraDocumentosVenta: TAction;
+     LObservaciones: TLFLabel;
+     DBEObservaciones: TLFDbedit;
+     TSDirManual: TTabSheet;
+     PNLDirManual: TLFPanel;
+     PNLDirManual2: TLFPanel;
+     LDirEntregaFecha: TLFLabel;
+     LDirEntregaReferencia: TLFLabel;
+     DBEDirEntregaFecha: TLFDbedit;
+     DBEDirEntregaNombre: TLFDbedit;
+     DBEDirEntregaRIG: TLFDbedit;
+     DBEDirEntregaReferencia: TLFDbedit;
+     NavDirEntrega: THYMNavigator;
+     PNLEdDirEntrega: TLFPanel;
+     DBMDirEntrega: TLFDBMemo;
+     LUsuarioCreacion: TLFLabel;
+     DBEFUsuarioCreacion: TLFDBEditFind2000;
+     EUsuarioCreacion: TLFEdit;
+     LSumaPeso: TLFLabel;
+     DBESumaPeso: TLFDbedit;
+     LFCategoryAction6: TLFCategoryAction;
+     AFiltroTodos: TAction;
+     AFiltroAbierto: TAction;
+     AFiltroAnulado: TAction;
+     AFiltroAbiertoListoPreparacion: TAction;
+     AFiltroCerrado: TAction;
+     LRiesgoAct: TDBText;
+     LRiesgo: TLabel;
+     PNLRiesgo: TLFPanel;
+     AImportaDetalleDesdeExcel: TAction;
+     ATicket: TAction;
+     MITraspasoATicket: TMenuItem;
+     AAEscandall2: TAction;
+     AImportaDesdeExcelConArticuloPunto: TAction;
+     PNLDirEntrega: TLFPanel;
+     PNLDirRecogida: TLFPanel;
+     PNLDirManualDatos: TLFPanel;
+     LDirRecogida: TLFLabel;
+     LEquipoRecogida: TLFLabel;
+     DBEEquipoRecogida: TLFDbedit;
+     LMatriculaRecogida: TLFLabel;
+     DBEMatriculaRecogida: TLFDbedit;
+     LFechaRecogida: TLFLabel;
+     DBDEFechaRecogidaManual: TLFDBDateEdit;
+     DBDTPFechaRecogidaManual: TDBDateTimePicker;
+     LFLabel3: TLFLabel;
+     LEquipoEntrega: TLFLabel;
+     DBEEquipoEntrega: TLFDbedit;
+     LMatriculaEntrega: TLFLabel;
+     DBEMatriculaEntrega: TLFDbedit;
+     LFechaEntregaManual: TLFLabel;
+     DBDEFechaEntregaManual: TLFDBDateEdit;
+     DBDTPFechaEntregaManual: TDBDateTimePicker;
+     DBCBEmpaquetadoEmpresa: TLFDBCheckBox;
+     LRuta: TLFLabel;
+     DBERuta: TLFDbedit;
+     LRutaOrden: TLFLabel;
+     DBERutaOrden: TLFDbedit;
+     AImportarExcel: TAction;
+     BCancelar: TButton;
+     PBProgreso: TProgressBar;
+     TBSep1: TToolButton;
+     TButtImportarExcel: TToolButton;
+     PNLProgreso: TLFPanel;
+     ABorradoMasivoLineas: TAction;
+     APickingList: TAction;
+     AConfPickingList: TAction;
+     ACambioPCosteLinea: TAction;
+     ACambioCosteAdicionalLinea: TAction;
+     TSProveedores: TTabSheet;
+     PNLProveedores: TLFPanel;
+     PNLProveedoresCab: TLFPanel;
+     LProveedoresFecha: TLFLabel;
+     LProveedoresSuReferencia: TLFLabel;
+     DBEProveedoresFecha: TLFDbedit;
+     DBEProveedoresTitulo: TLFDbedit;
+     DBEProveedoresRIG: TLFDbedit;
+     DBEProveedoresSuReferencia: TLFDbedit;
+     NavProveedores: THYMNavigator;
+     DBGProveedores: TDBGridFind2000;
+     LModoIVA: TLFLabel;
+     EFModoIva: TLFDBEditFind2000;
+     EModoIva: TLFEdit;
+     DBCBTratado: TLFDBCheckBox;
+     PNLNotas: TLFPanel;
+     splitter: TSplitter;
+     PNLOrtografia: TLFPanel;
+     TBOrtografia: TLFToolBar;
+     TBComprobar: TToolButton;
+     ToolButton7: TToolButton;
+     TBAgregarPalabra: TToolButton;
+     LBPalabras: TListBox;
+     AQuitarMarcaTratado: TAction;
+     TBCliArt: TToolButton;
+     ACliArt: TAction;
+     LCantLineas: TLFLabel;
+     DBECOUNT_LINEAS: TLFDbedit;
+     PNLAvisos: TLFPanel;
+     LAvisos: TLFLabel;
+     LNotasCliente: TLFLabel;
+     DBMAviso: TLFDBMemo;
+     DBMNotaCliente: TLFDBMemo;
+     TBSep2: TToolButton;
+     TBSeleccionaDetalleTyC: TToolButton;
+     ASeleccionaDetalleTyC: TAction;
+     AIncrementarPrecio: TAction;
+     AExportacionPedidosPendientes: TAction;
+     ADevolucion: TAction;
+     DBESumUdsLog: TLFDbedit;
+     DBESumUdsSec: TLFDbedit;
+     PNLPieUnidades: TLFPanel;
+     PNLPieInfo: TLFPanel;
+     PNLInfoImportes: TLFPanel;
+     ADiferenciaPedidoAnterior: TAction;
+     procedure FormCreate(Sender: TObject);
+     procedure TSFichaShow(Sender: TObject);
+     procedure TSNotasShow(Sender: TObject);
+     procedure EPMainClickRango(Sender: TObject; var Continua: boolean);
+     procedure EFSerieChange(Sender: TObject);
+     procedure FormActivate(Sender: TObject);
+     procedure DBGFDetalleBusqueda(Sender: TObject);
+     procedure ANotasDetalleExecute(Sender: TObject);
+     procedure AInfoStocksExecute(Sender: TObject);
+     procedure TSTablaShow(Sender: TObject);
+     procedure AUnidadesExtExecute(Sender: TObject);
+     procedure APreciosTarifaExecute(Sender: TObject);
+     procedure AInfoHistoricoExecute(Sender: TObject);
+     procedure NavDetalleBeforeAction(Sender: TObject; Button: TNavigateBtn);
+     procedure DBGFDetalleColEnter(Sender: TObject);
+     procedure DBEFMonedaChange(Sender: TObject);
+     procedure ANewClienteExecute(Sender: TObject);
+     procedure ANewAgenteExecute(Sender: TObject);
+     procedure ANewArticuloExecute(Sender: TObject);
+     procedure AAClienteExecute(Sender: TObject);
+     procedure AAAgenteExecute(Sender: TObject);
+     procedure SBAClienteDblClick(Sender: TObject);
+     procedure SBAAgenteDblClick(Sender: TObject);
+     procedure AImprimeExecute(Sender: TObject);
+     procedure NavMainClickAfterAdjust(Sender: TObject; Button: TNavigateBtn);
+     procedure NavDetalleClickAfterAdjust(Sender: TObject; Button: TNavigateBtn);
+     procedure DBGMainKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
+     procedure AArticuloExecute(Sender: TObject);
+     procedure DBGFDetalleDblClick(Sender: TObject);
+     procedure AArtCliExecute(Sender: TObject);
+     procedure RelojNotasTimer(Sender: TObject);
+     procedure EFClienteExiste(Sender: TObject);
+     procedure AAgrupaPedidosFiltradosKriExecute(Sender: TObject);
+     procedure TSEDIShow(Sender: TObject);
+     procedure TSEDIHide(Sender: TObject);
+     procedure DBEEDIClienteChange(Sender: TObject);
+     procedure DBEEDIAQuienSeFacturaChange(Sender: TObject);
+     procedure DBEEDIQuienPagaChange(Sender: TObject);
+     procedure DBEEDIQuienPideChange(Sender: TObject);
+     procedure DBEEDIReceptorChange(Sender: TObject);
+     procedure AInformePedidoExecute(Sender: TObject);
+     procedure AInformePedido2Execute(Sender: TObject);
+     procedure AInformePedido3Execute(Sender: TObject);
+     procedure AInformePedido4Execute(Sender: TObject);
+     procedure AVisualizarPedidosFiltradosExecute(Sender: TObject);
+     procedure AImprimirPedidosFiltradosExecute(Sender: TObject);
+     procedure AResumenPedidosExecute(Sender: TObject);
+     procedure AResumenPedidosFiltradosExecute(Sender: TObject);
+     procedure AImprimirResumenPedidosFiltradosExecute(Sender: TObject);
+     procedure AConfPedidosExecute(Sender: TObject);
+     procedure AConfPedidosFechasClientesExecute(Sender: TObject);
+     procedure ACambiarNombreExecute(Sender: TObject);
+     procedure AAAlbaranExecute(Sender: TObject);
+     procedure AAFacturaExecute(Sender: TObject);
+     procedure AAbrirCerrarExecute(Sender: TObject);
+     procedure ADuplicarExecute(Sender: TObject);
+     procedure ACondicionesClientesExecute(Sender: TObject);
+     procedure ARefrescaDetalleExecute(Sender: TObject);
+     procedure AAnulaDocumentoExecute(Sender: TObject);
+     procedure AHerenciaExecute(Sender: TObject);
+     procedure APasoaPedProvExecute(Sender: TObject);
+     procedure FormShow(Sender: TObject);
+     procedure DBGFDetalleCellClick(Column: TColumn);
+     procedure DBGFDetalleDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: integer; Column: TColumn; State: TGridDrawState);
+     procedure NavNotasBeforeAction(Sender: TObject; Button: TNavigateBtn);
+     procedure NavMainBeforeAction(Sender: TObject; Button: TNavigateBtn);
+     procedure ACambiaTituloExecute(Sender: TObject);
+     procedure AEnviarPedidoMailPDFExecute(Sender: TObject);
+     procedure ANIFPedidoExecute(Sender: TObject);
+     procedure AOrdenaLineasExecute(Sender: TObject);
+     procedure DBCHKCambioChange(Sender: TObject);
+     procedure APecMultiExecute(Sender: TObject);
+     procedure AImportaPedidosEDIExecute(Sender: TObject);
+     procedure ADescargaLectorExecute(Sender: TObject);
+     procedure ALstCodigoBarrasExecute(Sender: TObject);
+     procedure DBEFOperarioKriChange(Sender: TObject);
+     procedure ADivisionesExecute(Sender: TObject);
+     procedure DBDTPFechaExit(Sender: TObject);
+     procedure DBDTPFechaEntregaExit(Sender: TObject);
+     procedure DBGMainCellClick(Column: TColumn);
+     procedure DBGMainKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
+     procedure NavDetalleChangeState(Sender: TObject);
+     procedure EFProyectoBusqueda(Sender: TObject);
+     procedure ABuscarArticulosExecute(Sender: TObject);
+     procedure ASubirLineaExecute(Sender: TObject);
+     procedure ABajarLineaExecute(Sender: TObject);
+     procedure DBEFTipoLineaKriChange(Sender: TObject);
+     procedure DBGFDetalleCampoDevuelve(Sender: TObject; valor: string);
+     procedure DBEClienteKriExit(Sender: TObject);
+     procedure DBEClienteKriKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
+     procedure ABuscaNIFKRIExecute(Sender: TObject);
+     procedure EFBuscaNIFKRIChange(Sender: TObject);
+     procedure PCMainChange(Sender: TObject);
+     procedure DBEFContactoBusqueda(Sender: TObject);
+     procedure DBRENotasEnter(Sender: TObject);
+     procedure DBRENotasSelectionChange(Sender: TObject);
+     procedure EFontSizeNotasChange(Sender: TObject);
+     procedure CBFontNameChange(Sender: TObject);
+     procedure AAdjuntosPedidoExecute(Sender: TObject);
+     procedure AAdjuntosClienteExecute(Sender: TObject);
+     procedure AAdjuntosTerceroExecute(Sender: TObject);
+     procedure AAdjuntosAgenteExecute(Sender: TObject);
+     procedure AEnviarPedidoMailPDF2Execute(Sender: TObject);
+     procedure DBEFPortesChange(Sender: TObject);
+     procedure DBEFRangoChange(Sender: TObject);
+     procedure DBEFRangoBusqueda(Sender: TObject);
+     procedure DBEFIndiceBusqueda(Sender: TObject);
+     procedure AAEscandallExecute(Sender: TObject);
+     procedure AProCrearEscandalloExecute(Sender: TObject);
+     procedure AProReasigEscExecute(Sender: TObject);
+     procedure AProCrearOFExecute(Sender: TObject);
+     procedure AProADatosEscExecute(Sender: TObject);
+     procedure AInformePedidoEspecialExecute(Sender: TObject);
+     procedure AConfOrdenesPedidosExecute(Sender: TObject);
+     procedure EFClienteChange(Sender: TObject);
+     procedure DBEClienteKriChange(Sender: TObject);
+     procedure DBCHKListadoClick(Sender: TObject);
+     procedure ACondicionesDeVentaExecute(Sender: TObject);
+     procedure LTelefonoClick(Sender: TObject);
+     procedure ACambiaCampanyaFiltradosExecute(Sender: TObject);
+     procedure AMarcaPedidoExecute(Sender: TObject);
+     procedure ADuplicarPedidoEDIExecute(Sender: TObject);
+     procedure ZAFicherosAsociadosExecute(Sender: TObject);
+     procedure ZAInformeEspecialExecute(Sender: TObject);
+     procedure ZAConfPedidoEspecialExecute(Sender: TObject);
+     procedure ZAInformeDetalladoExecute(Sender: TObject);
+     procedure ZAConfPedidoDetalladoExecute(Sender: TObject);
+     procedure DBECodBarrasChange(Sender: TObject);
+     procedure TButtOrdenProdClick(Sender: TObject);
+     procedure ZALstEtiquetasExecute(Sender: TObject);
+     procedure ZALstEtiPedExecute(Sender: TObject);
+     procedure ZLstEspEtiquetaExecute(Sender: TObject);
+     procedure AEliminarPackingListExecute(Sender: TObject);
+     procedure ALstRentabilidadExecute(Sender: TObject);
+     procedure AGenerarPackingListExecute(Sender: TObject);
+     procedure DBEFContactoChange(Sender: TObject);
+     procedure ADespieceExecute(Sender: TObject);
+     procedure AOrdenarLineasPorDireccionEntregaExecute(Sender: TObject);
+     procedure AExportarPedidosFiltradosExecute(Sender: TObject);
+     procedure DBGFDetalleRowChange(Sender: TObject);
+     procedure AListarEtiquetasExecute(Sender: TObject);
+     procedure ABuscarOrdenDeProduccionExecute(Sender: TObject);
+     procedure ADuplicarLineaExecute(Sender: TObject);
+     procedure ADetallesDeLineaExecute(Sender: TObject);
+     procedure ACrearRutaExecute(Sender: TObject);
+     procedure ADetalleArticuloExecute(Sender: TObject);
+     procedure EFTransportistaChange(Sender: TObject);
+     procedure ACrearAlquilerExecute(Sender: TObject);
+     procedure ABuscarLoteSimpleExecute(Sender: TObject);
+     procedure AHojaDeTrabajoExecute(Sender: TObject);
+     procedure LBNotasClick(Sender: TObject);
+     procedure ACreaAnticipoExecute(Sender: TObject);
+     procedure EPMainClickBuscar(Sender: TObject; var Continua: boolean);
+     procedure APasoaPedProvAutomaticoExecute(Sender: TObject);
+     procedure AAsignaEmpleadoExecute(Sender: TObject);
+     procedure ARecibosExecute(Sender: TObject);
+     procedure DBETituloEstadoChange(Sender: TObject);
+     procedure DBERIGChange(Sender: TObject);
+     procedure TSOtrosShow(Sender: TObject);
+     procedure ZAInformeEspecialFinalExecute(Sender: TObject);
+     procedure AProyectoExecute(Sender: TObject);
+     procedure SBAProyectoDblClick(Sender: TObject);
+     procedure AImportarDetalleExecute(Sender: TObject);
+     procedure DBGFDetalleKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
+     procedure DBGFDetalleKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
+     procedure APedirFirmaExecute(Sender: TObject);
+     procedure ABorrarFirmaExecute(Sender: TObject);
+     procedure DBEFBancoDireccionBusqueda(Sender: TObject);
+     procedure DBEFBancoDireccionChange(Sender: TObject);
+     procedure AOrdenaPedidosLineasExecute(Sender: TObject);
+     procedure ATerceroExecute(Sender: TObject);
+     procedure RelojAdjuntosTimer(Sender: TObject);
+     procedure RelojEmailTimer(Sender: TObject);
+     procedure DBGMainDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: integer; Column: TColumn; State: TGridDrawState);
+     procedure ACrearHerenciaManualExecute(Sender: TObject);
+     procedure AProCrearTodasOFExecute(Sender: TObject);
+     procedure AModificarFechaEntregaPrevExecute(Sender: TObject);
+     procedure AMuestraDocumentosVentaExecute(Sender: TObject);
+     procedure FormDestroy(Sender: TObject);
+     procedure NavMainClickBefore(Sender: TObject; Button: TNavigateBtn; var Continua: boolean);
+     procedure DBEFUsuarioCreacionChange(Sender: TObject);
+     procedure AFiltroTodosExecute(Sender: TObject);
+     procedure AFiltroAbiertoExecute(Sender: TObject);
+     procedure AFiltroAnuladoExecute(Sender: TObject);
+     procedure AFiltroAbiertoListoPreparacionExecute(Sender: TObject);
+     procedure AFiltroCerradoExecute(Sender: TObject);
+     procedure AImportaDetalleDesdeExcelExecute(Sender: TObject);
+     procedure DBGFDetalleKeyPress(Sender: TObject; var Key: char);
+     procedure ATicketExecute(Sender: TObject);
+     procedure AAEscandall2Execute(Sender: TObject);
+     procedure AImportaDesdeExcelConArticuloPuntoExecute(Sender: TObject);
+     procedure TSDirManualResize(Sender: TObject);
+     procedure AImportarExcelExecute(Sender: TObject);
+     procedure BCancelarClick(Sender: TObject);
+     procedure WMDropFiles(var Msg: TWMDropFiles); message WM_DROPFILES;
+     procedure ABorradoMasivoLineasExecute(Sender: TObject);
+     procedure APickingListExecute(Sender: TObject);
+     procedure AConfPickingListExecute(Sender: TObject);
+     procedure DBEMargenChange(Sender: TObject);
+     procedure ACambioPCosteLineaExecute(Sender: TObject);
+     procedure ACambioCosteAdicionalLineaExecute(Sender: TObject);
+     procedure TSProveedoresShow(Sender: TObject);
+     procedure EFModoIvaChange(Sender: TObject);
+     procedure TBComprobarClick(Sender: TObject);
+     procedure TBAgregarPalabraClick(Sender: TObject);
+     procedure AQuitarMarcaTratadoExecute(Sender: TObject);
+     procedure ACliArtExecute(Sender: TObject);
+     procedure PNLEdCabeceraResize(Sender: TObject);
+     procedure ASeleccionaDetalleTyCExecute(Sender: TObject);
+     procedure AIncrementarPrecioExecute(Sender: TObject);
+     procedure AExportacionPedidosPendientesExecute(Sender: TObject);
+     procedure ADevolucionExecute(Sender: TObject);
+     procedure ADiferenciaPedidoAnteriorExecute(Sender: TObject);
+  private
+     { Private declarations }
+     param_PECINSE001: boolean;
+     param_PECPREC001: boolean;
+     Param_VENTIVA001: boolean;
+     Param_ARTBUSQ003: boolean;
+     Param_ARTBUSQ004: boolean;
+     Param_SYSCONF005: integer;
+     Param_DOCPCOS001: string;
+     param_PECMARG001: boolean;
+     param_DOCMARG003: boolean;
+     param_VENUSEC001: boolean;
+     param_VENUEXT001: boolean;
+     param_VENREST002: boolean;
+     ColActual: TColumn;
+     Editando: boolean;
+     KriConf211: boolean;
+     Param_MODREST006: boolean;
+     Param_MODREST015: boolean;
+     FUpdating: boolean; {RichEdit}
+     RichEditConFoco: TDBRichEdit; {RichEdit}
+     MTelefonos, MNotas: TLFMemo;
+     BuscarArticulos: boolean;
+     BuscarOrdenProduccion: boolean;
+     BuscarLoteSimple: boolean;
+     BotonesNavMain: string;
+     BotonesNavDetalle: string;
+     MargenMinimo: double;
+     DBGDetalleArticulo: string;
+     procedure HabilitaEnlaces;
+     procedure HabilitaBotones;
+     procedure HabilitaBotonesSegunEstado;
+     procedure AbreOCierraOAnula;
+     procedure BuscaClienteIberfluidKri(s: string);
+     procedure GetFontNames;
+     procedure EstableceVisibilidadCamposDetalle;
+     procedure EstableceVisibilidadStockAlmacen;
+     procedure ListadoEspecial(Modo: integer);
+     procedure LimitaSegunPais;
+     procedure RefrescaAvisos;
+  protected
+     procedure ActualizaFirma;
+  public
+     { Public declarations }
+     FiltroListadoFiltrado: integer;
+     procedure HabilitaBotonesDetalle; {TyC}
+     procedure MuestraFiltrado(Tipo: byte);
+     procedure MuestraResumenFiltrado(Modo: byte);
+     procedure FiltraFactura(Ejercicio: integer; Serie: string; Rig: integer);
+     procedure FiltraDocumento(FiltroAccion: string);
+     procedure FiltraClienteKri(Ejercicio: integer; Serie: string; Cliente, Estado: integer);
+     procedure PintaCodigoBarras;
+     procedure ActualizaEstadoOrden;
+     procedure Progreso(i, Cantidad: integer);
+     procedure ImportacionMasiva(Activa: boolean);
+  end;
+
+var
+  FMPedidos : TFMPedidos;
+
+procedure TraspasoAPedido(serie: string; id_s: integer);
+
+implementation
+
+uses UDMMain, UUtiles, UDameDato, UEntorno, UDMPedidos, UDMLstPedidos, UFMLSTEntrefechascli,
+  UDMLstPedidosCli, UFMNotasCampo, UFMListConfig, UFMDocInfoStocks,
+  UFCHerencia, UFMain, UFMClientes, UFMAgentes,
+  UFVerTercerosPorArticulo, UFMPasaAPedidoProv, UDMImportaPedidoEDI, UFSendCorreo,
+  UDMListados, UFPregNIFFACTURA, UFMTraspasoMultiCanal, UDMLstCBDocs,
+  UFPregEtiVacias, UFMSeleccionClienteKRI, UFMAdjunto,
+  UProFMRelPedidosV, UProFMMedidas, UDMLstOrdenesPedidos,
+  UFMCondicionesVenta, UFMObtenerCampanya,
+  ZUDMLstPedidos, UProFMFicherosCliente, UFMSeleccion,
+  UFMPackingList, UFMLstPedidoRentabilidad, UFMImprimirCodBarras,
+  UFMBusquedaOrden, UFMDetalleDeLinea, UFMClienteCuotas, UParam,
+  UFMSeleccionGrid {$IFNDEF TPV}, UFMHojaDeTrabajo{$ENDIF},
+  UFMInsercionArticuloDesdeTexto, UFMHerenciaManual, UFMSeleccionArticulo, UHojaCalc,
+  ShellApi, URecibeFicheros, UDMAdjunto, UFMProcesosMasivosLineas, UFMVentasCli, UFMSeleccionDetalleTyC, URellenaLista, Uimagenes;
+
+{$R *.DFM}
+
+procedure TFMPedidos.FormCreate(Sender: TObject);
+var
+  i, a, aux : integer;
+  s : string;
+  param_ARTBUSQ005 : string;
+  j, k, CantCampos : integer;
+begin
+  DragAcceptFiles(Self.Handle, True);
+  BuscarArticulos := False;
+  BuscarOrdenProduccion := False;
+  BuscarLoteSimple := False;
+
+  MTelefonos := TLFMemo.Create(Self);
+  with MTelefonos do
+  begin
+     Visible := False;
+     Parent := Self;
+     BorderStyle := bsNone;
+     Color := clInfoBk;
+     ReadOnly := True;
+     WordWrap := False;
+  end;
+
+  MNotas := TLFMemo.Create(Self);
+  with MNotas do
+  begin
+     Visible := False;
+     Parent := Self;
+     BorderStyle := bsNone;
+     Color := clInfoBk;
+     ReadOnly := True;
+     WordWrap := False;
+  end;
+
+  inherited;
+  {inherited; para que funcione el Help con TyC}
+
+  // Obtengo configuracion de navegadores inicial. Luego se modificaran segun restriccion de documento
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Text := 'SELECT BOTONES FROM DIC_NAVEGADORES WHERE FORMULARIO = ?FORMULARIO AND NAVEGADOR = ?NAVEGADOR AND PERFIL = ?PERFIL';
+        try
+           Params.ByName['FORMULARIO'].AsString := UpperCase((Self as TForm).Name);
+           Params.ByName['NAVEGADOR'].AsString := UpperCase(NavMain.Name);
+           Params.ByName['PERFIL'].AsInteger := REntorno.User_Profile;
+           ExecQuery;
+           BotonesNavMain := FieldByName['BOTONES'].AsString;
+        except
+           BotonesNavMain := '';
+        end;
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Text := 'SELECT BOTONES FROM DIC_NAVEGADORES WHERE FORMULARIO = ?FORMULARIO AND NAVEGADOR = ?NAVEGADOR AND PERFIL = ?PERFIL';
+        try
+           Params.ByName['FORMULARIO'].AsString := UpperCase((Self as TForm).Name);
+           Params.ByName['NAVEGADOR'].AsString := UpperCase(NavDetalle.Name);
+           Params.ByName['PERFIL'].AsInteger := REntorno.User_Profile;
+           ExecQuery;
+           BotonesNavDetalle := FieldByName['BOTONES'].AsString;
+        except
+           BotonesNavDetalle := '';
+        end;
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+
+  if (Trim(BotonesNavMain) <> '') then
+  begin
+     // Si existe, modifico los botones visibles
+     with NavMain do
+     begin
+        VisibleButtons := [];
+        if (BotonesNavMain[1] = 'F') then
+           VisibleButtons := VisibleButtons + [nbFirst];
+        if (BotonesNavMain[2] = 'P') then
+           VisibleButtons := VisibleButtons + [nbPrior];
+        if (BotonesNavMain[3] = 'N') then
+           VisibleButtons := VisibleButtons + [nbNext];
+        if (BotonesNavMain[4] = 'L') then
+           VisibleButtons := VisibleButtons + [nbLast];
+        if (BotonesNavMain[5] = 'I') then
+           VisibleButtons := VisibleButtons + [nbInsert];
+        if (BotonesNavMain[6] = 'D') then
+           VisibleButtons := VisibleButtons + [nbDelete];
+        if (BotonesNavMain[7] = 'E') then
+           VisibleButtons := VisibleButtons + [nbEdit];
+        if (BotonesNavMain[8] = 'P') then
+           VisibleButtons := VisibleButtons + [nbPost];
+        if (BotonesNavMain[9] = 'C') then
+           VisibleButtons := VisibleButtons + [nbCancel];
+        if (BotonesNavMain[10] = 'R') then
+           VisibleButtons := VisibleButtons + [nbRefresh];
+     end;
+  end;
+
+  if (Trim(BotonesNavDetalle) <> '') then
+  begin
+     // Si existe, modifico los botones visibles
+     with NavDetalle do
+     begin
+        VisibleButtons := [];
+        if (BotonesNavDetalle[1] = 'F') then
+           VisibleButtons := VisibleButtons + [nbFirst];
+        if (BotonesNavDetalle[2] = 'P') then
+           VisibleButtons := VisibleButtons + [nbPrior];
+        if (BotonesNavDetalle[3] = 'N') then
+           VisibleButtons := VisibleButtons + [nbNext];
+        if (BotonesNavDetalle[4] = 'L') then
+           VisibleButtons := VisibleButtons + [nbLast];
+        if (BotonesNavDetalle[5] = 'I') then
+           VisibleButtons := VisibleButtons + [nbInsert];
+        if (BotonesNavDetalle[6] = 'D') then
+           VisibleButtons := VisibleButtons + [nbDelete];
+        if (BotonesNavDetalle[7] = 'E') then
+           VisibleButtons := VisibleButtons + [nbEdit];
+        if (BotonesNavDetalle[8] = 'P') then
+           VisibleButtons := VisibleButtons + [nbPost];
+        if (BotonesNavDetalle[9] = 'C') then
+           VisibleButtons := VisibleButtons + [nbCancel];
+        if (BotonesNavDetalle[10] = 'R') then
+           VisibleButtons := VisibleButtons + [nbRefresh];
+     end;
+  end;
+
+  AbreData(TDMPedidos, DMPedidos);
+
+  DMPedidos.FormCreado := False;
+  NavMAin.DataSource := DMPedidos.DSQMCabecera;
+  DBGMain.DataSource := DMPedidos.DSQMCabecera;
+  NavDetalle.DataSource := DMPedidos.DSQMDetalle;
+  DBGFDetalle.DataSource := DMPedidos.DSQMDetalle;
+  with G2KTableLoc do
+  begin
+     Base_de_datos := DMMain.DataBase;
+     DataSource := DMPedidos.DSQMCabecera;
+     Entorno := DMPedidos.EntornoDoc;
+     Filtros := [obEmpresa, obCanal];
+     s := Trim(LeeParametro('PECBUSQ001'));
+     if (s <> '') then
+        CamposADesplegar.Add(s);
+  end;
+  CEMainPMEdit.Teclas := DMMain.Teclas;
+  CENotasPMEdit.Teclas := DMMain.teclas;
+
+  PCPie.ActivePage := TSPieGen;
+  PCMain.ActivePage := TSFicha;
+
+  FiltroListadoFiltrado := 0;
+
+  if REntorno.SerieRestringida <> '' then
+     EFSerie.Text := REntorno.SerieRestringida
+  else
+     EFSerie.Text := REntorno.Serie;
+
+  // Campo para realizar busqueda de articulo en documentos de compra/venta. Por ejemplo ARTICULO, ALFA_1, etc.
+  if ((LeeParametro('ARTBUSQ001') <> 'ARTICULO') and (LeeParametro('ARTBUSQ001') <> '')) then
+  begin
+     for i := 0 to DBGFDetalle.Tablas.Count - 1 do
+     begin
+        if (Trim(UpperCase(DBGFDetalle.Tablas[i])) = 'VER_ARTICULOS_EF') and
+           (DBGFDetalle.CamposDesplegar[i] = '1') then
+        begin
+           DBGFDetalle.Numericos[i] := LeeParametro('ARTBUSQ001');
+           DBGFDetalle.CamposADevolver[i] := 'ARTICULO';
+           DBGFDetalle.OrdenadosPor[i] := LeeParametro('ARTBUSQ001');
+        end;
+     end;
+  end;
+
+  // Campos a desplegar alrealizar busqueda de articulo en documentos de compra/venta.
+  param_ARTBUSQ005 := LeeParametro('ARTBUSQ005');
+  if (param_ARTBUSQ005 <> '') then
+  begin
+     {
+      Para cada tabla a buscar (DBGrid.Tablas) se guardan líneas en DBGrid.CamposAMostrar indicando campo a buscar, cantidad de campos-a-mostrar y campos a mostrar
+      Ejemplo DBGDetalle de documentos de venta:
+        Tablas:
+        VER_ARTICULOS_CON_BARRAS
+        VER_ARTICULOS_EF
+        SYS_TIPO_IVA
+        ...
+
+        CamposAMostrar: (Marcados con * lo que se desea modificar)
+        ARTICULO   <-- Para tabla VER_ARTICULOS_CON_BARRAS
+        0          <-- No desplegar ningun campo adicional
+        ARTICULO   <-- Para tabla VER_ARTICULOS_EF
+       *3          <-- Desplectar 3 campos adicionales
+       *ALFA_1     <-- Campo adicional 1
+       *ALFA_2     <-- Campo adicional 2
+       *FABRICANTE <-- Campo adicional 1
+        TIPO_IVA   <-- Para tabla SYS_TIPO_IVA
+        1          <-- Desplectar 1 campo adicional
+        P_IVA      <-- Campo adicional 1
+        ...
+     }
+     j := 0;
+     for i := 0 to DBGFDetalle.Tablas.Count - 1 do
+     begin
+        Inc(j);
+
+        CantCampos := 0;
+        if (DBGFDetalle.CamposAMostrar.Count > j) then
+           CantCampos := StrToIntDef(DBGFDetalle.CamposAMostrar[j], 0);
+
+        if (Trim(UpperCase(DBGFDetalle.Tablas[i])) = 'VER_ARTICULOS_EF') and
+           (DBGFDetalle.CamposDesplegar[i] = '1') then
+        begin
+           // Borro los campos originales
+           for k := 1 to CantCampos do
+              DBGFDetalle.CamposAMostrar.Delete(j + 1);
+
+           CantCampos := 0;
+           while (Pos(',', param_ARTBUSQ005) > 0) do
+           begin
+              DBGFDetalle.CamposAMostrar.Insert(j + 1, Trim(Copy(param_ARTBUSQ005, 1, Pos(',', param_ARTBUSQ005) - 1)));
+              param_ARTBUSQ005 := Copy(param_ARTBUSQ005, Pos(',', param_ARTBUSQ005) + 1, Length(param_ARTBUSQ005));
+              Inc(CantCampos);
+           end;
+           if (Trim(param_ARTBUSQ005) > '') then
+           begin
+              DBGFDetalle.CamposAMostrar.Insert(j + 1, Trim(param_ARTBUSQ005));
+              Inc(CantCampos);
+           end;
+
+           DBGFDetalle.CamposAMostrar[j] := IntToStr(CantCampos);
+        end;
+
+        j := j + CantCampos + 1;
+     end;
+  end;
+
+  // Utilizar cambio inversio en cambio fijo de documentos.
+  // Se establece el cambio (factor) de la moneda de la empresa al del documento. (S/N)
+  if (LeeParametro('MONCAMB001') = 'S') then
+  begin
+     DBTValorCambioFijo.DataField := 'VALOR_CAMB_FIJO_INV';
+     DBEValorCambio.DataField := 'VALOR_CAMB_FIJO_INV';
+  end;
+
+  if REntorno.VerSoloArticulosDisponibles then
+  begin
+     for i := 0 to DBGFDetalle.Tablas.Count - 1 do
+     begin
+        if (Trim(UpperCase(DBGFDetalle.Tablas[i])) = 'VER_ARTICULOS_EF') and
+           (DBGFDetalle.CamposDesplegar[i] = '1') then
+           DBGFDetalle.Tablas[i] := 'VER_ARTICULOS_EF_VENTAS';
+     end;
+  end;
+
+  HabilitaEnlaces;
+
+  EFCliente.CondicionBusqueda := '';
+
+  // Agrego condicion de busqueda solo de agente restringido
+  if (DameRestriccionAgenteUsuario(REntorno.Usuario)) then
+  begin
+     EFCliente.CondicionBusqueda := '(AGENTE = ' + IntToStr(DameAgenteUsuario(REntorno.Usuario)) + ')';
+     with EFAgente do
+     begin
+        CondicionBusqueda := 'AGENTE = ' + IntToStr(DameAgenteUsuario(REntorno.Usuario));
+        Enabled := False;
+        Color := clInfoBK;
+     end;
+  end;
+
+  // Muestro los titulos del listado por defecto para el grupo
+  if (REntorno.Pedidos = 4) then
+  begin
+     AInformePedido4.Visible := True;
+     AInformePedido4.Caption := DameTituloListadoDefectoGrupo(112);
+  end;
+
+  if (REntorno.Pedidos >= 3) then
+  begin
+     AInformePedido3.Visible := True;
+     AInformePedido3.Caption := DameTituloListadoDefectoGrupo(111);
+  end;
+
+  if (REntorno.Pedidos >= 2) then
+  begin
+     AInformePedido2.Visible := True;
+     AInformePedido2.Caption := DameTituloListadoDefectoGrupo(110);
+  end;
+
+  AInformePedido.Caption := DameTituloListadoDefectoGrupo(39);
+  DBEValorCambio.Enabled := DBCHKCambio.Checked;
+  DBEValorCambio.ReadOnly := not DBCHKCambio.Checked;
+  RefrescaAvisos;
+  Editando := False;
+  if (DMMain.EstadoKri(140) <> 1) then
+     ADescargaLector.Visible := False;
+
+  AEnviarPedidoMailPDF.Visible := (DMMain.EstadoKri(152) = 1);
+  ZAInformeEspecialFinal.Visible := (LeeParametro('PECLEFI001', EFSerie.Text) = 'S');
+
+  if (LeeParametro('PEDMARGE001', EFSerie.Text) <> 'S') then {Utiliza margenes.}
+  begin
+     LMargenKri.Visible := False;
+     DBMargenKri.Visible := False;
+     DBGFDetalle.FindColumn('MARGEN_KRI').Visible := False;
+  end;
+
+  if (DMMain.EstadoKri(163) = 1) then {Habilita el reordenado de lineas}
+  begin
+     ASubirLinea.Visible := True;
+     ABajarLinea.Visible := True;
+     TSep1.Visible := True;
+  end
+  else
+  begin
+     ASubirLinea.Visible := False;
+     ABajarLinea.Visible := False;
+     TSep1.Visible := False;
+  end;
+
+  if (DMMain.EstadoKri(165) = 1) then {Inhabilita el Traspaso directo a Factura}
+     AAFactura.Visible := False;
+
+  FUpdating := False;
+  RichEditConFoco := DBRENotas;
+  GetFontNames;
+
+  if (DMMain.EstadoKri(196) = 1) then {Rich Edit en Notas}
+  begin
+     TBRichNotas.Visible := True;
+     DBRENotas.PlainText := False;
+     DBRENotasInternasKri.PlainText := False;
+  end;
+
+  if (DMMain.EstadoKri(169) = 1) then {Habilita Notas Internas en Documentos de Ventas}
+  begin
+     //DBMNotas.Align := AlTop;
+     DBRENotas.Height := (DBRENotas.Height + DBRENotasInternasKri.Height) div 2;
+     DBRENotasInternasKri.Visible := True;
+  end
+  else
+  begin
+     //DBMNotas.Align := AlClient;
+     DBRENotasInternasKri.Visible := False;
+  end;
+
+  if (DMMain.EstadoKri(190) <> 1) then
+  begin
+     LTipoLineaKri.Visible := False;
+     DBEFTipoLineaKri.Visible := False;
+     ETipoLineaKri.Visible := False;
+     DBGFDetalle.FindColumn('TIPO_LINEA_KRI').Visible := False;
+  end;
+
+  if (DMMain.EstadoKri(195) <> 1) then
+  begin
+     LFechaPedidoKri.Visible := False;
+     DBEFechaPedidoKri.Visible := False;
+  end;
+  ColActual := DBGFDetalle.Columns[0];
+
+  KriConf211 := DMMain.EstadoKri(211) = 1;
+
+  {Cambio de algunos nombres de Label - Iberfluid}
+  if (DMMain.EstadoKri(203) = 1) then
+  begin
+     LBLFechaFicha.Caption := _('Fecha Pedido');
+     LFechaPedidoKri.Caption := _('Fecha Solicitada');
+     LBLEntrega.Caption := _('Fecha Confirmada');
+     LBLFechaRec.Caption := _('Fecha Recepcion');
+     if (EncuentraField(DBGFDetalle, 'FECHA_ENTREGA_PREV') >= 0) then
+        DBGFDetalle.FindColumn('FECHA_ENTREGA_PREV').Title.Caption := _('Fec. Confirmada');
+     if (EncuentraField(DBGFDetalle, 'FECHA_REC_DET') >= 0) then
+        DBGFDetalle.FindColumn('FECHA_REC_DET').Title.Caption := _('Fec. Recepción');
+  end;
+
+  if (DMMain.EstadoKri(218) = 1) then
+  begin
+     DBEClienteKri.Visible := True;
+     DBEClienteKri.Top := EFCliente.Top;
+     DBEClienteKri.Left := EFCliente.Left;
+     DBEClienteKri.Width := EFCliente.Width;
+     EFCliente.Visible := False;
+     NavMain.InsertaControl := DBEClienteKri;
+     NavMain.EditaControl := DBEClienteKri;
+  end
+  else
+     DBEClienteKri.Visible := False;
+
+  {Elimino las acciones para ver adjuntos}
+  if (DMMain.EstadoKri(242) <> 1) then
+  begin
+     for i := Self.ComponentCount - 1 downto 0 do
+     begin
+        if (Self.Components[i] is TAction) then
+        begin
+           if TAction(Self.Components[i]).Category = 'Adjuntos' then
+              TAction(Self.Components[i]).Free;
+        end
+        else
+        begin
+           if (Components[i] is TLFCategoryAction) then
+              if TLFCategoryAction(Self.Components[i]).Category = 'Adjuntos' then
+                 TLFCategoryAction(Self.Components[i]).Free;
+        end;
+     end;
+  end;
+
+  if (DMMain.EstadoKri(258) = 1) then
+     ANIFPedido.Enabled := False;
+
+  TSEDI.TabVisible := (LeeParametro('MODREST026') = 'S');
+
+  if (DMMain.EstadoKri(264) <> 1) then {Habilita el envío de email con pdf a traves del cliente windows}
+     for i := ALMain.ActionCount - 1 downto 0 do
+        if (ALMain.Actions[i] = AEnviarPedidoMailPDF2) then
+           ALMain.Actions[i].Free;
+
+  if (DMMain.EstadoKri(265) <> 1) then {Habilita Portes en pedidos}
+  begin
+     LPortes.Visible := False;
+     DBEFPortes.Visible := False;
+     ETituloPortes.Visible := False;
+     DBEPorPortes.Visible := False;
+     DBEIPortes.Visible := False;
+     LRango.Visible := False;
+     DBEFRango.Visible := False;
+     DBERango.Visible := False;
+     LIndice.Visible := False;
+     DBEFIndice.Visible := False;
+     DBEIndice.Visible := False;
+  end;
+
+  {Pongo este campo en visible para que no lo oculte el reescalado del panel}
+  if (DMMain.EstadoKri(265) = 1) then
+     DBEFIndice.Visible := True;
+
+  Param_MODREST006 := (LeeParametro('MODREST006') = 'S');
+  if not Param_MODREST006 then
+  begin
+     TBProduccion.Visible := False;
+     AProCrearEscandallo.Visible := False;
+     AProReasigEsc.Visible := False;
+     AProADatosEsc.Visible := False;
+     AProCrearOF.Visible := False;
+     TBEscandall.Visible := False;
+     ADespiece.Visible := False;
+     TBDespiece.Visible := False;
+  end;
+
+  Param_MODREST015 := (LeeParametro('MODREST015') = 'S');
+  if (not Param_MODREST015) then
+  begin
+     ZAInformeEspecial.Visible := False;
+     ZAInformeDetallado.Visible := False;
+     ZAConfPedidoEspecial.Visible := False;
+     ZAConfPedidoDetallado.Visible := False;
+     ZALstEtiquetas.Visible := False;
+     ADetalleArticulo.Visible := False;
+     PNLEstadoOrden.Visible := False;
+     TButtOrdenProd.Visible := False;
+     ACondicionesDeVenta.Visible := False;
+     LCodBarras.Visible := False;
+     DBECodBarras.Visible := False;
+     ICodBarras.Visible := False;
+     DBEDiasEntCli.Visible := False;
+     zAFicherosAsociados.Visible := False;
+
+     i := EncuentraField(DBGFDetalle, 'ID_MEDIDA');
+     if (i >= 0) then
+        DBGFDetalle.Columns[i].Visible := False;
+  end;
+
+  if ((not Param_MODREST006) and (not Param_MODREST015)) then
+  begin
+     i := EncuentraField(DBGFDetalle, 'ID_ORDEN');
+     if (i >= 0) then
+        DBGFDetalle.Columns[i].Visible := False;
+     i := EncuentraField(DBGFDetalle, 'ID_ESC');
+     if (i >= 0) then
+        DBGFDetalle.Columns[i].Visible := False;
+     i := EncuentraField(DBGFDetalle, 'ID_ESC_2');
+     if (i >= 0) then
+        DBGFDetalle.Columns[i].Visible := False;
+  end;
+
+  // Busco el punto mas bajo de la posicion utilizada por un componente dentro del panel Principal
+  a := 0;
+  aux := 0;
+  for i := Self.ComponentCount - 1 downto 0 do
+  begin
+     if (Self.Components[i].GetParentComponent = PNLEdCabecera) then
+     begin
+        if (Self.Components[i] is TLFDBEditFind2000) then
+           if (TLFDBEditFind2000(Self.Components[i]).Visible) then
+              aux := TLFDBEditFind2000(Self.Components[i]).Top + TLFDBEditFind2000(Self.Components[i]).Height;
+        if (Self.Components[i] is TLFDBEdit) then
+           if (TLFDBEdit(Self.Components[i]).Visible) then
+              aux := TLFDBEdit(Self.Components[i]).Top + TLFDBEdit(Self.Components[i]).Height;
+        if (Self.Components[i] is TLFDBCheckBox) then
+           if (TLFDBCheckBox(Self.Components[i]).Visible) then
+              aux := TLFDBCheckBox(Self.Components[i]).Top + TLFDBCheckBox(Self.Components[i]).Height;
+        if (aux > a) then
+           a := aux;
+     end;
+  end;
+
+  PDetalleAlturaMinima := 200;
+  DBEFPortesChange(Sender); {Ejecuto para reestablecer la visibilidad de rango e indice de portes}
+
+  {Part 2 - Para que se pueda alagar la pantalla y quepan mas lineas - TB }
+  {
+  Width := w;
+  Height := h;
+  Constraints.MaxWidth := Width;
+  Constraints.MinWidth := Width;
+  Constraints.MinHeight := Height;
+  }
+
+  with DBGFDetalle do
+  begin
+     i := Tablas.IndexOf('VER_ARTICULOS_COD_CLI');
+     if (i >= 0) then
+     begin
+        if (DMMain.EstadoKri(44) = 1) then
+           CamposDesplegar[i] := '1'
+        else
+           CamposDesplegar[i] := '0';
+     end;
+  end;
+
+  // Si se trata una clinica habilitamos panel
+  PNLClinica.Visible := (LeeParametro('EMPCLI001') = 'S');
+
+  // Color campo ID
+  ColorCampoID(DBERIG);
+  ColorCampoID(EFSERIE);
+
+  // Restringimos edicion de fecha segun parametros
+  HabilitaEdit(DBDTPFecha, (LeeParametro('PECFECH001') <> 'S'));
+  HabilitaEdit(DBDTPFechaEntrega, (LeeParametro('PECFECH002') <> 'S'));
+  HabilitaEdit(DBDTPFechaPrevista, (LeeParametro('PECFECH002') <> 'S'));
+
+  // Muestra tabla por defecto
+  if (LeeParametro('DOCCONF001') = 'S') then
+     PCMain.ActivePage := TSTabla;
+
+  TSDirManual.TabVisible := (LeeParametro('VENDIRM001') = 'S');
+  PNLProgreso.Visible := False;
+
+  with DBGMain do
+  begin
+     i := CamposAMarcar.IndexOf('MODIFICA_DOC');
+     if (i >= 0) and (CamposChecked.Count >= i - 1) then
+        CamposChecked[i] := '4';
+  end;
+
+  AbreOCierraOAnula;
+end;
+
+procedure TFMPedidos.FormDestroy(Sender: TObject);
+begin
+  inherited;
+  CierraData(DMPedidos);
+end;
+
+procedure TFMPedidos.TSFichaShow(Sender: TObject);
+begin
+  inherited;
+  ControlEdit := CEMain;
+end;
+
+procedure TFMPedidos.TSNotasShow(Sender: TObject);
+begin
+  ControlEdit := CENotas;
+end;
+
+procedure TFMPedidos.EPMainClickRango(Sender: TObject; var Continua: boolean);
+var
+  Resultado : integer;
+begin
+  Resultado := DMPedidos.BusquedaCompleja;
+
+  if (Resultado in [mrOk]) then
+     FiltroListadoFiltrado := 1
+  else
+  if (Resultado in [mrAll]) then
+     FiltroListadoFiltrado := 0;
+  Continua := False;
+
+  HabilitaBotonesSegunEstado;
+  RefrescaAvisos;
+end;
+
+procedure TFMPedidos.MuestraFiltrado(Tipo: byte);
+var
+  TempSQL, SQLFiltro : TStringList;
+  PlanTmp : string;
+begin
+  TempSql := TStringList.Create;
+  SqlFiltro := TStringList.Create;
+  try
+     SqlFiltro.AddStrings(DMPedidos.QMCabecera.SelectSQL);
+     AbreData(TDMLstPedidos, DMLstPedidos);
+
+     with DMLstPedidos do
+     begin
+        TempSql.AddStrings(QMCabecera.SelectSQL);
+        // Utilizo la vista para listado
+        QMCabecera.SelectSQL.Text := StringReplace(QMCabecera.SelectSQL.Text, 'VER_CABECERAS_PEDIDO',
+           'VER_CABECERAS_PEDIDO_LST', [rfReplaceAll]);
+        PlanTmp := QMCabecera.Plan.Text;
+        QMCabecera.Plan.Text := '';
+        QMCabecera.Close;
+        QMCabecera.SelectSQL.Assign(SqlFiltro);
+        QMCabecera.Params.ByName['SERIE'].AsString := EFSerie.Text;
+        MostrarListadoFiltrado(Tipo, FiltroListadoFiltrado, EFSerie.Text);
+        QMCabecera.Close;
+        QMCabecera.SelectSQL.Assign(TempSQL);
+        QMCabecera.Plan.Text := PlanTmp;
+     end;
+
+     CierraData(DMLstPedidos);
+  finally
+     SqlFiltro.Free;
+     TempSql.Free;
+  end;
+
+  RefrescaAvisos;
+end;
+
+procedure TFMPedidos.EFSerieChange(Sender: TObject);
+var
+  serie_aux : string;
+begin
+  if (EFSerie.Text <> '') then
+  begin
+     serie_aux := dame_serie_activa(EFSerie.Text);
+     // Bloqueo series
+     if (serie_aux <> EFSerie.Text) then
+        EFSerie.Text := serie_aux;
+
+     DMPedidos.CambiaSerie(EFSerie.Text);
+  end;
+
+  ETitSerie.Text := DameTituloSerie(EFSerie.Text);
+  MargenMinimo := StrToFloatDef(LeeParametro('DOCMARG001', EFSerie.Text), -1);
+  param_DOCMARG003 := (LeeParametro('DOCMARG003', EFSerie.Text) = 'S');
+  param_PECPREC001 := (LeeParametro('PECPREC001', EFSerie.Text) = 'S');
+  // Edicion de IVA habilitada en documentos de venta
+  Param_VENTIVA001 := (LeeParametro('VENTIVA001', EFSerie.Text) = 'S');
+  Param_ARTBUSQ003 := (LeeParametro('ARTBUSQ003', EFSerie.Text) = 'S');
+  Param_ARTBUSQ004 := (LeeParametro('ARTBUSQ004', EFSerie.Text) = 'S');
+  Param_SYSCONF005 := StrToIntDef(LeeParametro('SYSCONF005', EFSerie.Text), 0);
+  Param_DOCPCOS001 := LeeParametro('PECPCOS001', EFSerie.Text);
+  PNLRiesgo.Visible := (LeeParametro('VENRIES001') = 'S');
+  param_PECMARG001 := (LeeParametro('PECMARG001', EFSerie.Text) = 'S');
+  param_VENUSEC001 := (LeeParametro('VENUSEC001', EFSerie.Text) = 'S');
+  param_VENUEXT001 := (LeeParametro('VENUEXT001', EFSerie.Text) = 'S');
+  param_VENREST002 := (LeeParametro('VENREST002', EFSerie.Text) = 'S');
+
+  param_PECINSE001 := (LeeParametro('PECINSE001', EFSerie.Text) = 'S');
+  DBERIG.Enabled := param_PECINSE001;
+  DBERIG.ReadOnly := not param_PECINSE001;
+
+  if (LeeParametro('VENREST001', EFSerie.Text) = 'S') then
+  begin
+     DBEDtoCial.ReadOnly := True;
+     DBEDtoCial.Enabled := False;
+     DBEDtoCial.Color := clInfoBk;
+  end
+  else
+  begin
+     DBEDtoCial.ReadOnly := False;
+     DBEDtoCial.Enabled := True;
+     DBEDtoCial.Color := clWindow;
+  end;
+
+  if param_DOCMARG003 then
+     DBEMargen.DataField := 'MARGEN'
+  else
+     DBEMargen.DataField := 'MARGEN_SIN_PORTES';
+
+  if (LeeParametro('MUETRAM001', EFSerie.Text) = 'S') then
+     DBCBDocumentoMuestras.Caption := _('Tramitado');
+
+  EstableceVisibilidadCamposDetalle;
+  EstableceVisibilidadStockAlmacen;
+  HabilitaBotones; // Ya ejecuta RefrescaAvisos;
+
+  // No visible, estaba visible en modo prueba.
+  // APasoaPedProvAutomatico.Visible := (LeeParametro('PECTRAS001', EFSerie.Text) <> '0');
+end;
+
+procedure TFMPedidos.EstableceVisibilidadCamposDetalle;
+var
+  i : integer;
+  s : string;
+begin
+  // Busco columna Precio de Coste
+  i := EncuentraField(DBGFDetalle, 'P_COSTE');
+  if (i >= 0) then
+  begin
+     with DBGFDetalle.Columns.Items[i] do
+     begin
+        ReadOnly := False;
+        Color := clWindow;
+
+        // Deshabilitado o invisible
+        if ((Param_DOCPCOS001 = 'D') or (Param_DOCPCOS001 = 'I')) then
+        begin
+           ReadOnly := True;
+           Color := clInfoBk;
+        end;
+
+        // Invisible
+        if (Param_DOCPCOS001 = 'I') then
+           Visible := False;
+     end;
+  end;
+
+  i := EncuentraField(DBGFDetalle, 'DESCUENTO');
+  if (i >= 0) then
+  begin
+     if param_VENREST002 then
+     begin
+        DBGFDetalle.Columns.Items[i].ReadOnly := True;
+        DBGFDetalle.Columns.Items[i].Color := clInfoBk;
+     end
+     else
+     begin
+        DBGFDetalle.Columns.Items[i].ReadOnly := False;
+        DBGFDetalle.Columns.Items[i].Color := clWindow;
+     end;
+  end;
+
+  i := EncuentraField(DBGFDetalle, 'DESCUENTO_2');
+  if (i >= 0) then
+  begin
+     if param_VENREST002 then
+     begin
+        DBGFDetalle.Columns.Items[i].ReadOnly := True;
+        DBGFDetalle.Columns.Items[i].Color := clInfoBk;
+     end
+     else
+     begin
+        DBGFDetalle.Columns.Items[i].ReadOnly := False;
+        DBGFDetalle.Columns.Items[i].Color := clWindow;
+     end;
+  end;
+
+  i := EncuentraField(DBGFDetalle, 'DESCUENTO_3');
+  if (i >= 0) then
+  begin
+     if param_VENREST002 then
+     begin
+        DBGFDetalle.Columns.Items[i].ReadOnly := True;
+        DBGFDetalle.Columns.Items[i].Color := clInfoBk;
+     end
+     else
+     begin
+        DBGFDetalle.Columns.Items[i].ReadOnly := False;
+        DBGFDetalle.Columns.Items[i].Color := clWindow;
+     end;
+  end;
+
+  i := EncuentraField(DBGFDetalle, 'TIPO_UNIDAD_LOGISTICA');
+  if (i >= 0) then
+     DBGFDetalle.Columns.Items[i].Visible := (Param_SYSCONF005 <> 0);
+
+  i := EncuentraField(DBGFDetalle, 'UNIDADES_LOGISTICAS');
+  if (i >= 0) then
+     DBGFDetalle.Columns.Items[i].Visible := (Param_SYSCONF005 <> 0);
+
+  i := EncuentraField(DBGFDetalle, 'TITULO_UNIDAD_LOGISTICA');
+  if (i >= 0) then
+     DBGFDetalle.Columns.Items[i].Visible := (Param_SYSCONF005 <> 0);
+
+  i := EncuentraField(DBGFDetalle, 'MARGEN');
+  if (i >= 0) then
+     DBGFDetalle.Columns.Items[i].Visible := param_PECMARG001
+  else
+  begin
+     with DBGFDetalle.Columns.Add do
+     begin
+        FieldName := 'MARGEN';
+        Title.Caption := _('Margen');
+        Visible := param_PECMARG001;
+     end;
+  end;
+
+  i := EncuentraField(DBGFDetalle, 'TITULO');
+  if (i >= 0) then
+  begin
+     DBGFDetalle.Columns.Items[i].Color := clWindow;
+     DBGFDetalle.Columns.Items[i].Title.Caption := _('Desc. Artículo');
+     ACambiaTitulo.Hint := _('Mostrar títulos en el idioma');
+     TButtCambiaDescripcion.Tag := 0;
+  end
+  else
+  begin
+     i := EncuentraField(DBGFDetalle, 'TITULO_IDIOMA');
+     if (i >= 0) then
+     begin
+        DBGFDetalle.Columns.Items[i].Color := $00D6D6D6;
+        DBGFDetalle.Columns.Items[i].Title.Caption := _('Desc. Artículo');
+        TButtCambiaDescripcion.Tag := 1;
+        ACambiaTitulo.Hint := _('Mostrar títulos predeterminado');
+     end
+     else
+     begin
+        with DBGFDetalle.Columns.Add do
+        begin
+           FieldName := 'TITULO';
+           Color := clWindow;
+           Title.Caption := _('Desc. Artículo');
+           Visible := True;
+           ACambiaTitulo.Hint := _('Mostrar títulos en el idioma');
+           TButtCambiaDescripcion.Tag := 0;
+        end;
+     end;
+  end;
+
+  { No obligo a que este visible este campo
+  i := EncuentraField(DBGFDetalle, 'UNIDADES');
+  if (i < 0) then
+  begin
+     with DBGFDetalle.Columns.Add do
+     begin
+        FieldName := 'UNIDADES';
+        Title.Caption := _('Unidades');
+        Width := 60;
+     end;
+  end;
+  }
+  i := EncuentraField(DBGFDetalle, 'UNIDADES');
+  s := LeeParametro('VENUNID001', EFSerie.Text);
+  if (i >= 0) and (s <> '') then
+     DBGFDetalle.FindColumn('UNIDADES').Title.Caption := s;
+
+  i := EncuentraField(DBGFDetalle, 'UNIDADES_SEC');
+  if (i < 0) then
+  begin
+     with DBGFDetalle.Columns.Add do
+     begin
+        FieldName := 'UNIDADES_SEC';
+        Title.Caption := _('Uds. Sec.');
+        Width := 50;
+     end;
+  end;
+
+  i := EncuentraField(DBGFDetalle, 'UNIDADES_SEC');
+  s := LeeParametro('VENUSEC002', EFSerie.Text);
+  if (i >= 0) and (s <> '') then
+     DBGFDetalle.FindColumn('UNIDADES_SEC').Title.Caption := s;
+  DBGFDetalle.Columns.Items[i].Visible := REntorno.PVP_Ud_Sec or param_VENUSEC001;
+
+  i := EncuentraField(DBGFDetalle, 'APLICA_UNIDADES_SECUNDARIAS');
+  if (i < 0) then
+  begin
+     with DBGFDetalle.Columns.Add do
+     begin
+        FieldName := 'APLICA_UNIDADES_SECUNDARIAS';
+        Title.Caption := _('Apl. U.Sec.');
+     end;
+  end;
+  i := EncuentraField(DBGFDetalle, 'APLICA_UNIDADES_SECUNDARIAS');
+  DBGFDetalle.Columns.Items[i].Visible := REntorno.PVP_Ud_Sec or param_VENUSEC001;
+  DBGFDetalle.Columns.Items[i].Width := 40;
+
+  i := EncuentraField(DBGFDetalle, 'UE_MEDIDA1');
+  if (i < 0) and param_VENUEXT001 then
+  begin
+     with DBGFDetalle.Columns.Add do
+     begin
+        FieldName := 'UE_MEDIDA1';
+        Title.Caption := _('Medida 1');
+        Width := 50;
+     end;
+  end;
+  if (i >= 0) then
+     DBGFDetalle.Columns.Items[i].Title.Caption := _('Medida 1');
+
+  i := EncuentraField(DBGFDetalle, 'UE_MEDIDA2');
+  if (i < 0) and param_VENUEXT001 then
+  begin
+     with DBGFDetalle.Columns.Add do
+     begin
+        FieldName := 'UE_MEDIDA2';
+        Title.Caption := _('Medida 2');
+        Width := 50;
+     end;
+  end;
+  if (i >= 0) then
+     DBGFDetalle.Columns.Items[i].Title.Caption := _('Medida 2');
+
+  i := EncuentraField(DBGFDetalle, 'UE_MEDIDA3');
+  if (i < 0) and param_VENUEXT001 then
+  begin
+     with DBGFDetalle.Columns.Add do
+     begin
+        FieldName := 'UE_MEDIDA3';
+        Title.Caption := _('Medida 3');
+        Width := 50;
+     end;
+  end;
+  if (i >= 0) then
+     DBGFDetalle.Columns.Items[i].Title.Caption := _('Medida 3');
+
+  i := EncuentraField(DBGFDetalle, 'UE_MEDIDA4');
+  if (i < 0) and param_VENUEXT001 then
+  begin
+     with DBGFDetalle.Columns.Add do
+     begin
+        FieldName := 'UE_MEDIDA4';
+        Title.Caption := _('Medida 4');
+        Width := 50;
+     end;
+  end;
+  if (i >= 0) then
+     DBGFDetalle.Columns.Items[i].Title.Caption := _('Medida 4');
+
+  // Asigno nombre a campos ALFA
+  with DBGFDetalle do
+  begin
+     for i := 1 to 8 do
+     begin
+        if (EncuentraField(DBGFDetalle, Format('ALFA_%d', [i])) >= 0) then
+        begin
+           FindColumn(Format('ALFA_%d', [i])).Title.Caption := LeeParametro(format('ARTDESC%3.3d', [i]));
+           if (FindColumn(Format('ALFA_%d', [i])).Title.Caption = '') then
+              FindColumn(Format('ALFA_%d', [i])).Title.Caption := Format(_('Campo %d'), [i]);
+        end;
+     end;
+
+     for i := 1 to 4 do
+     begin
+        if (EncuentraField(DBGFDetalle, Format('UE_MEDIDA%d', [i])) >= 0) then
+        begin
+           FindColumn(Format('UE_MEDIDA%d', [i])).Title.Caption := LeeParametro(format('UDEDESC%3.3d', [i]));
+           if (FindColumn(Format('UE_MEDIDA%d', [i])).Title.Caption = '') then
+              FindColumn(Format('UE_MEDIDA%d', [i])).Title.Caption := Format(_('Medida %d'), [i]);
+        end;
+     end;
+
+     i := EncuentraField(DBGFDetalle, 'PRO_NUM_PLANO');
+     s := LeeParametro('LABPNPL001', EFSerie.Text);
+     if (i >= 0) and (s <> '') then
+        DBGFDetalle.FindColumn('PRO_NUM_PLANO').Title.Caption := s;
+
+     i := EncuentraField(DBGFDetalle, 'NO_FABRICACION_KRI');
+     s := LeeParametro('LABFABK001', EFSerie.Text);
+     if (i >= 0) and (s <> '') then
+        DBGFDetalle.FindColumn('NO_FABRICACION_KRI').Title.Caption := s;
+  end;
+
+  if (DMMain.EstadoKri(439) = 0) then
+  begin
+     i := EncuentraField(DBGFDetalle, 'BULTOS');
+     if (i >= 0) then
+     begin
+        with DBGFDetalle.Columns.Items[i] do
+        begin
+           ReadOnly := False;
+           Color := clWindow;
+           Font.Color := clWindowText;
+        end;
+     end;
+  end;
+end;
+
+procedure TFMPedidos.FormActivate(Sender: TObject);
+begin
+  inherited;
+
+  EstableceVisibilidadCamposDetalle;
+  EstableceVisibilidadStockAlmacen;
+end;
+
+procedure TFMPedidos.DBGFDetalleBusqueda(Sender: TObject);
+var
+  i : integer;
+begin
+  with TDBGridFind2000(Sender) do
+  begin
+     CondicionBusqueda := '';
+     PlanBusquedaNum := '';
+     PlanBusquedaStr := '';
+
+     if (Trim(TablaABuscar) = 'VER_ARTICULOS_EF') or
+        (Trim(TablaABuscar) = 'VER_ARTICULOS_EF_VENTAS') then
+     begin
+        CondicionBusqueda :=
+           'EMPRESA=' + REntorno.EmpresaStr + ' AND EJERCICIO=' +
+           REntorno.EjercicioStr + ' AND CANAL=' + REntorno.CanalStr + ' AND ' +
+           'FAMILIA<>''' + REntorno.FamSistema + '''';
+
+        if (Param_ARTBUSQ003) then
+        begin
+           CondicionBusqueda := CondicionBusqueda + ' AND ( (ARTICULO = ''' + REntorno.ArtTextoLibre + ''') ';
+           CondicionBusqueda := CondicionBusqueda +
+              '    OR (ARTICULO IN (SELECT ARTICULO FROM ART_ARTICULOS_CODCLI WHERE EMPRESA = ' +
+              REntorno.EmpresaStr + ' AND CLIENTE = ' + DMPedidos.QMCabeceraCLIENTE.AsString + '))';
+           CondicionBusqueda := CondicionBusqueda + '     )';
+        end;
+        {
+        i := Tablas.IndexOf(TablaABuscar);
+        if (i >=0) then
+        begin
+           if (DMMain.EstadoKri(42) = 1) then
+              OrdenadosPor[i] := 'TITULO'
+           else
+              OrdenadosPor[i] := 'ARTICULO';
+        end;
+        }
+        if (FMain.AArticulos.Enabled = True) then
+           Accion := ANewArticulo;
+     end
+     else
+     if (Trim(TablaABuscar) = 'VER_ARTICULOS_COD_CLI') then
+     begin
+        CondicionBusqueda :=
+           'EMPRESA=' + REntorno.EmpresaStr + ' AND CLIENTE=' + EFCliente.Text;
+        i := Tablas.IndexOf(TablaABuscar);
+        if (i >= 0) then
+           OrdenadosPor[i] := 'CODIGO_CLIENTE';
+     end
+     else
+     if ((Trim(TablaABuscar) = 'SYS_TIPO_IVA') or (Trim(TablaABuscar) = 'SYS_TIPO_IMPUESTO_ADICIONAL')) then
+     begin
+        CondicionBusqueda := 'PAIS =''' + REntorno.Pais + '''';
+
+        if not Param_VENTIVA001 then
+        begin
+           if (Trim(TablaABuscar) = 'SYS_TIPO_IVA') then
+              CondicionBusqueda := CondicionBusqueda + ' AND TIPO=' + IntToStr(DMPedidos.QMDetalleTIPO_IVA.AsInteger);
+           if (Trim(TablaABuscar) = 'SYS_TIPO_IMPUESTO_ADICIONAL') then
+              CondicionBusqueda := CondicionBusqueda + ' AND TIPO=' +
+                 IntToStr(DMPedidos.QMDetalleTIPO_IMPUESTO_ADICIONAL.AsInteger);
+        end;
+
+        i := Tablas.IndexOf(TablaABuscar);
+        if (i >= 0) then
+           OrdenadosPor[i] := 'TIPO';
+     end
+     else
+     if (Trim(TablaABuscar) = 'SYS_TERCEROS_DIRECCIONES') then
+     begin
+        if DBGFDetalle.ColumnaActual = 'DIRECCION_ENTREGA' then
+           CondicionBusqueda := 'TERCERO = ' + DMPedidos.QMCabeceraTERCERO.AsString + ' AND ACTIVO = 1'
+        else
+        if DBGFDetalle.ColumnaActual = 'DIRECCION_ALM_LOGISTICO' then
+           CondicionBusqueda := 'TERCERO = ' + DMPedidos.QMCabeceraTERCERO.AsString +
+              ' AND ACTIVO = 1 AND (DIR_CLASE = 5 OR DIRECCION=' + DMPedidos.QMCabeceraDIRECCION.AsString + ')';
+
+        i := Tablas.IndexOf(TablaABuscar);
+        if (i >= 0) then
+           OrdenadosPor[i] := 'DIRECCION';
+     end
+     else
+     if Trim(TablaABuscar) = 'EMP_PROYECTOS' then
+     begin
+        CondicionBusqueda := 'EMPRESA= ' + REntorno.EmpresaStr + ' AND ' +
+           '(CLIENTE_NULL=' + EFCliente.Text +
+           ' or CLIENTE_NULL=-1 or CLIENTE_NULL is null) AND ' +
+           '(CANAL_NULL = ' + IntToStr(REntorno.Canal) + ' or CANAL_NULL is null)';
+        i := Tablas.IndexOf(TablaABuscar);
+        if (i >= 0) then
+           OrdenadosPor[i] := 'PROYECTO';
+     end
+     else
+     if Trim(TablaABuscar) = 'SYS_TIPO_LINEA_VENTA_KRI' then
+     begin
+        i := Tablas.IndexOf(TablaABuscar);
+        if (i >= 0) then
+           OrdenadosPor[i] := 'ID';
+     end
+     else
+     if Trim(TablaABuscar) = 'VER_ARTICULOS_UNID_LOG' then
+     begin
+        CondicionBusqueda := 'EMPRESA= ' + REntorno.EmpresaStr + ' AND ' +
+           '(ARTICULO=''' + DMPedidos.QMDetalleARTICULO.AsString + ''')';
+        i := Tablas.IndexOf(TablaABuscar);
+        if (i >= 0) then
+           OrdenadosPor[i] := 'DEFECTO,TIPO';
+     end
+     else
+     if Trim(TablaABuscar) = 'ART_ALMACENES' then
+     begin
+        CondicionBusqueda := 'EMPRESA= ' + REntorno.EmpresaStr + ' AND ACTIVO = 1';
+        i := Tablas.IndexOf(TablaABuscar);
+        if (i >= 0) then
+           OrdenadosPor[i] := 'ALMACEN';
+     end
+     else
+     if (Trim(TablaABuscar) = 'VER_ARTICULOS_CON_BARRAS') then
+     begin
+        CondicionBusqueda :=
+           'EMPRESA=' + REntorno.EmpresaStr + ' AND EJERCICIO=' +
+           REntorno.EjercicioStr + ' AND CANAL=' + REntorno.CanalStr + ' AND ' +
+           'BAJA=0';
+        i := Tablas.IndexOf(TablaABuscar);
+        if (i >= 0) then
+           OrdenadosPor[i] := 'BARRAS';
+     end
+     else
+     if (Trim(TablaABuscar) = 'PRO_DESPIECE_CAB') then
+     begin
+        CondicionBusqueda :=
+           'EMPRESA=' + REntorno.EmpresaStr + ' AND CANAL=' + REntorno.CanalStr;
+        i := Tablas.IndexOf(TablaABuscar);
+        if (i >= 0) then
+           OrdenadosPor[i] := 'ID_DESPIECE_CAB DESC';
+     end
+     else
+     if (Trim(TablaABuscar) = 'VER_PRO_ESCANDALLO_EF') then
+     begin
+        if (DBGFDetalle.ColumnaActual = 'ID_ESC') then
+        begin
+           CondicionBusqueda :=
+              'EMPRESA=' + REntorno.EmpresaStr + ' AND COMPUESTO=''' + DMPedidos.QMDetalleARTICULO.AsString + ''' AND TIPO =''EPR''';
+        end
+        else
+        begin
+           CondicionBusqueda := 'EMPRESA=' + REntorno.EmpresaStr;
+        end;
+        i := Tablas.IndexOf(TablaABuscar);
+        if (i >= 0) then
+           OrdenadosPor[i] := 'DEFECTO DESC, VERSION_ESCANDALLO';
+     end
+     else
+     begin
+        CondicionBusqueda := 'EMPRESA = ' + REntorno.EmpresaStr;
+        i := Tablas.IndexOf(TablaABuscar);
+        if (i >= 0) then
+           OrdenadosPor[i] := '';
+     end;
+  end;
+end;
+
+procedure TFMPedidos.ANotasDetalleExecute(Sender: TObject);
+begin
+  DMPedidos.PreparaNotasDetalle;
+  EditarCampoNotas(Self, DMPedidos.DSQMDetalle, DMPedidos.QMDetalleNOTAS, DMPedidos.QMDetalleNOTAS2,
+     (DMMain.EstadoKri(196) = 1));
+  HabilitaBotonesDetalle;
+end;
+
+procedure TFMPedidos.AInfoStocksExecute(Sender: TObject);
+var
+  Articulo, Almacen : string;
+begin
+  DMPedidos.DatosStocks(Articulo, Almacen);
+  AbreStocks(REntorno.Empresa, REntorno.Canal, Articulo, Almacen, Self);
+end;
+
+procedure TFMPedidos.TSTablaShow(Sender: TObject);
+begin
+  inherited;
+
+  ControlEdit := CEMain;
+  if not (Editando) then
+     DMPedidos.RefrescaTabla;
+end;
+
+procedure TFMPedidos.AUnidadesExtExecute(Sender: TObject);
+begin
+  if (DBGFDetalle.SelectedField.FieldName = 'UNIDADES') then
+     DBGFDetalle.SelectedIndex := DBGFDetalle.SelectedIndex + 1;
+
+  DMPedidos.CambiaUnidadesExt(DMPedidos.QMDetalleARTICULO, True, True);
+end;
+
+procedure TFMPedidos.APreciosTarifaExecute(Sender: TObject);
+begin
+  DMPedidos.CambiaPreciosTarifa;
+end;
+
+procedure TFMPedidos.AInfoHistoricoExecute(Sender: TObject);
+begin
+  DMPedidos.Historico;
+end;
+
+procedure TFMPedidos.NavDetalleBeforeAction(Sender: TObject; Button: TNavigateBtn);
+begin
+  if Button = nbCancel then
+     DMPedidos.BorraLineaUnidadesExt;
+
+  if Button = nbDelete then
+     DMPedidos.ControlaRestriccion;
+
+  if Button in [nbRefresh, nbDelete, nbPost] then
+     DMPedidos.ReiniciaStock(DMPedidos.QMDetalleARTICULO.AsString);
+end;
+
+procedure TFMPedidos.DBGFDetalleColEnter(Sender: TObject);
+begin
+  ControlEdit := CEDetalle;
+
+  if (DBGFDetalle.SelectedField.FieldName = 'ARTICULO') then
+  begin
+     DBGDetalleArticulo := '';
+     FMain.AddComponentePunto(DBGFDetalle);
+  end
+  else
+     FMain.DelComponentePunto(DBGFDetalle);
+
+  if ((DBGFDetalle.ColumnaActual = 'TIPO_IVA') or
+     (DBGFDetalle.ColumnaActual = 'PROYECTO')) then
+     DBGFDetalle.BuscarNums := False
+  else
+     DBGFDetalle.BuscarNums := True;
+end;
+
+procedure TFMPedidos.DBEFMonedaChange(Sender: TObject);
+
+  procedure HazVisibleCambioFijo(Visible: boolean);
+  begin
+     DBCHKCambio.Visible := Visible;
+     LValorCambio.Visible := Visible;
+     DBEValorCambio.Visible := Visible;
+     DBTValorCambioFijo.Visible := Visible;
+  end;
+
+begin
+  DMPedidos.MascarasMoneda;
+  if ((Assigned(DBEFMoneda.Field)) and (DBEFMoneda.Text <> '')) then
+  begin
+     if (DBEFMoneda.Text <> REntorno.Moneda) then
+     begin
+        ColorResaltado3(DBEFMoneda);
+        ColorResaltado3(DBEFMonedaFicha);
+        HazVisibleCambioFijo((DBEFMoneda.Text <> REntorno.Moneda));
+     end
+     else
+     begin
+        ColorEdicion(DBEFMoneda);
+        ColorEdicion(DBEFMonedaFicha);
+        HazVisibleCambioFijo(False);
+     end;
+  end;
+end;
+
+procedure TFMPedidos.ANewClienteExecute(Sender: TObject);
+begin
+  if EstructuraCreada then
+  begin
+     try
+        FMain.SourceCall := True;
+        FMain.EnlaceModal := True;
+        FMain.EnlaceInstancias := True;
+        FMain.EnlaceCrea := True;
+        FMain.EjecutaAccion(FMain.AClientes);
+
+        if FMain.EnlaceDatos <> Null then
+        begin
+           EFCliente.SetBufferText(FMain.EnlaceDatos);
+        end;
+        if EFDireccion.CanFocus then
+           EFDireccion.SetFocus;
+     finally
+        FMain.EnlaceModal := False;
+        FMain.EnlaceInstancias := False;
+        FMain.EnlaceCrea := False;
+     end;
+  end;
+end;
+
+procedure TFMPedidos.ANewAgenteExecute(Sender: TObject);
+begin
+  if EstructuraCreada then
+  begin
+     try
+        FMain.SourceCall := True;
+        FMain.EnlaceModal := True;
+        FMain.EnlaceInstancias := True;
+        FMain.EnlaceCrea := True;
+        FMain.EjecutaAccion(FMain.AAgentes);
+
+        if FMain.EnlaceDatos <> Null then
+        begin
+           EFAgente.SetBufferText(FMain.EnlaceDatos);
+        end;
+        if EFFormaPago.CanFocus then
+           EFFormaPago.SetFocus;
+     finally
+        FMain.EnlaceModal := False;
+        FMain.EnlaceInstancias := False;
+        FMain.EnlaceCrea := False;
+     end;
+  end;
+end;
+
+procedure TFMPedidos.ANewArticuloExecute(Sender: TObject);
+begin
+  if EstructuraCreada then
+  begin
+     FMain.SourceCall := True;
+     FMain.EnlaceModal := True;
+     FMain.EnlaceInstancias := True;
+     FMain.EnlaceCrea := True;
+     FMain.EjecutaAccion(FMain.AArticulos);
+     if FMain.EnlaceDatos <> Null then
+     begin
+        DMPedidos.QMDetalleARTICULO.AsString := FMain.EnlaceDatos;
+     end;
+     if DBGFDetalle.CanFocus then
+        DBGFDetalle.SetFocus;
+     FMain.EnlaceModal := False;
+     FMain.EnlaceInstancias := False;
+     FMain.EnlaceCrea := False;
+  end;
+end;
+
+procedure TFMPedidos.AAClienteExecute(Sender: TObject);
+begin
+  if EstructuraCreada then
+     if PNLEdCabecera.Enabled then
+     begin
+        if EFCliente.Text <> '' then
+           FMain.EjecutaAccion(FMain.AClientes, 'CLIENTE = ' + EFCliente.Text);
+     end
+     else
+        FMain.EjecutaAccion(FMain.AClientes, 'CLIENTE = ' + IntToStr(DMPedidos.QMCabeceraCLIENTE.AsInteger));
+end;
+
+procedure TFMPedidos.AAAgenteExecute(Sender: TObject);
+begin
+  if EstructuraCreada then
+     if PNLEdCabecera.Enabled then
+     begin
+        if EFAgente.Text <> '' then
+           FMain.EjecutaAccion(FMain.AAgentes, 'AGENTE = ' + EFAgente.Text);
+     end
+     else
+        FMain.EjecutaAccion(FMain.AAgentes, 'AGENTE = ' + IntToStr(DMPedidos.QMCabeceraAGENTE.AsInteger));
+end;
+
+procedure TFMPedidos.SBAClienteDblClick(Sender: TObject);
+begin
+  AACliente.Execute;
+end;
+
+procedure TFMPedidos.SBAAgenteDblClick(Sender: TObject);
+begin
+  AAAgente.Execute;
+end;
+
+procedure TFMPedidos.HabilitaEnlaces;
+begin
+  if (FMain.AClientes.Enabled = False) then
+  begin
+     EFCliente.Accion := nil;
+     SBACliente.Width := 0;
+     // MIVerDatosCliente.Visible := False;
+  end
+  else
+  begin
+     SolapaControles(SBACliente, DBETituloCliente);
+     DBETituloCliente.Color := REntorno.ColorEnlaceActivo;
+  end;
+
+  if (FMain.AAgentes.Enabled = False) then
+  begin
+     EFAgente.Accion := nil;
+     SBAAgente.Width := 0;
+     // MIVerDatosAgente.Visible := False;
+  end
+  else
+  begin
+     SolapaControles(SBAAgente, DBETituloAgente);
+     DBETituloAgente.Color := REntorno.ColorEnlaceActivo;
+  end;
+
+  if (FMain.ATerceros.Enabled = False) then
+  begin
+     SBATercero.Width := 0;
+  end
+  else
+  begin
+     SolapaControles(SBATercero, DBENombreComercial);
+     DBENombreComercial.Color := REntorno.ColorEnlaceActivo;
+  end;
+
+  DBETitProyecto.Color := REntorno.ColorEnlaceActivo;
+  SolapaControles(SBAProyecto, DBETitProyecto);
+
+  // if ((FMain.AClientes.Enabled = False) and (FMain.AAgentes.Enabled = False)) then
+  //   MISepEnlaces.Visible := False;
+end;
+
+procedure TFMPedidos.AImprimeExecute(Sender: TObject);
+begin
+  AbreData(TDMLstPedidos, DMLstPedidos);
+  DMLstPedidos.MostrarListado(1, 1, EFSerie.Text, DMPedidos.QMCabeceraEJERCICIO.AsInteger,
+     DMPedidos.QMCabeceraID_S.AsInteger, (LeeParametro('PECLSTM001') = 'S'));
+  CierraData(DMLstPedidos);
+end;
+
+procedure TFMPedidos.FiltraFactura(Ejercicio: integer; Serie: string; Rig: integer);
+begin
+  EFSerie.Text := Serie;
+  DMPedidos.FiltraCabecera(Ejercicio, Serie, Rig);
+  HabilitaBotonesSegunEstado;
+  RefrescaAvisos;
+end;
+
+procedure TFMPedidos.HabilitaBotones;
+var
+  Habilitado : boolean;
+begin
+  Habilitado := DMPedidos.HayDocumentos;
+
+  AAAlbaran.Enabled := Habilitado;
+  AAFactura.Enabled := Habilitado;
+  APecMulti.Enabled := Habilitado;
+  ADuplicar.Enabled := Habilitado;
+  ACondicionesClientes.Enabled := Habilitado;
+  ARefrescaDetalle.Enabled := Habilitado;
+  AHerencia.Enabled := Habilitado;
+  APasoaPedProv.Enabled := Habilitado;
+
+  EFSerie.Enabled := REntorno.SerieRestringida = '';
+  EFAlmacen.Enabled := REntorno.AlmacenRestringido = '';
+
+  // Parametro DOCPREC001 - Precio en documentos de venta modificable
+  if (LeeParametro('DOCPREC001', DMPedidos.QMDetalleSERIE.AsString) = 'N') then
+     HabilitaColumna(DBGFDetalle, 'PRECIO', False);
+
+  HabilitaBotonesSegunEstado;
+  RefrescaAvisos;
+end;
+
+procedure TFMPedidos.HabilitaBotonesSegunEstado;
+var
+  Habilitado : boolean;
+begin
+  Habilitado := DMPedidos.HayDocumentos;
+  AAbrirCerrar.Enabled := Habilitado and ((DMPedidos.EstadoDocumento = 5) or (DMPedidos.EstadoDocumento = 0));
+  AAnulaDocumento.Enabled := Habilitado and ((DMPedidos.EstadoDocumento = 2) or (DMPedidos.EstadoDocumento = 0));
+end;
+
+procedure TFMPedidos.NavMainClickAfterAdjust(Sender: TObject; Button: TNavigateBtn);
+begin
+  MTelefonos.Visible := False;
+  MNotas.Visible := False;
+
+  if (Trim(BotonesNavMain) <> '') then
+  begin
+     // Si existe, modifico los botones visibles
+     with NavMain do
+     begin
+        VisibleButtons := [];
+        if (BotonesNavMain[1] = 'F') then
+           VisibleButtons := VisibleButtons + [nbFirst];
+        if (BotonesNavMain[2] = 'P') then
+           VisibleButtons := VisibleButtons + [nbPrior];
+        if (BotonesNavMain[3] = 'N') then
+           VisibleButtons := VisibleButtons + [nbNext];
+        if (BotonesNavMain[4] = 'L') then
+           VisibleButtons := VisibleButtons + [nbLast];
+        if (BotonesNavMain[5] = 'I') then
+           VisibleButtons := VisibleButtons + [nbInsert];
+        if (BotonesNavMain[6] = 'D') then
+           VisibleButtons := VisibleButtons + [nbDelete];
+        if (BotonesNavMain[7] = 'E') then
+           VisibleButtons := VisibleButtons + [nbEdit];
+        if (BotonesNavMain[8] = 'P') then
+           VisibleButtons := VisibleButtons + [nbPost];
+        if (BotonesNavMain[9] = 'C') then
+           VisibleButtons := VisibleButtons + [nbCancel];
+        if (BotonesNavMain[10] = 'R') then
+           VisibleButtons := VisibleButtons + [nbRefresh];
+     end;
+  end;
+
+  if (Trim(BotonesNavDetalle) <> '') then
+  begin
+     // Si existe, modifico los botones visibles
+     with NavDetalle do
+     begin
+        VisibleButtons := [];
+        if (BotonesNavDetalle[1] = 'F') then
+           VisibleButtons := VisibleButtons + [nbFirst];
+        if (BotonesNavDetalle[2] = 'P') then
+           VisibleButtons := VisibleButtons + [nbPrior];
+        if (BotonesNavDetalle[3] = 'N') then
+           VisibleButtons := VisibleButtons + [nbNext];
+        if (BotonesNavDetalle[4] = 'L') then
+           VisibleButtons := VisibleButtons + [nbLast];
+        if (BotonesNavDetalle[5] = 'I') then
+           VisibleButtons := VisibleButtons + [nbInsert];
+        if (BotonesNavDetalle[6] = 'D') then
+           VisibleButtons := VisibleButtons + [nbDelete];
+        if (BotonesNavDetalle[7] = 'E') then
+           VisibleButtons := VisibleButtons + [nbEdit];
+        if (BotonesNavDetalle[8] = 'P') then
+           VisibleButtons := VisibleButtons + [nbPost];
+        if (BotonesNavDetalle[9] = 'C') then
+           VisibleButtons := VisibleButtons + [nbCancel];
+        if (BotonesNavDetalle[10] = 'R') then
+           VisibleButtons := VisibleButtons + [nbRefresh];
+     end;
+  end;
+
+  // REntorno.RestriccionDocumento: Si el usuario tiene restringido modificar documentos impresos
+  // MODIFICA_DOC contiene la marca de si ha sido impreso (codificado binario en un entero)
+  // bit 4 = 0 --> Pedidos restringidos
+  if (((REntorno.RestriccionDocumento and 4) = 0) and
+     ((DMPedidos.xInfoActualizadaMODIFICA_DOC.AsInteger and 4) = 4)) then
+  begin
+     NavMain.VisibleButtons := NavMain.VisibleButtons - [nbDelete, nbEdit, nbPost];
+     NavDetalle.VisibleButtons := NavDetalle.VisibleButtons - [nbInsert, nbDelete, nbEdit, nbPost];
+  end;
+
+  {
+  if Button in [nbPost, nbDelete, nbCancel] then
+     HabilitaBotones
+  else
+  }
+
+  if ((Button in [nbInsert]) and (REntorno.AlmacenRestringido <> '')) then
+     EFAlmacen.Text := REntorno.AlmacenRestringido;
+
+  PNLOrtografia.Visible := (Button in [nbEdit]);
+  RefrescaAvisos;
+  HabilitaBotonesSegunEstado;
+
+  if Button in [nbPost] then
+  begin
+     if DMPedidos.EnviarConfirmacion then
+     begin
+        DMPedidos.EnviarConfirmacion := False;
+        if DMPedidos.ClienteTieneEmail then
+           AEnviarPedidoMailPDF.Execute
+        else
+           ShowMessage(_('El cliente no tiene ninguna dirección de e-mail a la que enviar la confirmación del pedido.'));
+        DMPedidos.EnviarConfirmacionAuto := False;
+     end;
+  end;
+end;
+
+procedure TFMPedidos.AbreOCierraOAnula;
+begin
+  if (DMPedidos.EstadoDocumento = 2) then
+  begin
+     with TButtAbreCierra do
+     begin
+        Hint := _('Deja pendiente el Pedido actual');
+        ImageIndex := 67;
+        Tag := 1;
+     end;
+     with AAnulaDocumento do
+     begin
+        Hint := _('Deja pendiente el Pedido actual');
+        ImageIndex := 67;
+        Tag := 1;
+        Caption := _('Abrir Pedido');
+     end;
+  end
+  else
+  begin
+     with TButtAbreCierra do
+     begin
+        Hint := _('Anula el Pedido actual');
+        ImageIndex := 27;
+        Tag := 0;
+     end;
+     with AAnulaDocumento do
+     begin
+        Hint := _('Anula el Pedido actual');
+        ImageIndex := 27;
+        Tag := 0;
+        Caption := _('Anular Pedido');
+     end;
+  end;
+
+  if (DMPedidos.EstadoDocumento = 0) then
+  begin
+     with AAbrirCerrar do
+     begin
+        Hint := _('Cierra el documento actual');
+        ImageIndex := 68;
+        Tag := 0;
+        Caption := _('Cerrar documento');
+     end;
+  end
+  else
+  begin
+     with AAbrirCerrar do
+     begin
+        Hint := _('Abre el documento actual');
+        ImageIndex := 67;
+        Tag := 1;
+        Caption := _('Abrir documento');
+     end;
+  end;
+
+  HabilitaBotonesDetalle;
+
+  ColorSegunEstado(DBETituloEstado, DMPedidos.EstadoDocumento);
+end;
+
+procedure TFMPedidos.HabilitaBotonesDetalle;
+var
+  Habil, HabilEd, Habilitado : boolean;
+  id_esc : integer;
+begin
+  // Todos los botones INACTIVOS (No hay Detalle)
+  Habil := ((DMPedidos.HayDetalle) or (DMPedidos.QMDetalle.State = dsInsert));
+  HabilEd := Habil;
+
+  // Ciertos botones INACTIVOS (Modo inserción/edición)
+  if Habil then
+     HabilEd := not (DMPedidos.QMDetalle.State in [dsInsert, dsEdit]);
+
+  TButtNotas.Enabled := HabilEd;
+  TButtHerencia.Enabled := HabilEd;
+  TButtInfStocks.Enabled := Habil;
+  TButtUnidades_Ext.Enabled := HabilEd;
+  TButtPrecios.Enabled := Habil;
+  TButtInfoHistorico.Enabled := Habil;
+  AOrdenaLineas.Enabled := Habil;
+  TBArtCli.Enabled := Habil;
+  ACambiaTitulo.Enabled := HabilEd;
+  TButtBuscarArticulo.Enabled := True; // Siempre Activo
+  TButtImportarDetalle.Enabled := True;  // Siempre Activo
+
+  if (Param_MODREST006) then
+  begin
+     id_esc := DMPedidos.QMDetalleID_ESC.AsInteger;
+
+     if (id_esc <> 0) then
+     begin
+        AProCrearOF.Enabled := True;
+        AProADatosEsc.Enabled := True;
+     end
+     else
+     begin
+        AProCrearOF.Enabled := False;
+        AProADatosEsc.Enabled := False;
+     end;
+  end;
+
+  // Controlamos que se pueda modificar el precio de venta + descuentos + tipo IVA
+  Habilitado := (DMPedidos.QMDetalleARTICULO.AsString = REntorno.ArtTextoLibre) or
+     (DMPedidos.xArticulos.Active and (DMPedidos.xArticulos.FieldByName('TIPO_ARTICULO').AsString = 'DTO')) or
+     param_PECPREC001;
+  HabilitaColumna(DBGFDetalle, 'PRECIO', Habilitado);
+  HabilitaColumna(DBGFDetalle, 'DESCUENTO', Habilitado and (not param_VENREST002));
+  HabilitaColumna(DBGFDetalle, 'DESCUENTO_2', Habilitado and (not param_VENREST002));
+  HabilitaColumna(DBGFDetalle, 'DESCUENTO_3', Habilitado and (not param_VENREST002));
+  // En el caso del Tipo de IVA también tenemos que ver el parámetro VENTIVA001
+  HabilitaColumna(DBGFDetalle, 'TIPO_IVA', Habilitado and Param_VENTIVA001);
+end;
+
+procedure TFMPedidos.NavDetalleClickAfterAdjust(Sender: TObject; Button: TNavigateBtn);
+begin
+  HabilitaBotonesDetalle;
+
+  if Button in [nbRefresh] then
+     DMPedidos.RellenaDatosOldLinea;
+end;
+
+procedure TFMPedidos.DBGFDetalleKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
+begin
+  inherited;
+  //  if ((DMPedidos.QMDetalle.State = dsinsert)) then HabilitaBotonesDetalle;
+  HabilitaBotonesDetalle;
+end;
+
+procedure TFMPedidos.DBGMainKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
+begin
+  RefrescaAvisos;
+end;
+
+procedure TFMPedidos.MuestraResumenFiltrado(Modo: byte);
+var
+  TempSQL, SQLFiltro : TStringList;
+begin
+  TempSql := TStringList.Create;
+  SqlFiltro := TStringList.Create;
+  SqlFiltro.AddStrings(DMPedidos.QMCabecera.SelectSQL);
+  AbreData(TDMLstPedidosCli, DMLstPedidosCli);
+  with DMLstPedidosCli do
+  begin
+     TempSql.AddStrings(QMCabecera.SelectSQL);
+     QMCabecera.Close;
+     QMCabecera.SelectSQL.Assign(SqlFiltro);
+     // Utilizo la vista para listado
+     QMCabecera.SelectSQL.Text := StringReplace(QMCabecera.SelectSQL.Text, 'VER_CABECERAS_PEDIDO',
+        'VER_CABECERAS_PEDIDO_LST', [rfReplaceAll]);
+     QMCabecera.Params.ByName['SERIE'].AsString := EFSerie.Text;
+     MostrarListadoFiltrado(Modo, FiltroListadoFiltrado, EFSerie.Text);
+     QMCabecera.Close;
+     QMCabecera.SelectSQL.Assign(TempSQL);
+  end;
+  CierraData(DMLstPedidosCli);
+  SqlFiltro.Free;
+  TempSql.Free;
+end;
+
+procedure TFMPedidos.AArticuloExecute(Sender: TObject);
+begin
+  if EstructuraCreada and PDetalle.Enabled then
+     FMain.EjecutaAccion(FMain.AArticulos, 'ARTICULO = ''' + DMPedidos.QMDetalleARTICULO.AsString + '''');
+end;
+
+procedure TFMPedidos.DBGFDetalleDblClick(Sender: TObject);
+var
+  CodigoCliente : string;
+begin
+  if DMPedidos.HayDetalle then
+  begin
+     if (UpperCase(ColActual.FieldName) = 'ARTICULO') then
+        AArticulo.Execute;
+  end;
+
+  if (UpperCase(ColActual.FieldName) = 'ID_ORDEN') then
+  begin
+     if (DMPedidos.QMDetalleID_ORDEN.AsInteger <> 0) then
+        FMain.EjecutaAccion(FMain.AProOrden, IntToStr(DMPedidos.QMDetalleID_ORDEN.AsInteger));
+  end;
+
+  if (UpperCase(ColActual.FieldName) = 'ID_ESC') then
+  begin
+     if (DMPedidos.QMDetalleID_ESC.AsInteger <> 0) then
+        AAEscandall.Execute;
+  end;
+
+  if (UpperCase(ColActual.FieldName) = 'ID_ESC_2') then
+  begin
+     if (DMPedidos.QMDetalleID_ESC_2.AsInteger <> 0) then
+        AAEscandall2.Execute;
+  end;
+
+  if (UpperCase(ColActual.FieldName) = 'ID_MEDIDA') then
+  begin
+     if (DMPedidos.QMDetalleID_MEDIDA.AsInteger <> 0) then
+        AbreForm(TProFMMedidas, ProFMMedidas, Self);
+  end;
+  if (UpperCase(ColActual.FieldName) = 'AGENTE') then
+  begin
+     if (DMPedidos.QMDetalleAGENTE.AsInteger <> 0) then
+        FMain.EjecutaAccion(FMain.AAgentes, 'AGENTE = ' + IntToStr(DMPedidos.QMDetalleAGENTE.AsInteger));
+  end;
+
+  if (UpperCase(ColActual.FieldName) = 'CODIGO_CLIENTE') then
+  begin
+     CodigoCliente := DMPedidos.QMDetalleCODIGO_CLIENTE.AsString;
+     if (PideDato('STR', CodigoCliente, _('Nuevo codigo de cliente'))) then
+     begin
+        with THYFIBQuery.Create(nil) do
+        begin
+           try
+              Close;
+              DataBase := DMMain.DataBase;
+              SQL.Add(' UPDATE OR INSERT INTO ART_ARTICULOS_CODCLI ( ');
+              SQL.Add(' EMPRESA, ARTICULO, CLIENTE, CODIGO_CLIENTE) ');
+              SQL.Add(' VALUES ( ');
+              SQL.Add(' :EMPRESA, :ARTICULO, :CLIENTE, :CODIGO_CLIENTE) ');
+              SQL.Add(' MATCHING (EMPRESA, ARTICULO, CLIENTE) ');
+              Params.ByName['EMPRESA'].AsInteger := DMPedidos.QMDetalleEMPRESA.AsInteger;
+              Params.ByName['ARTICULO'].AsString := DMPedidos.QMDetalleARTICULO.AsString;
+              Params.ByName['CLIENTE'].AsInteger := DMPedidos.QMCabeceraCLIENTE.AsInteger;
+              Params.ByName['CODIGO_CLIENTE'].AsString := CodigoCliente;
+              ExecQuery;
+              FreeHandle;
+           finally
+              Free;
+           end;
+        end;
+
+        DMPedidos.QMDetalle.Refresh;
+     end;
+  end;
+
+  // Si el pedido está cerrada, preguntamos el valor de Precio de Coste y Coste Adicional.
+  if (DMPedidos.QMCabeceraESTADO.AsInteger = 5) then
+  begin
+     if ((Param_DOCPCOS001 = 'V') and (UpperCase(ColActual.FieldName) = 'P_COSTE')) then
+        ACambioPCosteLinea.Execute;
+
+     if (UpperCase(ColActual.FieldName) = 'COSTE_ADICIONAL') then
+        ACambioCosteAdicionalLinea.Execute;
+  end;
+end;
+
+procedure TFMPedidos.AArtCliExecute(Sender: TObject);
+begin
+  if EstructuraCreada then
+     if PDetalle.Enabled then
+        TFVerTercerosPorArticulo.Create(Self).AsignaArticulo(DMPedidos.QMDetalleARTICULO.AsString, 1);
+end;
+
+procedure TFMPedidos.ACliArtExecute(Sender: TObject);
+begin
+  inherited;
+  TFMVentasCli.Create(Self).MuestraCliente(DMPedidos.QMCabeceraCLIENTE.AsInteger, 2);
+end;
+
+procedure TFMPedidos.RelojNotasTimer(Sender: TObject);
+begin
+  if (LBNotas.Color = clYellow) then
+     LBNotas.Color := TBMain.Color
+  else
+     LBNotas.Color := clYellow;
+end;
+
+procedure TFMPedidos.AInformePedidoExecute(Sender: TObject);
+begin
+  AbreData(TDMLstPedidos, DMLstPedidos);
+  AInformePedido.Enabled := False;
+  try
+     DMLstPedidos.MostrarListado(0, 1, EFSerie.Text, DMPedidos.QMCabeceraEJERCICIO.AsInteger,
+        DMPedidos.QMCabeceraID_S.AsInteger, (LeeParametro('PECLSTM001') = 'S'));
+  finally
+     AInformePedido.Enabled := True;
+     CierraData(DMLstPedidos);
+  end;
+
+  // Refresco valor de check del estado listado
+  DMPedidos.InfoActualiza;
+end;
+
+procedure TFMPedidos.AInformePedido2Execute(Sender: TObject);
+begin
+  AbreData(TDMLstPedidos, DMLstPedidos);
+  DMLstPedidos.MostrarListado(0, 2, EFSerie.Text, DMPedidos.QMCabeceraEJERCICIO.AsInteger,
+     DMPedidos.QMCabeceraID_S.AsInteger, (LeeParametro('PECLSTM001') = 'S'));
+  CierraData(DMLstPedidos);
+  // Refresco valor de check del estado listado
+  DMPedidos.InfoActualiza;
+end;
+
+procedure TFMPedidos.AInformePedido3Execute(Sender: TObject);
+begin
+  AbreData(TDMLstPedidos, DMLstPedidos);
+  DMLstPedidos.MostrarListado(0, 3, EFSerie.Text, DMPedidos.QMCabeceraEJERCICIO.AsInteger,
+     DMPedidos.QMCabeceraID_S.AsInteger, (LeeParametro('PECLSTM001') = 'S'));
+  CierraData(DMLstPedidos);
+  // Refresco valor de check del estado listado
+  DMPedidos.InfoActualiza;
+end;
+
+procedure TFMPedidos.AInformePedido4Execute(Sender: TObject);
+begin
+  AbreData(TDMLstPedidos, DMLstPedidos);
+  DMLstPedidos.MostrarListado(0, 4, EFSerie.Text, DMPedidos.QMCabeceraEJERCICIO.AsInteger,
+     DMPedidos.QMCabeceraID_S.AsInteger, (LeeParametro('PECLSTM001') = 'S'));
+  CierraData(DMLstPedidos);
+  // Refresco valor de check del estado listado
+  DMPedidos.InfoActualiza;
+end;
+
+procedure TFMPedidos.AVisualizarPedidosFiltradosExecute(Sender: TObject);
+begin
+  MuestraFiltrado(0);
+end;
+
+procedure TFMPedidos.AImprimirPedidosFiltradosExecute(Sender: TObject);
+begin
+  MuestraFiltrado(1);
+  // Refresco valor de check del estado listado
+  DMPedidos.InfoActualiza;
+end;
+
+procedure TFMPedidos.AResumenPedidosExecute(Sender: TObject);
+begin
+  AbreData(TDMLstPedidosCli, DMLstPedidosCli);
+  TFMLstEntreFechasCli.Create(Self).Muestra('PEC', EFSerie.Text);
+  CierraData(DMLstPedidosCli);
+end;
+
+procedure TFMPedidos.AResumenPedidosFiltradosExecute(Sender: TObject);
+begin
+  MuestraResumenFiltrado(0);
+end;
+
+procedure TFMPedidos.AImprimirResumenPedidosFiltradosExecute(Sender: TObject);
+begin
+  MuestraResumenFiltrado(1);
+end;
+
+procedure TFMPedidos.AConfPedidosExecute(Sender: TObject);
+var
+  Formato, Cabecera, Copias, Pijama : integer;
+begin
+  AbreData(TDMLstPedidos, DMLstPedidos);
+  TFMListConfig.Create(Self).Muestra(39, Formato, Cabecera, Copias,
+     Pijama, EFSerie.Text, DMLstPedidos.frPedidos, DMLstPedidos.HYReport);
+  CierraData(DMLstPedidos);
+end;
+
+procedure TFMPedidos.AConfPedidosFechasClientesExecute(Sender: TObject);
+var
+  Formato, Cabecera, Copias, Pijama : integer;
+begin
+  AbreData(TDMLstPedidosCli, DMLstPedidosCli);
+  TFMListConfig.Create(Self).Muestra(45, Formato, Cabecera, Copias,
+     Pijama, EFSerie.Text, DMLstPedidosCli.frPedido);
+  CierraData(DMLstPedidosCli);
+end;
+
+procedure TFMPedidos.ACambiarNombreExecute(Sender: TObject);
+begin
+  if EFCliente.CampoStr = 'TITULO' then
+  begin
+     EFCliente.CampoStr := 'NOMBRE_COMERCIAL';
+     TButtCambiarNombre.Hint := _('Cambiar a Nombre');
+     ACambiarNombre.Caption := _('Cambiar a Nombre');
+     ACambiarNombre.Hint := _('Cambiar a Nombre');
+     DBETituloCliente.DataField := 'NOMBRE_COMERCIAL';
+  end
+  else
+  begin
+     EFCliente.CampoStr := 'TITULO';
+     TButtCambiarNombre.Hint := _('Cambiar a Nombre Comercial');
+     ACambiarNombre.Caption := _('Cambiar a Nombre Comercial');
+     ACambiarNombre.Hint := _('Cambiar a Nombre Comercial');
+     DBETituloCliente.DataField := 'TITULO';
+  end;
+end;
+
+procedure TFMPedidos.AAAlbaranExecute(Sender: TObject);
+begin
+  if (DMPedidos.xCliente.Active) then
+     DMMain.MuestraAviso('CLI', DMPedidos.xCliente.FieldByName('ID_CLIENTE').AsInteger, 'ALB');
+
+  try
+     Screen.Cursor := crHourGlass;
+     // EstadoKri(199) Abre documento destino - Mirko no quiere que se desplegue automaticamente
+     DMPedidos.TraspasarPedidoActual('ALB', 0, '', (DMMain.EstadoKri(199) <> 1));
+  finally
+     Screen.Cursor := crDefault;
+  end;
+end;
+
+procedure TFMPedidos.AAFacturaExecute(Sender: TObject);
+begin
+  if (DMPedidos.xCliente.Active) then
+     DMMain.MuestraAviso('CLI', DMPedidos.xCliente.FieldByName('ID_CLIENTE').AsInteger, 'FAC');
+
+  try
+     Screen.Cursor := crHourGlass;
+     DMPedidos.TraspasarPedidoActual('FAC', 0, '', (DMMain.EstadoKri(199) <> 1));
+  finally
+     Screen.Cursor := crDefault;
+  end;
+end;
+
+procedure TFMPedidos.AAbrirCerrarExecute(Sender: TObject);
+begin
+  try
+     Screen.Cursor := crHourGlass;
+     if (AAbrirCerrar.Tag = 0) then
+        DMPedidos.CierraPedido
+     else
+        DMPedidos.AbrePedido;
+  finally
+     Screen.Cursor := crDefault;
+  end;
+end;
+
+procedure TFMPedidos.AAnulaDocumentoExecute(Sender: TObject);
+begin
+  try
+     Screen.Cursor := crHourGlass;
+     DMPedidos.AnulaDocumento;
+  finally
+     Screen.Cursor := crDefault;
+  end;
+end;
+
+procedure TFMPedidos.ADuplicarExecute(Sender: TObject);
+begin
+  if (DMPedidos.xCliente.Active) then
+     DMMain.MuestraAviso('CLI', DMPedidos.xCliente.FieldByName('ID_CLIENTE').AsInteger, 'PEC');
+
+  try
+     Screen.Cursor := crHourGlass;
+     DMPedidos.Duplica(0);
+  finally
+     Screen.Cursor := crDefault;
+  end;
+end;
+
+procedure TFMPedidos.ACondicionesClientesExecute(Sender: TObject);
+var
+  IdModelo : integer;
+  CrearCondicionModelo : boolean;
+begin
+  if ConfirmaMensaje(_('Este proceso actualizara las condiciones Cliente-Articulo de todos los articulos del documento.' + #13#10 + '¿Desea continuar?')) then
+  begin
+     // Verificamos si algun articulo pertenece a un modelo
+     CrearCondicionModelo := False;
+     IdModelo := 0;
+     with DMPedidos.QMDetalle do
+     begin
+        First;
+        while ((not EOF) and (not CrearCondicionModelo) and (IdModelo = 0)) do
+        begin
+           IdModelo := DMMain.DameIdModeloArticulo(DMPedidos.QMDetalleID_A.AsInteger);
+           if (IdModelo <= 0) then
+              IdModelo := 0;
+           CrearCondicionModelo := ((IdModelo > 0) and
+              (ConfirmaMensaje(_('Desea tambien generar condiciones para todos los articulos que pertenecen a modelos de estos articulos?'))));
+           Next;
+        end;
+     end;
+
+     Screen.Cursor := crHourGlass;
+     try
+        DMPedidos.ActualizaCondicionesCli(CrearCondicionModelo);
+     finally
+        Screen.Cursor := crDefault;
+     end;
+  end;
+end;
+
+procedure TFMPedidos.ARefrescaDetalleExecute(Sender: TObject);
+begin
+  if Confirma then
+     DMPedidos.RefrescaDetalle;
+end;
+
+procedure TFMPedidos.AHerenciaExecute(Sender: TObject);
+var
+  rig, ejercicio : integer;
+  tipo, su_referencia, titulo, serie : string;
+begin
+  DMPedidos.DatosHerencia(rig, ejercicio, tipo, su_referencia, titulo, serie);
+  MuestraHerencia(rig, ejercicio, tipo, su_referencia, titulo, serie, Self);
+end;
+
+procedure TFMPedidos.APasoaPedProvExecute(Sender: TObject);
+begin
+  if EstructuraCreada then
+     if PDetalle.Enabled then
+        TFMPasaAPedidoProv.Create(Self).ShowModal;
+end;
+
+procedure TFMPedidos.APasoaPedProvAutomaticoExecute(Sender: TObject);
+begin
+  inherited;
+  DMMain.LogIni('APasoaPedProvAutomaticoExecute');
+  if EstructuraCreada then
+     if PDetalle.Enabled then
+        with TFMPasaAPedidoProv.Create(Self) do
+        begin
+           DMMain.LogIni('TFMPasaAPedidoProv.TButtDesglosaOrden');
+           TButtDesglosaOrden.Click;
+           DMMain.LogFin('');
+
+           DMMain.LogIni('TButtTraspasa 1-Propuesta / 2-Pedido.Click  (' +
+              LeeParametro('PECTRAS001', EFSerie.Text) + ')');
+           // Valores 0/1/2. Con 0 accion invisible, 1 genera propuesta, 2 genera pedido.
+           if (LeeParametro('PECTRAS001', EFSerie.Text) = '1') then
+              TButtTraspasaPropuesta.Click
+           else
+              TButtTraspasaPedido.Click;
+           DMMain.LogFin('');
+
+           Close;
+        end;
+  DMMain.LogFin('');
+end;
+
+procedure TFMPedidos.EFClienteExiste(Sender: TObject);
+begin
+  if (not DMMain.ClienteValido(StrToIntDef(EFCliente.Text, 0))) then
+     EFCliente.Text := ''
+  else
+  begin
+     DBEFContacto.CondicionBusqueda := 'TERCERO=' + DMPedidos.xCliente.FieldByName('TERCERO').AsString;
+     DBEFContacto.OrdenadoPor.Text := 'CONTACTO';
+     LTelefono.Caption := DMMain.DameTelefonoTercero(DMPedidos.QMCabeceraTERCERO.AsInteger);
+  end;
+end;
+
+procedure TFMPedidos.FormShow(Sender: TObject);
+begin
+  inherited;
+
+  HabilitaBotones;
+
+  // Forzamos un primer refresco para que el navegador cambie si el usuario tiene documentos restringidos.
+  NavMainClickAfterAdjust(Sender, nbRefresh);
+  PNLDirRecogida.Width := TSDirManual.Width div 2;
+
+  EstableceVisibilidadCamposDetalle;
+  DMPedidos.FormCreado := True;
+  LimitaSegunPais;
+end;
+
+procedure TFMPedidos.DBGFDetalleCellClick(Column: TColumn);
+begin
+  ColActual := Column;
+end;
+
+procedure TFMPedidos.DBGFDetalleDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: integer; Column: TColumn; State: TGridDrawState);
+var
+  AgrupaColorKri : boolean;
+begin
+  if ((UpperCase(Column.FieldName) = 'ID_ORDEN') or (UpperCase(Column.FieldName) = 'ID_ESC') or
+     (UpperCase(Column.FieldName) = 'ID_ESC_2') or
+     (UpperCase(Column.FieldName) = 'ID_MEDIDA') or (UpperCase(Column.FieldName) = 'ARTICULO') or
+     (UpperCase(Column.FieldName) = 'AGENTE')) then
+     CeldaEnlace(TDBGridFind2000(Sender), Rect);
+
+  with TDBGridFind2000(Sender) do
+  begin
+     if DMPedidos.HayDetalle then
+     begin
+        if (gdFocused in State) then //If the cell has the focus
+           ColorFocused(Canvas)
+        else
+        begin
+           if (UpperCase(Column.FieldName) = 'UNIDADES') then
+           begin
+              if (DMPedidos.QMDetalleTIPO_UNIDAD_LOGISTICA.AsString <> 'GRNL') and
+                 (DMPedidos.QMDetalleRELACIONAR_U_LOGISTICA.AsInteger = 1) and
+                 (DMPedidos.QMDetalleUNIDADES_LOGISTICAS.AsFloat * DMPedidos.QMDetalleU_POR_U_LOGISTICA.AsFloat <> DMPedidos.QMDetalleUNIDADES.AsFloat) then
+                 ColorResaltado3(Canvas)
+              else
+                 ColorEdicion(Canvas);
+           end
+           else
+           if (UpperCase(Column.FieldName) = 'MARGEN') then
+           begin
+              if (MargenMinimo >= 0) then
+                 if (MargenMinimo > DMPedidos.QMDetalleMARGEN.AsFloat) then
+                    ColorError(Canvas)
+                 else
+                    ColorInfo(Canvas);
+           end
+           else
+           if (UpperCase(Column.FieldName) = 'TIPO_IVA') or (UpperCase(Column.FieldName) = 'P_IVA') then
+           begin
+              if (DMPedidos.QMDetalleTIPO_IVA.AsInteger <> DMPedidos.QMDetalleTIPO_IVA_ART.AsInteger) then
+                 ColorResaltado3(Canvas);
+           end
+           else
+           if (UpperCase(Column.FieldName) = 'STOCK_ALM') then
+           begin
+              if (DMPedidos.QMDetalleCONTROL_STOCK.AsInteger = 0) then
+                 ColorInactivo(Canvas)
+              else
+              if (DMPedidos.QMDetalleSTOCK_ALM.AsFloat > 0) then
+                 ColorResaltado2(Canvas)
+              else
+                 ColorError(Canvas);
+           end
+           else
+           if (UpperCase(Column.FieldName) = 'STOCK_ALM2') then
+           begin
+              if (DMPedidos.QMDetalleCONTROL_STOCK.AsInteger = 0) then
+                 ColorInactivo(Canvas)
+              else
+              if (DMPedidos.QMDetalleSTOCK_ALM2.AsFloat > 0) then
+                 ColorResaltado2(Canvas)
+              else
+                 ColorError(Canvas);
+           end
+           else
+           if (UpperCase(Column.FieldName) = 'STOCK_ALM3') then
+           begin
+              if (DMPedidos.QMDetalleCONTROL_STOCK.AsInteger = 0) then
+                 ColorInactivo(Canvas)
+              else
+              if (DMPedidos.QMDetalleSTOCK_ALM3.AsFloat > 0) then
+                 ColorResaltado2(Canvas)
+              else
+                 ColorError(Canvas);
+           end
+           else
+           if (UpperCase(Column.FieldName) = 'STOCKV_ALM') then
+           begin
+              if (DMPedidos.QMDetalleCONTROL_STOCK.AsInteger = 0) then
+                 ColorInactivo(Canvas)
+              else
+              if (DMPedidos.QMDetalleSTOCKV_ALM.AsFloat > 0) then
+                 ColorResaltado2(Canvas)
+              else
+                 ColorError(Canvas);
+           end
+           else
+           if (UpperCase(Column.FieldName) = 'STOCKV_ALM2') then
+           begin
+              if (DMPedidos.QMDetalleCONTROL_STOCK.AsInteger = 0) then
+                 ColorInactivo(Canvas)
+              else
+              if (DMPedidos.QMDetalleSTOCKV_ALM2.AsFloat > 0) then
+                 ColorResaltado2(Canvas)
+              else
+                 ColorError(Canvas);
+           end
+           else
+           if (UpperCase(Column.FieldName) = 'STOCKV_ALM3') then
+           begin
+              if (DMPedidos.QMDetalleCONTROL_STOCK.AsInteger = 0) then
+                 ColorInactivo(Canvas)
+              else
+              if (DMPedidos.QMDetalleSTOCKV_ALM3.AsFloat > 0) then
+                 ColorResaltado2(Canvas)
+              else
+                 ColorError(Canvas);
+           end
+           else
+           if (UpperCase(Column.FieldName) = 'STOCKR_ALM') then
+           begin
+              if (DMPedidos.QMDetalleCONTROL_STOCK.AsInteger = 0) then
+                 ColorInactivo(Canvas)
+              else
+              if (DMPedidos.QMDetalleSTOCKR_ALM.AsFloat > 0) then
+                 ColorResaltado2(Canvas)
+              else
+                 ColorError(Canvas);
+           end
+           else
+           if (UpperCase(Column.FieldName) = 'STOCKR_ALM2') then
+           begin
+              if (DMPedidos.QMDetalleCONTROL_STOCK.AsInteger = 0) then
+                 ColorInactivo(Canvas)
+              else
+              if (DMPedidos.QMDetalleSTOCKR_ALM2.AsFloat > 0) then
+                 ColorResaltado2(Canvas)
+              else
+                 ColorError(Canvas);
+           end
+           else
+           if (UpperCase(Column.FieldName) = 'STOCKR_ALM3') then
+           begin
+              if (DMPedidos.QMDetalleCONTROL_STOCK.AsInteger = 0) then
+                 ColorInactivo(Canvas)
+              else
+              if (DMPedidos.QMDetalleSTOCKR_ALM3.AsFloat > 0) then
+                 ColorResaltado2(Canvas)
+              else
+                 ColorError(Canvas);
+           end
+           else
+           if (UpperCase(Column.FieldName) = 'STOCKM_ALM') then
+           begin
+              if (DMPedidos.QMDetalleCONTROL_STOCK.AsInteger = 0) then
+                 ColorInactivo(Canvas)
+              else
+              if (DMPedidos.QMDetalleSTOCKM_ALM.AsFloat > 0) then
+                 ColorResaltado2(Canvas)
+              else
+                 ColorError(Canvas);
+           end
+           else
+           if (UpperCase(Column.FieldName) = 'STOCKM_ALM2') then
+           begin
+              if (DMPedidos.QMDetalleCONTROL_STOCK.AsInteger = 0) then
+                 ColorInactivo(Canvas)
+              else
+              if (DMPedidos.QMDetalleSTOCKM_ALM2.AsFloat > 0) then
+                 ColorResaltado2(Canvas)
+              else
+                 ColorError(Canvas);
+           end
+           else
+           if (UpperCase(Column.FieldName) = 'STOCKM_ALM3') then
+           begin
+              if (DMPedidos.QMDetalleCONTROL_STOCK.AsInteger = 0) then
+                 ColorInactivo(Canvas)
+              else
+              if (DMPedidos.QMDetalleSTOCKM_ALM3.AsFloat > 0) then
+                 ColorResaltado2(Canvas)
+              else
+                 ColorError(Canvas);
+           end
+           else
+           if (UpperCase(Column.FieldName) = 'STOCK') then
+           begin
+              if (DMPedidos.QMDetalleCONTROL_STOCK.AsInteger = 0) then
+                 ColorInactivo(Canvas)
+              else
+              if (DMPedidos.QMDetalleSTOCK.AsFloat > 0) then
+                 ColorResaltado2(Canvas)
+              else
+                 ColorError(Canvas);
+           end
+           else
+           if (UpperCase(Column.FieldName) = 'STOCK_VIRTUAL') then
+           begin
+              if (DMPedidos.QMDetalleCONTROL_STOCK.AsInteger = 0) then
+                 ColorInactivo(Canvas)
+              else
+                 ColorResaltado5(Canvas);
+           end
+           else
+           if (UpperCase(Column.FieldName) = 'STOCK_REAL') then
+           begin
+              if (DMPedidos.QMDetalleCONTROL_STOCK.AsInteger = 0) then
+                 ColorInactivo(Canvas)
+              else
+                 ColorResaltado5(Canvas);
+           end
+           else
+           if (UpperCase(Column.FieldName) = 'STOCK_MONTURAS') then
+           begin
+              if (DMPedidos.QMDetalleCONTROL_STOCK.AsInteger = 0) then
+                 ColorInactivo(Canvas)
+              else
+              if (DMPedidos.QMDetalleSTOCK_MONTURAS.AsFloat >= 0) then
+                 ColorInfo(Canvas)
+              else
+                 ColorError(Canvas);
+           end
+           else
+           if (UpperCase(Column.FieldName) = 'STOCK_REF_BASE') then
+           begin
+              if (DMPedidos.QMDetalleCONTROL_STOCK.AsInteger = 0) then
+                 ColorInactivo(Canvas)
+              else
+              if (DMPedidos.QMDetalleSTOCK_REF_BASE.AsFloat >= 0) then
+                 ColorInfo(Canvas)
+              else
+                 ColorError(Canvas);
+           end
+           else
+           if (UpperCase(Column.FieldName) = 'LOTE_SIMPLE') then
+           begin
+              if (DMPedidos.QMDetalleREQUIERE_LOTE_SIMPLE.AsInteger = 1) and (Trim(DMPedidos.QMDetalleLOTE_SIMPLE.AsString) = '') then
+                 ColorError(Canvas)
+              else
+                 ColorEdicion(Canvas);
+           end
+           else
+           if (UpperCase(Column.FieldName) = 'ARTICULO') then
+           begin
+              if (KriConf211) then
+              begin
+                 with THYFIBQuery.Create(nil) do
+                 begin
+                    try
+                       Close;
+                       DataBase := DMMain.DataBase;
+                       SQL.Text := 'SELECT EMPRESA FROM EMP_AGRUPACIONES_ART WHERE EMPRESA=' +
+                          REntorno.EmpresaStr + ' AND ARTICULO=''' + DMPedidos.QMDetalleARTICULO.AsString + ''' AND AGRUPACION=''COL''';
+                       ExecQuery;
+                       AgrupaColorKri := FieldByName['EMPRESA'].AsInteger <> 0;
+                       FreeHandle;
+                    finally
+                       Free;
+                    end;
+                 end;
+
+                 if (AgrupaColorKri) then
+                    ColorResaltado5(Canvas)
+                 else
+                    ColorEdicion(Canvas);
+              end; {KriConf211}
+           end
+           else
+           if (UpperCase(Column.FieldName) = 'UE_MEDIDA1') then
+           begin
+              if (DMPedidos.QMDetalleUE_UNIDADES.AsInteger < 1) then
+                 ColorInactivoInvisible(Canvas)
+              else
+                 ColorInfo(Canvas);
+           end
+           else
+           if (UpperCase(Column.FieldName) = 'UE_MEDIDA2') then
+           begin
+              if (DMPedidos.QMDetalleUE_UNIDADES.AsInteger < 2) then
+                 ColorInactivoInvisible(Canvas)
+              else
+                 ColorInfo(Canvas);
+           end
+           else
+           if (UpperCase(Column.FieldName) = 'UE_MEDIDA3') then
+           begin
+              if (DMPedidos.QMDetalleUE_UNIDADES.AsInteger < 3) then
+                 ColorInactivoInvisible(Canvas)
+              else
+                 ColorInfo(Canvas);
+           end
+           else
+           if (UpperCase(Column.FieldName) = 'UE_MEDIDA4') then
+           begin
+              if (DMPedidos.QMDetalleUE_UNIDADES.AsInteger < 4) then
+                 ColorInactivoInvisible(Canvas)
+              else
+                 ColorInfo(Canvas);
+           end;
+        end;
+     end; {HayDetalle}
+
+     DefaultDrawColumnCell(Rect, DataCol, Column, State);
+  end;
+end;
+
+procedure TFMPedidos.NavNotasBeforeAction(Sender: TObject; Button: TNavigateBtn);
+begin
+  if ((Button = nbCancel) and (NavNotas.CanFocus)) then
+     NavNotas.SetFocus;
+
+  {Para que se pueda poner simbolo Euros en las notas}
+  if Button = nbEdit then
+     AUnidadesExt.ShortCut := 0;
+  if Button = nbPost then
+     AUnidadesExt.ShortCut := TextToShortCut('Ctrl+Alt+E');
+end;
+
+procedure TFMPedidos.NavMainBeforeAction(Sender: TObject; Button: TNavigateBtn);
+begin
+  if (Button = nbDelete) then
+     DMPedidos.ControlaRestriccion;
+
+  if (Button in [nbRefresh, nbDelete]) then
+     DMPedidos.ReiniciaStock;
+
+  Editando := (Button in [nbEdit]);
+end;
+
+procedure TFMPedidos.ACambiaTituloExecute(Sender: TObject);
+var
+  index : smallint;
+begin
+  if (TButtCambiaDescripcion.Tag = 0) then
+  begin
+     index := EncuentraField(DBGFDetalle, 'TITULO');
+     try
+        if (index >= 0) then
+        begin
+           DBGFDetalle.Columns.Items[index].FieldName := 'TITULO_IDIOMA';
+           DBGFDetalle.Columns.Items[index].Color := $00D6D6D6;
+           DBGFDetalle.Columns.Items[index].Title.Caption := _('Desc. Artículo');
+           // Ponemos el boton para mostrar titulos predeterminado
+           ACambiaTitulo.Hint := _('Mostrar títulos predeterminado');
+           TButtCambiaDescripcion.Tag := 1;
+        end;
+     except
+        ShowMessage(_('El campo Desc. Artículo/Título ha de ser visible'));
+     end;
+  end
+  else
+  begin
+     index := EncuentraField(DBGFDetalle, 'TITULO_IDIOMA');
+     try
+        if (index >= 0) then
+        begin
+           DBGFDetalle.Columns.Items[index].FieldName := 'TITULO';
+           DBGFDetalle.Columns.Items[index].Color := clWindow;
+           DBGFDetalle.Columns.Items[index].Title.Caption := _('Desc. Artículo');
+           ACambiaTitulo.Hint := _('Mostrar títulos en el idioma');
+           TButtCambiaDescripcion.Tag := 0;
+        end;
+     except
+        ShowMessage(_('El campo Desc. Artículo ha de ser visible'));
+     end;
+  end;
+  DMPedidos.QMDetalle.Refresh;
+end;
+
+procedure TFMPedidos.AAgrupaPedidosFiltradosKriExecute(Sender: TObject);
+begin
+  DMPedidos.AgrupaPedidosFiltradosKri;
+end;
+
+procedure TFMPedidos.TSEDIShow(Sender: TObject);
+begin
+  DMPedidos.QMCabeceraEDI.Close;
+  DMPedidos.QMCabeceraEDI.Open;
+  ETitEDICliente.Text := DameDireccionEDI(DBEEDICliente.Text);
+  ETitEDIAQuienSeFactura.Text := DameDireccionEDI(DBEEDIAQuienSeFactura.Text);
+  ETitEDIQuienPaga.Text := DameDireccionEDI(DBEEDIQuienPaga.Text);
+  ETitEDIQuienPide.Text := DameDireccionEDI(DBEEDIQuienPide.Text);
+  ETitEDIReceptor.Text := DameDireccionEDI(DBEEDIReceptor.Text);
+end;
+
+procedure TFMPedidos.TSEDIHide(Sender: TObject);
+begin
+  DMPedidos.QMCabeceraEDI.Close;
+end;
+
+procedure TFMPedidos.DBEEDIClienteChange(Sender: TObject);
+begin
+  if (PCMain.ActivePage = TSEDI) then
+     ETitEDICliente.Text := DameDireccionEDI(DBEEDICliente.Text);
+end;
+
+procedure TFMPedidos.DBEEDIAQuienSeFacturaChange(Sender: TObject);
+begin
+  if (PCMain.ActivePage = TSEDI) then
+     ETitEDIAQuienSeFactura.Text := DameDireccionEDI(DBEEDIAQuienSeFactura.Text);
+end;
+
+procedure TFMPedidos.DBEEDIQuienPagaChange(Sender: TObject);
+begin
+  if (PCMain.ActivePage = TSEDI) then
+     ETitEDIQuienPaga.Text := DameDireccionEDI(DBEEDIQuienPaga.Text);
+end;
+
+procedure TFMPedidos.DBEEDIQuienPideChange(Sender: TObject);
+begin
+  if (PCMain.ActivePage = TSEDI) then
+     ETitEDIQuienPide.Text := DameDireccionEDI(DBEEDIQuienPide.Text);
+end;
+
+procedure TFMPedidos.DBEEDIReceptorChange(Sender: TObject);
+begin
+  if (PCMain.ActivePage = TSEDI) then
+     ETitEDIReceptor.Text := DameDireccionEDI(DBEEDIReceptor.Text);
+end;
+
+procedure TFMPedidos.AEnviarPedidoMailPDFExecute(Sender: TObject);
+var
+  Asunto : string;
+  DMLstPedidosCargado, DMListadosCargado, Enviado : boolean;
+  CuerpoMail : TStrings;
+begin
+  // esto es porque el assigned no va
+  DMLstPedidosCargado := False;
+  DMListadosCargado := False;
+  Enviado := False;
+
+  FSendCorreo := TFSendCorreo.Create(Self);
+  try
+     FSendCorreo.Titulo(_('Enviando el pedido por e-mail ...'));
+     FSendCorreo.Show;
+     FSendCorreo.Texto(_('Preparando listado ...'));
+
+     try
+        begin
+           AbreData(TDMLstPedidos, DMLstPedidos);
+           DMLstPedidosCargado := True;
+
+           DMLstPedidos.MostrarListadoMail(DMPedidos.QMCabeceraID_S.AsInteger, DMPedidos.QMCabeceraSERIE.AsString,
+              2, DMPedidos.QMCabeceraEJERCICIO.AsInteger, (LeeParametro('PECLSTM001') = 'S'));
+           AbreData(TDMListados, DMListados);
+           DMListadosCargado := True;
+
+           FSendCorreo.Texto(_('Enviando Mensaje  ...'));
+
+           InicializaVariableEmail(DMPedidos.QMCabeceraTIPO.AsString);
+           with VariableEmail do
+           begin
+              Ejercicio := DMPedidos.QMCabeceraEJERCICIO.AsInteger;
+              Serie := DMPedidos.QMCabeceraSERIE.AsString;
+              NumeroDocumento := DMPedidos.QMCabeceraRIG.AsInteger;
+              Fecha := DMPedidos.QMCabeceraFECHA.AsDateTime;
+              SuReferencia := DMPedidos.QMCabeceraSU_REFERENCIA.AsString;
+              SuPedido := DMPedidos.QMCabeceraPEDIDO_CLIENTE.AsString;
+              Folio := '';
+              TituloDocTributario := '';
+              NombreFichero := DMLstPedidos.nombreFich;
+              Matricula := DMMain.DameMatriculaFichaTecnica(DMPedidos.QMCabeceraID_FICHA_TECNICA.AsInteger);
+              if (DMPedidos.QMCabeceraCLIENTE.AsInteger > 0) then
+              begin
+                 NombreComercial := DMPedidos.QMCabeceraNOMBRE_COMERCIAL.AsString;
+                 RazonSocial := DMPedidos.QMCabeceraTITULO.AsString;
+              end
+              else
+              begin
+                 // El campo TITULO se rellena con el nombre asignado al Tercero Vario
+                 NombreComercial := DMPedidos.QMCabeceraTITULO.AsString;
+                 RazonSocial := DMPedidos.QMCabeceraTITULO.AsString;
+              end;
+              OrdenTrabajo := 0;
+              UsuarioCreadorDocumento := DameTituloUsuario(DameUsuarioSegunEntrada(DMPedidos.QMCabeceraENTRADA.AsInteger));
+           end;
+           DamePartesEmail(Asunto, CuerpoMail);
+           try
+              DMListados.SendMailClientePDF(DMPedidos.QMCabeceraCLIENTE.AsInteger, CuerpoMail, DMLstPedidos.rutaFich,
+                 DMLstPedidos.nombreFich, Asunto, DMPedidos.QMCabeceraTIPO.AsString,
+                 DMPedidos.QMCabeceraID_S.AsInteger, not DMPedidos.EnviarConfirmacionAuto, DMMain.DameCorreoCopiaAgente(DMPedidos.QMCabeceraAGENTE.AsInteger, 'PEC'));
+           finally
+              CuerpoMail.Free;
+           end;
+
+           // Marco el documento como listado
+           DMLstPedidos.UpdateaDocumentos;
+
+           CierraData(DMLstPedidos);
+           DMLstPedidosCargado := False;
+           CierraData(DMListados);
+           DMListadosCargado := False;
+           Enviado := True;
+           FSendCorreo.Texto(_('Mensaje enviado con éxito ...'));
+        end;
+     except
+        on E: Exception do
+        begin
+           Application.ProcessMessages;
+           with FSendCorreo do
+           begin
+              LTexto.AutoSize := True;
+              LTexto.Font.Size := 10;
+              Texto(_('ERROR!! Error en el envío.') + #13#10 + E.Message);
+              BitBtnOk.Top := ClientHeight - BitBtnOk.Height - 4;
+              if (LTexto.Width > ClientWidth) then
+              begin
+                 Width := LTexto.Width + 30;
+                 BitBtnOk.Left := (ClientWidth div 2) + (BitBtnOk.Width div 2);
+              end;
+           end;
+
+           // Liberamos objetos creados
+           if DMLstPedidosCargado then
+              CierraData(DMLstPedidos);
+           if DMListadosCargado then
+              CierraData(DMListados);
+        end;
+     end;
+
+     // Si el envío fue automático y correcto, se cierra sin esperar al usuario
+     if not (DMPedidos.EnviarConfirmacionAuto and Enviado) then
+     begin
+        FSendCorreo.BitBtnOk.Visible := True;
+        Application.ProcessMessages;
+        FSendCorreo.Visible := False;
+        FSendCorreo.SePuede := True;
+        FSendCorreo.ShowModal;
+     end;
+  finally
+     FreeAndNil(FSendCorreo);
+  end;
+end;
+
+procedure TraspasoAPedido(Serie: string; id_s: integer);
+begin
+  FMain.EjecutaAccion(FMain.APedidos);
+  FMPedidos.EFSerie.Text := Serie;
+  FMain.TraspasodeDocumentosSalida(id_s);
+end;
+
+procedure TFMPedidos.ANIFPedidoExecute(Sender: TObject);
+var
+  FPregDatos : TFPregNIFFACTURA;
+begin
+  DMPedidos.AbreQMNif;
+  if DMPedidos.DameDatosClientes then
+  begin
+     FPregDatos := TFPregNIFFACTURA.Create(Self);
+     FPregDatos.Inicializa(DMPedidos.DSQMNIF, _('Datos del Cliente'),
+        DMPedidos.EstadoDocumento);
+     DMPedidos.GrabaDatosCliente(FPregDatos.ShowModal);
+     FreeAndNil(FPregDatos);
+  end;
+
+  DMPedidos.CierraQMNif;
+  DMPedidos.RefrescaCabecera(1);
+end;
+
+procedure TFMPedidos.AOrdenaLineasExecute(Sender: TObject);
+begin
+  DMPedidos.OrdenarLineas;
+end;
+
+procedure TFMPedidos.APecMultiExecute(Sender: TObject);
+var
+  Accion : integer;
+begin
+  FMTraspasoMultiCanal := TFMTraspasoMultiCanal.Create(Self);
+  Accion := FMTraspasoMultiCanal.Carga(DMPedidos.QMCabeceraID_S.AsInteger, DMPedidos.QMCabeceraRIG.AsInteger,
+     DMPedidos.QMCabeceraEJERCICIO.AsInteger, DMPedidos.QMCabeceraCANAL.AsInteger, 0,
+     DMPedidos.QMCabeceraTIPO.AsString,
+     DMPedidos.QMCabeceraSERIE.AsString);
+  FreeAndNil(FMTraspasoMultiCanal);
+  DMPedidos.RefrescaCabecera(Accion);
+end;
+
+procedure TFMPedidos.DBCHKCambioChange(Sender: TObject);
+begin
+  DBEValorCambio.Enabled := DBCHKCambio.Checked;
+  DBEValorCambio.ReadOnly := not DBCHKCambio.Checked;
+  if (DBCHKCambio.Checked) then
+     ColorEdicion(DBEValorCambio)
+  else
+  begin
+     ColorInfo(DBEValorCambio);
+     DBEValorCambio.Text := FormatFloat(DMMain.MascaraMoneda(DMPedidos.QMCabeceraMONEDA.AsString, 1), 0);
+  end;
+end;
+
+procedure TFMPedidos.AGenerarPackingListExecute(Sender: TObject);
+begin
+  DMPedidos.GenerarPackingList;
+
+  FMPackingList := TFMPackingList.Create(Self);
+  with FMPackingList do
+     try
+        AbrirDatos(DMPedidos.QMCabeceraTIPO.AsString, DMPedidos.QMCabeceraID_S.AsInteger);
+        Hide;
+        ShowModal;
+     finally
+        Free;
+     end;
+end;
+
+procedure TFMPedidos.FiltraDocumento(FiltroAccion: string);
+begin
+  FMPedidos.TSTabla.Show;
+  DMPedidos.FiltraDocumento(EFSerie.Text, FiltroAccion);
+  RefrescaAvisos;
+end;
+
+procedure TFMPedidos.AImportaPedidosEDIExecute(Sender: TObject);
+var
+  empresa : integer;
+  ejercicio : integer;
+  canal : integer;
+  serie : string;
+  tipo : string;
+  rig : integer;
+begin
+  AbreData(TDMImportaPedidoEDI, DMImportaPedidoEDI);
+  with DMPedidos do
+  begin
+     empresa := QMCabeceraEMPRESA.AsInteger;
+     ejercicio := QMCabeceraEJERCICIO.AsInteger;
+     canal := QMCabeceraCANAL.AsInteger;
+     serie := QMCabeceraSERIE.AsString;
+     tipo := QMCabeceraTIPO.AsString;
+     rig := QMCabeceraRIG.AsInteger;
+  end;
+  DMImportaPedidoEDI.Importa(empresa, ejercicio, canal, serie, tipo, rig);
+  CierraData(DMImportaPedidoEDI);
+end;
+
+procedure TFMPedidos.ADescargaLectorExecute(Sender: TObject);
+var
+  Archivo : TextFile;
+  DirOri, s : string;
+  ArticuloLeido : string;
+  Articulo : string;
+  Cantidad : integer;
+  i, j, k : integer;
+  //fecha : TDateTime;
+  ArchivoLog : TextFile;
+  FechaLog : string;
+begin
+  DirOri := REntorno.DirectorioLector;
+
+  FechaLog := FormatDateTime('yymmdd_hhnnss', Now);
+  AssignFile(ArchivoLog, DirOri + 'Pedido' + '_' + FechaLog + '.log');
+  try
+     Rewrite(ArchivoLog);
+     WriteLn(ArchivoLog, 'Pedido de Cliente ' + EFSerie.Text + '/' + DBERig.Text);
+     WriteLn(ArchivoLog, 'Estado ' + DBETituloEstado.Text);
+     WriteLn(ArchivoLog, 'Lineas ' + IntToStr(DMPedidos.QMDetalle.RecordCount));
+     WriteLn(ArchivoLog, '--------------------------------------------------');
+
+     AssignFile(Archivo, DirOri + 'Pedido.txt');
+     Reset(Archivo);
+     try
+        while (not EOF(Archivo)) do
+        begin
+           Articulo := '';
+           ReadLn(Archivo, s);
+           i := Pos(',', S);
+           j := Pos(',', Copy(s, i + 1, Length(s)));
+           k := Pos(',', Copy(s, i + j + 1, Length(s)));
+
+           //fecha := StrToDateTime(copy(s, 1, i - 1) + ' ' + Copy(s, i + 1, j - 1));
+           ArticuloLeido := Copy(s, j + i + 1, k - 1);
+           Cantidad := StrToIntDef(Copy(s, j + i + k + 1, Length(s)), 0);
+
+           {Primero veo si el articulo leido es un codigo de barras}
+           Articulo := DameArticuloBarras(ArticuloLeido);
+           {Si no es un codigo de barras veo si existe (pido su titulo)}
+           if (Articulo = '') then
+           begin
+              if (DameTituloArticulo(ArticuloLeido) > '') then
+                 Articulo := ArticuloLeido
+              else
+                 Articulo := '';
+           end;
+
+           {Si encuentro el articulo}
+           if (Articulo > ' ') then
+           begin
+              WriteLn(ArchivoLog, 'Encontrado ' + Articulo + ', se agregan ' + IntToStr(Cantidad) + ' unidades.');
+              try
+                 DMPedidos.QMDetalle.Insert;
+                 DBGFDetalle.FindColumn('ARTICULO').Field.AsString := Articulo;
+                 DBGFDetalle.FindColumn('UNIDADES').Field.AsInteger := Cantidad;
+                 DMPedidos.QMDetalle.Post;
+              except
+                 on e: Exception do
+                 begin
+                    DMPedidos.QMDetalle.Cancel;
+                    ShowMessage(Format(_('Error insertando articulo %s x %d'), [Articulo, Cantidad]) +
+                       #13#10 + E.Message);
+                    WriteLn(ArchivoLog, 'Error insertando articulo ' + Articulo + ' x ' +
+                       IntToStr(Cantidad) + #13#10 + E.Message);
+                 end;
+              end;
+           end
+           else
+           begin
+              WriteLn(ArchivoLog, _('No Existe el articulo') + ' ' + Articulo + ' x ' +
+                 IntToStr(Cantidad) + ' unidades. Articulo Leido: ' + ArticuloLeido);
+              ShowMessage(Format(_('No encuentro el articulo leido: %s x %d'), [ArticuloLeido, Cantidad]) +
+                 #13#10 + _('Deberá agregarlo luego'));
+           end;
+        end;
+     finally
+        CloseFile(Archivo);
+     end;
+  finally
+     CloseFile(ArchivoLog);
+  end;
+  CopyFileTo(DirOri + 'Pedido.txt', DirOri + 'Pedido' + '_' + FechaLog + '.txt');
+  try
+     Rewrite(Archivo);
+  finally
+     CloseFile(Archivo);
+  end;
+end;
+
+procedure TFMPedidos.ALstCodigoBarrasExecute(Sender: TObject);
+begin
+  AbreData(TDMLstCBDocs, DMLstCBDocs);
+  DMLstCBDocs.Eti_Vacias := TFPregEtiVacias.Create(Self).Muestra;
+  DMLstCBDocs.MostrarListadoCB(DMPedidos.QMCabeceraEMPRESA.AsInteger,
+     DMPedidos.QMCabeceraEJERCICIO.AsInteger,
+     DMPedidos.QMCabeceraCANAL.AsInteger,
+     DMPedidos.QMCabeceraRIG.AsInteger,
+     DMPedidos.QMCabeceraSERIE.AsString,
+     DMPedidos.QMCabeceraTIPO.AsString, 0);
+  CierraData(DMLstCBDocs);
+end;
+
+procedure TFMPedidos.DBEFOperarioKriChange(Sender: TObject);
+begin
+  EOperarioKri.Text := DameTituloUsuario(StrToIntDef(DBEFOperarioKri.Text, 0));
+end;
+
+procedure TFMPedidos.ADivisionesExecute(Sender: TObject);
+begin
+  {Divisiones IberFluid}
+  if (DMMain.EstadoKri(155) = 1) then
+     DMPedidos.PideDivisiones(False);
+end;
+
+procedure TFMPedidos.DBDTPFechaExit(Sender: TObject);
+begin
+  {Version demo}
+  DBDTPFecha.Date := DMMain.ValidaVersionDemoKri(DBDTPFecha.Date);
+end;
+
+procedure TFMPedidos.DBDTPFechaEntregaExit(Sender: TObject);
+begin
+  {Version demo}
+  DBDTPFechaEntrega.Date := DMMain.ValidaVersionDemoKri(DBDTPFechaEntrega.Date);
+end;
+
+procedure TFMPedidos.DBGMainCellClick(Column: TColumn);
+begin
+  RefrescaAvisos;
+end;
+
+procedure TFMPedidos.DBGMainKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
+begin
+  RefrescaAvisos;
+end;
+
+procedure TFMPedidos.NavDetalleChangeState(Sender: TObject);
+begin
+  HabilitaBotonesDetalle;
+
+  DBGFDetalle.ColumnaInicial := EncuentraField(DBGFDetalle, 'ARTICULO');
+end;
+
+{Se define en UUtiles
+function TFMPedidos.EncuentraField(Grid: TDBGridFind2000; Titulo: String): Smallint;
+var
+  i: Integer;
+  encontrado: Boolean;
+begin
+  i          := 0;
+  encontrado := False;
+  with Grid do
+  begin
+    while ((i <= Columns.Count - 1) and (not encontrado)) do
+    begin
+      if (Columns[i].FieldName = Titulo) then
+      begin
+        Result     := i;
+        encontrado := True;
+      end
+      else
+        inc(i);
+    end;
+  end;
+end;
+}
+procedure TFMPedidos.EFProyectoBusqueda(Sender: TObject);
+begin
+  EFProyecto.CondicionBusqueda :=
+     '(CLIENTE_NULL=' + EFCliente.Text + ' or CLIENTE_NULL=-1 or CLIENTE_NULL is null) and ' +
+     '(AGENTE_NULL = ' + EFAgente.Text + ' or AGENTE_NULL is null) and ' +
+     '(CANAL_NULL = ' + IntToStr(REntorno.Canal) + ' or CANAL_NULL is null)';
+end;
+
+procedure TFMPedidos.ABuscarArticulosExecute(Sender: TObject);
+var
+  Articulo : string;
+begin
+  Articulo := '';
+  // Si esta filtrado, quito el filtro
+  if (BuscarArticulos) then
+     Articulo := ''
+  else
+  begin
+     // Si NO esta filtrado, pido el articulo
+     if not PideDato('ART', Articulo, 'Articulo', 'FAMILIA <> ''' + REntorno.FamSistema + '''') then
+        // Si ha cancelado, borro contenido de variable
+        Articulo := '';
+  end;
+
+  DMPedidos.BuscaArticulo(Articulo);
+
+  BuscarArticulos := (Articulo <> '');
+  TButtBuscarArticulo.Down := BuscarArticulos;
+
+  //HabilitaBotones;
+end;
+
+procedure TFMPedidos.ABuscarOrdenDeProduccionExecute(Sender: TObject);
+var
+  IdOrden : integer;
+begin
+  IdOrden := 0;
+  if (not BuscarOrdenProduccion) then
+  begin
+     with TFMBusquedaOrden.Create(Self) do
+        try
+           IdOrden := DMPedidos.QMDetalleID_ORDEN.AsInteger;
+        finally
+           Free;
+        end;
+  end;
+
+  DMPedidos.BuscaOrden(IdOrden);
+
+  BuscarOrdenProduccion := (IdOrden <> 0);
+  TButtBuscarOrden.Down := BuscarOrdenProduccion;
+
+  //HabilitaBotones;
+end;
+
+procedure TFMPedidos.ABuscarLoteSimpleExecute(Sender: TObject);
+var
+  LoteSimple : string;
+begin
+  // DMMain.Log('TFMPedidos.ABuscarLoteSimpleExecute');
+  inherited;
+  LoteSimple := '';
+  if (not BuscarLoteSimple) then
+     PideDato('LOS', LoteSimple, 'Lote Simple', 'TIPO=''' + DMPedidos.QMCabeceraTIPO.AsString + '''');
+
+  DMPedidos.BuscaLoteSimple(LoteSimple);
+
+  BuscarLoteSimple := (LoteSimple <> '');
+  TButtBuscarLoteSimple.Down := BuscarLoteSimple;
+
+  //HabilitaBotones;
+end;
+
+procedure TFMPedidos.FiltraClienteKri(Ejercicio: integer; Serie: string; Cliente, Estado: integer);
+begin
+  EFSerie.Text := Serie;
+  DMPedidos.FiltraClienteKri(Ejercicio, Serie, Cliente, Estado);
+  RefrescaAvisos;
+end;
+
+procedure TFMPedidos.ASubirLineaExecute(Sender: TObject);
+begin
+  ABajarLinea.Enabled := False;
+  DMPedidos.MoverLinea(-1);
+  ABajarLinea.Enabled := True;
+end;
+
+procedure TFMPedidos.ABajarLineaExecute(Sender: TObject);
+begin
+  ASubirLinea.Enabled := False;
+  DMPedidos.MoverLinea(1);
+  ASubirLinea.Enabled := True;
+end;
+
+procedure TFMPedidos.DBGFDetalleKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
+begin
+  inherited;
+  if Param_ARTBUSQ004 and (TDBGridFind2000(Sender).ColumnaActual = 'ARTICULO') then
+  begin
+     if (Key = VK_F3) then
+     begin
+        if PideArticulo(DBGDetalleArticulo, True, False) then
+        begin
+           DMPedidos.QMDetalle.Edit;
+           DMPedidos.QMDetalleARTICULO.AsString := DBGDetalleArticulo;
+        end;
+        Key := 0;
+     end;
+  end
+  else
+  begin
+     with DMPedidos.QMDetalle do
+     begin
+        if ((Key = VK_F3) and (not (State in [dsEdit, dsInsert]))) then
+        begin
+           if RecordCount = 0 then
+              Insert
+           else
+              Edit;
+        end;
+     end;
+  end;
+
+  HabilitaBotonesDetalle;
+end;
+
+procedure TFMPedidos.DBEFTipoLineaKriChange(Sender: TObject);
+begin
+  ETipoLineaKri.Text := DameTituloTipoLinea(StrToIntDef(DBEFTipoLineaKri.Text, -1));
+end;
+
+procedure TFMPedidos.DBGFDetalleCampoDevuelve(Sender: TObject; Valor: string);
+begin
+  {
+  if (DBGFDetalle.SelectedField.FieldName = 'ARTICULO') then
+     DMPedidos.BusquedaArticulo(Valor);
+  DMPedidos.Continua;
+  }
+end;
+
+procedure TFMPedidos.BuscaClienteIberfluidKri(s: string);
+var
+  FMSeleccionCliente : TFMSeleccionClienteKRI;
+begin
+  FMSeleccionCliente := TFMSeleccionClienteKRI.Create(Self);
+
+  FMSeleccionCliente.Mostrar(s, EFCliente.Field.AsInteger, DBEFContacto.Field.AsInteger);
+
+  if (EFCliente.Field.AsInteger <> FMSeleccionCliente.Cliente) then
+     EFCliente.Field.AsInteger := FMSeleccionCliente.Cliente;
+  if (DBEFContacto.Field.AsInteger <> FMSeleccionCliente.Contacto) then
+     DBEFContacto.Field.AsInteger := FMSeleccionCliente.Contacto;
+
+  FMSeleccionCliente.Free;
+end;
+
+procedure TFMPedidos.DBEClienteKriExit(Sender: TObject);
+begin
+  {Entra en la busqueda si no SalirSiVacio}
+  if ((EFCliente.DataSource.DataSet.State = dsInsert) or (EFCliente.DataSource.DataSet.State = dsEdit)) then
+     if ((not EFCliente.SalirSiVacio) and (DBEClienteKri.Text = '')) then
+        BuscaClienteIberfluidKri('');
+  EFClienteExiste(Sender);
+end;
+
+procedure TFMPedidos.DBEClienteKriKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
+begin
+  {Entra en la busqueda si es espacio, F3 o una letra}
+  if ((Key = VK_SPACE) or (Key = VK_F3)) then
+     BuscaClienteIberfluidKri('');
+  if (((Key >= Ord('A')) and (Key <= Ord('Z')))) then
+     BuscaClienteIberfluidKri(Chr(Key));
+end;
+
+procedure TFMPedidos.ABuscaNIFKRIExecute(Sender: TObject);
+begin
+  EFBuscaNIFKRI.Text := '';
+  EFBuscaNIFKRI.CondicionBusqueda := 'tipo=''PEC'' and serie=''' + EFSerie.Text + '''';
+  EFBuscaNIFKRI.OrdenadoPor.Text := 'NOMBRE';
+  EFBuscaNIFKRI.SalirSiVacio := False;
+  EFBuscaNIFKRI.SalirSiNoExiste := False;
+  EFBuscaNIFKRI.Visible := True;
+  EFBuscaNIFKRI.SetFocus;
+  NavMain.SetFocus;
+  EFBuscaNIFKRI.SalirSiVacio := True;
+  EFBuscaNIFKRI.SalirSiNoExiste := True;
+  EFBuscaNIFKRI.Visible := False;
+end;
+
+procedure TFMPedidos.EFBuscaNIFKRIChange(Sender: TObject);
+var
+  IdDoc : integer;
+begin
+  IdDoc := StrToIntDef(EFBuscaNIFKRI.Text, 0);
+
+  if (IdDoc <> 0) then
+     DMPedidos.PosicionarID(IdDoc);
+end;
+
+procedure TFMPedidos.PCMainChange(Sender: TObject);
+begin
+  PMainMaximizado := (PCMain.ActivePage = TSNotas);
+
+  inherited;
+
+  if (PCMain.ActivePage = TSNotas) then
+     DBRENotasInternasKri.Height := (DBRENotas.Height + DBRENotasInternasKri.Height) div 2
+  else
+     DBRENotasInternasKri.Height := (DBRENotas.Height + DBRENotasInternasKri.Height) div 2;
+end;
+
+procedure TFMPedidos.DBEFContactoBusqueda(Sender: TObject);
+begin
+  DBEFContacto.CondicionBusqueda := Format('TERCERO = %d AND ((DIRECCION = 0) OR (DIRECCION = %d))',
+     [DMPedidos.xCliente.FieldByName('TERCERO').AsInteger, DMPedidos.QMCabeceraDIRECCION.AsInteger]);
+end;
+
+procedure TFMPedidos.DBRENotasEnter(Sender: TObject);
+begin
+  RichEditConFoco := TDBRichEdit(Sender);
+end;
+
+procedure TFMPedidos.DBRENotasSelectionChange(Sender: TObject);
+begin
+  try
+     FUpdating := True;
+     with TDBRichEdit(Sender) do
+     begin
+        EFontSizeNotas.Text := IntToStr(SelAttributes.Size);
+        CBFontName.Text := SelAttributes.Name;
+     end;
+  finally
+     FUpdating := False;
+  end;
+end;
+
+procedure TFMPedidos.GetFontNames;
+var
+  DC : HDC;
+begin
+  DC := GetDC(0);
+  EnumFonts(DC, nil, @EnumFontsProc, Pointer(CBFontName.Items));
+  ReleaseDC(0, DC);
+  CBFontName.Sorted := True;
+end;
+
+procedure TFMPedidos.EFontSizeNotasChange(Sender: TObject);
+begin
+  if FUpdating then
+     Exit;
+  with RichEditConFoco do
+  begin
+     if SelLength > 0 then
+        SelAttributes.Size := StrToInt(EFontSizeNotas.Text)
+     else
+        DefAttributes.Size := StrToInt(EFontSizeNotas.Text);
+  end;
+end;
+
+procedure TFMPedidos.CBFontNameChange(Sender: TObject);
+begin
+  if FUpdating then
+     Exit;
+  with RichEditConFoco do
+  begin
+     if SelLength > 0 then
+        SelAttributes.Name := CBFontName.Items[CBFontName.ItemIndex]
+     else
+        DefAttributes.Name := CBFontName.Items[CBFontName.ItemIndex];
+  end;
+end;
+
+procedure TFMPedidos.AAdjuntosPedidoExecute(Sender: TObject);
+begin
+  inherited;
+  FMain.MuestraAdunto('PEC', DMPedidos.QMCabeceraID_S.AsInteger);
+end;
+
+procedure TFMPedidos.AAdjuntosClienteExecute(Sender: TObject);
+begin
+  inherited;
+  FMain.MuestraAdunto('CLI', DameIDCliente(DMPedidos.QMCabeceraCLIENTE.AsInteger));
+end;
+
+procedure TFMPedidos.AAdjuntosTerceroExecute(Sender: TObject);
+begin
+  inherited;
+  FMain.MuestraAdunto('TER', DMPedidos.QMCabeceraTERCERO.AsInteger);
+end;
+
+procedure TFMPedidos.AAdjuntosAgenteExecute(Sender: TObject);
+begin
+  inherited;
+  FMain.MuestraAdunto('AGE', DameIDAgente(DMPedidos.QMCabeceraAGENTE.AsInteger));
+end;
+
+// sfg_rsl-begin- especial abrir cliente de correo predeterminado (El DMlistados tienes que ser a medida)
+procedure TFMPedidos.AEnviarPedidoMailPDF2Execute(Sender: TObject);
+var
+  Asunto : string;
+  CuerpoMail : TStrings;
+begin
+  AbreData(TDMLstPedidos, DMLstPedidos);
+  try
+     DMLstPedidos.MostrarListadoMail(DMPedidos.QMCabeceraID_S.AsInteger, DMPedidos.QMCabeceraSERIE.AsString,
+        2, DMPedidos.QMCabeceraEJERCICIO.AsInteger, (LeeParametro('PECLSTM001') = 'S'));
+
+     InicializaVariableEmail(DMPedidos.QMCabeceraTIPO.AsString);
+     with VariableEmail do
+     begin
+        Ejercicio := DMPedidos.QMCabeceraEJERCICIO.AsInteger;
+        Serie := DMPedidos.QMCabeceraSERIE.AsString;
+        NumeroDocumento := DMPedidos.QMCabeceraRIG.AsInteger;
+        Fecha := DMPedidos.QMCabeceraFECHA.AsDateTime;
+        SuReferencia := DMPedidos.QMCabeceraSU_REFERENCIA.AsString;
+        SuPedido := DMPedidos.QMCabeceraPEDIDO_CLIENTE.AsString;
+        Folio := '';
+        TituloDocTributario := '';
+        NombreFichero := DMLstPedidos.nombreFich;
+        Matricula := DMMain.DameMatriculaFichaTecnica(DMPedidos.QMCabeceraID_FICHA_TECNICA.AsInteger);
+        if (DMPedidos.QMCabeceraCLIENTE.AsInteger > 0) then
+        begin
+           NombreComercial := DMPedidos.QMCabeceraNOMBRE_COMERCIAL.AsString;
+           RazonSocial := DMPedidos.QMCabeceraTITULO.AsString;
+        end
+        else
+        begin
+           // El campo TITULO se rellena con el nombre asignado al Tercero Vario
+           NombreComercial := DMPedidos.QMCabeceraTITULO.AsString;
+           RazonSocial := DMPedidos.QMCabeceraTITULO.AsString;
+        end;
+        OrdenTrabajo := 0;
+        UsuarioCreadorDocumento := DameTituloUsuario(DameUsuarioSegunEntrada(DMPedidos.QMCabeceraENTRADA.AsInteger));
+     end;
+     DamePartesEmail(Asunto, CuerpoMail);
+     try
+        DMListados.SendMailClientePDF2(DMPedidos.QMCabeceraCLIENTE.AsInteger, CuerpoMail, DMLstPedidos.rutaFich,
+           DMLstPedidos.nombreFich, Asunto, DMPedidos.QMCabeceraTIPO.AsString,
+           DMPedidos.QMCabeceraID_S.AsInteger, True, DMMain.DameCorreoCopiaAgente(DMPedidos.QMCabeceraAGENTE.AsInteger, 'PEC'));
+     finally
+        CuerpoMail.Free;
+     end;
+
+     // Marco el documento como listado
+     DMLstPedidos.UpdateaDocumentos;
+  finally
+     CierraData(DMLstPedidos);
+  end;
+end;
+// sfg_rsl-end- especial abrir cliente de correo predeterminado
+
+procedure TFMPedidos.DBEFPortesChange(Sender: TObject);
+begin
+  ETituloPortes.Text := DameTituloPorte(StrToIntDef(DBEFPortes.Text, -1));
+
+  //Hacemos visibles los campos oportunos
+  LRango.Visible := not (StrToIntDef(DBEFPortes.Text, 0) < 5);
+  DBEFRango.Visible := not (StrToIntDef(DBEFPortes.Text, 0) < 5);
+  DBERango.Visible := not (StrToIntDef(DBEFPortes.Text, 0) < 5);
+  LIndice.Visible := not (StrToIntDef(DBEFPortes.Text, 0) < 5);
+  DBEFIndice.Visible := not (StrToIntDef(DBEFPortes.Text, 0) < 5);
+  DBEIndice.Visible := not (StrToIntDef(DBEFPortes.Text, 0) < 5);
+
+  if (Trim(DBEFPortes.Text) <> '') then
+  begin
+     DBEIPortes.DataSource := DMPedidos.DSQMCabecera;
+     if ((Assigned(DBEFPortes.Field)) and (DBEFPortes.Text <> '')) then
+     begin
+        if ((StrToInt(DBEFPortes.Text) <= 2) or ((StrToInt(DBEFPortes.Text) > 4))) then
+        begin
+           if Assigned(DBEPorPortes.Field) then
+              DBEPorPortes.Field.Value := 0;
+           DBEPorPortes.Color := clInfoBk;
+           DBEPorPortes.Enabled := False;
+
+           if Assigned(DBEIPortes.Field) then
+              DBEIPortes.Field.Value := 0;
+           DBEIPortes.Color := clInfoBk;
+           DBEIPortes.Enabled := False;
+           DBEIPortes.DataSource := DMPedidos.DSxInfoActualizada;
+        end
+        else
+        if (StrToInt(DBEFPortes.Text) = 3) then
+        begin
+           DBEPorPortes.Color := clWindow;
+           DBEPorPortes.Enabled := True;
+           DBEPorPortes.ReadOnly := False;
+           DBEPorPortes.TabStop := True;
+           DBEIPortes.Color := clInfoBk;
+           DBEIPortes.Enabled := False;
+           if (not (NavMain.DataSource.State in [dsBrowse])) then
+           begin
+              if Assigned(DBEIPortes.Field) then
+                 DBEIPortes.Field.Value := 0;
+              if Assigned(DBEPorPortes.Field) then
+                 DBEPorPortes.Field.Value := 0;
+           end;
+        end
+        else
+        begin
+           DBEPorPortes.Color := clInfoBk;
+           DBEPorPortes.Enabled := False;
+           DBEIPortes.Color := clWindow;
+           DBEIPortes.Enabled := True;
+           if (not (NavMain.DataSource.State in [dsBrowse])) then
+           begin
+              if Assigned(DBEIPortes.Field) then
+                 DBEIPortes.Field.Value := 0;
+              if Assigned(DBEPorPortes.Field) then
+                 DBEPorPortes.Field.Value := 0;
+              DBEIPortes.DataSource := DMPedidos.DSQMCabecera;
+           end;
+        end;
+
+        DBEPorPortes.ReadOnly := not DBEPorPortes.Enabled;
+        DBEPorPortes.TabStop := DBEPorPortes.Enabled;
+        DBEIPortes.ReadOnly := not DBEIPortes.Enabled;
+        DBEIPortes.TabStop := DBEIPortes.Enabled;
+     end;
+  end;
+end;
+
+procedure TFMPedidos.DBEFRangoChange(Sender: TObject);
+begin
+  if ((Assigned(DBEFRango.Field)) and (DBEFRango.Text <> '')) then
+     DBEFIndice.Enabled := (DMPedidos.ExisteRango(StrToInt(DBEFRango.Text)));
+end;
+
+procedure TFMPedidos.DBEFRangoBusqueda(Sender: TObject);
+var
+  Str : string;
+begin
+  inherited;
+  if (StrToInt(DBEFPortes.Text) in [5, 6, 7]) then
+  begin
+     if (StrToInt(DBEFPortes.Text) = 5) then //rateo por pesos
+        Str := ' TIPO=1';
+     if (StrToInt(DBEFPortes.Text) = 6) then //rateo por importes
+        Str := ' TIPO=2';
+     if (StrToInt(DBEFPortes.Text) = 7) then //rateo por bultos
+        Str := ' TIPO=3';
+     DBEFRango.CondicionBusqueda := Str;
+  end;
+end;
+
+procedure TFMPedidos.DBEFIndiceBusqueda(Sender: TObject);
+begin
+  DBEFIndice.CondicionBusqueda := ' RANGO=' + DBEFRango.Text;
+end;
+
+procedure TFMPedidos.AAEscandallExecute(Sender: TObject);
+begin
+  FMain.EjecutaAccion(FMain.AProEscandallosF, 'ESCANDALLO = ' + DMPedidos.DameEscandallo(1));
+end;
+
+procedure TFMPedidos.AProCrearEscandalloExecute(Sender: TObject);
+begin
+  if (DMPedidos.QMDetalle.State in [dsInsert, dsEdit]) then
+     DMPedidos.QMDetalle.Post;
+
+  (*
+  DMPedidos.RefrescaID_Esc;
+  *)
+  //Si és així, l'obro
+  if (DMPedidos.QMDetalleID_ESC.AsInteger > 0) then
+     AAEscandall.Execute
+  else //Si no té res, el creo de nou
+  begin
+     AbreForm(TProFMRelPedidosV, ProFMRelPedidosV, Sender);
+     ProFMRelPedidosV.Seleccionar(0);
+  end;
+end;
+
+procedure TFMPedidos.AProReasigEscExecute(Sender: TObject);
+begin
+  (*
+  DMPedidos.RefrescaID_Esc;
+  *)
+  AbreForm(TProFMRelPedidosV, ProFMRelPedidosV, Sender);
+
+  ProFMRelPedidosV.Seleccionar(2);
+end;
+
+procedure TFMPedidos.AProCrearOFExecute(Sender: TObject);
+var
+  id_orden : integer;
+  EscandalloActivo : boolean;
+begin
+  EscandalloActivo := DMPedidos.EscandalloActivo;
+
+  // Solo se creará la orden de producción si el artículo tiene asignado un escandallo de producción activo o un despiece asignado
+  if (((DMPedidos.QMDetalleID_ESC.AsInteger <> 0) and (EscandalloActivo)) or
+     (DMPedidos.QMDetalleID_DESPIECE.AsInteger > 0)) then
+  begin
+     id_orden := DMPedidos.QMDetalleID_ORDEN.AsInteger;
+
+     if (id_orden = 0) then
+     begin
+        if (ConfirmaMensaje(_('¿Desea genenar la Orden de Producción?'))) then
+           id_orden := DMPedidos.OrdenProduccion;
+     end;
+
+     // Muestra la ordren associada
+     if (id_orden <> 0) then
+        FMain.EjecutaAccion(FMain.AProOrden, IntToStr(id_orden));
+
+     HabilitaBotonesDetalle;
+  end
+  else
+     ShowMessage(_('ERROR: El escandallo asignado a esta linea de pedido esta en estado NO ACTIVO o OBSOLETO.' + #13#10 +
+        'Debe estar ACTIVO'));
+end;
+
+procedure TFMPedidos.AProADatosEscExecute(Sender: TObject);
+begin
+  AbreForm(TProFMMedidas, ProFMMedidas, Self);
+end;
+
+procedure TFMPedidos.AInformePedidoEspecialExecute(Sender: TObject);
+begin
+  AbreData(TDMLstOrdenesPedidos, DMLstOrdenesPedidos);
+  DMLstOrdenesPedidos.MostrarListadoEspecial(0, DMPedidos.QMCabeceraID_S.AsInteger);
+  CierraData(DMLstOrdenesPedidos);
+end;
+
+procedure TFMPedidos.AConfOrdenesPedidosExecute(Sender: TObject);
+var
+  Formato, Cabecera, Copias, Pijama : integer;
+begin
+  AbreData(TDMLstOrdenesPedidos, DMLstOrdenesPedidos);
+  TFMListConfig.Create(Self).Muestra(8053, Formato, Cabecera, Copias,
+     Pijama, EFSerie.Text, DMLstOrdenesPedidos.frOrdenesPedidos, DMLstOrdenesPedidos.HYReport);
+  CierraData(DMLstOrdenesPedidos);
+end;
+
+procedure TFMPedidos.EFClienteChange(Sender: TObject);
+begin
+  LTelefono.Caption := DMMain.DameTelefonoTercero(DMPedidos.QMCabeceraTERCERO.AsInteger);
+  RefrescaAvisos;
+end;
+
+procedure TFMPedidos.DBEClienteKriChange(Sender: TObject);
+begin
+  LTelefono.Caption := DMMain.DameTelefonoTercero(DMPedidos.QMCabeceraTERCERO.AsInteger);
+end;
+
+procedure TFMPedidos.DBCHKListadoClick(Sender: TObject);
+begin
+  DBCHKListado.Checked := (DMPedidos.xInfoActualizadaMODIFICA_DOC.AsInteger <> 0);
+end;
+
+procedure TFMPedidos.ACondicionesDeVentaExecute(Sender: TObject);
+begin
+  AbreForm(TFMCondicionesVenta, FMCondicionesVenta);
+  FMCondicionesVenta.EFCliente.Text := EFCliente.Text;
+end;
+
+procedure TFMPedidos.LTelefonoClick(Sender: TObject);
+begin
+  with MTelefonos do
+  begin
+     // Si no está visible, lo relleno. Luego se hará visible
+     if (not Visible) then
+     begin
+        RellenaTelefonosTercero(DMPedidos.QMCabeceraTERCERO.AsInteger, Lines);
+        Width := 400;
+        ScrollBars := ssNone;
+
+        // Ajusto a derecha, debajo de telefono
+        Left := TBMain.Width - Width;
+        Top := TBMain.Top + TBMain.Height;
+
+        // Calculo altura
+        if (Font.Height < 0) then
+           Height := (Lines.Count + 1) * (Abs(Font.Height) + 2)
+        else
+           Height := (Lines.Count + 1) * Abs(Font.Height);
+
+        // Si es mas grande que el formulario agrego scrollbar
+        if (Height > Self.ClientHeight) then
+        begin
+           Height := Self.ClientHeight - TBMain.Height - TBActions.Height - Top;
+           ScrollBars := ssVertical;
+        end;
+     end;
+     Visible := not Visible;
+  end;
+end;
+
+procedure TFMPedidos.ACambiaCampanyaFiltradosExecute(Sender: TObject);
+var
+  ObtenerCampanya : TFMObtenerCampanya;
+  Campanya : integer;
+  ForzarCampanya : boolean;
+begin
+  ObtenerCampanya := TFMObtenerCampanya.Create(Self);
+  ObtenerCampanya.Pedir(Campanya, ForzarCampanya);
+  ObtenerCampanya.Free;
+
+  if (Campanya >= 0) then
+     DMPedidos.CambiaCampanyaFiltrados(Campanya, ForzarCampanya);
+end;
+
+procedure TFMPedidos.AMarcaPedidoExecute(Sender: TObject);
+begin
+  DMPedidos.MarcarPedido;
+end;
+
+procedure TFMPedidos.ADuplicarPedidoEDIExecute(Sender: TObject);
+begin
+  DMPedidos.DuplicarPedidoEDI;
+end;
+
+procedure TFMPedidos.ZAInformeEspecialExecute(Sender: TObject);
+begin
+  ListadoEspecial(0);
+end;
+
+procedure TFMPedidos.ZAInformeEspecialFinalExecute(Sender: TObject);
+begin
+  inherited;
+  ListadoEspecial(1);
+end;
+
+procedure TFMPedidos.ZAInformeDetalladoExecute(Sender: TObject);
+begin
+  ListadoEspecial(2);
+end;
+
+procedure TFMPedidos.ListadoEspecial(Modo: integer);
+begin
+  {
+  Modo 0 - Listado temporal
+  Modo 1 - Listado FINAL
+  Modo 2 - Informe Detallado
+  }
+  DMMain.LogIni('ListadoEspecial.MostrarListadoNav');
+  AbreData(TZDMLstPedidos, ZDMLstPedidos);
+  case Modo of
+     0, 1:
+        ZDMLstPedidos.MostrarListadoNav(0, DMPedidos.QMCabeceraID_S.AsInteger, DMPedidos.ListadoPedEspeciales, Modo);
+     2:
+        ZDMLstPedidos.MostrarListadoDet(0, DMPedidos.QMCabeceraID_S.AsInteger);
+  end;
+  CierraData(ZDMLstPedidos);
+  DMMain.LogFin('');
+
+  DMMain.LogIni('ListadoEspecial.TraspasadoACompra');
+  // Generar compra automaticamente
+  if ((Modo = 1) and (LeeParametro('PECTRAS002', EFSerie.Text) = 'S')) then
+  begin
+     // Si no se ha traspasado a algún documento de compra.
+     if (not DMPedidos.TraspasadoACompra) then
+        APasoaPedProvAutomatico.Execute;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TFMPedidos.ZAConfPedidoEspecialExecute(Sender: TObject);
+var
+  Formato, Cabecera, Copias, Pijama : integer;
+begin
+  AbreData(TZDMLstPedidos, ZDMLstPedidos);
+  TFMListConfig.Create(Self).Muestra(DMPedidos.ListadoPedEspeciales, Formato, Cabecera, Copias,
+     Pijama, EFSerie.Text, ZDMLstPedidos.frPedidoEsp);
+  CierraData(ZDMLstPedidos);
+end;
+
+procedure TFMPedidos.ZAConfPedidoDetalladoExecute(Sender: TObject);
+var
+  Formato, Cabecera, Copias, Pijama : integer;
+begin
+  AbreData(TZDMLstPedidos, ZDMLstPedidos);
+  TFMListConfig.Create(Self).Muestra(9003, Formato, Cabecera, Copias,
+     Pijama, EFSerie.Text, ZDMLstPedidos.frPedidoEspDet);
+  CierraData(ZDMLstPedidos);
+end;
+
+procedure TFMPedidos.PintaCodigoBarras;
+begin
+  if (ICodBarras.Visible) then
+  begin
+     ICodBarras.Picture := nil;
+     with CodBarras do
+     begin
+        codigo := DMPedidos.QMCabeceraZ_COD_BARRAS_PED.AsString;
+        VerTexto := cboCodigo;
+        Texto := CodBarras.codigo;
+        Alto := 16;
+        Porcentaje := 10;
+        Modulo := 1;
+        ChequearDigito := True;
+        Tipo := cb128;
+        OrigenX := 3;
+        OrigenY := 5;
+        Ratio := 2;
+        Fuente.Size := 8;
+     end;
+     CodBarras.DibujaCodeBar(ICodBarras.Canvas);
+     ICodBarras.Refresh;
+  end;
+end;
+
+procedure TFMPedidos.DBECodBarrasChange(Sender: TObject);
+begin
+  if (PCMain.ActivePage = TSOtros) then
+     PintaCodigoBarras;
+end;
+
+procedure TFMPedidos.TButtOrdenProdClick(Sender: TObject);
+var
+  id_orden : integer;
+begin
+  if ((DMPedidos.QMDetalleID_DESPIECE.AsInteger > 0) or (DMPedidos.TieneEscandalloProduccion)) then
+  begin
+     id_orden := DMPedidos.QMDetalleID_ORDEN.AsInteger;
+
+     if (id_orden = 0) then
+     begin
+        if (ConfirmaMensaje(_('¿Desea genenar la Orden de Producción?'))) then
+        begin
+           id_orden := DMPedidos.OrdenProduccionCrea;
+           ShowMessage(Format(_('Orden %d creada'), [id_orden]));
+           ActualizaEstadoOrden;
+        end;
+     end
+     else
+     begin
+        if (id_orden <> -1) then
+        begin
+           FMain.EjecutaAccion(FMain.AProOrden, IntToStr(id_orden));
+        end;
+     end;
+  end;
+end;
+
+procedure TFMPedidos.ActualizaEstadoOrden;
+var
+  IdOrden : integer;
+begin
+  IdOrden := DMPedidos.QMDetalleID_ORDEN.AsInteger;
+
+  with ChkBEstadoOrden do
+  begin
+     if (IdOrden > 0) then
+     begin
+        case DMPedidos.DameEstadoDeOrden of
+           0:
+              Caption := Format(_('Orden %d Creada (deslanzada)'), [IdOrden]);
+           1:
+              Caption := Format(_('Orden %d Lanzada'), [IdOrden]);
+           2:
+              Caption := Format(_('Orden %d Lanzada+Reservada'), [IdOrden]);
+           else
+              Caption := Format(_('Orden %d Cerrada'), [IdOrden]);
+        end;
+
+        State := cbChecked;
+     end
+     else
+     begin
+        Caption := _('No existe orden');
+        State := cbUnchecked;
+     end;
+
+     Visible := DMPedidos.TieneEscandalloProduccion;
+  end;
+end;
+
+procedure TFMPedidos.ZAFicherosAsociadosExecute(Sender: TObject);
+begin
+  AbreForm(TProFMFicherosCliente, ProFMFicherosCliente, Sender);
+  ProFMFicherosCliente.Filtra(DMPedidos.QMCabeceraZ_COD_BARRAS_PED.AsString,
+     'VER_CABECERAS_PEDIDO(Z_COD_BARRAS_PED)', 'DELFOS', _('Ficheros de Pedidos de Clientes'));
+end;
+
+procedure TFMPedidos.ZALstEtiquetasExecute(Sender: TObject);
+begin
+  AbreData(TZDMLstPedidos, ZDMLstPedidos);
+  ZDMLstPedidos.MostrarListadoEtiLinea(0, DMPedidos.QMCabeceraID_S.AsInteger, DMPedidos.QMDetalleLINEA.AsInteger);
+  CierraData(ZDMLstPedidos);
+end;
+
+procedure TFMPedidos.ZALstEtiPedExecute(Sender: TObject);
+var
+  Formato, Cabecera, Copias, Pijama : integer;
+begin
+  AbreData(TZDMLstPedidos, ZDMLstPedidos);
+  TFMListConfig.Create(Self).Muestra(9012, Formato, Cabecera, Copias,
+     Pijama, EFSerie.Text, ZDMLstPedidos.frPedidoEspDet);
+  CierraData(ZDMLstPedidos);
+end;
+
+procedure TFMPedidos.ZLstEspEtiquetaExecute(Sender: TObject);
+begin
+  // ZAInformeEspecial.Execute; //Llistat especial
+  AbreData(TZDMLstPedidos, ZDMLstPedidos);
+
+  { TODO : Resolver PrinterIndex de otra manera. Ver la impresora que tiene asignado el listado. }
+  // Printer.PrinterIndex := REntorno.Laser; //sfg.albert - Impressora laser
+
+  ZDMLstPedidos.MostrarListadoNav(1, DMPedidos.QMCabeceraID_S.AsInteger, DMPedidos.ListadoPedEspeciales, 0);
+  CierraData(ZDMLstPedidos);
+
+  // ZALstEtiquetas.Execute; //Llistar etiquetes
+  AbreData(TZDMLstPedidos, ZDMLstPedidos);
+  { TODO : Resolver PrinterIndex de otra manera. Ver la impresora que tiene asignado el listado. }
+  // Printer.PrinterIndex := REntorno.Etiquetas; //sfg.albert - Impressora etiquetes
+  ZDMLstPedidos.MostrarListadoEtiLinea(1, DMPedidos.QMCabeceraID_S.AsInteger, DMPedidos.QMDetalleLINEA.AsInteger);
+  CierraData(ZDMLstPedidos);
+end;
+
+procedure TFMPedidos.AEliminarPackingListExecute(Sender: TObject);
+begin
+  if ConfirmaMensaje(_('Este proceso eliminara el packing list generado.' + #13#10 + '¿Desea continuar?')) then
+     DMPedidos.EliminarPackingList;
+end;
+
+procedure TFMPedidos.ALstRentabilidadExecute(Sender: TObject);
+begin
+  AbreForm(TFMLstPedidoRentabilidad, FMLstPedidoRentabilidad, Sender);
+end;
+
+procedure TFMPedidos.DBEFContactoChange(Sender: TObject);
+begin
+  if (StrToIntDef(DBEFContacto.Text, 0) <> 0) then
+  begin
+     with THYFIBQuery.Create(nil) do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           SQL.Text := 'SELECT AGENTE, NOMBRE, APELLIDOS FROM SYS_TERCEROS_CONTACTOS WHERE TERCERO=' +
+              DMPedidos.QMCabeceraTERCERO.AsString + ' AND CONTACTO=' + DBEFContacto.Text;
+           ExecQuery;
+           if ((DMPedidos.QMCabecera.State = dsInsert) or (DMPedidos.QMCabecera.State = dsEdit)) then
+              if (FieldByName['AGENTE'].AsInteger > 0) then
+                 DMPedidos.QMCabeceraAGENTE.AsInteger := FieldByName['AGENTE'].AsInteger;
+           if (Trim(FieldByName['NOMBRE'].AsString + Trim(FieldByName['APELLIDOS'].AsString)) > '') then
+              DBEContacto.Text := FieldByName['NOMBRE'].AsString + ' ' + FieldByName['APELLIDOS'].AsString
+           else
+              DBEContacto.Text := '';
+           FreeHandle;
+        finally
+           Free;
+        end;
+     end;
+  end
+  else
+     DBEContacto.Text := '';
+end;
+
+procedure TFMPedidos.ADespieceExecute(Sender: TObject);
+begin
+  DMPedidos.Despiece;
+end;
+
+procedure TFMPedidos.AOrdenarLineasPorDireccionEntregaExecute(Sender: TObject);
+begin
+  /// Ordena las lineas por direccion de entrega, articulo, linea
+  DMPedidos.OrdenarLineasPorDireccionEntrega;
+end;
+
+procedure TFMPedidos.AExportarPedidosFiltradosExecute(Sender: TObject);
+begin
+  DMPedidos.ExportarPedidosFiltrados;
+end;
+
+procedure TFMPedidos.DBGFDetalleRowChange(Sender: TObject);
+begin
+  DBGDetalleArticulo := '';
+  HabilitaBotonesDetalle;
+  ActualizaEstadoOrden;
+end;
+
+procedure TFMPedidos.AListarEtiquetasExecute(Sender: TObject);
+begin
+  AbreForm(TFMImprimirCodBarras, FMImprimirCodBarras, Self);
+  FMImprimirCodBarras.ImportarDatos(DMPedidos.QMCabeceraTIPO.AsString, DMPedidos.QMCabeceraID_S.AsInteger);
+end;
+
+procedure TFMPedidos.ADuplicarLineaExecute(Sender: TObject);
+begin
+  DMPedidos.DuplicarLinea;
+end;
+
+procedure TFMPedidos.ACrearRutaExecute(Sender: TObject);
+begin
+  DMPedidos.CreaRuta;
+end;
+
+procedure TFMPedidos.ADetalleArticuloExecute(Sender: TObject);
+begin
+  DMPedidos.CambiaDatosEsp;
+end;
+
+procedure TFMPedidos.EFTransportistaChange(Sender: TObject);
+begin
+  ETituloTransportista.Text := DameTituloAcreedor(StrToIntDef(EFTransportista.Text, 0));
+
+  // Accion de crear ruta habilitada segun si el transportista crea ruta o no
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Text := 'SELECT TRANSPORTISTA_CREA_RUTA FROM EMP_ACREEDORES WHERE EMPRESA = ?EMPRESA AND ACREEDOR = ?ACREEDOR';
+        Params.ByName['EMPRESA'].AsInteger := REntorno.Empresa;
+        Params.ByName['ACREEDOR'].AsInteger := DMPedidos.QMCabeceraTRANSPORTISTA.AsInteger;
+        ExecQuery;
+        ACrearRuta.Enabled := (FieldByName['TRANSPORTISTA_CREA_RUTA'].AsInteger = 1);
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+end;
+
+{CuotasIberfluid}
+procedure TFMPedidos.ACrearAlquilerExecute(Sender: TObject);
+begin
+  DMPedidos.CrearAlquiler;
+end;
+
+procedure TFMPedidos.AHojaDeTrabajoExecute(Sender: TObject);
+begin
+  inherited;
+  {$IFNDEF TPV}
+  FMain.EjecutaAccion(FMain.AHojaDeTrabajo);
+  FMHojaDeTrabajo.Filtrar('PEC', DMPedidos.QMCabeceraID_S.AsInteger);
+  {$ENDIF}
+end;
+
+procedure TFMPedidos.LBNotasClick(Sender: TObject);
+begin
+  inherited;
+  with MNotas do
+  begin
+     // Si no está visible, lo relleno. Luego se hará visible
+     if (not Visible) then
+     begin
+        Lines.Clear;
+        if (Trim(DMPedidos.xCliente.FieldByName('NOTAS').AsString) > '') then
+           Lines.Add(DMPedidos.xCliente.FieldByName('NOTAS').AsString);
+        if (Trim(DMPedidos.xCliente.FieldByName('NOTAS_FACTURACION_KRI').AsString) > '') then
+        begin
+           Lines.Add('----------');
+           Lines.Add(DMPedidos.xCliente.FieldByName('NOTAS_FACTURACION_KRI').AsString);
+        end;
+        if (Trim(DMPedidos.xAvisos.FieldByName('MENSAJE').AsString) > '') then
+        begin
+           Lines.Add('----------');
+           Lines.Add(DMPedidos.xAvisos.FieldByName('MENSAJE').AsString);
+        end;
+
+        Width := 400;
+        ScrollBars := ssNone;
+
+        // Ajusto a derecha, debajo de telefono
+        Left := TBMain.Width - Width;
+        Top := TBMain.Top + TBMain.Height;
+
+        // Calculo altura
+        if (Font.Height < 0) then
+           Height := (Lines.Count + 1) * (Abs(Font.Height) + 2)
+        else
+           Height := (Lines.Count + 1) * Abs(Font.Height);
+
+        // Si es mas grande que el formulario agrego scrollbar
+        if (Height > Self.ClientHeight) then
+        begin
+           Height := Self.ClientHeight - TBMain.Height - TBActions.Height - Top;
+           ScrollBars := ssVertical;
+        end;
+     end;
+     Visible := not Visible;
+  end;
+end;
+
+procedure TFMPedidos.ACreaAnticipoExecute(Sender: TObject);
+var
+  param_RECANT002 : string;
+begin
+  inherited;
+  DMPedidos.CreaReciboAnticipo;
+
+  param_RECANT002 := LeeParametro('RECANTC002', EFSerie.Text);
+  if (param_RECANT002 = 'P') then
+     AInformePedido.Execute
+  else
+  if (param_RECANT002 = 'I') then
+     AImprime.Execute;
+end;
+
+procedure TFMPedidos.EPMainClickBuscar(Sender: TObject; var Continua: boolean);
+begin
+  inherited;
+  DMPedidos.FiltraDocumento(Trim(EFSerie.Text), '');
+
+  G2KTableLoc.CondicionBusqueda := 'SERIE=''' + Trim(EFSerie.Text) + ''' AND (EJERCICIO = ' +
+     REntorno.EjercicioStr + ' OR ((EJERCICIO < ' + REntorno.EjercicioStr + ') AND (ESTADO = 0 OR ESTADO = 3))) ';
+  if (DameRestriccionAgenteUsuario(REntorno.Usuario)) then
+     G2KTableLoc.CondicionBusqueda := G2KTableLoc.CondicionBusqueda + ' AND AGENTE = ' +
+        IntToStr(DameAgenteUsuario(REntorno.Usuario));
+
+  G2KTableLoc.Click;
+
+  HabilitaBotonesSegunEstado;
+  RefrescaAvisos;
+end;
+
+procedure TFMPedidos.AAsignaEmpleadoExecute(Sender: TObject);
+begin
+  inherited;
+  DMPedidos.AsignaEmpleados;
+end;
+
+procedure TFMPedidos.ARecibosExecute(Sender: TObject);
+begin
+  inherited;
+  FMain.MuestraRecibos('PEC', EFSerie.Text, DBERIG.Text, DMPedidos.QMCabeceraEJERCICIO.AsInteger);
+end;
+
+procedure TFMPedidos.DBETituloEstadoChange(Sender: TObject);
+begin
+  inherited;
+  AbreOCierraOAnula;
+end;
+
+procedure TFMPedidos.DBERIGChange(Sender: TObject);
+begin
+  inherited;
+  RefrescaAvisos;
+  if (PCMain.ActivePage = TSOtros) then
+     ActualizaFirma;
+  ActualizaEstadoOrden;
+end;
+
+procedure TFMPedidos.TSOtrosShow(Sender: TObject);
+begin
+  inherited;
+  ControlEdit := CEOtros;
+  PintaCodigoBarras;
+  ActualizaFirma;
+end;
+
+procedure TFMPedidos.AProyectoExecute(Sender: TObject);
+begin
+  inherited;
+  if (StrToIntDef(EFProyecto.Text, 0) <> 0) then
+     FMain.EjecutaAccion(FMain.AProyectos, EFProyecto.Text);
+end;
+
+procedure TFMPedidos.SBAProyectoDblClick(Sender: TObject);
+begin
+  inherited;
+  AProyecto.Execute;
+end;
+
+procedure TFMPedidos.AImportarDetalleExecute(Sender: TObject);
+begin
+  inherited;
+
+  with TFMInsercionArticuloDesdeTexto.Create(Self) do
+  begin
+     DM := DMPedidos;
+     ShowModal;
+     Free;
+  end;
+end;
+
+procedure TFMPedidos.ActualizaFirma;
+begin
+  if (DMPedidos.QMFirmas.Active) then
+     RefrescarImagenFirma(ImgFirma, DMPedidos.QMFirmas.FieldByName('ID_FIRMA').AsInteger);
+end;
+
+procedure TFMPedidos.APedirFirmaExecute(Sender: TObject);
+begin
+  inherited;
+  DMMain.PedirFirma('PEC', DMPedidos.QMCabeceraID_S.AsInteger);
+end;
+
+procedure TFMPedidos.ABorrarFirmaExecute(Sender: TObject);
+begin
+  inherited;
+  DMMain.BorrarFirma('PEC', DMPedidos.QMCabeceraID_S.AsInteger);
+end;
+
+procedure TFMPedidos.DBEFBancoDireccionBusqueda(Sender: TObject);
+begin
+  inherited;
+  DBEFBancoDireccion.CondicionBusqueda := 'TERCERO = ' + IntToStr(DMPedidos.QMCabeceraTERCERO.AsInteger);
+end;
+
+procedure TFMPedidos.DBEFBancoDireccionChange(Sender: TObject);
+begin
+  inherited;
+  EBancoDireccion.Text := DameTituloBancoTercero(DMPedidos.QMCabeceraTERCERO.AsInteger,
+     DMPedidos.QMCabeceraBANCO.AsInteger);
+end;
+
+procedure TFMPedidos.AOrdenaPedidosLineasExecute(Sender: TObject);
+begin
+  inherited;
+  DMPedidos.OrdenarLineasPorArticulo;
+end;
+
+procedure TFMPedidos.ATerceroExecute(Sender: TObject);
+begin
+  inherited;
+  if PEdit.Enabled then
+  begin
+     if DBENombreComercial.Text <> '' then
+        FMain.EjecutaAccion(FMain.ATerceros, 'TERCERO = ' + DMPedidos.QMCabeceraTERCERO.AsString);
+  end
+  else
+     FMain.EjecutaAccion(FMain.ATerceros, 'TERCERO = ' + DMPedidos.QMCabeceraTERCERO.AsString);
+end;
+
+procedure TFMPedidos.RelojAdjuntosTimer(Sender: TObject);
+begin
+  inherited;
+  if (LAdjuntos.Color = clYellow) then
+     LAdjuntos.Color := TBMain.Color
+  else
+     LAdjuntos.Color := clYellow;
+end;
+
+procedure TFMPedidos.RelojEmailTimer(Sender: TObject);
+begin
+  inherited;
+  if (LEmail.Color = clYellow) then
+     LEmail.Color := TBMain.Color
+  else
+     LEmail.Color := clYellow;
+end;
+
+procedure TFMPedidos.DBGMainDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: integer; Column: TColumn; State: TGridDrawState);
+begin
+  inherited;
+  with TDBGridFind2000(Sender) do
+  begin
+     if (gdFocused in State) then //If the cell has the focus
+        ColorFocused(Canvas)
+     else
+     begin
+        if ((Column.FieldName = 'ESTADO') or (Column.FieldName = 'TITULO_ESTADO')) then
+        begin
+           ColorSegunEstado(Canvas, DataSource.DataSet.FieldByName('ESTADO').AsInteger);
+        end;
+     end;
+
+     DefaultDrawColumnCell(Rect, DataCol, Column, State);
+  end;
+end;
+
+procedure TFMPedidos.ACrearHerenciaManualExecute(Sender: TObject);
+begin
+  inherited;
+  AbreForm(TFMHerenciaManual, FMHerenciaManual, FMain);
+  with FMHerenciaManual do
+  begin
+     Inicializa(DMPedidos.QMDetalleTIPO.AsString, DMPedidos.QMDetalleID_DETALLES_S.AsInteger);
+     Hide;
+     ShowModal;
+  end;
+end;
+
+procedure TFMPedidos.AProCrearTodasOFExecute(Sender: TObject);
+begin
+  inherited;
+  if (ConfirmaMensaje(_('¿Desea genenar las Ordenes de Producción de las líneas con Despiece asociado?'))) then
+  begin
+     DMPedidos.OrdenProduccionTodas;
+     ShowMessage(_('Proceso finalizado'));
+  end;
+end;
+
+procedure TFMPedidos.EstableceVisibilidadStockAlmacen;
+
+  procedure EstableceVisibilidad(Campo, Parametro, Descripcion: string);
+  var
+     i : smallint;
+     AlmacenStock : string;
+  begin
+     AlmacenStock := LeeParametro(Parametro, EFSerie.Text);
+     if (AlmacenStock = '') then
+        AlmacenStock := 'NOCALC';
+     if (AlmacenStock <> 'NOCALC') then
+        AlmacenStock := Copy(AlmacenStock, 1, 3);
+
+     if ((Parametro <> 'PECSTKV009') and (Parametro <> 'PECSTKR009') and (Parametro <> 'PECSTKM001') and (Parametro <> 'PECSTKB001') and (Parametro <> 'PECSTKA000')) then
+        Descripcion := Descripcion + ' ' + AlmacenStock;
+
+     i := EncuentraField(DBGFDetalle, Campo);
+     if (i >= 0) then
+     begin
+        with DBGFDetalle.Columns[i] do
+        begin
+           if ((Parametro = 'PECSTKV009') or (Parametro = 'PECSTKR009') or (Parametro = 'PECSTKM001') or (Parametro = 'PECSTKB001') or (Parametro = 'PECSTKA000')) then
+              Visible := (AlmacenStock = 'S')
+           else
+              Visible := (AlmacenStock <> 'NOCALC');
+           Title.Caption := Descripcion;
+        end;
+     end
+     else
+     begin
+        with DBGFDetalle.Columns.Add do
+        begin
+           FieldName := Campo;
+           Title.Caption := Descripcion;
+           if ((Parametro = 'PECSTKV009') or (Parametro = 'PECSTKR009') or (Parametro = 'PECSTKM001') or (Parametro = 'PECSTKB001') or (Parametro = 'PECSTKA000')) then
+              Visible := (AlmacenStock = 'S')
+           else
+              Visible := (AlmacenStock <> 'NOCALC');
+        end;
+     end;
+  end;
+
+begin
+  EstableceVisibilidad('STOCK_ALM', 'PECSTKA001', _('Stock'));
+  EstableceVisibilidad('STOCK_ALM2', 'PECSTKA002', _('Stock'));
+  EstableceVisibilidad('STOCK_ALM3', 'PECSTKA003', _('Stock'));
+
+  EstableceVisibilidad('STOCKV_ALM', 'PECSTKV001', _('S. Virt.'));
+  EstableceVisibilidad('STOCKV_ALM2', 'PECSTKV002', _('S. Virt.'));
+  EstableceVisibilidad('STOCKV_ALM3', 'PECSTKV003', _('S. Virt.'));
+
+  EstableceVisibilidad('STOCKR_ALM', 'PECSTKR001', _('S. Real'));
+  EstableceVisibilidad('STOCKR_ALM2', 'PECSTKR002', _('S. Real'));
+  EstableceVisibilidad('STOCKR_ALM3', 'PECSTKR003', _('S. Real'));
+
+  EstableceVisibilidad('STOCKM_ALM', 'PECSTKM002', _('S. Mont.'));
+  EstableceVisibilidad('STOCKM_ALM2', 'PECSTKM003', _('S. Mont.'));
+  EstableceVisibilidad('STOCKM_ALM3', 'PECSTKM004', _('S. Mont.'));
+
+  EstableceVisibilidad('STOCK', 'PECSTKA000', _('Sock'));
+  EstableceVisibilidad('STOCK_VIRTUAL', 'PECSTKV009', _('S. Virt.'));
+  EstableceVisibilidad('STOCK_REAL', 'PECSTKR009', _('S. Real.'));
+  EstableceVisibilidad('STOCK_MONTURAS', 'PECSTKM001', _('S. Mont.'));
+  EstableceVisibilidad('STOCK_REF_BASE', 'PECSTKB001', _('S. Ref. Base'));
+end;
+
+procedure TFMPedidos.AModificarFechaEntregaPrevExecute(Sender: TObject);
+var
+  Fecha : TDateTime;
+begin
+  inherited;
+
+  Fecha := DMPedidos.QMCabeceraFECHA_ENTREGA_PREV.AsDateTime;
+  if PideDato('DTM', Fecha, 'Fecha de Entrega Prevista') then
+     DMPedidos.ModificaFechaEntregaPrev(Fecha);
+end;
+
+procedure TFMPedidos.AMuestraDocumentosVentaExecute(Sender: TObject);
+begin
+  inherited;
+  AACliente.Execute;
+  FMClientes.MuestraDocumentosVenta('PEC');
+end;
+
+procedure TFMPedidos.NavMainClickBefore(Sender: TObject; Button: TNavigateBtn; var Continua: boolean);
+begin
+  inherited;
+  if ((Button = nbDelete) and (DMPedidos.QMCabeceraESTADO.AsInteger <> 0)) then
+  begin
+     ShowMessage(_('Documento Bloqueado'));
+     Continua := False;
+  end;
+end;
+
+procedure TFMPedidos.DBEFUsuarioCreacionChange(Sender: TObject);
+begin
+  inherited;
+  EUsuarioCreacion.Text := DameTituloUsuario(StrToIntDef(DBEFUsuarioCreacion.Text, 0));
+end;
+
+procedure TFMPedidos.AFiltroTodosExecute(Sender: TObject);
+begin
+  inherited;
+  DMPedidos.FiltraDocumento(EFSerie.Text, '');
+end;
+
+procedure TFMPedidos.AFiltroAbiertoExecute(Sender: TObject);
+begin
+  inherited;
+  DMPedidos.FiltraDocumento(EFSerie.Text, 'ESTADO = 0');
+end;
+
+procedure TFMPedidos.AFiltroAnuladoExecute(Sender: TObject);
+begin
+  inherited;
+  DMPedidos.FiltraDocumento(EFSerie.Text, 'ESTADO = 2');
+end;
+
+procedure TFMPedidos.AFiltroAbiertoListoPreparacionExecute(Sender: TObject);
+begin
+  inherited;
+  DMPedidos.FiltraDocumento(EFSerie.Text, 'ESTADO = 0 AND LISTO_PARA_PREPARAR = 1');
+end;
+
+procedure TFMPedidos.AFiltroCerradoExecute(Sender: TObject);
+begin
+  inherited;
+  DMPedidos.FiltraDocumento(EFSerie.Text, 'ESTADO = 5');
+end;
+
+procedure TFMPedidos.LimitaSegunPais;
+begin
+  {$IFNDEF Debug}
+  if (REntorno.Pais <> 'CHL') then
+  begin
+     AImportaDetalleDesdeExcel.Visible := False;
+  end;
+  {$ENDIF}
+end;
+
+procedure TFMPedidos.AImportaDetalleDesdeExcelExecute(Sender: TObject);
+var
+  Archivo : string;
+begin
+  Archivo := '';
+  if MyOpenDialog(Archivo, 'XLS,ODS,TXT', '', 'FMPedidos-ImportaDetalleDesdeExcel') then
+     DMPedidos.ImportaDetalleDesdeExcel(Archivo, 1);
+end;
+
+procedure TFMPedidos.DBGFDetalleKeyPress(Sender: TObject; var Key: char);
+begin
+  inherited;
+  if TDBGridFind2000(Sender).DataSource.DataSet.State in [dsEdit, dsInsert] then
+  begin
+     if Param_ARTBUSQ004 and (TDBGridFind2000(Sender).ColumnaActual = 'ARTICULO') then
+     begin
+        if Key in ['a'..'z', 'A'..'Z', '0'..'9', '.', '-', '*', '%', ' ', '_'] then
+           DBGDetalleArticulo := DBGDetalleArticulo + Key
+        else
+        if Key in [#8] then
+           DBGDetalleArticulo := Copy(DBGDetalleArticulo, 1, Length(DBGDetalleArticulo) - 1);
+     end;
+  end
+  else
+     DBGDetalleArticulo := '';
+end;
+
+procedure TFMPedidos.ATicketExecute(Sender: TObject);
+begin
+  inherited;
+  try
+     Screen.Cursor := crHourGlass;
+     DMPedidos.TraspasarPedidoActual('TIC', 0, '', (DMMain.EstadoKri(199) <> 1));
+  finally
+     Screen.Cursor := crDefault;
+  end;
+end;
+
+procedure TFMPedidos.AAEscandall2Execute(Sender: TObject);
+begin
+  inherited;
+  FMain.EjecutaAccion(FMain.AProEscandallosF, 'ESCANDALLO = ' + DMPedidos.DameEscandallo(2));
+end;
+
+procedure TFMPedidos.AImportaDesdeExcelConArticuloPuntoExecute(Sender: TObject);
+var
+  Archivo : string;
+begin
+  Archivo := '';
+  if MyOpenDialog(Archivo, 'XLS,ODS,TXT', '', 'FMPedidos-AImportaDesdeExcelConArticuloPunto') then
+     DMPedidos.ImportaDetalleDesdeExcel(Archivo, 2);
+end;
+
+procedure TFMPedidos.TSDirManualResize(Sender: TObject);
+begin
+  inherited;
+  PNLDirRecogida.Width := TSDirManual.Width div 2;
+end;
+
+procedure TFMPedidos.ADetallesDeLineaExecute(Sender: TObject);
+begin
+  TFMDetalleDeLinea.Create(Self).Muestra(DMPedidos.QMDetalleID_DETALLES_S.AsInteger);
+  DMPedidos.QMDetalle.Refresh;
+end;
+
+procedure TFMPedidos.AImportarExcelExecute(Sender: TObject);
+var
+  Archivo : string;
+begin
+  inherited;
+  Archivo := '';
+  if (MyOpenDialog(Archivo, 'XLS,ODS,CSV,ALL', '', 'FMPedidos-AImportarExcel')) then
+  begin
+     PNLProgreso.Visible := True;
+     try
+        DMPedidos.ImportarXLS(Archivo);
+     finally
+        PNLProgreso.Visible := False;
+     end;
+  end;
+end;
+
+procedure TFMPedidos.BCancelarClick(Sender: TObject);
+begin
+  inherited;
+  DMPedidos.CancelarImportacion := True;
+end;
+
+procedure TFMPedidos.Progreso(i, Cantidad: integer);
+begin
+  PBProgreso.Max := Cantidad;
+  PBProgreso.Position := i;
+  Application.ProcessMessages;
+end;
+
+procedure TFMPedidos.WMDropFiles(var Msg: TWMDropFiles);
+var
+  i : integer;
+  DropPoint : TPoint;
+  RecibeFicheros : TRecibeFicheros;
+  Ficheros : TStrings;
+begin
+  inherited;
+  Ficheros := TStringList.Create;
+  RecibeFicheros := TRecibeFicheros.Create(Msg.Drop);
+  try
+     for i := 0 to Pred(RecibeFicheros.FileCount) do
+        Ficheros.Add(RecibeFicheros.Files[i]);
+
+     DropPoint := RecibeFicheros.DropPoint;
+
+     if ConfirmaMensaje(_('Esta seguro de importar los archivos?' + #13#10 + Ficheros.Text)) then
+     begin
+        AbreData(TDMAdjunto, DMAdjunto);
+        try
+           for i := 0 to Ficheros.Count - 1 do
+              DMAdjunto.CreaAdjunto('PEC', DMPedidos.QMCabeceraID_S.AsInteger, Ficheros[i]);
+        finally
+           CierraData(DMAdjunto);
+        end;
+
+        AAdjuntosPedido.Execute;
+     end;
+  finally
+     RecibeFicheros.Free;
+     Ficheros.Free;
+  end;
+  Msg.Result := 0;
+end;
+
+procedure TFMPedidos.ABorradoMasivoLineasExecute(Sender: TObject);
+begin
+  with TFMProcesosMasivosLineas.Create(Self) do
+  begin
+     try
+        Inicializar(DMPedidos.QMDetalleTIPO.AsString, DMPedidos.QMDetalleID_S.AsInteger);
+
+        if (ShowModal = mrOk) then
+        begin
+           // Borrar las líneas que estén seleccionadas en TMP_DOC_LINEAS_A_PROC
+           with THYFIBQuery.Create(nil) do
+           begin
+              try
+                 Close;
+                 DataBase := DMMain.DataBase;
+                 SQL.Add(' DELETE FROM GES_DETALLES_S ');
+                 SQL.Add(' WHERE ');
+                 SQL.Add(' ID_S = :ID_S AND ');
+                 SQL.Add(' ID_DETALLES_S IN (SELECT ID_DETALLES_DOC ');
+                 SQL.Add('                   FROM TMP_DOC_LINEAS_A_PROC ');
+                 SQL.Add('                   WHERE ');
+                 SQL.Add('                   ENTRADA = :ENTRADA AND ');
+                 SQL.Add('                   SELECCIONADO = 1) ');
+                 Params.ByName['ID_S'].AsInteger := DMPedidos.QMDetalleID_S.AsInteger;
+                 Params.ByName['ENTRADA'].AsInteger := REntorno.Entrada;
+                 ExecQuery;
+                 FreeHandle;
+              finally
+                 Free;
+              end;
+           end;
+
+           // Refresco datos
+           DMPedidos.RefrescaCabecera(1);
+        end;
+     finally
+        Free;
+     end;
+  end;
+end;
+
+procedure TFMPedidos.ImportacionMasiva(Activa: boolean);
+begin
+  PMain.Enabled := (not Activa);
+  PDetalle.Enabled := (not Activa);
+  TBActions.Enabled := (not Activa);
+  DMPedidos.ImportacionMasiva(Activa);
+
+  // Cuando termina importacion masiva actualizo avisos
+  if not Activa then
+     RefrescaAvisos;
+end;
+
+procedure TFMPedidos.APickingListExecute(Sender: TObject);
+begin
+  inherited;
+  AbreData(TDMLstPedidos, DMLstPedidos);
+  APickingList.Enabled := False;
+  try
+     DMLstPedidos.MostrarListadoPicking(0, 1, EFSerie.Text, DMPedidos.QMCabeceraEJERCICIO.AsInteger, DMPedidos.QMCabeceraID_S.AsInteger);
+  finally
+     APickingList.Enabled := True;
+     CierraData(DMLstPedidos);
+  end;
+end;
+
+procedure TFMPedidos.AConfPickingListExecute(Sender: TObject);
+var
+  Formato, Cabecera, Copias, Pijama : integer;
+begin
+  inherited;
+  AbreData(TDMLstPedidos, DMLstPedidos);
+  TFMListConfig.Create(Self).Muestra(650, Formato, Cabecera, Copias,
+     Pijama, EFSerie.Text, DMLstPedidos.frPedidos, DMLstPedidos.HYReport);
+  CierraData(DMLstPedidos);
+end;
+
+
+procedure TFMPedidos.DBEMargenChange(Sender: TObject);
+begin
+  inherited;
+  if (MargenMinimo >= 0) then
+     if (MargenMinimo > DMPedidos.xInfoActualizadaMARGEN.AsFloat) then
+        ColorError(DBEMargen)
+     else
+        ColorInfo(DBEMargen);
+end;
+
+procedure TFMPedidos.RefrescaAvisos;
+begin
+  if (((DMPedidos.xCliente.Active) and (Trim(TBlobField(DMPedidos.xCliente.FieldByName('NOTAS')).AsString) > '')) or
+     ((DMPedidos.xAvisos.Active) and (Trim(TBlobField(DMPedidos.xAvisos.FieldByName('MENSAJE')).AsString) > ''))) then
+     RelojNotas.Enabled := True
+  else
+     RelojNotas.Enabled := False;
+
+  LBNotas.Visible := RelojNotas.Enabled;
+
+  if (DMMain.ExisteAdjunto(DMPedidos.QMCabeceraTIPO.AsString, DMPedidos.QMCabeceraID_S.AsInteger)) then
+     RelojAdjuntos.Enabled := True
+  else
+     RelojAdjuntos.Enabled := False;
+
+  LAdjuntos.Visible := RelojAdjuntos.Enabled;
+
+  if (DMMain.EnviarFacturasClientePorEmail(DMPedidos.QMCabeceraCLIENTE.AsInteger)) then
+     RelojEmail.Enabled := True
+  else
+     RelojEmail.Enabled := False;
+
+  LEmail.Visible := RelojEmail.Enabled;
+
+  LRiesgoAct.Hint := format(_('Riesgo Actual: %.2f' + #13#10 + 'Riesgo Pedido: %.2f' + #13#10 +
+     'Riesgo Autorizado: %.2f'), [DMPedidos.xInfoActualizadaRIESGO_ACT.AsFloat,
+     DMPedidos.xInfoActualizadaRIESGO_PED.AsFloat, DMPedidos.xInfoActualizadaRIESGO_AUT.AsFloat]);
+  LRiesgo.Hint := LRiesgoAct.Hint;
+  if (DMPedidos.xInfoActualizadaRIESGO_DISPONIBLE.AsFloat < 0) then
+     ColorError(PNLRiesgo)
+  else
+     ColorResaltado(PNLRiesgo);
+
+  if ((DMPedidos.xCliente.Active) and (DMPedidos.QMCabeceraTIPO_PORTES.AsInteger <> DMPedidos.xCliente.FieldByName('TIPO_PORTES').AsInteger)) then
+  begin
+     ColorResaltado3(DBEFPortes);
+     ColorResaltado3(ETituloPortes);
+     DBEFPortes.Hint := format(_('El porte del cliente es habitualmente %d'), [DMPedidos.QMCabeceraTIPO_PORTES.AsInteger]);
+     DBEFPortes.ShowHint := True;
+  end
+  else
+  begin
+     ColorEdicion(DBEFPortes);
+     ColorInfo(ETituloPortes);
+     DBEFPortes.Hint := '';
+     DBEFPortes.ShowHint := False;
+  end;
+
+  ETituloPortes.Hint := DBEFPortes.Hint;
+  ETituloPortes.ShowHint := DBEFPortes.ShowHint;
+
+  if ((DMPedidos.xCliente.Active) and (DMPedidos.xCliente.FieldByName('TERCERO').AsInteger > 0) and (Trim(DMPedidos.xCliente.FieldByName('NIF').AsString) = '')) then
+  begin
+     ColorResaltado3(DBETituloCliente);
+     ColorResaltado3(DBETituloCliente);
+     DBETituloCliente.Font.Color := clWhite;
+     DBETituloCliente.Hint := _('El cliente no tienen NIF asignado');
+     DBETituloCliente.ShowHint := True;
+     SBACliente.Hint := _('El cliente no tienen NIF asignado');
+     SBACliente.ShowHint := True;
+  end
+  else
+  begin
+     DBETituloCliente.Color := REntorno.ColorEnlaceActivo;
+     DBETituloCliente.Font.Color := clWindowText;
+     DBETituloCliente.Hint := '';
+     DBETituloCliente.ShowHint := False;
+     SBACliente.Hint := ('Doble click o Ctrl+Alt+C para ver los datos del Cliente');
+     SBACliente.ShowHint := False;
+  end;
+end;
+
+procedure TFMPedidos.ACambioPCosteLineaExecute(Sender: TObject);
+var
+  PCoste : double;
+begin
+  PCoste := DMPedidos.QMDetalleP_COSTE.AsFloat;
+  if (PideDato('DBL', PCoste, _('Precio de Coste'))) then
+  begin
+     if (DMPedidos.QMDetalleP_COSTE.AsFloat <> PCoste) then
+        DMPedidos.CambiaPCosteLinea(PCoste);
+  end;
+end;
+
+procedure TFMPedidos.ACambioCosteAdicionalLineaExecute(Sender: TObject);
+var
+  CosteAdicional : double;
+begin
+  inherited;
+  CosteAdicional := DMPedidos.QMDetalleCOSTE_ADICIONAL.AsFloat;
+  if PideDato('DBL', CosteAdicional, _('Coste Adicional')) then
+  begin
+     if (DMPedidos.QMDetalleCOSTE_ADICIONAL.AsFloat <> CosteAdicional) then
+        DMPedidos.CambiaCosteAdicionalLinea(CosteAdicional);
+  end;
+end;
+
+procedure TFMPedidos.TSProveedoresShow(Sender: TObject);
+begin
+  inherited;
+  DMPedidos.ConectaProveedores;
+end;
+
+procedure TFMPedidos.EFModoIvaChange(Sender: TObject);
+begin
+  inherited;
+  EModoIva.Text := DameTituloModoIVA(StrToIntDef(EFModoIva.Text, -1));
+end;
+
+procedure TFMPedidos.TBComprobarClick(Sender: TObject);
+var
+  s, w : string;
+  i, Index : integer;
+begin
+  inherited;
+  s := DBRENotas.Lines.Text;
+  Index := LBPalabras.ItemIndex;
+  if (Index < 0) then
+     Index := 0;
+
+  // Recorro texto y agrego palabras a lista de palabras
+  LBPalabras.Items.Clear;
+  w := '';
+  for i := 1 to Length(s) do
+  begin
+     if (s[i] in ['A'..'Z', 'a'..'z', 'ñ', 'Ñ', 'ç', 'Ç', 'á', 'Á', 'é', 'É', 'í', 'Í', 'ó', 'Ó', 'ú', 'Ú', 'ü', 'Ü', 'à', 'À', 'è', 'È', 'ì', 'Ì', 'ò', 'Ò', 'ù', 'Ù']) then
+        w := w + s[i]
+     else
+     begin
+        if (Trim(w) > '') then
+           LBPalabras.Items.Add(w);
+
+        w := '';
+     end;
+  end;
+  if (w <> ' ') then
+     LBPalabras.Items.Add(w);
+
+  // Borro palabras conocidas.
+  for i := LBPalabras.Items.Count - 1 downto 0 do
+  begin
+     if DMMain.ExistePalabra(LBPalabras.Items[i]) then
+        LBPalabras.Items.Delete(i);
+  end;
+
+  if (LBPalabras.Items.Count = 0) then
+     LBPalabras.ItemIndex := -1
+  else
+  if (Index > LBPalabras.Items.Count - 1) then
+     LBPalabras.ItemIndex := LBPalabras.Items.Count - 1
+  else
+     LBPalabras.ItemIndex := Index;
+end;
+
+procedure TFMPedidos.TBAgregarPalabraClick(Sender: TObject);
+var
+  Origen : string;
+begin
+  inherited;
+  Origen := format('%s-%d-%s/%d', [DMPedidos.QMCabeceraTIPO.AsString, DMPedidos.QMCabeceraEJERCICIO.AsInteger, DMPedidos.QMCabeceraSERIE.AsString, DMPedidos.QMCabeceraRIG.AsInteger]);
+  DMMain.AgregarPalabra(LBPalabras.Items[LBPalabras.ItemIndex], Origen);
+  TBComprobar.Click;
+end;
+
+procedure TFMPedidos.AQuitarMarcaTratadoExecute(Sender: TObject);
+begin
+  inherited;
+  DMPedidos.QuitarMarcaTratado;
+end;
+
+procedure TFMPedidos.PNLEdCabeceraResize(Sender: TObject);
+begin
+  inherited;
+  if PNLClinica.Visible then
+  begin
+     PNLClinica.Width := 350;
+     PNLAvisos.Left := PNLClinica.Left + PNLClinica.Width + 5;
+     PNLAvisos.Width := PNLEdCabecera.Width - PNLAvisos.Left - 1;
+  end
+  else
+  begin
+     PNLAvisos.Left := PNLClinica.Left;
+     PNLAvisos.Width := PNLEdCabecera.Width - PNLAvisos.Left - 1;
+  end;
+end;
+
+procedure TFMPedidos.ASeleccionaDetalleTyCExecute(Sender: TObject);
+begin
+  inherited;
+  with TFMSeleccionDetalleTyC.Create(Self) do
+  begin
+     Mostrar(DMPedidos.QMCabeceraID_S.AsInteger, DMPedidos);
+  end;
+end;
+
+procedure TFMPedidos.AIncrementarPrecioExecute(Sender: TObject);
+var
+  Factor : double;
+begin
+  inherited;
+
+  Factor := 1;
+  if (PideDato('DBL', Factor, _('Factor'))) then
+  begin
+     DMPedidos.MultiplicaPrecios(Factor);
+  end;
+end;
+
+procedure TFMPedidos.AExportacionPedidosPendientesExecute(Sender: TObject);
+var
+  Archivo : string;
+begin
+  inherited;
+  Archivo := format(_('Pedidos') + '_%s', [FormatDateTime('yyyymmdd_hhnnss', Now)]);
+  if MySaveDialog(Archivo, 'XLS,ODS,TXT', '', 'FMPedidos-ExportacionPedidosPendientes') then
+     DMPedidos.ExportacionPedidosPendientes(Archivo);
+end;
+
+procedure TFMPedidos.ADevolucionExecute(Sender: TObject);
+var
+  SerieDestino : string;
+begin
+  // DMMain.Log('TFMAlbaranes.ADevolucionExecute');
+  if (DMPedidos.xCliente.Active) then
+     DMMain.MuestraAviso('CLI', DMPedidos.xCliente.FieldByName('ID_CLIENTE').AsInteger, 'PEC');
+
+  SerieDestino := DMPedidos.QMCabeceraSERIE.AsString;
+  if PideDato('SER', SerieDestino) then
+  begin
+     Screen.Cursor := crHourGlass;
+     try
+        DMPedidos.Devuelve(SerieDestino);
+     finally
+        Screen.Cursor := crDefault;
+     end;
+
+     if (SerieDestino <> DMPedidos.QMCabeceraSERIE.AsString) then
+     begin
+        EFSerie.Text := SerieDestino;
+        DMPedidos.QMCabecera.Last;
+     end;
+  end;
+end;
+
+procedure TFMPedidos.ADiferenciaPedidoAnteriorExecute(Sender: TObject);
+begin
+  DMPedidos.MostrarDiferenciaConPedidoAnterior;
+end;
+
+end.

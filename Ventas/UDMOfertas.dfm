@@ -1,0 +1,2714 @@
+object DMOfertas: TDMOfertas
+  OldCreateOrder = False
+  OnCreate = DMDocsOfertaCCreate
+  OnDestroy = DataModuleDestroy
+  Left = 319
+  Top = 208
+  Height = 636
+  Width = 785
+  object QMDetalle: TFIBTableSet
+    Database = DMMain.DataBase
+    Transaction = TLocal
+    UsaNulls = False
+    BufferChunks = 32
+    CachedUpdates = False
+    DeleteSQL.Strings = (
+      'DELETE FROM VER_DETALLE_OFERTA_C'
+      'WHERE'
+      '  ID_DETALLES_S=?old_ID_DETALLES_S ')
+    InsertSQL.Strings = (
+      'INSERT INTO VER_DETALLE_OFERTA_C'
+      
+        '  (EMPRESA,'#13#10'EJERCICIO,CANAL,SERIE,TIPO,RIG,LINEA,ALMACEN,ARTICU' +
+        'LO,TITULO,UNIDADES,'#13#10'UNIDADES_SERVIDAS,UNIDADES_PENDIENTES,UNIDA' +
+        'DES_RESERVADAS,SERVIDO,PRECIO,PIEZAS_X_BULTO,BULTOS,DESCUENTO,DE' +
+        'SCUENTO_2,DESCUENTO_3,'#13#10'COMISION,P_COSTE,M_MOV_STOCK,TIPO_IVA,TI' +
+        'PO_IVA_ART,P_IVA,P_RECARGO,BRUTO,B_COMISION,I_DESCUENTO,'#13#10'B_IMPO' +
+        'NIBLE,I_COMISION,ENTRADA,NOTAS,'#13#10'UNIDADES_EXT,UNIDADES_SEC,ID_DE' +
+        'TALLES_S,ID_S,ID_A,ID_C_A,COMISION_LINEAL,I_COMISION_LINEAL,TITU' +
+        'LO_IDIOMA,'#13#10'TIPO_LINEA_KRI,ORDEN,TIPO_LINEA,ORIGEN,PROC_PROMOCIO' +
+        'N,ID_P,APLICA_UNIDADES_SECUNDARIAS,PROYECTO,NOTAS2,CRC_NOTAS,'#13#10'C' +
+        'RC_NOTAS2,PRO_NUM_PLANO,NO_FABRICACION_KRI,TIPO_UNIDAD_LOGISTICA' +
+        ',TITULO_UNIDAD_LOGISTICA,U_POR_U_LOGISTICA,RELACIONAR_U_LOGISTIC' +
+        'A,UNIDADES_LOGISTICAS,U_LOGISTICAS_RESERVADAS,ID_OFERTA_ESC,'#13#10'TI' +
+        'PO_ID_ESC,ID_ESC,ID_ESC_2,ID_DESPIECE,COSTE_ADICIONAL,ID_IMAGEN,' +
+        'FECHA_ENTREGA_PREV,DIRECCION_ENTREGA,MANIPULACION,ALFA_1,ALFA_2,' +
+        'ALFA_3,ALFA_4,ALFA_5,ALFA_6,ALFA_7,ALFA_8,INVERSION_SUJETO_PASIV' +
+        'O,'#13#10'DECIMALES_UNIDADES,SIGNO_UNIDADES,TIPO_IMPUESTO_ADICIONAL,P_' +
+        'IMPUESTO_ADICIONAL,PESO,PESO_TOTAL,PESO_REAL,ENTRADA_AGRUPACION,' +
+        'ECOTASA,REQUIERE_LOTE_SIMPLE,'#13#10'CONTROL_STOCK,UE_UNIDADES,UE_MEDI' +
+        'DA1,UE_MEDIDA2,UE_MEDIDA3,UE_MEDIDA4)'
+      'VALUES'
+      
+        '  (?EMPRESA,'#13#10'?EJERCICIO,?CANAL,?SERIE,?TIPO,?RIG,?LINEA,?ALMACE' +
+        'N,?ARTICULO,?TITULO,?UNIDADES,'#13#10'?UNIDADES_SERVIDAS,?UNIDADES_PEN' +
+        'DIENTES,?UNIDADES_RESERVADAS,?SERVIDO,?PRECIO,?PIEZAS_X_BULTO,?B' +
+        'ULTOS,?DESCUENTO,?DESCUENTO_2,?DESCUENTO_3,'#13#10'?COMISION,?P_COSTE,' +
+        '?M_MOV_STOCK,?TIPO_IVA,?TIPO_IVA_ART,?P_IVA,?P_RECARGO,?BRUTO,?B' +
+        '_COMISION,?I_DESCUENTO,'#13#10'?B_IMPONIBLE,?I_COMISION,?ENTRADA,?NOTA' +
+        'S,'#13#10'?UNIDADES_EXT,?UNIDADES_SEC,?ID_DETALLES_S,?ID_S,?ID_A,?ID_C' +
+        '_A,?COMISION_LINEAL,?I_COMISION_LINEAL,?TITULO_IDIOMA,'#13#10'?TIPO_LI' +
+        'NEA_KRI,?ORDEN,?TIPO_LINEA,?ORIGEN,?PROC_PROMOCION,?ID_P,?APLICA' +
+        '_UNIDADES_SECUNDARIAS,?PROYECTO,?NOTAS2,?CRC_NOTAS,'#13#10'?CRC_NOTAS2' +
+        ',?PRO_NUM_PLANO,?NO_FABRICACION_KRI,?TIPO_UNIDAD_LOGISTICA,?TITU' +
+        'LO_UNIDAD_LOGISTICA,?U_POR_U_LOGISTICA,?RELACIONAR_U_LOGISTICA,?' +
+        'UNIDADES_LOGISTICAS,?U_LOGISTICAS_RESERVADAS,?ID_OFERTA_ESC,'#13#10'?T' +
+        'IPO_ID_ESC,?ID_ESC,?ID_ESC_2,?ID_DESPIECE,?COSTE_ADICIONAL,?ID_I' +
+        'MAGEN,?FECHA_ENTREGA_PREV,?DIRECCION_ENTREGA,?MANIPULACION,?ALFA' +
+        '_1,?ALFA_2,?ALFA_3,?ALFA_4,?ALFA_5,?ALFA_6,?ALFA_7,?ALFA_8,?INVE' +
+        'RSION_SUJETO_PASIVO,'#13#10'?DECIMALES_UNIDADES,?SIGNO_UNIDADES,?TIPO_' +
+        'IMPUESTO_ADICIONAL,?P_IMPUESTO_ADICIONAL,?PESO,?PESO_TOTAL,?PESO' +
+        '_REAL,?ENTRADA_AGRUPACION,?ECOTASA,?REQUIERE_LOTE_SIMPLE,'#13#10'?CONT' +
+        'ROL_STOCK,?UE_UNIDADES,?UE_MEDIDA1,?UE_MEDIDA2,?UE_MEDIDA3,?UE_M' +
+        'EDIDA4)')
+    RefreshSQL.Strings = (
+      'SELECT'
+      '  *'
+      'FROM VER_DETALLE_OFERTA_C'
+      'WHERE'
+      '  ID_DETALLES_S=?ID_DETALLES_S ')
+    SelectSQL.Strings = (
+      'SELECT * FROM VER_DETALLE_OFERTA_C'
+      'WHERE'
+      'ID_S = ?ID_S'
+      'ORDER BY ORDEN')
+    UniDirectional = False
+    UpdateRecordTypes = [cusUnmodified, cusModified, cusInserted]
+    UpdateSQL.Strings = (
+      'UPDATE VER_DETALLE_OFERTA_C'
+      'SET'
+      '  EMPRESA=?EMPRESA '
+      '  ,EJERCICIO=?EJERCICIO '
+      '  ,CANAL=?CANAL '
+      '  ,SERIE=?SERIE '
+      '  ,TIPO=?TIPO '
+      '  ,RIG=?RIG '
+      '  ,LINEA=?LINEA '
+      '  ,ALMACEN=?ALMACEN '
+      '  ,ARTICULO=?ARTICULO '
+      '  ,TITULO=?TITULO '
+      '  ,UNIDADES=?UNIDADES '
+      '  ,UNIDADES_SERVIDAS=?UNIDADES_SERVIDAS '
+      '  ,UNIDADES_PENDIENTES=?UNIDADES_PENDIENTES '
+      '  ,UNIDADES_RESERVADAS=?UNIDADES_RESERVADAS '
+      '  ,SERVIDO=?SERVIDO '
+      '  ,PRECIO=?PRECIO '
+      '  ,PIEZAS_X_BULTO=?PIEZAS_X_BULTO '
+      '  ,BULTOS=?BULTOS '
+      '  ,DESCUENTO=?DESCUENTO '
+      '  ,DESCUENTO_2=?DESCUENTO_2 '
+      '  ,DESCUENTO_3=?DESCUENTO_3 '
+      '  ,COMISION=?COMISION '
+      '  ,P_COSTE=?P_COSTE '
+      '  ,M_MOV_STOCK=?M_MOV_STOCK '
+      '  ,TIPO_IVA=?TIPO_IVA '
+      '  ,TIPO_IVA_ART=?TIPO_IVA_ART '
+      '  ,P_IVA=?P_IVA '
+      '  ,P_RECARGO=?P_RECARGO '
+      '  ,BRUTO=?BRUTO '
+      '  ,B_COMISION=?B_COMISION '
+      '  ,I_DESCUENTO=?I_DESCUENTO '
+      '  ,B_IMPONIBLE=?B_IMPONIBLE '
+      '  ,I_COMISION=?I_COMISION '
+      '  ,ENTRADA=?ENTRADA '
+      '  ,NOTAS=?NOTAS '
+      '  ,UNIDADES_EXT=?UNIDADES_EXT '
+      '  ,UNIDADES_SEC=?UNIDADES_SEC '
+      '  ,ID_S=?ID_S '
+      '  ,ID_A=?ID_A '
+      '  ,ID_C_A=?ID_C_A '
+      '  ,COMISION_LINEAL=?COMISION_LINEAL '
+      '  ,I_COMISION_LINEAL=?I_COMISION_LINEAL '
+      '  ,TITULO_IDIOMA=?TITULO_IDIOMA '
+      '  ,TIPO_LINEA_KRI=?TIPO_LINEA_KRI '
+      '  ,ORDEN=?ORDEN '
+      '  ,TIPO_LINEA=?TIPO_LINEA '
+      '  ,ORIGEN=?ORIGEN '
+      '  ,PROC_PROMOCION=?PROC_PROMOCION '
+      '  ,ID_P=?ID_P '
+      '  ,APLICA_UNIDADES_SECUNDARIAS=?APLICA_UNIDADES_SECUNDARIAS '
+      '  ,PROYECTO=?PROYECTO '
+      '  ,NOTAS2=?NOTAS2 '
+      '  ,CRC_NOTAS=?CRC_NOTAS '
+      '  ,CRC_NOTAS2=?CRC_NOTAS2 '
+      '  ,PRO_NUM_PLANO=?PRO_NUM_PLANO '
+      '  ,NO_FABRICACION_KRI=?NO_FABRICACION_KRI '
+      '  ,TIPO_UNIDAD_LOGISTICA=?TIPO_UNIDAD_LOGISTICA '
+      '  ,TITULO_UNIDAD_LOGISTICA=?TITULO_UNIDAD_LOGISTICA '
+      '  ,U_POR_U_LOGISTICA=?U_POR_U_LOGISTICA '
+      '  ,RELACIONAR_U_LOGISTICA=?RELACIONAR_U_LOGISTICA '
+      '  ,UNIDADES_LOGISTICAS=?UNIDADES_LOGISTICAS '
+      '  ,U_LOGISTICAS_RESERVADAS=?U_LOGISTICAS_RESERVADAS '
+      '  ,ID_OFERTA_ESC=?ID_OFERTA_ESC '
+      '  ,TIPO_ID_ESC=?TIPO_ID_ESC '
+      '  ,ID_ESC=?ID_ESC '
+      '  ,ID_ESC_2=?ID_ESC_2 '
+      '  ,ID_DESPIECE=?ID_DESPIECE '
+      '  ,COSTE_ADICIONAL=?COSTE_ADICIONAL '
+      '  ,ID_IMAGEN=?ID_IMAGEN '
+      '  ,FECHA_ENTREGA_PREV=?FECHA_ENTREGA_PREV '
+      '  ,DIRECCION_ENTREGA=?DIRECCION_ENTREGA '
+      '  ,MANIPULACION=?MANIPULACION '
+      '  ,ALFA_1=?ALFA_1 '
+      '  ,ALFA_2=?ALFA_2 '
+      '  ,ALFA_3=?ALFA_3 '
+      '  ,ALFA_4=?ALFA_4 '
+      '  ,ALFA_5=?ALFA_5 '
+      '  ,ALFA_6=?ALFA_6 '
+      '  ,ALFA_7=?ALFA_7 '
+      '  ,ALFA_8=?ALFA_8 '
+      '  ,INVERSION_SUJETO_PASIVO=?INVERSION_SUJETO_PASIVO '
+      '  ,DECIMALES_UNIDADES=?DECIMALES_UNIDADES '
+      '  ,SIGNO_UNIDADES=?SIGNO_UNIDADES '
+      '  ,TIPO_IMPUESTO_ADICIONAL=?TIPO_IMPUESTO_ADICIONAL '
+      '  ,P_IMPUESTO_ADICIONAL=?P_IMPUESTO_ADICIONAL '
+      '  ,PESO=?PESO '
+      '  ,PESO_TOTAL=?PESO_TOTAL '
+      '  ,PESO_REAL=?PESO_REAL '
+      '  ,ENTRADA_AGRUPACION=?ENTRADA_AGRUPACION '
+      '  ,ECOTASA=?ECOTASA '
+      '  ,REQUIERE_LOTE_SIMPLE=?REQUIERE_LOTE_SIMPLE '
+      '  ,CONTROL_STOCK=?CONTROL_STOCK '
+      '  ,UE_UNIDADES=?UE_UNIDADES '
+      '  ,UE_MEDIDA1=?UE_MEDIDA1 '
+      '  ,UE_MEDIDA2=?UE_MEDIDA2 '
+      '  ,UE_MEDIDA3=?UE_MEDIDA3 '
+      '  ,UE_MEDIDA4=?UE_MEDIDA4 '
+      'WHERE'
+      '  ID_DETALLES_S=?ID_DETALLES_S ')
+    DataSource = DSCabecera
+    Plan.Strings = (
+      
+        'PLAN SORT (JOIN (VER_DETALLE_OFERTA_C DET INDEX (GES_DETALLES_S_' +
+        'CAB_ID),'
+      
+        '                VER_DETALLE_OFERTA_C OFC INDEX (GES_DETALLES_S_O' +
+        'FC_ID)))  ')
+    AfterDelete = QMDetalleAfterDelete
+    AfterOpen = QMDetalleAfterOpen
+    AfterPost = QMDetalleAfterPost
+    AfterScroll = QMDetalleAfterScroll
+    BeforeDelete = QMDetalleBeforeDelete
+    BeforeEdit = AntesDeEditar
+    BeforeInsert = QMDetalleBeforeInsert
+    BeforePost = QMDetalleBeforePost
+    OnCalcFields = QMDetalleCalcFields
+    OnNewRecord = QMDetalleNewRecord
+    ClavesPrimarias.Strings = (
+      'ID_DETALLES_S ')
+    AccionesInhibidas = []
+    Opciones = [NoControlarConcurrencia]
+    AutoSQLdeVistas = True
+    ComprobarTabla = False
+    Mensajes = False
+    TableName = 'VER_DETALLE_OFERTA_C'
+    BloqOpt = True
+    TablasBloqueo.Strings = (
+      'GES_DETALLES_S'
+      'GES_DETALLES_S_OFC')
+    CamposBloqueo.Strings = (
+      'ID_DETALLES_S'
+      'ID_DETALLES_S')
+    UpdateTransaction = TUpdate
+    AutoCommit = True
+    Left = 32
+    Top = 56
+    object QMDetalleEMPRESA: TIntegerField
+      DisplayLabel = 'Empresa'
+      FieldName = 'EMPRESA'
+    end
+    object QMDetalleEJERCICIO: TIntegerField
+      DisplayLabel = 'Ejercicio'
+      FieldName = 'EJERCICIO'
+    end
+    object QMDetalleCANAL: TIntegerField
+      DisplayLabel = 'Canal'
+      FieldName = 'CANAL'
+    end
+    object QMDetalleSERIE: TFIBStringField
+      DisplayLabel = 'Serie'
+      FieldName = 'SERIE'
+      Size = 10
+    end
+    object QMDetalleTIPO: TFIBStringField
+      DisplayLabel = 'Tipo'
+      FieldName = 'TIPO'
+      Size = 3
+    end
+    object QMDetalleRIG: TIntegerField
+      DisplayLabel = 'Oferta'
+      FieldName = 'RIG'
+    end
+    object QMDetalleLINEA: TIntegerField
+      DisplayLabel = 'Linea'
+      FieldName = 'LINEA'
+    end
+    object QMDetalleALMACEN: TFIBStringField
+      DisplayLabel = 'Alm.'
+      FieldName = 'ALMACEN'
+      OnChange = QMDetalleALMACENChange
+      Size = 3
+    end
+    object QMDetalleARTICULO: TFIBStringField
+      DisplayLabel = 'Art'#237'culo'
+      FieldName = 'ARTICULO'
+      OnChange = QMDetalleARTICULOChange
+      EditMask = '>ccccccccccccccc;0;_'
+      Size = 15
+    end
+    object QMDetalleTITULO: TFIBStringField
+      DisplayLabel = 'Desc. Art'#237'culo'
+      FieldName = 'TITULO'
+      Size = 256
+    end
+    object QMDetalleUNIDADES: TFloatField
+      DisplayLabel = 'Unidades'
+      FieldName = 'UNIDADES'
+      OnChange = QMDetalleUNIDADESChange
+      OnGetText = QMDetalleUNIDADESGetText
+    end
+    object QMDetallePRECIO: TFloatField
+      DisplayLabel = 'Precio'
+      FieldName = 'PRECIO'
+      OnChange = QMDetallePRECIOChange
+    end
+    object QMDetallePIEZAS_X_BULTO: TIntegerField
+      DisplayLabel = 'Piezas x Bulto'
+      FieldName = 'PIEZAS_X_BULTO'
+    end
+    object QMDetalleBULTOS: TIntegerField
+      DisplayLabel = 'Bultos'
+      FieldName = 'BULTOS'
+    end
+    object QMDetalleDESCUENTO: TFloatField
+      DisplayLabel = 'Desc.'
+      FieldName = 'DESCUENTO'
+    end
+    object QMDetalleDESCUENTO_2: TFloatField
+      DisplayLabel = 'Desc. 2'
+      FieldName = 'DESCUENTO_2'
+    end
+    object QMDetalleDESCUENTO_3: TFloatField
+      DisplayLabel = 'Desc. 3'
+      FieldName = 'DESCUENTO_3'
+    end
+    object QMDetalleCOMISION: TFloatField
+      DisplayLabel = 'Comision'
+      FieldName = 'COMISION'
+      OnChange = QMDetalleCOMISIONChange
+    end
+    object QMDetalleP_COSTE: TFloatField
+      DisplayLabel = 'P. Coste'
+      FieldName = 'P_COSTE'
+      OnChange = QMDetalleP_COSTEChange
+    end
+    object QMDetalleM_MOV_STOCK: TIntegerField
+      DisplayLabel = 'N. Mov. Stock'
+      FieldName = 'M_MOV_STOCK'
+    end
+    object QMDetalleTIPO_IVA: TIntegerField
+      DisplayLabel = 'Tipo IVA'
+      FieldName = 'TIPO_IVA'
+      OnChange = QMDetalleTIPO_IVAChange
+    end
+    object QMDetalleP_IVA: TFloatField
+      DisplayLabel = '% IVA'
+      FieldName = 'P_IVA'
+    end
+    object QMDetalleP_RECARGO: TFloatField
+      DisplayLabel = '% Rec'
+      FieldName = 'P_RECARGO'
+    end
+    object QMDetalleBRUTO: TFloatField
+      DisplayLabel = 'Bruto'
+      FieldName = 'BRUTO'
+    end
+    object QMDetalleB_COMISION: TFloatField
+      DisplayLabel = 'B. Comision'
+      FieldName = 'B_COMISION'
+    end
+    object QMDetalleI_DESCUENTO: TFloatField
+      DisplayLabel = 'Imp. Dto.'
+      FieldName = 'I_DESCUENTO'
+    end
+    object QMDetalleB_IMPONIBLE: TFloatField
+      DisplayLabel = 'B. Imponible'
+      FieldName = 'B_IMPONIBLE'
+    end
+    object QMDetalleB_DTO_LINEA: TFloatField
+      DisplayLabel = 'B. Dto. Linea'
+      FieldName = 'B_DTO_LINEA'
+    end
+    object QMDetalleI_COMISION: TFloatField
+      DisplayLabel = 'Imp. Comision'
+      FieldName = 'I_COMISION'
+    end
+    object QMDetalleC_IVA: TFloatField
+      DisplayLabel = 'C. IVA'
+      FieldName = 'C_IVA'
+    end
+    object QMDetalleC_RECARGO: TFloatField
+      DisplayLabel = 'C. Recargo'
+      FieldName = 'C_RECARGO'
+    end
+    object QMDetalleT_COSTE: TFloatField
+      DisplayLabel = 'T. Coste'
+      FieldName = 'T_COSTE'
+    end
+    object QMDetalleM_BRUTO: TFloatField
+      DisplayLabel = 'M. Bruto'
+      FieldName = 'M_BRUTO'
+    end
+    object QMDetalleLIQUIDO: TFloatField
+      DisplayLabel = 'Liquido'
+      FieldName = 'LIQUIDO'
+    end
+    object QMDetalleENTRADA: TIntegerField
+      DisplayLabel = 'Entrada'
+      FieldName = 'ENTRADA'
+    end
+    object QMDetalleNOTAS: TMemoField
+      DisplayLabel = 'Notas'
+      FieldName = 'NOTAS'
+      BlobType = ftMemo
+      Size = 8
+    end
+    object QMDetalleUNIDADES_EXT: TFloatField
+      DisplayLabel = 'Uds. Ext.'
+      FieldName = 'UNIDADES_EXT'
+      OnGetText = QMDetalleUNIDADES_EXTGetText
+    end
+    object QMDetalleUNIDADES_SEC: TFloatField
+      DisplayLabel = 'Uds. Sec.'
+      FieldName = 'UNIDADES_SEC'
+      OnChange = QMDetalleUNIDADES_SECChange
+    end
+    object QMDetalleID_DETALLES_S: TIntegerField
+      DisplayLabel = 'ID Det.'
+      FieldName = 'ID_DETALLES_S'
+    end
+    object QMDetalleID_S: TIntegerField
+      DisplayLabel = 'ID Cab.'
+      FieldName = 'ID_S'
+    end
+    object QMDetalleID_A: TIntegerField
+      DisplayLabel = 'ID Art.'
+      FieldName = 'ID_A'
+    end
+    object QMDetalleID_C_A: TIntegerField
+      DisplayLabel = 'ID Art. Can.'
+      FieldName = 'ID_C_A'
+    end
+    object QMDetalleCOMISION_LINEAL: TFloatField
+      DisplayLabel = 'Comision Lineal'
+      FieldName = 'COMISION_LINEAL'
+    end
+    object QMDetalleI_COMISION_LINEAL: TFloatField
+      DisplayLabel = 'Imp. Com. Lineal'
+      FieldName = 'I_COMISION_LINEAL'
+    end
+    object QMDetalleTITULO_IDIOMA: TFIBStringField
+      DisplayLabel = 'Tit. Idioma'
+      FieldName = 'TITULO_IDIOMA'
+      Size = 256
+    end
+    object QMDetalleORDEN: TIntegerField
+      DisplayLabel = 'Orden'
+      FieldName = 'ORDEN'
+    end
+    object QMDetalleTIPO_LINEA: TFIBStringField
+      DisplayLabel = 'Tipo Linea'
+      FieldName = 'TIPO_LINEA'
+      Size = 3
+    end
+    object QMDetalleORIGEN: TIntegerField
+      DisplayLabel = 'Origen'
+      FieldName = 'ORIGEN'
+    end
+    object QMDetallePROC_PROMOCION: TIntegerField
+      DisplayLabel = 'Proc. Prom.'
+      FieldName = 'PROC_PROMOCION'
+    end
+    object QMDetalleID_P: TIntegerField
+      DisplayLabel = 'ID Prom.'
+      FieldName = 'ID_P'
+    end
+    object QMDetalleAPLICA_UNIDADES_SECUNDARIAS: TIntegerField
+      DisplayLabel = 'Aplica Uds. Sec.'
+      FieldName = 'APLICA_UNIDADES_SECUNDARIAS'
+    end
+    object QMDetallePROYECTO: TIntegerField
+      DisplayLabel = 'Proyecto'
+      FieldName = 'PROYECTO'
+    end
+    object QMDetalleTIPO_LINEA_KRI: TIntegerField
+      DisplayLabel = 'Tipo Linea'
+      FieldName = 'TIPO_LINEA_KRI'
+    end
+    object QMDetalleNOTAS2: TMemoField
+      DisplayLabel = 'Notas 2'
+      FieldName = 'NOTAS2'
+      BlobType = ftMemo
+      Size = 8
+    end
+    object QMDetalleCRC_NOTAS: TFIBStringField
+      DisplayLabel = 'CRC Notas'
+      FieldName = 'CRC_NOTAS'
+      Size = 15
+    end
+    object QMDetalleCRC_NOTAS2: TFIBStringField
+      DisplayLabel = 'CRC Notas 2'
+      FieldName = 'CRC_NOTAS2'
+      Size = 15
+    end
+    object QMDetallePRO_NUM_PLANO: TFIBStringField
+      DisplayLabel = 'Pro. Num. Plano'
+      FieldName = 'PRO_NUM_PLANO'
+      Size = 35
+    end
+    object QMDetalleTIPO_UNIDAD_LOGISTICA: TFIBStringField
+      DisplayLabel = 'Tipo Uds. Log.'
+      FieldName = 'TIPO_UNIDAD_LOGISTICA'
+      OnChange = QMDetalleTIPO_UNIDAD_LOGISTICAChange
+      Size = 5
+    end
+    object QMDetalleUNIDADES_LOGISTICAS: TFloatField
+      DisplayLabel = 'Uds. Log.'
+      FieldName = 'UNIDADES_LOGISTICAS'
+      OnChange = QMDetalleUNIDADES_LOGISTICASChange
+    end
+    object QMDetalleTITULO_UNIDAD_LOGISTICA: TFIBStringField
+      DisplayLabel = 'Titulo UL'
+      FieldName = 'TITULO_UNIDAD_LOGISTICA'
+      Size = 35
+    end
+    object QMDetalleID_OFERTA_ESC: TIntegerField
+      DisplayLabel = 'ID'
+      FieldName = 'ID_OFERTA_ESC'
+    end
+    object QMDetalleID_ESC: TIntegerField
+      DisplayLabel = 'ID Esc.'
+      FieldName = 'ID_ESC'
+    end
+    object QMDetalleID_DESPIECE: TIntegerField
+      DisplayLabel = 'ID Despiece'
+      FieldName = 'ID_DESPIECE'
+    end
+    object QMDetalleCOSTE_ADICIONAL: TFloatField
+      DisplayLabel = 'Coste Adic.'
+      FieldName = 'COSTE_ADICIONAL'
+    end
+    object QMDetalleID_IMAGEN: TIntegerField
+      DisplayLabel = 'Imagen'
+      FieldName = 'ID_IMAGEN'
+    end
+    object QMDetalleFECHA_ENTREGA_PREV: TDateTimeField
+      DisplayLabel = 'Fecha Entrega Prev.'
+      FieldName = 'FECHA_ENTREGA_PREV'
+    end
+    object QMDetalleDIRECCION_ENTREGA: TIntegerField
+      DisplayLabel = 'Dir. Entrega'
+      FieldName = 'DIRECCION_ENTREGA'
+    end
+    object QMDetalleCODIGO_CLIENTE: TStringField
+      DisplayLabel = 'Cod. Cliente'
+      FieldName = 'CODIGO_CLIENTE'
+      Size = 40
+    end
+    object QMDetalleTITULO_CLIENTE: TStringField
+      DisplayLabel = 'Titulo Segun Cli.'
+      FieldName = 'TITULO_CLIENTE'
+      Size = 256
+    end
+    object QMDetalleTOTAL_UNIDADES_EXT: TFloatField
+      DisplayLabel = 'Tot. Uds. Ext.'
+      FieldName = 'TOTAL_UNIDADES_EXT'
+      OnGetText = QMDetalleTOTAL_UNIDADES_EXTGetText
+    end
+    object QMDetalleMARGEN: TFloatField
+      DisplayLabel = 'Margen'
+      FieldKind = fkCalculated
+      FieldName = 'MARGEN'
+      Calculated = True
+    end
+    object QMDetalleMANIPULACION: TIntegerField
+      DisplayLabel = 'Man.'
+      FieldName = 'MANIPULACION'
+    end
+    object QMDetalleALFA_1: TFIBStringField
+      DisplayLabel = 'Alfa 1'
+      FieldName = 'ALFA_1'
+      Size = 40
+    end
+    object QMDetalleALFA_2: TFIBStringField
+      DisplayLabel = 'Alfa 2'
+      FieldName = 'ALFA_2'
+      Size = 40
+    end
+    object QMDetalleALFA_3: TFIBStringField
+      DisplayLabel = 'Alfa 3'
+      FieldName = 'ALFA_3'
+      Size = 40
+    end
+    object QMDetalleALFA_4: TFIBStringField
+      DisplayLabel = 'Alfa 4'
+      FieldName = 'ALFA_4'
+      Size = 40
+    end
+    object QMDetalleALFA_5: TFIBStringField
+      DisplayLabel = 'Alfa 5'
+      FieldName = 'ALFA_5'
+      Size = 40
+    end
+    object QMDetalleALFA_6: TFIBStringField
+      DisplayLabel = 'Alfa 6'
+      FieldName = 'ALFA_6'
+      Size = 40
+    end
+    object QMDetalleALFA_7: TFIBStringField
+      DisplayLabel = 'Alfa 7'
+      FieldName = 'ALFA_7'
+      Size = 40
+    end
+    object QMDetalleALFA_8: TFIBStringField
+      DisplayLabel = 'Alfa 8'
+      FieldName = 'ALFA_8'
+      Size = 40
+    end
+    object QMDetalleINVERSION_SUJETO_PASIVO: TIntegerField
+      DisplayLabel = 'ISP'
+      FieldName = 'INVERSION_SUJETO_PASIVO'
+    end
+    object QMDetalleDECIMALES_UNIDADES: TIntegerField
+      DisplayLabel = 'Decimales Uds.'
+      FieldName = 'DECIMALES_UNIDADES'
+    end
+    object QMDetalleTIPO_IMPUESTO_ADICIONAL: TIntegerField
+      DisplayLabel = 'Tipo Imp. Adicional'
+      FieldName = 'TIPO_IMPUESTO_ADICIONAL'
+    end
+    object QMDetalleP_IMPUESTO_ADICIONAL: TFloatField
+      DisplayLabel = '% Imp. Adicional'
+      FieldName = 'P_IMPUESTO_ADICIONAL'
+    end
+    object QMDetalleSTOCK_ALM: TFloatField
+      DisplayLabel = 'Stock Alm.'
+      FieldKind = fkCalculated
+      FieldName = 'STOCK_ALM'
+      Calculated = True
+    end
+    object QMDetalleSTOCK_ALM2: TFloatField
+      DisplayLabel = 'Stock Alm. 2'
+      FieldKind = fkCalculated
+      FieldName = 'STOCK_ALM2'
+      Calculated = True
+    end
+    object QMDetalleSTOCK_ALM3: TFloatField
+      DisplayLabel = 'Stock Alm. 3'
+      FieldKind = fkCalculated
+      FieldName = 'STOCK_ALM3'
+      Calculated = True
+    end
+    object QMDetalleSTOCKV_ALM: TFloatField
+      DisplayLabel = 'Stock Virt. Alm.'
+      FieldKind = fkCalculated
+      FieldName = 'STOCKV_ALM'
+      Calculated = True
+    end
+    object QMDetalleSTOCKV_ALM2: TFloatField
+      DisplayLabel = 'Stock Virt. Alm. 2'
+      FieldKind = fkCalculated
+      FieldName = 'STOCKV_ALM2'
+      Calculated = True
+    end
+    object QMDetalleSTOCKV_ALM3: TFloatField
+      DisplayLabel = 'Stock Virt. Alm. 3'
+      FieldKind = fkCalculated
+      FieldName = 'STOCKV_ALM3'
+      Calculated = True
+    end
+    object QMDetalleSTOCKR_ALM: TFloatField
+      DisplayLabel = 'Stock Real Alm.'
+      FieldKind = fkCalculated
+      FieldName = 'STOCKR_ALM'
+      Calculated = True
+    end
+    object QMDetalleSTOCKR_ALM2: TFloatField
+      DisplayLabel = 'Stock Real Alm. 2'
+      FieldKind = fkCalculated
+      FieldName = 'STOCKR_ALM2'
+      Calculated = True
+    end
+    object QMDetalleSTOCKR_ALM3: TFloatField
+      DisplayLabel = 'Stock Real Alm. 3'
+      FieldKind = fkCalculated
+      FieldName = 'STOCKR_ALM3'
+      Calculated = True
+    end
+    object QMDetalleSTOCKM_ALM: TFloatField
+      DisplayLabel = 'S. Mont. Alm. 1'
+      FieldKind = fkCalculated
+      FieldName = 'STOCKM_ALM'
+      Calculated = True
+    end
+    object QMDetalleSTOCKM_ALM2: TFloatField
+      DisplayLabel = 'S. Mont. Alm. 2'
+      FieldKind = fkCalculated
+      FieldName = 'STOCKM_ALM2'
+      Calculated = True
+    end
+    object QMDetalleSTOCKM_ALM3: TFloatField
+      DisplayLabel = 'S. Mont. Alm. 3'
+      FieldKind = fkCalculated
+      FieldName = 'STOCKM_ALM3'
+      Calculated = True
+    end
+    object QMDetalleSTOCK_VIRTUAL: TFloatField
+      DisplayLabel = 'S. Virtual'
+      FieldKind = fkCalculated
+      FieldName = 'STOCK_VIRTUAL'
+      ReadOnly = True
+      Calculated = True
+    end
+    object QMDetalleSTOCK_MONTURAS: TFloatField
+      DisplayLabel = 'S. Montura'
+      FieldKind = fkCalculated
+      FieldName = 'STOCK_MONTURAS'
+      Calculated = True
+    end
+    object QMDetalleSTOCK_REF_BASE: TFloatField
+      DisplayLabel = 'S. Ref. Base'
+      FieldKind = fkCalculated
+      FieldName = 'STOCK_REF_BASE'
+      Calculated = True
+    end
+    object QMDetallePESO: TFloatField
+      DisplayLabel = 'Peso'
+      FieldName = 'PESO'
+      OnGetText = QMDetallePESOGetText
+    end
+    object QMDetallePESO_TOTAL: TFloatField
+      DisplayLabel = 'Peso Total'
+      FieldName = 'PESO_TOTAL'
+      OnGetText = QMDetallePESO_TOTALGetText
+    end
+    object QMDetallePESO_REAL: TFloatField
+      DisplayLabel = 'Peso Real'
+      FieldName = 'PESO_REAL'
+      OnChange = QMDetallePESO_REALChange
+      OnGetText = QMDetallePESO_REALGetText
+    end
+    object QMDetalleSIGNO_UNIDADES: TFIBStringField
+      DisplayLabel = 'Unidad'
+      FieldName = 'SIGNO_UNIDADES'
+      Size = 3
+    end
+    object QMDetalleID_ESC_2: TIntegerField
+      DisplayLabel = 'ID Esc. 2'
+      FieldName = 'ID_ESC_2'
+    end
+    object QMDetalleUNIDADES_SERVIDAS: TFloatField
+      DisplayLabel = 'Uds. Servidas'
+      FieldName = 'UNIDADES_SERVIDAS'
+    end
+    object QMDetalleUNIDADES_PENDIENTES: TFloatField
+      DisplayLabel = 'Uds. Pendientes'
+      FieldName = 'UNIDADES_PENDIENTES'
+    end
+    object QMDetalleUNIDADES_RESERVADAS: TFloatField
+      DisplayLabel = 'Uds. Reservadas'
+      FieldName = 'UNIDADES_RESERVADAS'
+    end
+    object QMDetalleSERVIDO: TIntegerField
+      DisplayLabel = 'Servido'
+      FieldName = 'SERVIDO'
+    end
+    object QMDetalleU_LOGISTICAS_RESERVADAS: TFloatField
+      DisplayLabel = 'U. Log. Reservadas'
+      FieldName = 'U_LOGISTICAS_RESERVADAS'
+    end
+    object QMDetalleTIPO_ID_ESC: TFIBStringField
+      DisplayLabel = 'Tipo Id Esc.'
+      FieldName = 'TIPO_ID_ESC'
+      Size = 3
+    end
+    object QMDetalleENTRADA_AGRUPACION: TIntegerField
+      DisplayLabel = 'Seleccionado'
+      FieldName = 'ENTRADA_AGRUPACION'
+    end
+    object QMDetalleU_POR_U_LOGISTICA: TFloatField
+      DisplayLabel = 'Uds./U.Log.'
+      FieldName = 'U_POR_U_LOGISTICA'
+    end
+    object QMDetalleRELACIONAR_U_LOGISTICA: TIntegerField
+      DisplayLabel = 'Rel. U. Log.'
+      FieldName = 'RELACIONAR_U_LOGISTICA'
+    end
+    object QMDetalleTIPO_IVA_ART: TIntegerField
+      DisplayLabel = 'Tipo IVA Articulo'
+      FieldName = 'TIPO_IVA_ART'
+    end
+    object QMDetalleECOTASA: TFloatField
+      DisplayLabel = 'Ecotasa'
+      FieldName = 'ECOTASA'
+    end
+    object QMDetalleREQUIERE_LOTE_SIMPLE: TIntegerField
+      DisplayLabel = 'Req. Lote Simple'
+      FieldName = 'REQUIERE_LOTE_SIMPLE'
+    end
+    object QMDetalleCONTROL_STOCK: TIntegerField
+      DisplayLabel = 'Control Stock'
+      FieldName = 'CONTROL_STOCK'
+    end
+    object QMDetalleSTOCK: TFloatField
+      DisplayLabel = 'Stock'
+      FieldKind = fkCalculated
+      FieldName = 'STOCK'
+      Calculated = True
+    end
+    object QMDetalleUE_UNIDADES: TIntegerField
+      DisplayLabel = 'Uds. Extendidas'
+      FieldName = 'UE_UNIDADES'
+    end
+    object QMDetalleUE_MEDIDA1: TFloatField
+      DisplayLabel = 'Medida 1'
+      FieldName = 'UE_MEDIDA1'
+    end
+    object QMDetalleUE_MEDIDA2: TFloatField
+      DisplayLabel = 'Medida 2'
+      FieldName = 'UE_MEDIDA2'
+    end
+    object QMDetalleUE_MEDIDA3: TFloatField
+      DisplayLabel = 'Medida 3'
+      FieldName = 'UE_MEDIDA3'
+    end
+    object QMDetalleUE_MEDIDA4: TFloatField
+      DisplayLabel = 'Medida 4'
+      FieldName = 'UE_MEDIDA4'
+    end
+    object QMDetalleSTOCK_REAL: TFloatField
+      DisplayLabel = 'Stock Real'
+      FieldKind = fkCalculated
+      FieldName = 'STOCK_REAL'
+      Calculated = True
+    end
+    object QMDetalleNO_FABRICACION_KRI: TFIBStringField
+      DisplayLabel = 'No. Fabricacion'
+      FieldName = 'NO_FABRICACION_KRI'
+      Size = 15
+    end
+    object QMDetallePRECIO_U_C_DESC: TFloatField
+      DisplayLabel = 'Precio U. C. Desc.'
+      FieldName = 'PRECIO_U_C_DESC'
+    end
+  end
+  object DSDetalle: TDataSource
+    DataSet = QMDetalle
+    Left = 120
+    Top = 56
+  end
+  object QMCabecera: TFIBTableSet
+    Database = DMMain.DataBase
+    Transaction = TLocal
+    UsaNulls = False
+    BufferChunks = 1024
+    CachedUpdates = False
+    DeleteSQL.Strings = (
+      'DELETE FROM VER_CABECERAS_OFERTA_C'
+      'WHERE'
+      '  ID_S=?old_ID_S ')
+    InsertSQL.Strings = (
+      'INSERT INTO VER_CABECERAS_OFERTA_C'
+      
+        '  (EMPRESA,'#13#10'EJERCICIO,CANAL,SERIE,TIPO,RIG,ALMACEN,MONEDA,FECHA' +
+        ',TERCERO,TITULO,'#13#10'DIRECCION,DIR_NOMBRE_2,CODIGO_POSTAL,LOCALIDAD' +
+        ',CLIENTE,CONTACTO,SU_REFERENCIA,FORMA_PAGO,BANCO,'#13#10'CAMPANYA,NOTA' +
+        'S,ESTADO,BULTOS,LINEAS,BRUTO,I_DTO_LINEAS,S_BASES,M_BRUTO,C_TOTA' +
+        'L,'#13#10'AGENTE,S_CUOTA_IVA,S_CUOTA_RE,B_DTO_LINEAS,DTO_PP,DTO_CIAL,I' +
+        '_DTO_CIAL,I_DTO_PP,B_COMISION,I_COMISION,'#13#10'POR_FINANCIACION,I_FI' +
+        'NANCIACION,ENTRADA,NOMBRE_COMERCIAL,TARIFA,ID_S,IDIOMA,PRESUPUES' +
+        'TO,ADJUNTO,'#13#10'TIPO_PORTES,POR_PORTES,I_PORTES,I_PORTES_CANAL,CAMB' +
+        'IO_FIJO,VALOR_CAMB_FIJO,PROYECTO,NOTAS_INTERNAS_KRI,TIPO_LINEA_K' +
+        'RI,'#13#10'Z_CONTACTO,Z_OBSERVACION,PEDIDO_CLIENTE,RANGO,INDICE,PORTES,' +
+        'USUARIO,NOMBRE,FECHA_VALIDEZ,'#13#10'PLAZO_ENTREGA,MODIFICA_DOC,FECHA_' +
+        'ENTREGA_PREV,EMPLEADO_RESPONSABLE,EMPLEADO_ATENCION,TRANSPORTIST' +
+        'A,INVERSION_SUJETO_PASIVO,AUTORIZADO,DOCUMENTO_MUESTRAS,PREPARAD' +
+        'O,EMPAQUETADO_EMPRESA,DIR_RECOGIDA_MANUAL,DIR_ENTREGA_MANUAL,EQU' +
+        'IPO_RECOGIDA,EQUIPO_ENTREGA,MATRICULA_RECOGIDA,MATRICULA_ENTREGA' +
+        ',FECHA_RECOGIDA_MANUAL,'#13#10'FECHA_ENTREGA_MANUAL,ACEPTADA,USUARIO_C' +
+        'REACION,MODO_IVA,ID_FICHA_TECNICA,ORIGEN_DOCUMENTO,RECHAZADA,REC' +
+        'HAZADA_MOTIVO,RECHAZADA_FECHA)'
+      'VALUES'
+      
+        '  (?EMPRESA,'#13#10'?EJERCICIO,?CANAL,?SERIE,?TIPO,?RIG,?ALMACEN,?MONE' +
+        'DA,?FECHA,?TERCERO,?TITULO,'#13#10'?DIRECCION,?DIR_NOMBRE_2,?CODIGO_PO' +
+        'STAL,?LOCALIDAD,?CLIENTE,?CONTACTO,?SU_REFERENCIA,?FORMA_PAGO,?B' +
+        'ANCO,'#13#10'?CAMPANYA,?NOTAS,?ESTADO,?BULTOS,?LINEAS,?BRUTO,?I_DTO_LI' +
+        'NEAS,?S_BASES,?M_BRUTO,?C_TOTAL,'#13#10'?AGENTE,?S_CUOTA_IVA,?S_CUOTA_' +
+        'RE,?B_DTO_LINEAS,?DTO_PP,?DTO_CIAL,?I_DTO_CIAL,?I_DTO_PP,?B_COMI' +
+        'SION,?I_COMISION,'#13#10'?POR_FINANCIACION,?I_FINANCIACION,?ENTRADA,?N' +
+        'OMBRE_COMERCIAL,?TARIFA,?ID_S,?IDIOMA,?PRESUPUESTO,?ADJUNTO,'#13#10'?T' +
+        'IPO_PORTES,?POR_PORTES,?I_PORTES,?I_PORTES_CANAL,?CAMBIO_FIJO,?V' +
+        'ALOR_CAMB_FIJO,?PROYECTO,?NOTAS_INTERNAS_KRI,?TIPO_LINEA_KRI,'#13#10'?' +
+        'Z_CONTACTO,?Z_OBSERVACION,?PEDIDO_CLIENTE,?RANGO,?INDICE,?PORTES,' +
+        '?USUARIO,?NOMBRE,?FECHA_VALIDEZ,'#13#10'?PLAZO_ENTREGA,?MODIFICA_DOC,?' +
+        'FECHA_ENTREGA_PREV,?EMPLEADO_RESPONSABLE,?EMPLEADO_ATENCION,?TRA' +
+        'NSPORTISTA,?INVERSION_SUJETO_PASIVO,?AUTORIZADO,?DOCUMENTO_MUEST' +
+        'RAS,?PREPARADO,?EMPAQUETADO_EMPRESA,?DIR_RECOGIDA_MANUAL,?DIR_EN' +
+        'TREGA_MANUAL,?EQUIPO_RECOGIDA,?EQUIPO_ENTREGA,?MATRICULA_RECOGID' +
+        'A,?MATRICULA_ENTREGA,?FECHA_RECOGIDA_MANUAL,'#13#10'?FECHA_ENTREGA_MAN' +
+        'UAL,?ACEPTADA,?USUARIO_CREACION,?MODO_IVA,?ID_FICHA_TECNICA,?ORI' +
+        'GEN_DOCUMENTO,?RECHAZADA,?RECHAZADA_MOTIVO,?RECHAZADA_FECHA)')
+    RefreshSQL.Strings = (
+      'SELECT'
+      '  *'
+      'FROM VER_CABECERAS_OFERTA_C'
+      'WHERE'
+      '  ID_S=?ID_S ')
+    SelectSQL.Strings = (
+      '/* Se establece en el OnCreate */'
+      'SELECT * FROM VER_CABECERAS_OFERTA_C'
+      'WHERE '
+      'EMPRESA=?EMPRESA AND'
+      'CANAL=?CANAL AND'
+      'SERIE=?SERIE AND'
+      'TIPO='#39'OFC'#39
+      
+        'AND (EJERCICIO=?EJERCICIO OR ((EJERCICIO < ?EJERCICIO) AND (ESTA' +
+        'DO = 0)))'
+      'ORDER BY EJERCICIO,RIG')
+    UniDirectional = False
+    UpdateRecordTypes = [cusUnmodified, cusModified, cusInserted]
+    UpdateSQL.Strings = (
+      'UPDATE VER_CABECERAS_OFERTA_C'
+      'SET'
+      '  EMPRESA=?EMPRESA '
+      '  ,EJERCICIO=?EJERCICIO '
+      '  ,CANAL=?CANAL '
+      '  ,SERIE=?SERIE '
+      '  ,TIPO=?TIPO '
+      '  ,RIG=?RIG '
+      '  ,ALMACEN=?ALMACEN '
+      '  ,MONEDA=?MONEDA '
+      '  ,FECHA=?FECHA '
+      '  ,TERCERO=?TERCERO '
+      '  ,TITULO=?TITULO '
+      '  ,DIRECCION=?DIRECCION '
+      '  ,DIR_NOMBRE_2=?DIR_NOMBRE_2 '
+      '  ,CODIGO_POSTAL=?CODIGO_POSTAL '
+      '  ,LOCALIDAD=?LOCALIDAD '
+      '  ,CLIENTE=?CLIENTE '
+      '  ,CONTACTO=?CONTACTO '
+      '  ,SU_REFERENCIA=?SU_REFERENCIA '
+      '  ,FORMA_PAGO=?FORMA_PAGO '
+      '  ,BANCO=?BANCO '
+      '  ,CAMPANYA=?CAMPANYA '
+      '  ,NOTAS=?NOTAS '
+      '  ,ESTADO=?ESTADO '
+      '  ,BULTOS=?BULTOS '
+      '  ,LINEAS=?LINEAS '
+      '  ,BRUTO=?BRUTO '
+      '  ,I_DTO_LINEAS=?I_DTO_LINEAS '
+      '  ,S_BASES=?S_BASES '
+      '  ,M_BRUTO=?M_BRUTO '
+      '  ,C_TOTAL=?C_TOTAL '
+      '  ,AGENTE=?AGENTE '
+      '  ,S_CUOTA_IVA=?S_CUOTA_IVA '
+      '  ,S_CUOTA_RE=?S_CUOTA_RE '
+      '  ,B_DTO_LINEAS=?B_DTO_LINEAS '
+      '  ,DTO_PP=?DTO_PP '
+      '  ,DTO_CIAL=?DTO_CIAL '
+      '  ,I_DTO_CIAL=?I_DTO_CIAL '
+      '  ,I_DTO_PP=?I_DTO_PP '
+      '  ,B_COMISION=?B_COMISION '
+      '  ,I_COMISION=?I_COMISION '
+      '  ,POR_FINANCIACION=?POR_FINANCIACION '
+      '  ,I_FINANCIACION=?I_FINANCIACION '
+      '  ,ENTRADA=?ENTRADA '
+      '  ,NOMBRE_COMERCIAL=?NOMBRE_COMERCIAL '
+      '  ,TARIFA=?TARIFA '
+      '  ,IDIOMA=?IDIOMA '
+      '  ,PRESUPUESTO=?PRESUPUESTO '
+      '  ,ADJUNTO=?ADJUNTO '
+      '  ,TIPO_PORTES=?TIPO_PORTES '
+      '  ,POR_PORTES=?POR_PORTES '
+      '  ,I_PORTES=?I_PORTES '
+      '  ,I_PORTES_CANAL=?I_PORTES_CANAL '
+      '  ,CAMBIO_FIJO=?CAMBIO_FIJO '
+      '  ,VALOR_CAMB_FIJO=?VALOR_CAMB_FIJO '
+      '  ,PROYECTO=?PROYECTO '
+      '  ,NOTAS_INTERNAS_KRI=?NOTAS_INTERNAS_KRI '
+      '  ,TIPO_LINEA_KRI=?TIPO_LINEA_KRI '
+      '  ,Z_CONTACTO=?Z_CONTACTO '
+      '  ,Z_OBSERVACION=?Z_OBSERVACION '
+      '  ,PEDIDO_CLIENTE=?PEDIDO_CLIENTE '
+      '  ,RANGO=?RANGO '
+      '  ,INDICE=?INDICE '
+      '  ,PORTES=?PORTES '
+      '  ,USUARIO=?USUARIO '
+      '  ,NOMBRE=?NOMBRE '
+      '  ,FECHA_VALIDEZ=?FECHA_VALIDEZ '
+      '  ,PLAZO_ENTREGA=?PLAZO_ENTREGA '
+      '  ,MODIFICA_DOC=?MODIFICA_DOC '
+      '  ,FECHA_ENTREGA_PREV=?FECHA_ENTREGA_PREV '
+      '  ,EMPLEADO_RESPONSABLE=?EMPLEADO_RESPONSABLE '
+      '  ,EMPLEADO_ATENCION=?EMPLEADO_ATENCION '
+      '  ,TRANSPORTISTA=?TRANSPORTISTA '
+      '  ,INVERSION_SUJETO_PASIVO=?INVERSION_SUJETO_PASIVO '
+      '  ,AUTORIZADO=?AUTORIZADO '
+      '  ,DOCUMENTO_MUESTRAS=?DOCUMENTO_MUESTRAS '
+      '  ,PREPARADO=?PREPARADO '
+      '  ,EMPAQUETADO_EMPRESA=?EMPAQUETADO_EMPRESA '
+      '  ,DIR_RECOGIDA_MANUAL=?DIR_RECOGIDA_MANUAL '
+      '  ,DIR_ENTREGA_MANUAL=?DIR_ENTREGA_MANUAL '
+      '  ,EQUIPO_RECOGIDA=?EQUIPO_RECOGIDA '
+      '  ,EQUIPO_ENTREGA=?EQUIPO_ENTREGA '
+      '  ,MATRICULA_RECOGIDA=?MATRICULA_RECOGIDA '
+      '  ,MATRICULA_ENTREGA=?MATRICULA_ENTREGA '
+      '  ,FECHA_RECOGIDA_MANUAL=?FECHA_RECOGIDA_MANUAL '
+      '  ,FECHA_ENTREGA_MANUAL=?FECHA_ENTREGA_MANUAL '
+      '  ,ACEPTADA=?ACEPTADA '
+      '  ,USUARIO_CREACION=?USUARIO_CREACION '
+      '  ,MODO_IVA=?MODO_IVA '
+      '  ,ID_FICHA_TECNICA=?ID_FICHA_TECNICA '
+      '  ,ORIGEN_DOCUMENTO=?ORIGEN_DOCUMENTO '
+      '  ,RECHAZADA=?RECHAZADA '
+      '  ,RECHAZADA_MOTIVO=?RECHAZADA_MOTIVO '
+      '  ,RECHAZADA_FECHA=?RECHAZADA_FECHA '
+      'WHERE'
+      '  ID_S=?ID_S ')
+    AfterDelete = Graba
+    AfterInsert = QMCabeceraAfterInsert
+    AfterOpen = QMCabeceraAfterOpen
+    AfterPost = QMCabeceraAfterPost
+    AfterScroll = QMCabeceraAfterScroll
+    BeforeClose = QMCabeceraBeforeClose
+    BeforeDelete = QMCabeceraBeforeDelete
+    BeforeEdit = AntesDeEditar
+    BeforeInsert = QMCabeceraBeforeInsert
+    BeforePost = QMCabeceraBeforePost
+    OnCalcFields = QMCabeceraCalcFields
+    OnNewRecord = QMCabeceraNewRecord
+    OnPostError = QMCabeceraPostError
+    ClavesPrimarias.Strings = (
+      'ID_S ')
+    AccionesInhibidas = []
+    Opciones = [NoControlarConcurrencia]
+    AutoSQLdeVistas = True
+    ComprobarTabla = False
+    Mensajes = False
+    TableName = 'VER_CABECERAS_OFERTA_C'
+    BloqOpt = True
+    TablasBloqueo.Strings = (
+      'GES_CABECERAS_S'
+      'GES_CABECERAS_S_OFC')
+    CamposBloqueo.Strings = (
+      'ID_S'
+      'ID_S')
+    UpdateTransaction = TUpdate
+    AutoCommit = True
+    Left = 32
+    Top = 8
+    object QMCabeceraEMPRESA: TIntegerField
+      DisplayLabel = 'Empresa'
+      FieldName = 'EMPRESA'
+    end
+    object QMCabeceraEJERCICIO: TIntegerField
+      DisplayLabel = 'Ejercicio'
+      FieldName = 'EJERCICIO'
+    end
+    object QMCabeceraCANAL: TIntegerField
+      DisplayLabel = 'Canal'
+      FieldName = 'CANAL'
+    end
+    object QMCabeceraSERIE: TFIBStringField
+      DisplayLabel = 'Serie'
+      FieldName = 'SERIE'
+      Size = 10
+    end
+    object QMCabeceraTIPO: TFIBStringField
+      DisplayLabel = 'Tipo'
+      FieldName = 'TIPO'
+      Size = 3
+    end
+    object QMCabeceraRIG: TIntegerField
+      DisplayLabel = 'Oferta'
+      FieldName = 'RIG'
+    end
+    object QMCabeceraALMACEN: TFIBStringField
+      DisplayLabel = 'Alm.'
+      FieldName = 'ALMACEN'
+      OnChange = QMCabeceraALMACENChange
+      Size = 3
+    end
+    object QMCabeceraMONEDA: TFIBStringField
+      DisplayLabel = 'Mon.'
+      FieldName = 'MONEDA'
+      OnChange = QMCabeceraMONEDAChange
+      Size = 3
+    end
+    object QMCabeceraFECHA: TDateTimeField
+      DisplayLabel = 'Fecha'
+      FieldName = 'FECHA'
+    end
+    object QMCabeceraTERCERO: TIntegerField
+      DisplayLabel = 'Tercero'
+      FieldName = 'TERCERO'
+    end
+    object QMCabeceraDIRECCION: TIntegerField
+      DisplayLabel = 'Dir.'
+      FieldName = 'DIRECCION'
+      OnChange = QMCabeceraDIRECCIONChange
+    end
+    object QMCabeceraCLIENTE: TIntegerField
+      DisplayLabel = 'Cliente'
+      FieldName = 'CLIENTE'
+      OnChange = QMCabeceraCLIENTEChange
+    end
+    object QMCabeceraNOTAS: TMemoField
+      FieldName = 'NOTAS'
+      BlobType = ftMemo
+      Size = 8
+    end
+    object QMCabeceraESTADO: TIntegerField
+      DisplayLabel = 'Estado'
+      FieldName = 'ESTADO'
+    end
+    object QMCabeceraBULTOS: TIntegerField
+      DisplayLabel = 'Bultos'
+      FieldName = 'BULTOS'
+    end
+    object QMCabeceraLINEAS: TIntegerField
+      DisplayLabel = 'Lineas'
+      FieldName = 'LINEAS'
+    end
+    object QMCabeceraBRUTO: TFloatField
+      DisplayLabel = 'Bruto'
+      FieldName = 'BRUTO'
+    end
+    object QMCabeceraI_DTO_LINEAS: TFloatField
+      DisplayLabel = 'Imp. Dto. Lineas'
+      FieldName = 'I_DTO_LINEAS'
+    end
+    object QMCabeceraS_BASES: TFloatField
+      DisplayLabel = 'S. Bases'
+      FieldName = 'S_BASES'
+    end
+    object QMCabeceraM_BRUTO: TFloatField
+      DisplayLabel = 'M. Bruto'
+      FieldName = 'M_BRUTO'
+    end
+    object QMCabeceraC_TOTAL: TFloatField
+      DisplayLabel = 'C. Total'
+      FieldName = 'C_TOTAL'
+    end
+    object QMCabeceraAGENTE: TIntegerField
+      DisplayLabel = 'Agente'
+      FieldName = 'AGENTE'
+      OnChange = QMCabeceraAGENTEChange
+    end
+    object QMCabeceraS_CUOTA_IVA: TFloatField
+      DisplayLabel = 'S. Cuota IVA'
+      FieldName = 'S_CUOTA_IVA'
+    end
+    object QMCabeceraS_CUOTA_RE: TFloatField
+      DisplayLabel = 'S. Cuota Re.'
+      FieldName = 'S_CUOTA_RE'
+    end
+    object QMCabeceraB_DTO_LINEAS: TFloatField
+      DisplayLabel = 'B. Dto. Lineas'
+      FieldName = 'B_DTO_LINEAS'
+    end
+    object QMCabeceraDTO_PP: TFloatField
+      DisplayLabel = 'Dto. P.P.'
+      FieldName = 'DTO_PP'
+      OnChange = QMCabeceraDTO_PPChange
+    end
+    object QMCabeceraDTO_CIAL: TFloatField
+      DisplayLabel = 'Dto. Cial.'
+      FieldName = 'DTO_CIAL'
+    end
+    object QMCabeceraI_DTO_CIAL: TFloatField
+      DisplayLabel = 'Imp. Dto. Cial.'
+      FieldName = 'I_DTO_CIAL'
+    end
+    object QMCabeceraI_DTO_PP: TFloatField
+      DisplayLabel = 'Imp. Dto. P.P.'
+      FieldName = 'I_DTO_PP'
+    end
+    object QMCabeceraB_COMISION: TFloatField
+      DisplayLabel = 'B. Comision'
+      FieldName = 'B_COMISION'
+    end
+    object QMCabeceraI_COMISION: TFloatField
+      DisplayLabel = 'Imp. Comision'
+      FieldName = 'I_COMISION'
+    end
+    object QMCabeceraPOR_FINANCIACION: TFloatField
+      DisplayLabel = '% Finan.'
+      FieldName = 'POR_FINANCIACION'
+    end
+    object QMCabeceraI_FINANCIACION: TFloatField
+      DisplayLabel = 'Imp. Finan.'
+      FieldName = 'I_FINANCIACION'
+    end
+    object QMCabeceraLIQUIDO: TFloatField
+      DisplayLabel = 'Liquido'
+      FieldName = 'LIQUIDO'
+    end
+    object QMCabeceraTITULO: TFIBStringField
+      DisplayLabel = 'Titulo'
+      FieldName = 'TITULO'
+      OnGetText = QMCabeceraTITULOGetText
+      Size = 60
+    end
+    object QMCabeceraENTRADA: TIntegerField
+      DisplayLabel = 'Entrada'
+      FieldName = 'ENTRADA'
+    end
+    object QMCabeceraFORMA_PAGO: TFIBStringField
+      DisplayLabel = 'F. Pago'
+      FieldName = 'FORMA_PAGO'
+      OnChange = QMCabeceraFORMA_PAGOChange
+      Size = 3
+    end
+    object QMCabeceraCAMPANYA: TIntegerField
+      DisplayLabel = 'Campa'#241'a'
+      FieldName = 'CAMPANYA'
+      OnChange = QMCabeceraCAMPANYAChange
+    end
+    object QMCabeceraSU_REFERENCIA: TFIBStringField
+      DisplayLabel = 'Su Ref.'
+      FieldName = 'SU_REFERENCIA'
+      Size = 40
+    end
+    object QMCabeceraTOTAL_CANAL: TFloatField
+      DisplayLabel = 'Total Can.'
+      FieldKind = fkCalculated
+      FieldName = 'TOTAL_CANAL'
+      OnGetText = QMCabeceraTOTAL_CANALGetText
+      Calculated = True
+    end
+    object QMCabeceraNOMBRE_COMERCIAL: TFIBStringField
+      DisplayLabel = 'Nombre Comercial'
+      FieldName = 'NOMBRE_COMERCIAL'
+      Size = 60
+    end
+    object QMCabeceraTARIFA: TFIBStringField
+      DisplayLabel = 'Tarifa'
+      FieldName = 'TARIFA'
+      OnChange = QMCabeceraTARIFAChange
+      Size = 3
+    end
+    object QMCabeceraID_S: TIntegerField
+      DisplayLabel = 'ID'
+      FieldName = 'ID_S'
+    end
+    object QMCabeceraIDIOMA: TFIBStringField
+      DisplayLabel = 'Idioma'
+      FieldName = 'IDIOMA'
+      OnChange = QMCabeceraIDIOMAChange
+      Size = 3
+    end
+    object QMCabeceraCAMBIO_FIJO: TIntegerField
+      DisplayLabel = 'Cambio Fijo'
+      FieldName = 'CAMBIO_FIJO'
+    end
+    object QMCabeceraVALOR_CAMB_FIJO: TFloatField
+      DisplayLabel = 'Valor C. Fijo'
+      FieldName = 'VALOR_CAMB_FIJO'
+      OnChange = QMCabeceraVALOR_CAMB_FIJOChange
+      DisplayFormat = '0.00####'
+    end
+    object QMCabeceraVALOR_CAMB_FIJO_INV: TFloatField
+      DisplayLabel = 'Val. Cambio Fijo Inv.'
+      FieldName = 'VALOR_CAMB_FIJO_INV'
+      OnChange = QMCabeceraVALOR_CAMB_FIJO_INVChange
+      DisplayFormat = '0.00####'
+    end
+    object QMCabeceraCONTACTO: TIntegerField
+      DisplayLabel = 'Contacto'
+      FieldName = 'CONTACTO'
+      OnChange = QMCabeceraCONTACTOChange
+    end
+    object QMCabeceraADJUNTO: TFIBStringField
+      DisplayLabel = 'Adjunto'
+      FieldName = 'ADJUNTO'
+      Size = 200
+    end
+    object QMCabeceraPROYECTO: TIntegerField
+      DisplayLabel = 'Proyecto'
+      FieldName = 'PROYECTO'
+      OnChange = QMCabeceraPROYECTOChange
+    end
+    object QMCabeceraPRESUPUESTO: TIntegerField
+      DisplayLabel = 'Presupuesto'
+      FieldName = 'PRESUPUESTO'
+    end
+    object QMCabeceraNOTAS_INTERNAS_KRI: TMemoField
+      DisplayLabel = 'Notas Int.'
+      FieldName = 'NOTAS_INTERNAS_KRI'
+      BlobType = ftMemo
+      Size = 8
+    end
+    object QMCabeceraTIPO_LINEA_KRI: TIntegerField
+      DisplayLabel = 'Tipo Linea'
+      FieldName = 'TIPO_LINEA_KRI'
+    end
+    object QMCabeceraDIR_NOMBRE_2_KRI: TStringField
+      DisplayLabel = 'Dir. Nomb. 2'
+      FieldKind = fkCalculated
+      FieldName = 'DIR_NOMBRE_2_KRI'
+      OnGetText = QMCabeceraDIR_NOMBRE_2_KRIGetText
+      Size = 40
+      Calculated = True
+    end
+    object QMCabeceraTIPO_PORTES: TIntegerField
+      DisplayLabel = 'Tipo Portes'
+      FieldName = 'TIPO_PORTES'
+      OnChange = QMCabeceraTIPO_PORTESChange
+    end
+    object QMCabeceraPOR_PORTES: TFloatField
+      DisplayLabel = '% Portes'
+      FieldName = 'POR_PORTES'
+    end
+    object QMCabeceraI_PORTES: TFloatField
+      DisplayLabel = 'Imp. Portes'
+      FieldName = 'I_PORTES'
+    end
+    object QMCabeceraRANGO: TIntegerField
+      DisplayLabel = 'Rango'
+      FieldName = 'RANGO'
+      OnChange = QMCabeceraRANGOChange
+    end
+    object QMCabeceraINDICE: TIntegerField
+      DisplayLabel = 'Indice'
+      FieldName = 'INDICE'
+      OnChange = QMCabeceraINDICEChange
+    end
+    object QMCabeceraPORTES: TIntegerField
+      DisplayLabel = 'Portes'
+      FieldName = 'PORTES'
+    end
+    object QMCabeceraZ_OBSERVACION: TFIBStringField
+      DisplayLabel = 'Observaciones'
+      FieldName = 'Z_OBSERVACION'
+      Size = 256
+    end
+    object QMCabeceraTIT_CONTACTO: TFIBStringField
+      DisplayLabel = 'Tit. Contacto'
+      FieldName = 'TIT_CONTACTO'
+      Size = 81
+    end
+    object QMCabeceraUSUARIO: TIntegerField
+      DisplayLabel = 'Usuario'
+      FieldName = 'USUARIO'
+    end
+    object QMCabeceraNOMBRE: TFIBStringField
+      DisplayLabel = 'Nombre'
+      FieldName = 'NOMBRE'
+      Size = 31
+    end
+    object QMCabeceraI_PORTES_CANAL: TFloatField
+      DisplayLabel = 'Imp. Portes Can.'
+      FieldName = 'I_PORTES_CANAL'
+    end
+    object QMCabeceraFECHA_VALIDEZ: TDateTimeField
+      DisplayLabel = 'Fec. Validez'
+      FieldName = 'FECHA_VALIDEZ'
+    end
+    object QMCabeceraPLAZO_ENTREGA: TIntegerField
+      DisplayLabel = 'Plazo Entrega'
+      FieldName = 'PLAZO_ENTREGA'
+    end
+    object QMCabeceraZ_CONTACTO: TIntegerField
+      DisplayLabel = 'Contacto'
+      FieldName = 'Z_CONTACTO'
+    end
+    object QMCabeceraMODIFICA_DOC: TIntegerField
+      DisplayLabel = 'Listado'
+      FieldName = 'MODIFICA_DOC'
+    end
+    object QMCabeceraFECHA_ENTREGA_PREV: TDateTimeField
+      DisplayLabel = 'Fecha Entrega Prev.'
+      FieldName = 'FECHA_ENTREGA_PREV'
+    end
+    object QMCabeceraEMPLEADO_RESPONSABLE: TIntegerField
+      DisplayLabel = 'Empl. Responsable'
+      FieldName = 'EMPLEADO_RESPONSABLE'
+    end
+    object QMCabeceraEMPLEADO_ATENCION: TIntegerField
+      DisplayLabel = 'Empl. Antencion'
+      FieldName = 'EMPLEADO_ATENCION'
+    end
+    object QMCabeceraTITULO_ESTADO: TStringField
+      DisplayLabel = 'T'#237'tulo Estado'
+      FieldKind = fkCalculated
+      FieldName = 'TITULO_ESTADO'
+      Size = 40
+      Calculated = True
+    end
+    object QMCabeceraTOTAL_ANTICIPADO: TFloatField
+      DisplayLabel = 'T. Anticipado'
+      FieldName = 'TOTAL_ANTICIPADO'
+    end
+    object QMCabeceraMARGEN: TFloatField
+      FieldKind = fkCalculated
+      FieldName = 'MARGEN'
+      Calculated = True
+    end
+    object QMCabeceraTRANSPORTISTA: TIntegerField
+      DisplayLabel = 'Transportista'
+      FieldName = 'TRANSPORTISTA'
+      OnChange = QMCabeceraTRANSPORTISTAChange
+    end
+    object QMCabeceraINVERSION_SUJETO_PASIVO: TIntegerField
+      DisplayLabel = 'Inv. Sujeto Pasivo'
+      FieldName = 'INVERSION_SUJETO_PASIVO'
+    end
+    object QMCabeceraUNIDADES: TFloatField
+      DisplayLabel = 'Total Uds.'
+      FieldName = 'UNIDADES'
+    end
+    object QMCabeceraAUTORIZADO: TIntegerField
+      DisplayLabel = 'Autorizado'
+      FieldName = 'AUTORIZADO'
+    end
+    object QMCabeceraDOCUMENTO_MUESTRAS: TIntegerField
+      DisplayLabel = 'Documento Muestra'
+      FieldName = 'DOCUMENTO_MUESTRAS'
+    end
+    object QMCabeceraPEDIDO_CLIENTE: TFIBStringField
+      DisplayLabel = 'Ref. Cli.'
+      FieldName = 'PEDIDO_CLIENTE'
+      Size = 60
+    end
+    object QMCabeceraBANCO: TIntegerField
+      DisplayLabel = 'Banco'
+      FieldName = 'BANCO'
+    end
+    object QMCabeceraPREPARADO: TIntegerField
+      DisplayLabel = 'Preparado'
+      FieldName = 'PREPARADO'
+    end
+    object QMCabeceraDIR_ENTREGA_MANUAL: TMemoField
+      DisplayLabel = 'Dir. Entrega Manual'
+      FieldName = 'DIR_ENTREGA_MANUAL'
+      BlobType = ftMemo
+      Size = 8
+    end
+    object QMCabeceraACEPTADA: TIntegerField
+      DisplayLabel = 'Aceptada'
+      FieldName = 'ACEPTADA'
+    end
+    object QMCabeceraUSUARIO_CREACION: TIntegerField
+      DisplayLabel = 'Usuario Creacion'
+      FieldName = 'USUARIO_CREACION'
+    end
+    object QMCabeceraDIR_COMPLETA: TFIBStringField
+      DisplayLabel = 'Dir. Completa'
+      FieldName = 'DIR_COMPLETA'
+      Size = 76
+    end
+    object QMCabeceraCODIGO_POSTAL: TFIBStringField
+      DisplayLabel = 'Cod. Postal'
+      FieldName = 'CODIGO_POSTAL'
+      Size = 10
+    end
+    object QMCabeceraLOCALIDAD: TFIBStringField
+      DisplayLabel = 'Localidad'
+      FieldName = 'LOCALIDAD'
+      Size = 40
+    end
+    object QMCabeceraFECHA_ENTREGA_MANUAL: TDateTimeField
+      DisplayLabel = 'Fec. Entrega Manual'
+      FieldName = 'FECHA_ENTREGA_MANUAL'
+    end
+    object QMCabeceraEMPAQUETADO_EMPRESA: TIntegerField
+      DisplayLabel = 'Empaq. Empresa'
+      FieldName = 'EMPAQUETADO_EMPRESA'
+    end
+    object QMCabeceraDIR_RECOGIDA_MANUAL: TMemoField
+      DisplayLabel = 'Dir. Recogida Manual'
+      FieldName = 'DIR_RECOGIDA_MANUAL'
+      BlobType = ftMemo
+      Size = 8
+    end
+    object QMCabeceraEQUIPO_RECOGIDA: TFIBStringField
+      DisplayLabel = 'Equipo Recogida'
+      FieldName = 'EQUIPO_RECOGIDA'
+      Size = 40
+    end
+    object QMCabeceraEQUIPO_ENTREGA: TFIBStringField
+      DisplayLabel = 'Equipo Entrega'
+      FieldName = 'EQUIPO_ENTREGA'
+      Size = 40
+    end
+    object QMCabeceraMATRICULA_RECOGIDA: TFIBStringField
+      DisplayLabel = 'Matr. Recogida'
+      FieldName = 'MATRICULA_RECOGIDA'
+      Size = 40
+    end
+    object QMCabeceraMATRICULA_ENTREGA: TFIBStringField
+      DisplayLabel = 'Mat. Entrega'
+      FieldName = 'MATRICULA_ENTREGA'
+      Size = 40
+    end
+    object QMCabeceraFECHA_RECOGIDA_MANUAL: TDateTimeField
+      DisplayLabel = 'Fec. Recogida Manual'
+      FieldName = 'FECHA_RECOGIDA_MANUAL'
+    end
+    object QMCabeceraMODO_IVA: TIntegerField
+      DisplayLabel = 'Modo IVA'
+      FieldName = 'MODO_IVA'
+    end
+    object QMCabeceraID_FICHA_TECNICA: TIntegerField
+      DisplayLabel = 'Ficha T'#233'cnica'
+      FieldName = 'ID_FICHA_TECNICA'
+    end
+    object QMCabeceraDIR_NOMBRE_2: TFIBStringField
+      DisplayLabel = 'Dir. Nombre 2'
+      FieldName = 'DIR_NOMBRE_2'
+      Size = 40
+    end
+    object QMCabeceraMATRICULA: TFIBStringField
+      DisplayLabel = 'Matricula'
+      FieldName = 'MATRICULA'
+    end
+    object QMCabeceraORIGEN_DOCUMENTO: TFIBStringField
+      DisplayLabel = 'Orig. Doc.'
+      FieldName = 'ORIGEN_DOCUMENTO'
+      Size = 3
+    end
+    object QMCabeceraRECHAZADA: TIntegerField
+      DisplayLabel = 'Rechazada'
+      FieldName = 'RECHAZADA'
+      OnChange = QMCabeceraRECHAZADAChange
+    end
+    object QMCabeceraRECHAZADA_MOTIVO: TFIBStringField
+      DisplayLabel = 'Motivo Rechazo'
+      FieldName = 'RECHAZADA_MOTIVO'
+      Size = 60
+    end
+    object QMCabeceraRECHAZADA_FECHA: TDateTimeField
+      DisplayLabel = 'Fecha Rechazo'
+      FieldName = 'RECHAZADA_FECHA'
+    end
+  end
+  object DSCabecera: TDataSource
+    DataSet = QMCabecera
+    Left = 120
+    Top = 8
+  end
+  object xCliente: TFIBDataSetRO
+    Database = DMMain.DataBase
+    Transaction = TLocal
+    AutoTrans = False
+    BufferChunks = 1
+    RefreshSQL.Strings = (
+      'SELECT'
+      'EMPRESA, TERCERO, CLIENTE, TITULO, TARIFA, AGENTE,'
+      'DESCUENTO_PP, DESCUENTO_CIAL, FORMA_PAGO,'
+      'TIPO_IRPF, NO_ALB_FAC, NO_VENTA_RIESGO,'
+      'POR_FINANCIACION, RIESGO_AUT, RIESGO_ACT,'
+      'TRANSPORTISTA, NOMBRE_COMERCIAL,'
+      'TIPO_PORTES, POR_PORTES, I_PORTES, RANGO, INDICE,'
+      'IDIOMA, MONEDA, ALBARAN_VALORADO, NOTAS, '
+      'NOTAS_FACTURACION_KRI, ZONA, '
+      'TIPO_DOC_IDENT, NIF, DIAS_ENTREGA, '
+      'PEDIDO_VALORADO, MODO_IVA, TIPO_NCF, RECC,'
+      'GRUPO_CUENTAS, FECHA_ENTREGA_X_STOCK,'
+      'SU_REFERENCIA, IMPORTE_MINIMO_PORTE'
+      'FROM VER_CLIENTES_CUENTAS'
+      'WHERE'
+      'EMPRESA=?EMPRESA'
+      'AND EJERCICIO=?EJERCICIO'
+      'AND CANAL=?CANAL'
+      'AND CLIENTE=?CLIENTE')
+    SelectSQL.Strings = (
+      'SELECT'
+      'EMPRESA, TERCERO, CLIENTE, TITULO, TARIFA, AGENTE,'
+      'DESCUENTO_PP, DESCUENTO_CIAL, FORMA_PAGO,'
+      'TIPO_IRPF, NO_ALB_FAC, NO_VENTA_RIESGO,'
+      'POR_FINANCIACION, RIESGO_AUT, RIESGO_ACT,'
+      'TRANSPORTISTA, NOMBRE_COMERCIAL,'
+      'TIPO_PORTES, POR_PORTES, I_PORTES, RANGO, INDICE,'
+      'IDIOMA, MONEDA, ALBARAN_VALORADO, NOTAS, '
+      'NOTAS_FACTURACION_KRI, ZONA, '
+      'TIPO_DOC_IDENT, NIF, DIAS_ENTREGA, '
+      'PEDIDO_VALORADO, MODO_IVA, TIPO_NCF, RECC,'
+      'GRUPO_CUENTAS, FECHA_ENTREGA_X_STOCK,'
+      'SU_REFERENCIA, IMPORTE_MINIMO_PORTE,'
+      'ID_CLIENTE'
+      'FROM VER_CLIENTES_CUENTAS'
+      'WHERE'
+      'EMPRESA=?EMPRESA'
+      'AND EJERCICIO=?EJERCICIO'
+      'AND CANAL=?CANAL'
+      'AND CLIENTE=?CLIENTE')
+    UniDirectional = False
+    DataSource = DSCabecera
+    AfterOpen = xClienteAfterOpen
+    BeforeOpen = xClienteBeforeOpen
+    Left = 32
+    Top = 152
+  end
+  object DSxCliente: TDataSource
+    DataSet = xCliente
+    Left = 120
+    Top = 152
+  end
+  object xAgentes: TFIBDataSetRO
+    Database = DMMain.DataBase
+    Transaction = TLocal
+    AutoTrans = False
+    BufferChunks = 32
+    SelectSQL.Strings = (
+      'SELECT TITULO FROM VER_AGENTES'
+      'WHERE '
+      'EMPRESA=?EMPRESA AND '
+      'AGENTE=?AGENTE')
+    UniDirectional = False
+    DataSource = DSCabecera
+    Left = 32
+    Top = 248
+  end
+  object DSxAgentes: TDataSource
+    DataSet = xAgentes
+    Left = 120
+    Top = 248
+  end
+  object xDirecciones: TFIBDataSetRO
+    Database = DMMain.DataBase
+    Transaction = TLocal
+    AutoTrans = False
+    BufferChunks = 32
+    SelectSQL.Strings = (
+      'SELECT TITULO, DIR_TRANSPORTISTA '
+      'FROM VER_DIRECCIONES'
+      'WHERE '
+      'TERCERO=?TERCERO AND '
+      'DIRECCION=?DIRECCION')
+    UniDirectional = False
+    DataSource = DSCabecera
+    Left = 32
+    Top = 200
+    object xDireccionesTITULO: TFIBStringField
+      DisplayLabel = 'T'#237'tulo'
+      FieldName = 'TITULO'
+      OnGetText = xDireccionesTITULOGetText
+      Size = 110
+    end
+    object xDireccionesDIR_TRANSPORTISTA: TIntegerField
+      DisplayLabel = 'Transp. Dir.'
+      FieldName = 'DIR_TRANSPORTISTA'
+    end
+  end
+  object DSxDirecciones: TDataSource
+    DataSet = xDirecciones
+    Left = 120
+    Top = 200
+  end
+  object xInfoActualizada: TFIBDataSet
+    Database = DMMain.DataBase
+    Transaction = TLocal
+    UsaNulls = False
+    BufferChunks = 1
+    CachedUpdates = False
+    SelectSQL.Strings = (
+      'WITH I'
+      
+        'AS (SELECT O.BULTOS, O.S_BASES, O.S_CUOTA_IVA, O.S_CUOTA_RE, O.L' +
+        'IQUIDO, O.B_COMISION, O.I_COMISION, O.I_FINANCIACION,'
+      
+        '           O.B_DTO_LINEAS, O.I_DTO_LINEAS, O.ESTADO, O.I_PORTES,' +
+        ' O.MODIFICA_DOC,'
+      '           (SELECT SUM(D.B_DTO_LINEA)'
+      '            FROM GES_DETALLES_S D'
+      '            JOIN ART_ARTICULOS AA ON D.ID_A = AA.ID_A'
+      '            WHERE'
+      '            D.ID_S = O.ID_S AND'
+      '            AA.INFLUYE_MARGEN = 1) SUMA_BASES,'
+      '           (SELECT SUM(D.T_COSTE)'
+      '            FROM GES_DETALLES_S D'
+      '            JOIN ART_ARTICULOS AA ON D.ID_A = AA.ID_A'
+      '            WHERE'
+      '            D.ID_S = O.ID_S AND'
+      '            AA.INFLUYE_MARGEN = 1) SUMA_COSTES,'
+      '           (SELECT SUM(UNIDADES)'
+      '            FROM GES_DETALLES_S'
+      '            WHERE'
+      '            ID_S = O.ID_S) SUM_UNIDADES,'
+      '           (SELECT SUM(UNIDADES_SEC)'
+      '            FROM GES_DETALLES_S'
+      '            WHERE'
+      '            ID_S = O.ID_S) SUM_UNIDADES_SEC,'
+      '           (SELECT SUM(UNIDADES_LOGISTICAS)'
+      '            FROM GES_DETALLES_S_OFC'
+      '            WHERE'
+      '            ID_S = O.ID_S) SUM_UNIDADES_LOGISTICAS,'
+      '           (SELECT SUM(PESO_REAL)'
+      '            FROM GES_DETALLES_S'
+      '            WHERE'
+      '            ID_S = O.ID_S) SUM_PESO,'
+      '           (SELECT COUNT(LINEA)'
+      '            FROM GES_DETALLES_S'
+      '            WHERE'
+      '            ID_S = O.ID_S) COUNT_LINEA,'
+      '           ((COALESCE((SELECT SUM(DET.LIQUIDO)'
+      '                       FROM G_RELACIONES_ORIGENES_ID(O.ID_S) DOC'
+      
+        '                       JOIN GES_CABECERAS_S_CAR REC ON REC.ID_S ' +
+        '= DOC.ID_S'
+      
+        '                       JOIN EMP_CARTERA CAR ON REC.ID_CARTERA = ' +
+        'CAR.ID_CARTERA'
+      
+        '                       JOIN EMP_CARTERA_DETALLE DET ON DET.ID_CA' +
+        'RTERA = CAR.ID_CARTERA), 0) + --'
+      '           (COALESCE((SELECT SUM(DET.LIQUIDO)'
+      '                      FROM GES_CABECERAS_S DOC'
+      
+        '                      JOIN GES_CABECERAS_S_CAR REC ON REC.ID_S =' +
+        ' DOC.ID_S'
+      
+        '                      JOIN EMP_CARTERA CAR ON REC.ID_CARTERA = C' +
+        'AR.ID_CARTERA'
+      
+        '                      JOIN EMP_CARTERA_DETALLE DET ON DET.ID_CAR' +
+        'TERA = CAR.ID_CARTERA'
+      '                      WHERE'
+      
+        '                      DOC.ID_S = O.ID_S), 0)))) AS TOTAL_ANTICIP' +
+        'ADO, --'
+      
+        '           EC.RIESGO_AUT, EC.RIESGO_EMP, EC.RIESGO_ACT, EC.NO_VE' +
+        'NTA_RIESGO,'
+      '           --'
+      
+        '           COALESCE((SELECT SUM(D.LIQUIDO / D.UNIDADES * P.U_PEN' +
+        'DIENTES)'
+      '                     FROM GES_CABECERAS_S C'
+      '                     JOIN GES_DETALLES_S D ON C.ID_S = D.ID_S'
+      
+        '                     JOIN GES_DETALLES_S_PED P ON D.ID_DETALLES_' +
+        'S = P.ID_DETALLES_S'
+      '                     WHERE'
+      '                     C.EMPRESA = O.EMPRESA AND'
+      '                     C.CANAL = O.CANAL AND'
+      '                     C.TIPO = '#39'PEC'#39' AND'
+      '                     C.ESTADO = 0 AND'
+      '                     D.UNIDADES <> 0 AND'
+      '                     P.U_PENDIENTES <> 0 AND'
+      '                     C.CLIENTE = O.CLIENTE), 0) RIESGO_PED'
+      '    FROM VER_CABECERAS_OFERTA_C O'
+      
+        '    JOIN EMP_CLIENTES EC ON EC.EMPRESA = O.EMPRESA AND EC.CLIENT' +
+        'E = O.CLIENTE'
+      '    WHERE'
+      '    O.ID_S = :ID_S)'
+      'SELECT I.*,'
+      '       CASE'
+      '         WHEN ((I.SUMA_BASES + I.I_PORTES) <> 0) THEN'
+      
+        '             (1 - (I.SUMA_COSTES / (I.SUMA_BASES + I.I_PORTES)))' +
+        ' * 100'
+      '         ELSE 0'
+      '       END AS MARGEN,'
+      '       CASE'
+      '         WHEN ((I.SUMA_BASES) <> 0) THEN'
+      '             (1 - (I.SUMA_COSTES / I.SUMA_BASES)) * 100'
+      '         ELSE 0'
+      '       END AS MARGEN_SIN_PORTES'
+      'FROM I')
+    UniDirectional = True
+    UpdateRecordTypes = [cusUnmodified, cusModified, cusInserted]
+    DataSource = DSCabecera
+    OnCalcFields = xInfoActualizadaCalcFields
+    Left = 33
+    Top = 296
+    object xInfoActualizadaBULTOS: TIntegerField
+      DisplayLabel = 'Bultos'
+      FieldName = 'BULTOS'
+    end
+    object xInfoActualizadaS_BASES: TFloatField
+      DisplayLabel = 'S. Bases'
+      FieldName = 'S_BASES'
+    end
+    object xInfoActualizadaS_CUOTA_IVA: TFloatField
+      DisplayLabel = 'S. Cuota IVA'
+      FieldName = 'S_CUOTA_IVA'
+    end
+    object xInfoActualizadaS_CUOTA_RE: TFloatField
+      DisplayLabel = 'S. Couta Ret.'
+      FieldName = 'S_CUOTA_RE'
+    end
+    object xInfoActualizadaLIQUIDO: TFloatField
+      DisplayLabel = 'Liquido'
+      FieldName = 'LIQUIDO'
+    end
+    object xInfoActualizadaB_COMISION: TFloatField
+      DisplayLabel = 'B. Comision'
+      FieldName = 'B_COMISION'
+    end
+    object xInfoActualizadaI_COMISION: TFloatField
+      DisplayLabel = 'Imp. Comision'
+      FieldName = 'I_COMISION'
+    end
+    object xInfoActualizadaI_FINANCIACION: TFloatField
+      DisplayLabel = 'Imp. Financ.'
+      FieldName = 'I_FINANCIACION'
+    end
+    object xInfoActualizadaB_DTO_LINEAS: TFloatField
+      DisplayLabel = 'B. Dto. Lineas'
+      FieldName = 'B_DTO_LINEAS'
+    end
+    object xInfoActualizadaI_DTO_LINEAS: TFloatField
+      DisplayLabel = 'Imp. Dto. Lineas'
+      FieldName = 'I_DTO_LINEAS'
+    end
+    object xInfoActualizadaESTADO: TIntegerField
+      DisplayLabel = 'Estado'
+      FieldName = 'ESTADO'
+    end
+    object xInfoActualizadaI_PORTES: TFloatField
+      DisplayLabel = 'Imp. Portes'
+      FieldName = 'I_PORTES'
+    end
+    object xInfoActualizadaSUM_UNIDADES: TFloatField
+      DisplayLabel = 'Suma Uds.'
+      FieldName = 'SUM_UNIDADES'
+    end
+    object xInfoActualizadaSUM_PESO: TFloatField
+      DisplayLabel = 'Suma Peso'
+      FieldName = 'SUM_PESO'
+    end
+    object xInfoActualizadaMODIFICA_DOC: TIntegerField
+      DisplayLabel = 'Modif. Doc.'
+      FieldName = 'MODIFICA_DOC'
+    end
+    object xInfoActualizadaTITULO_ESTADO: TStringField
+      DisplayLabel = 'Estado'
+      FieldKind = fkCalculated
+      FieldName = 'TITULO_ESTADO'
+      OnGetText = xInfoActualizadaTITULO_ESTADOGetText
+      Size = 40
+      Calculated = True
+    end
+    object xInfoActualizadaTOTAL_ANTICIPADO: TFloatField
+      DisplayLabel = 'T. Anticipado'
+      FieldName = 'TOTAL_ANTICIPADO'
+    end
+    object xInfoActualizadaMARGEN: TFloatField
+      DisplayLabel = 'Margen'
+      FieldName = 'MARGEN'
+    end
+    object xInfoActualizadaMARGEN_SIN_PORTES: TFloatField
+      DisplayLabel = 'Margen s/Portes'
+      FieldName = 'MARGEN_SIN_PORTES'
+    end
+    object xInfoActualizadaRIESGO_ACT: TFloatField
+      DisplayLabel = 'Riesgo Actual'
+      FieldName = 'RIESGO_ACT'
+    end
+    object xInfoActualizadaRIESGO_AUT: TFloatField
+      DisplayLabel = 'Riesgo Autorizado'
+      FieldName = 'RIESGO_AUT'
+    end
+    object xInfoActualizadaNO_VENTA_RIESGO: TIntegerField
+      DisplayLabel = 'No Superar Riesgo'
+      FieldName = 'NO_VENTA_RIESGO'
+    end
+    object xInfoActualizadaRIESGO_PED: TFloatField
+      DisplayLabel = 'Riesgo Pedido'
+      FieldName = 'RIESGO_PED'
+    end
+    object xInfoActualizadaRIESGO_EMP: TFloatField
+      FieldName = 'RIESGO_EMP'
+    end
+    object xInfoActualizadaRIESGO_DISPONIBLE: TFloatField
+      DisplayLabel = 'Riesgo Disponible'
+      FieldKind = fkCalculated
+      FieldName = 'RIESGO_DISPONIBLE'
+      Calculated = True
+    end
+    object xInfoActualizadaCOUNT_LINEA: TIntegerField
+      DisplayLabel = 'Cant. Lineas'
+      FieldName = 'COUNT_LINEA'
+    end
+    object xInfoActualizadaSUMA_BASES: TFloatField
+      DisplayLabel = 'Suma Bases'
+      FieldName = 'SUMA_BASES'
+    end
+    object xInfoActualizadaSUMA_COSTES: TFloatField
+      DisplayLabel = 'Suma Costes'
+      FieldName = 'SUMA_COSTES'
+    end
+    object xInfoActualizadaSUM_UNIDADES_SEC: TFloatField
+      DisplayLabel = 'Suma Uds. Sec.'
+      FieldName = 'SUM_UNIDADES_SEC'
+    end
+    object xInfoActualizadaSUM_UNIDADES_LOGISTICAS: TFloatField
+      DisplayLabel = 'Suma Uds. Log.'
+      FieldName = 'SUM_UNIDADES_LOGISTICAS'
+    end
+  end
+  object DSInfoActualizada: TDataSource
+    DataSet = xInfoActualizada
+    Left = 120
+    Top = 296
+  end
+  object EntornoDoc: TEntornoFind2000
+    Empresa = 0
+    Ejercicio = 0
+    Canal = 0
+    Tercero = 0
+    Cliente = 0
+    Pgc = 0
+    Left = 680
+    Top = 16
+  end
+  object xAlmacenes: TFIBDataSetRO
+    Database = DMMain.DataBase
+    Transaction = TLocal
+    AutoTrans = False
+    BufferChunks = 32
+    SelectSQL.Strings = (
+      'SELECT TITULO FROM ART_ALMACENES'
+      'WHERE '
+      'EMPRESA=?EMPRESA AND '
+      'ALMACEN=?ALMACEN')
+    UniDirectional = False
+    DataSource = DSCabecera
+    Left = 32
+    Top = 104
+  end
+  object DSxAlmacenes: TDataSource
+    DataSet = xAlmacenes
+    Left = 120
+    Top = 104
+  end
+  object xCampanyas: TFIBDataSetRO
+    Database = DMMain.DataBase
+    Transaction = TLocal
+    AutoTrans = False
+    BufferChunks = 32
+    SelectSQL.Strings = (
+      'SELECT TITULO FROM VER_CAMPANYAS_ACTIVAS'
+      'WHERE '
+      'EMPRESA=?EMPRESA AND '
+      'EJERCICIO=?EJERCICIO AND'
+      'CAMPANYA=?CAMPANYA')
+    UniDirectional = False
+    DataSource = DSCabecera
+    Left = 32
+    Top = 344
+  end
+  object DSxCampanyas: TDataSource
+    DataSet = xCampanyas
+    Left = 120
+    Top = 344
+  end
+  object xFormasPago: TFIBDataSetRO
+    Database = DMMain.DataBase
+    Transaction = TLocal
+    AutoTrans = False
+    BufferChunks = 32
+    RefreshSQL.Strings = (
+      'SELECT'
+      '  *'
+      'FROM CON_CUENTAS_GES_FP'
+      'WHERE'
+      '  EMPRESA=?EMPRESA AND '
+      '  EJERCICIO=?EJERCICIO AND '
+      '  CANAL=?CANAL AND '
+      '  FORMA_PAGO=?FORMA_PAGO ')
+    SelectSQL.Strings = (
+      'SELECT TITULO,PRONTO_PAGO, HEREDA_FINANCIACION '
+      'FROM CON_CUENTAS_GES_FP'
+      'WHERE '
+      'EMPRESA=?EMPRESA AND '
+      'EJERCICIO=?EJERCICIO AND'
+      'CANAL=?CANAL AND '
+      'FORMA_PAGO=?FORMA_PAGO')
+    UniDirectional = False
+    DataSource = DSCabecera
+    Left = 32
+    Top = 392
+  end
+  object DSxFormasPago: TDataSource
+    DataSet = xFormasPago
+    Left = 120
+    Top = 392
+  end
+  object TLocal: THYTransaction
+    Active = False
+    DefaultDatabase = DMMain.DataBase
+    TimeoutAction = TARollback
+    TRParams.Strings = (
+      'read_committed'
+      'read')
+    Left = 680
+    Top = 64
+  end
+  object xArticulos: TFIBDataSetRO
+    Database = DMMain.DataBase
+    Transaction = TLocal
+    AutoTrans = False
+    BufferChunks = 1
+    RefreshSQL.Strings = (
+      'SELECT'
+      '  *'
+      'FROM ART_ARTICULOS'
+      'WHERE'
+      '  EMPRESA=?EMPRESA AND '
+      '  ARTICULO=?ARTICULO ')
+    SelectSQL.Strings = (
+      
+        'SELECT A.ARTICULO, A.ID_A, A.TITULO_LARGO, A.SERIALIZADO, A.LOTE' +
+        'S, A.SERIALIZADO_KRI, A.LOTES_KRI, A.ABIERTO, A.CONTROL_STOCK,'
+      
+        '       A.COSTE_ADICIONAL, A.ANTICIPO, A.ANTICIPO_PREG_DATOS, A.A' +
+        'NTICIPO_CONTADO, A.VIRTUAL, A.TIPO_ARTICULO_TYC,'
+      
+        '       A.MULTIPLO_1, A.MULTIPLO_2, A.MULTIPLO_3, A.MULTIPLO_4, A' +
+        '.FACTOR_ESCALA, A.UD_MINIMO_COMPRA,'
+      
+        '       A.UD_MINIMO_VENTA, A.UNIDADES, A.CONTROLA_MEDIDAS, A.PVP_' +
+        'POR_UD_SECUNDARIA, A.DEFECTO_UD_SECUNDARIA,'
+      
+        '       A.TIPO_REGISTRO_FITOSANITARIO, A.TIPO_ARTICULO, A.PESO, A' +
+        '.FACTOR_UNIDAD, A.BAJA, A.ALFA_1, A.ALFA_2, A.ALFA_3,'
+      
+        '       A.ALFA_4, A.ALFA_5, A.ALFA_6, A.ALFA_7, A.ALFA_8, U.SIGNO' +
+        ', A.NO_APLICA_DESC_LINEA_CLIENTE, A.Z_COM_CORTE, A.PROYECTO'
+      'FROM ART_ARTICULOS A'
+      'JOIN SYS_UNIDADES_ARTICULOS U ON A.UNIDADES = U.TIPO'
+      'WHERE'
+      'A.EMPRESA = :EMPRESA AND'
+      'A.ARTICULO = :ARTICULO')
+    UniDirectional = False
+    DataSource = DSDetalle
+    Left = 224
+    Top = 440
+  end
+  object DSxMonedas: TDataSource
+    DataSet = xMonedas
+    Left = 312
+    Top = 56
+  end
+  object xMonedas: TFIBDataSetRO
+    Database = DMMain.DataBase
+    Transaction = TLocal
+    AutoTrans = False
+    BufferChunks = 1
+    SelectSQL.Strings = (
+      
+        'SELECT TITULO, SIGNO_MONEDA, DEC_VER, DEC_CALCULOS FROM SYS_MONE' +
+        'DAS'
+      'WHERE '
+      'MONEDA=?MONEDA')
+    UniDirectional = False
+    DataSource = DSCabecera
+    Left = 224
+    Top = 56
+  end
+  object SPCambiaMoneda: THYFIBQuery
+    Database = DMMain.DataBase
+    ParamCheck = True
+    SQL.Strings = (
+      
+        'execute procedure ut_refresca_detalle_s_moneda (?EMPRESA,?EJERCI' +
+        'CIO,?CANAL,'
+      ' ?SERIE,?TIPO,?RIG,?MONEDAOLD)')
+    Transaction = TLocal
+    AutoTrans = True
+    Left = 424
+    Top = 56
+  end
+  object xTarifas: TFIBDataSetRO
+    Database = DMMain.DataBase
+    Transaction = TLocal
+    AutoTrans = False
+    BufferChunks = 32
+    SelectSQL.Strings = (
+      'SELECT TITULO FROM VER_TARIFAS_ARTICULO'
+      'WHERE '
+      'TARIFA = ?TARIFA')
+    UniDirectional = False
+    DataSource = DSCabecera
+    Left = 224
+    Top = 8
+  end
+  object DSxTarifas: TDataSource
+    DataSet = xTarifas
+    Left = 312
+    Top = 8
+  end
+  object xIdiomas: TFIBDataSetRO
+    Database = DMMain.DataBase
+    Transaction = TLocal
+    AutoTrans = False
+    BufferChunks = 32
+    SelectSQL.Strings = (
+      'select titulo from sys_idiomas'
+      'where '
+      'idioma=?idioma')
+    UniDirectional = False
+    DataSource = DSCabecera
+    Left = 224
+    Top = 104
+    object xIdiomasTITULO: TFIBStringField
+      DisplayLabel = 'Descripcion'
+      FieldName = 'TITULO'
+      Size = 40
+    end
+  end
+  object DSxIdiomas: TDataSource
+    DataSet = xIdiomas
+    Left = 312
+    Top = 104
+  end
+  object QMNIF: TFIBTableSet
+    Database = DMMain.DataBase
+    Transaction = TLocal
+    UsaNulls = False
+    BufferChunks = 32
+    CachedUpdates = False
+    DeleteSQL.Strings = (
+      'DELETE FROM GES_CABECERAS_S_FAC_NIF'
+      'WHERE'
+      '  EMPRESA=?old_EMPRESA AND '
+      '  EJERCICIO=?old_EJERCICIO AND '
+      '  CANAL=?old_CANAL AND '
+      '  SERIE=?old_SERIE AND '
+      '  TIPO=?old_TIPO AND '
+      '  RIG=?old_RIG ')
+    InsertSQL.Strings = (
+      'INSERT INTO GES_CABECERAS_S_FAC_NIF'
+      
+        '  (EMPRESA,'#13#10'EJERCICIO,CANAL,SERIE,TIPO,RIG,NOMBRE,NIF,DIRECCION' +
+        ',C_POSTAL,PROVINCIA,'#13#10'ID_S,PAIS,LOCALIDAD,TELEFONO01,TELEFONO02,' +
+        'TELEFAX,EMAIL,NOTAS,COLONIA,TERCERO,'#13#10'CARNET_APLICADOR,NOMBRE_CO' +
+        'NTACTO,COMO_NOS_CONOCIERON,TIPO_DOC_IDENT,PAIS_DOC_IDENT)'
+      'VALUES'
+      
+        '  (?EMPRESA,'#13#10'?EJERCICIO,?CANAL,?SERIE,?TIPO,?RIG,?NOMBRE,?NIF,?' +
+        'DIRECCION,?C_POSTAL,?PROVINCIA,'#13#10'?ID_S,?PAIS,?LOCALIDAD,?TELEFON' +
+        'O01,?TELEFONO02,?TELEFAX,?EMAIL,?NOTAS,?COLONIA,?TERCERO,'#13#10'?CARN' +
+        'ET_APLICADOR,?NOMBRE_CONTACTO,?COMO_NOS_CONOCIERON,?TIPO_DOC_IDE' +
+        'NT,?PAIS_DOC_IDENT)')
+    RefreshSQL.Strings = (
+      'SELECT'
+      '  *'
+      'FROM GES_CABECERAS_S_FAC_NIF'
+      'WHERE'
+      '  EMPRESA=?EMPRESA AND '
+      '  EJERCICIO=?EJERCICIO AND '
+      '  CANAL=?CANAL AND '
+      '  SERIE=?SERIE AND '
+      '  TIPO=?TIPO AND '
+      '  RIG=?RIG ')
+    SelectSQL.Strings = (
+      'SELECT * FROM GES_CABECERAS_S_FAC_NIF'
+      'WHERE '
+      'TIPO = ?TIPO AND /*Para evitar colisiones con ticket*/'
+      'ID_S = ?ID_S')
+    UniDirectional = False
+    UpdateRecordTypes = [cusUnmodified, cusModified, cusInserted]
+    UpdateSQL.Strings = (
+      'UPDATE GES_CABECERAS_S_FAC_NIF'
+      'SET'
+      '  NOMBRE=?NOMBRE '
+      '  ,NIF=?NIF '
+      '  ,DIRECCION=?DIRECCION '
+      '  ,C_POSTAL=?C_POSTAL '
+      '  ,PROVINCIA=?PROVINCIA '
+      '  ,ID_S=?ID_S '
+      '  ,PAIS=?PAIS '
+      '  ,LOCALIDAD=?LOCALIDAD '
+      '  ,TELEFONO01=?TELEFONO01 '
+      '  ,TELEFONO02=?TELEFONO02 '
+      '  ,TELEFAX=?TELEFAX '
+      '  ,EMAIL=?EMAIL '
+      '  ,NOTAS=?NOTAS '
+      '  ,COLONIA=?COLONIA '
+      '  ,TERCERO=?TERCERO '
+      '  ,CARNET_APLICADOR=?CARNET_APLICADOR '
+      '  ,NOMBRE_CONTACTO=?NOMBRE_CONTACTO '
+      '  ,COMO_NOS_CONOCIERON=?COMO_NOS_CONOCIERON '
+      '  ,TIPO_DOC_IDENT=?TIPO_DOC_IDENT '
+      '  ,PAIS_DOC_IDENT=?PAIS_DOC_IDENT '
+      'WHERE'
+      '  EMPRESA=?EMPRESA AND '
+      '  EJERCICIO=?EJERCICIO AND '
+      '  CANAL=?CANAL AND '
+      '  SERIE=?SERIE AND '
+      '  TIPO=?TIPO AND '
+      '  RIG=?RIG ')
+    DataSource = DSCabecera
+    Plan.Strings = (
+      ' ')
+    AfterPost = Graba
+    OnNewRecord = QMNIFNewRecord
+    ClavesPrimarias.Strings = (
+      'EMPRESA '
+      'EJERCICIO '
+      'CANAL '
+      'SERIE '
+      'TIPO '
+      'RIG ')
+    AccionesInhibidas = []
+    Opciones = [NoControlarConcurrencia]
+    AutoSQLdeVistas = False
+    ComprobarTabla = False
+    Mensajes = False
+    TableName = 'GES_CABECERAS_S_FAC_NIF'
+    BloqOpt = True
+    UpdateTransaction = TUpdate
+    AutoCommit = True
+    Left = 224
+    Top = 152
+    object QMNIFEMPRESA: TIntegerField
+      DisplayLabel = 'Empresa'
+      FieldName = 'EMPRESA'
+    end
+    object QMNIFEJERCICIO: TIntegerField
+      DisplayLabel = 'Ejercicio'
+      FieldName = 'EJERCICIO'
+    end
+    object QMNIFCANAL: TIntegerField
+      DisplayLabel = 'Canal'
+      FieldName = 'CANAL'
+    end
+    object QMNIFSERIE: TFIBStringField
+      DisplayLabel = 'Serie'
+      FieldName = 'SERIE'
+      Size = 10
+    end
+    object QMNIFTIPO: TFIBStringField
+      DisplayLabel = 'Tipo'
+      FieldName = 'TIPO'
+      Size = 3
+    end
+    object QMNIFRIG: TIntegerField
+      DisplayLabel = 'Nro. Doc.'
+      FieldName = 'RIG'
+    end
+    object QMNIFNIF: TFIBStringField
+      DisplayLabel = 'N.I.F.'
+      FieldName = 'NIF'
+    end
+    object QMNIFDIRECCION: TFIBStringField
+      DisplayLabel = 'Direccion'
+      DisplayWidth = 100
+      FieldName = 'DIRECCION'
+      Size = 100
+    end
+    object QMNIFC_POSTAL: TFIBStringField
+      DisplayLabel = 'Cod. Postal'
+      FieldName = 'C_POSTAL'
+      Size = 10
+    end
+    object QMNIFPROVINCIA: TFIBStringField
+      DisplayLabel = 'Provincia'
+      FieldName = 'PROVINCIA'
+      Size = 40
+    end
+    object QMNIFNOMBRE: TFIBStringField
+      DisplayLabel = 'Nombre'
+      FieldName = 'NOMBRE'
+      Size = 60
+    end
+    object QMNIFPAIS: TFIBStringField
+      DisplayLabel = 'Pais'
+      FieldName = 'PAIS'
+      OnChange = QMNIFPAISChange
+      Size = 3
+    end
+    object QMNIFID_S: TIntegerField
+      DisplayLabel = 'ID'
+      FieldName = 'ID_S'
+    end
+    object QMNIFLOCALIDAD: TFIBStringField
+      DisplayLabel = 'Localidad'
+      FieldName = 'LOCALIDAD'
+      Size = 40
+    end
+    object QMNIFTELEFONO01: TFIBStringField
+      DisplayLabel = 'Tel. 1'
+      DisplayWidth = 15
+      FieldName = 'TELEFONO01'
+      Size = 15
+    end
+    object QMNIFTELEFONO02: TFIBStringField
+      DisplayLabel = 'Tel. 2'
+      DisplayWidth = 15
+      FieldName = 'TELEFONO02'
+      Size = 15
+    end
+    object QMNIFTELEFAX: TFIBStringField
+      DisplayLabel = 'Fax'
+      DisplayWidth = 15
+      FieldName = 'TELEFAX'
+      Size = 15
+    end
+    object QMNIFEMAIL: TFIBStringField
+      DisplayLabel = 'Email'
+      FieldName = 'EMAIL'
+      Size = 100
+    end
+    object QMNIFNOTAS: TMemoField
+      DisplayLabel = 'Notas'
+      FieldName = 'NOTAS'
+      BlobType = ftMemo
+      Size = 8
+    end
+    object QMNIFCOLONIA: TFIBStringField
+      DisplayLabel = 'Colonia'
+      FieldName = 'COLONIA'
+      Size = 40
+    end
+    object QMNIFTERCERO: TIntegerField
+      DisplayLabel = 'Tercero'
+      FieldName = 'TERCERO'
+    end
+    object QMNIFCARNET_APLICADOR: TFIBStringField
+      DisplayLabel = 'Carnet Aplicador'
+      FieldName = 'CARNET_APLICADOR'
+    end
+    object QMNIFNOMBRE_CONTACTO: TFIBStringField
+      FieldName = 'NOMBRE_CONTACTO'
+      Size = 60
+    end
+    object QMNIFCOMO_NOS_CONOCIERON: TIntegerField
+      DisplayLabel = 'Como nos conocieron'
+      FieldName = 'COMO_NOS_CONOCIERON'
+    end
+    object QMNIFTIPO_DOC_IDENT: TFIBStringField
+      DisplayLabel = 'Tipo Doc.'
+      FieldName = 'TIPO_DOC_IDENT'
+      Size = 3
+    end
+    object QMNIFPAIS_DOC_IDENT: TFIBStringField
+      DisplayLabel = 'Pais Doc.'
+      FieldName = 'PAIS_DOC_IDENT'
+      Size = 3
+    end
+  end
+  object DSQMNIF: TDataSource
+    DataSet = QMNIF
+    Left = 312
+    Top = 152
+  end
+  object xProyectos: TFIBDataSetRO
+    Database = DMMain.DataBase
+    Transaction = TLocal
+    AutoTrans = False
+    BufferChunks = 32
+    SelectSQL.Strings = (
+      'select titulo from emp_proyectos '
+      'where '
+      'empresa=?empresa and '
+      'proyecto=?proyecto')
+    UniDirectional = False
+    DataSource = DSCabecera
+    Left = 224
+    Top = 248
+  end
+  object DSxProyectos: TDataSource
+    DataSet = xProyectos
+    Left = 312
+    Top = 248
+  end
+  object TUpdate: THYTransaction
+    Active = False
+    DefaultDatabase = DMMain.DataBase
+    TimeoutAction = TARollback
+    TRParams.Strings = (
+      'read_committed'
+      'rec_version'
+      'nowait')
+    Left = 680
+    Top = 112
+  end
+  object xProBuscaEscandallo: TFIBDataSetRO
+    Database = DMMain.DataBase
+    Transaction = TLocal
+    AutoTrans = True
+    BufferChunks = 32
+    SelectSQL.Strings = (
+      'select ges.tipo, ges.id_esc, esc.escandallo, esc.compuesto, '
+      'art.titulo_largo as titulo, esc.estado, ges.tipo_id_esc'
+      'from ges_detalles_s_ofc ges'
+      'left join pro_escandallo esc on (ges.id_esc=esc.id_esc)'
+      
+        'left join art_articulos art on (esc.empresa=art.empresa and esc.' +
+        'compuesto=art.articulo)'
+      'where '
+      'ges.id_detalles_s=?id_detalles_s'
+      ''
+      '/*'
+      'select escandallo, tipo from pro_escandallo'
+      'where '
+      'id_detalles_ofertas_v=?id_detalles_s'
+      '*/')
+    UniDirectional = False
+    DataSource = DSDetalle
+    Left = 224
+    Top = 488
+    object xProBuscaEscandalloID_ESC: TIntegerField
+      DisplayLabel = 'ID Esc.'
+      FieldName = 'ID_ESC'
+    end
+    object xProBuscaEscandalloESCANDALLO: TIntegerField
+      DisplayLabel = 'Escandallo'
+      FieldName = 'ESCANDALLO'
+    end
+    object xProBuscaEscandalloCOMPUESTO: TFIBStringField
+      DisplayLabel = 'Compuesto'
+      FieldName = 'COMPUESTO'
+      Size = 15
+    end
+    object xProBuscaEscandalloTITULO: TFIBStringField
+      DisplayLabel = 'Descripcion'
+      FieldName = 'TITULO'
+      Size = 256
+    end
+    object xProBuscaEscandalloESTADO: TIntegerField
+      DisplayLabel = 'Estado'
+      FieldName = 'ESTADO'
+    end
+    object xProBuscaEscandalloTIPO: TFIBStringField
+      DisplayLabel = 'Tipo'
+      FieldName = 'TIPO'
+      Size = 3
+    end
+    object xProBuscaEscandalloTIPO_ID_ESC: TFIBStringField
+      DisplayLabel = 'Tipo ID Esc.'
+      FieldName = 'TIPO_ID_ESC'
+      Size = 3
+    end
+  end
+  object xRangos: TFIBDataSetRO
+    Database = DMMain.DataBase
+    Transaction = TLocal
+    AutoTrans = True
+    BufferChunks = 32
+    SelectSQL.Strings = (
+      'select titulo from emp_rangos'
+      'where '
+      'empresa=?empresa and '
+      'rango=?rango')
+    UniDirectional = False
+    DataSource = DSCabecera
+    Left = 224
+    Top = 296
+    object xRangosTITULO: TFIBStringField
+      DisplayLabel = 'Descripcion'
+      FieldName = 'TITULO'
+      Size = 60
+    end
+  end
+  object xIndices: TFIBDataSetRO
+    Database = DMMain.DataBase
+    Transaction = TLocal
+    AutoTrans = True
+    BufferChunks = 32
+    SelectSQL.Strings = (
+      'select titulo from emp_rangos_indices'
+      'where '
+      'empresa=?empresa and '
+      'rango=?rango and '
+      'indice=?indice')
+    UniDirectional = False
+    DataSource = DSCabecera
+    Left = 224
+    Top = 344
+    object xIndicesTITULO: TFIBStringField
+      DisplayLabel = 'Descripcion'
+      FieldName = 'TITULO'
+      Size = 60
+    end
+  end
+  object DSxRangos: TDataSource
+    DataSet = xRangos
+    Left = 312
+    Top = 296
+  end
+  object DSxIndices: TDataSource
+    DataSet = xIndices
+    Left = 312
+    Top = 344
+  end
+  object QMFirmas: TFIBDataSetRO
+    Database = DMMain.DataBase
+    Transaction = TLocal
+    AutoTrans = True
+    BufferChunks = 1
+    SelectSQL.Strings = (
+      'SELECT ID_FIRMA, NOMBRE, NIF FROM GES_FIRMAS'
+      'WHERE'
+      'TIPO = :TIPO AND'
+      'ID_DOC = :ID_S AND'
+      'OCTET_LENGTH(COALESCE(FIRMA, '#39#39')) > 10'
+      'ORDER BY ID_FIRMA')
+    UniDirectional = False
+    DataSource = DSCabecera
+    Left = 224
+    Top = 392
+    object QMFirmasID_FIRMA: TIntegerField
+      DisplayLabel = 'Id Firma'
+      FieldName = 'ID_FIRMA'
+    end
+    object QMFirmasNOMBRE: TFIBStringField
+      DisplayLabel = 'Nombre'
+      FieldName = 'NOMBRE'
+      Size = 60
+    end
+    object QMFirmasNIF: TFIBStringField
+      DisplayLabel = 'N.I.F.'
+      FieldName = 'NIF'
+    end
+  end
+  object DSQMFirmas: TDataSource
+    DataSet = QMFirmas
+    Left = 312
+    Top = 392
+  end
+  object xAvisos: TFIBDataSetRO
+    Database = DMMain.DataBase
+    Transaction = TLocal
+    AutoTrans = False
+    BufferChunks = 1
+    RefreshSQL.Strings = (
+      'SELECT (SELECT MENSAJE'
+      '        FROM EMP_AVISOS'
+      '        WHERE'
+      '        TIPO_OBJETO = '#39'CLI'#39' AND'
+      '        ID_OBJETO = :ID_CLIENTE AND'
+      '        TIPO_DOCUMENTO = '#39'OFC'#39' AND'
+      '        ACTIVO = 1),'
+      '        (SELECT NOTAS'
+      '         FROM EMP_CLIENTES'
+      '         WHERE'
+      '         ID_CLIENTE = :ID_CLIENTE)'
+      'FROM RDB$DATABASE')
+    SelectSQL.Strings = (
+      'SELECT (SELECT MENSAJE'
+      '        FROM EMP_AVISOS'
+      '        WHERE'
+      '        TIPO_OBJETO = '#39'CLI'#39' AND'
+      '        ID_OBJETO = :ID_CLIENTE AND'
+      '        TIPO_DOCUMENTO = '#39'OFC'#39' AND'
+      '        ACTIVO = 1),'
+      '        (SELECT NOTAS'
+      '         FROM EMP_CLIENTES'
+      '         WHERE'
+      '         ID_CLIENTE = :ID_CLIENTE)'
+      'FROM RDB$DATABASE')
+    UniDirectional = False
+    DataSource = DSxCliente
+    Left = 32
+    Top = 488
+    object xAvisosMENSAJE: TMemoField
+      DisplayLabel = 'Avisos'
+      FieldName = 'MENSAJE'
+      BlobType = ftMemo
+      Size = 8
+    end
+    object xAvisosNOTAS: TMemoField
+      DisplayLabel = 'Notas Cliente'
+      FieldName = 'NOTAS'
+      BlobType = ftMemo
+      Size = 8
+    end
+  end
+  object xProveedores: TFIBTableSet
+    Database = DMMain.DataBase
+    Transaction = TLocal
+    UsaNulls = False
+    BufferChunks = 32
+    CachedUpdates = False
+    DeleteSQL.Strings = (
+      'DELETE FROM VER_GES_DETALLES_S_PROVEEDORES'
+      'WHERE'
+      '  ID_S=?old_ID_S AND '
+      '  ID_A=?old_ID_A AND '
+      '  EMPRESA=?old_EMPRESA AND '
+      '  PROVEEDOR=?old_PROVEEDOR ')
+    InsertSQL.Strings = (
+      'INSERT INTO VER_GES_DETALLES_S_PROVEEDORES'
+      '  (EMPRESA,'
+      
+        'EJERCICIO,CANAL,SERIE,TIPO,RIG,ID_S,ID_A,ARTICULO,TITULO,PROVEED' +
+        'OR,'
+      
+        'NOMBRE_R_SOCIAL,NOMBRE_COMERCIAL,PRECIO,FECHA_ENTREGA,UTILIZAR_C' +
+        'OSTE,OBSERVACIONES)'
+      'VALUES'
+      '  (?EMPRESA,'
+      
+        '?EJERCICIO,?CANAL,?SERIE,?TIPO,?RIG,?ID_S,?ID_A,?ARTICULO,?TITUL' +
+        'O,?PROVEEDOR,'
+      
+        '?NOMBRE_R_SOCIAL,?NOMBRE_COMERCIAL,?PRECIO,?FECHA_ENTREGA,?UTILI' +
+        'ZAR_COSTE,?OBSERVACIONES)')
+    RefreshSQL.Strings = (
+      'SELECT'
+      '  *'
+      'FROM VER_GES_DETALLES_S_PROVEEDORES'
+      'WHERE'
+      '  ID_S=?ID_S AND '
+      '  ID_A=?ID_A AND '
+      '  EMPRESA=?EMPRESA AND '
+      '  PROVEEDOR=?PROVEEDOR ')
+    SelectSQL.Strings = (
+      'SELECT * FROM VER_GES_DETALLES_S_PROVEEDORES'
+      'WHERE'
+      '  ID_S = :ID_S AND'
+      '  ID_A = :ID_A '
+      'ORDER BY PROVEEDOR')
+    UniDirectional = False
+    UpdateRecordTypes = [cusUnmodified, cusModified, cusInserted]
+    UpdateSQL.Strings = (
+      'UPDATE VER_GES_DETALLES_S_PROVEEDORES'
+      'SET'
+      '  EJERCICIO=?EJERCICIO '
+      '  ,CANAL=?CANAL '
+      '  ,SERIE=?SERIE '
+      '  ,TIPO=?TIPO '
+      '  ,RIG=?RIG '
+      '  ,ARTICULO=?ARTICULO '
+      '  ,TITULO=?TITULO '
+      '  ,NOMBRE_R_SOCIAL=?NOMBRE_R_SOCIAL '
+      '  ,NOMBRE_COMERCIAL=?NOMBRE_COMERCIAL '
+      '  ,PRECIO=?PRECIO '
+      '  ,FECHA_ENTREGA=?FECHA_ENTREGA '
+      '  ,UTILIZAR_COSTE=?UTILIZAR_COSTE '
+      '  ,OBSERVACIONES=?OBSERVACIONES '
+      'WHERE'
+      '  ID_S=?ID_S AND '
+      '  ID_A=?ID_A AND '
+      '  EMPRESA=?EMPRESA AND '
+      '  PROVEEDOR=?PROVEEDOR ')
+    DataSource = DSDetalle
+    Plan.Strings = (
+      
+        'PLAN SORT (JOIN (VER_DETALLE_OFERTA_C DET INDEX (GES_DETALLES_S_' +
+        'CAB_ID),'
+      
+        '                VER_DETALLE_OFERTA_C OFC INDEX (GES_DETALLES_S_O' +
+        'FC_ID)))  ')
+    AfterPost = xProveedoresAfterPost
+    OnNewRecord = xProveedoresNewRecord
+    ClavesPrimarias.Strings = (
+      'ID_S '
+      'ID_A '
+      'EMPRESA '
+      'PROVEEDOR ')
+    AccionesInhibidas = []
+    Opciones = [NoControlarConcurrencia]
+    AutoSQLdeVistas = True
+    ComprobarTabla = False
+    Mensajes = False
+    TableName = 'VER_GES_DETALLES_S_PROVEEDORES'
+    BloqOpt = True
+    TablasBloqueo.Strings = (
+      'GES_DETALLES_S'
+      'GES_DETALLES_S_OFC')
+    CamposBloqueo.Strings = (
+      'ID_DETALLES_S'
+      'ID_DETALLES_S')
+    UpdateTransaction = TUpdate
+    AutoCommit = True
+    Left = 32
+    Top = 440
+    object xProveedoresEMPRESA: TIntegerField
+      DisplayLabel = 'Empresa'
+      FieldName = 'EMPRESA'
+    end
+    object xProveedoresEJERCICIO: TIntegerField
+      DisplayLabel = 'Ejercicio'
+      FieldName = 'EJERCICIO'
+    end
+    object xProveedoresCANAL: TIntegerField
+      DisplayLabel = 'Canal'
+      FieldName = 'CANAL'
+    end
+    object xProveedoresSERIE: TFIBStringField
+      DisplayLabel = 'Serie'
+      FieldName = 'SERIE'
+      Size = 10
+    end
+    object xProveedoresTIPO: TFIBStringField
+      DisplayLabel = 'Tipo'
+      FieldName = 'TIPO'
+      Size = 3
+    end
+    object xProveedoresRIG: TIntegerField
+      DisplayLabel = 'R.I.G.'
+      FieldName = 'RIG'
+    end
+    object xProveedoresID_S: TIntegerField
+      DisplayLabel = 'Id Doc.'
+      FieldName = 'ID_S'
+    end
+    object xProveedoresID_A: TIntegerField
+      DisplayLabel = 'Id Art.'
+      FieldName = 'ID_A'
+    end
+    object xProveedoresARTICULO: TFIBStringField
+      DisplayLabel = 'Articulo'
+      FieldName = 'ARTICULO'
+      OnChange = xProveedoresARTICULOChange
+      Size = 15
+    end
+    object xProveedoresTITULO: TFIBStringField
+      DisplayLabel = 'Titulo'
+      FieldName = 'TITULO'
+      Size = 256
+    end
+    object xProveedoresPROVEEDOR: TIntegerField
+      DisplayLabel = 'Proveedor'
+      FieldName = 'PROVEEDOR'
+    end
+    object xProveedoresNOMBRE_R_SOCIAL: TFIBStringField
+      DisplayLabel = 'Razon Social'
+      FieldName = 'NOMBRE_R_SOCIAL'
+      Size = 60
+    end
+    object xProveedoresNOMBRE_COMERCIAL: TFIBStringField
+      DisplayLabel = 'Nombre Comercial'
+      FieldName = 'NOMBRE_COMERCIAL'
+      Size = 60
+    end
+    object xProveedoresPRECIO: TFloatField
+      DisplayLabel = 'Precio'
+      FieldName = 'PRECIO'
+    end
+    object xProveedoresFECHA_ENTREGA: TDateTimeField
+      DisplayLabel = 'Fec. Entrega'
+      FieldName = 'FECHA_ENTREGA'
+    end
+    object xProveedoresUTILIZAR_COSTE: TIntegerField
+      DisplayLabel = 'Utilizar Coste'
+      FieldName = 'UTILIZAR_COSTE'
+    end
+    object xProveedoresOBSERVACIONES: TFIBStringField
+      DisplayLabel = 'Observaciones'
+      FieldName = 'OBSERVACIONES'
+      Size = 256
+    end
+  end
+  object DSxProveedores: TDataSource
+    DataSet = xProveedores
+    Left = 120
+    Top = 440
+  end
+  object DSxAvisos: TDataSource
+    DataSet = xAvisos
+    Left = 120
+    Top = 488
+  end
+end

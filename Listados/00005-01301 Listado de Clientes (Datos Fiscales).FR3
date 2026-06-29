@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TfrxHYReport Name="" Version="3.19" DotMatrixReport="False" EngineOptions.DoublePass="True" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="Default" ReportOptions.CreateDate="39322,692486794" ReportOptions.Description.Text="" ReportOptions.LastChange="39322,6934613657" ScriptLanguage="PascalScript" ScriptText.Text="procedure Memo17OnBeforePrint(Sender: TfrxComponent);&#13;&#10;begin&#13;&#10;&#13;&#10;end;&#13;&#10;&#13;&#10;begin&#13;&#10;&#13;&#10;end." StoreInDFM="False" FIBOptions.DataSet="DMMain.QListados" FIBOptions.KeyField="LISTADO" FIBOptions.BlobField="DEF_LISTADO" FIBOptions.NameField="TITULO" FIBOptions.GroupField="GRUPO" FIBOptions.TypeField="TIPO" PropData="044C65667403F00003546F70021A08446174617365747301010C2000000020446174615365744E616D653D2266727844424453514D436C69656E746573220000095661726961626C657301010C11000000204E616D653D222043414245434552412200010C0F000000204E616D653D22456D70726573612200010C13000000204E616D653D22456D70726573615F4369662200010C19000000204E616D653D22456D70726573615F446972656363696F6E2200010C13000000204E616D653D22456D70726573615F436F642200010C14000000204E616D653D22456D70726573615F50726F762200010C14000000204E616D653D22456D70726573615F506169732200010C1A000000204E616D653D224665636861222056616C75653D22444154452200010C0E000000204E616D653D22496D6167656E2200010C10000000204E616D653D2254656C65666F6E6F2200010C0F000000204E616D653D2220566172696F732200010C1A000000204E616D653D224D61736361726150222056616C75653D22302200010C1A000000204E616D653D224D6173636172614E222056616C75653D22302200010C1A000000204E616D653D224D61736361726149222056616C75653D22302200010C1A000000204E616D653D224D6173636172614C222056616C75653D22302200010C09000000204E616D653D224C2200010C09000000204E616D653D22432200010C10000000204E616D653D2220444554414C4C452200010C16000000204E616D653D225449504F444952434C49454E54452200010C18000000204E616D653D224C4F43414C49444144434C49454E54452200010C18000000204E616D653D2250524F56494E434941434C49454E54452200010C13000000204E616D653D2250414953434C49454E5445220000055374796C650100">
+  <TfrxReportPage Name="Page1" Orientation="poLandscape" PaperWidth="296,899541666667" PaperHeight="209,999791666667" PaperSize="256" LeftMargin="5,29166666666667" RightMargin="5,29166666666667" TopMargin="5,29166666666667" BottomMargin="5,29166666666667" Columns="1" ColumnWidth="276,8996875" ColumnPositions.Text="0" HGuides.Text="" VGuides.Text="">
+    <TfrxMasterData Name="Band1" Height="29" Left="0" Top="149" Width="1082,14069888208" Columns="1" ColumnWidth="200" ColumnGap="20" DataSetName="frxDBDSQMClientes" RowCount="0">
+      <TfrxMemoView Name="Memo44" Left="0" Top="0" Width="988" Height="29" Color="12632256" Text="[L]"/>
+      <TfrxMemoView Name="Memo13" Left="38" Top="0" Width="147" Height="29" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="[QMClientes.&#34;TITULO&#34;]"/>
+      <TfrxMemoView Name="Memo17" Left="-1" Top="0" Width="28" Height="29" OnBeforePrint="Memo17OnBeforePrint" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" HAlign="haRight" ParentFont="False" Text="[NombreBanco] [QMClientes.&#34;CLIENTE&#34;]"/>
+      <TfrxMemoView Name="Memo19" Left="187" Top="0" Width="92" Height="29" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="[QMTerceros.&#34;NIF&#34;]"/>
+      <TfrxMemoView Name="Memo21" Left="489" Top="0" Width="84" Height="29" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="[QMFormasdePago.&#34;TITULO&#34;]"/>
+      <TfrxMemoView Name="Memo28" Left="578" Top="0" Width="72" Height="29" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" HAlign="haRight" ParentFont="False" Text="[QMClientes.&#34;RIESGO_AUT&#34;]"/>
+      <TfrxMemoView Name="Memo30" Left="658" Top="0" Width="76" Height="29" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" HAlign="haRight" ParentFont="False" Text="[QMClientes.&#34;RIESGO_ACT&#34;]"/>
+      <TfrxMemoView Name="Memo33" Left="743" Top="0" Width="48" Height="29" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" HAlign="haRight" ParentFont="False" Text="[DMClientes.QMClientes.&#34;DIA_PAGO_1&#34;]"/>
+      <TfrxMemoView Name="Memo34" Left="799" Top="0" Width="48" Height="29" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" HAlign="haRight" ParentFont="False" Text="[DMClientes.QMClientes.&#34;DIA_PAGO_2&#34;]"/>
+      <TfrxMemoView Name="Memo39" Left="853" Top="0" Width="48" Height="29" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" HAlign="haRight" ParentFont="False" Text="[QMClientes.&#34;DESCUENTO_PP&#34;] %"/>
+      <TfrxMemoView Name="Memo40" Left="905" Top="0" Width="82" Height="29" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="[QMIRPF.&#34;TITULO&#34;]"/>
+      <TfrxMemoView Name="Memo42" Left="377" Top="0" Width="108" Height="29" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="[QMIvaModos.&#34;TITULO&#34;]"/>
+      <TfrxMemoView Name="Memo1" Left="286" Top="0" Width="88" Height="16" Text="[QMClientes.&#34;CUENTA&#34;]"/>
+    </TfrxMasterData>
+    <TfrxPageFooter Name="Band3" Height="23" Left="0" Top="235" Width="1082,14069888208">
+      <TfrxMemoView Name="Memo43" Left="771" Top="4" Width="191" Height="16" HAlign="haRight" Text="[Page#] de [TotalPages]"/>
+    </TfrxPageFooter>
+    <TfrxColumnHeader Name="Band4" Height="76" Left="0" Top="16" Width="1082,14069888208">
+      <TfrxMemoView Name="Memo14" Left="-1" Top="7" Width="376" Height="27" Font.Charset="1" Font.Color="0" Font.Height="-19" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="DATOS ECONÓMICOS (CLIENTES)"/>
+      <TfrxMemoView Name="Memo15" Left="41" Top="50" Width="96" Height="16" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="NOMBRE"/>
+      <TfrxMemoView Name="Memo16" Left="3" Top="50" Width="28" Height="16" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="Nº"/>
+      <TfrxMemoView Name="Memo5" Left="286" Top="53" Width="88" Height="16" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="Cuenta"/>
+      <TfrxMemoView Name="Memo6" Left="185" Top="52" Width="92" Height="16" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="N.I.F."/>
+      <TfrxMemoView Name="Memo20" Left="486" Top="53" Width="84" Height="16" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="FORMA PAGO"/>
+      <TfrxMemoView Name="Memo27" Left="574" Top="53" Width="72" Height="16" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="RIESGO AUT."/>
+      <TfrxMemoView Name="Memo29" Left="654" Top="53" Width="76" Height="16" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="RIESGO ACT."/>
+      <TfrxMemoView Name="Memo31" Left="734" Top="53" Width="52" Height="16" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="DIA PG1"/>
+      <TfrxMemoView Name="Memo32" Left="790" Top="53" Width="52" Height="16" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="DIA PG2"/>
+      <TfrxMemoView Name="Memo36" Left="846" Top="53" Width="56" Height="16" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="DTO. PP."/>
+      <TfrxMemoView Name="Memo37" Left="906" Top="53" Width="56" Height="16" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="I.R.P.F."/>
+      <TfrxMemoView Name="Memo41" Left="379" Top="53" Width="72" Height="16" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="MODO I.V.A."/>
+      <TfrxLineView Name="Line1" Left="3" Top="70" Width="28" Height="0" Frame.Typ="4" Frame.Width="2"/>
+      <TfrxLineView Name="Line2" Left="41" Top="70" Width="96" Height="0" Frame.Typ="4" Frame.Width="2"/>
+      <TfrxLineView Name="Line3" Left="185" Top="72" Width="92" Height="0" Frame.Typ="4" Frame.Width="2"/>
+      <TfrxLineView Name="Line4" Left="286" Top="73" Width="88" Height="0" Frame.Typ="4" Frame.Width="2"/>
+      <TfrxLineView Name="Line5" Left="378" Top="73" Width="100" Height="0" Frame.Typ="4" Frame.Width="2"/>
+      <TfrxLineView Name="Line6" Left="486" Top="73" Width="84" Height="0" Frame.Typ="4" Frame.Width="2"/>
+      <TfrxLineView Name="Line7" Left="574" Top="73" Width="72" Height="0" Frame.Typ="4" Frame.Width="2"/>
+      <TfrxLineView Name="Line8" Left="654" Top="73" Width="76" Height="0" Frame.Typ="4" Frame.Width="2"/>
+      <TfrxLineView Name="Line9" Left="734" Top="73" Width="52" Height="0" Frame.Typ="4" Frame.Width="2"/>
+      <TfrxLineView Name="Line10" Left="790" Top="73" Width="48" Height="0" Frame.Typ="4" Frame.Width="2"/>
+      <TfrxLineView Name="Line11" Left="846" Top="73" Width="52" Height="0" Frame.Typ="4" Frame.Width="2"/>
+      <TfrxLineView Name="Line12" Left="906" Top="73" Width="56" Height="0" Frame.Typ="4" Frame.Width="2"/>
+    </TfrxColumnHeader>
+  </TfrxReportPage>
+</TfrxHYReport>

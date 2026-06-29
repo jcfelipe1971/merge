@@ -1,0 +1,150 @@
+Revisar uso imagen 27
+
+0   - Salir
+1   - Informacion
+2   - Configuracion
+3   - Calcular calculadora recalcula
+4   - Grupo agrupar
+5   - Filtrar embudo
+6   - Bandera roja incidencia
+7   - Bandera verde
+8   - Bandera naranja
+9   - Calendario cambiar fecha
+10  - Desglose escandallo despiece
+11  - Reloj arena tiempo
+12  - Clau acces
+13  - Internet
+14  - Impresora imprimir
+15  - Cerrar masivo
+16  - Procesos
+17  - Empresa
+18  - Modificar editar notas
+19  - Aceptar confirmar
+20  - Aspa roja cancelar
+21  - Mantenimiento
+22  - Lupa menos reducir
+23  - Lupa mas ampliar
+24  - Persona amarillo usuario web
+25  - Flecha derecha
+26  - Recargar refrescar regenerar
+27  - Devolucion eliminar
+28  - Imagen 
+29  - Alterar documento mantenimiento
+30  - Cuentas contables PGC contabilidad asiento apunte
+31  - Tendall 
+32  - Lista norma protocolo
+33  - Tarifa 
+34  - Email Correo electronico Sobre email envio enviar
+35  - Documento fichero traspaso
+36  - Exportar traspasar
+37  - Duplicar dos hojas replicar copiar
+38  - Codigo de Barras
+39  - Exclamacion
+40  - Almacen
+41  - Guardar salvar
+42  - Avanzar estado documento
+43  - Retroceder estado documento
+44  - Contador contar numero
+45  - Estadistica grafico escalado ABC
+46
+47
+48
+49  - Descargar importar
+50  - Ejercicio fiscal carpesanos
+51  - Flecha izquierda
+52  - Flecha abajo
+53  - Flecha arriba
+54  - Persona tercero naranja
+55  - Monedas cambiar precio
+56  - Monedas
+57  - Hoja documento nuevo fichero
+58  - Especiales Estrella roja
+59  - Adjuntos adjuntar
+60  - Albaranes Albaranes de proveedor
+61  - Facturas Facturas de proveedores Facturas de acreedor
+62  - Pedidos Pedidos a proveedores Propuesta a Proveedor Propuestas Confirmadas
+63  - Persona acreedor lila
+64  - Persona proveedor acreedor rojo 
+65  - Carpeta abrir
+66  - Menu principal
+67  - candado abierto abrir desactivar
+68  - candado cerrado cerrar activar bloquear
+69  - Extendidas extender flechas
+70
+71  - candado anular documento
+72  - Ofertas
+73  - Propuestas de compra
+74
+75  - Recibos
+76
+77  - Configurar impresora listado
+78
+79
+80  - Menu activo
+81  - Ubicacion estanteria repisa
+82
+83  - Lupa Buscar revisar
+84
+85  - Buscar documento lupa 
+86  - Propagar
+87  - Documentos hojas ficheros
+88
+89  - Cliente Proveedor articulo
+90  - Portes caja bulto
+91  - Idiomas
+92  - Lanzar ordenes
+93  - LIBRE
+94  - Generar ejecutar
+95  - Etiqueta
+96  - Herencia detalle
+97  - Herencia cabecera estructura origen
+98  - Sincronizar documentos intercambio datos
+99  - Otros
+100 - LIBRE
+101 - Peligro, atención
+102 - ADR, materias peligrosas
+103 - LIBRE
+104 - Persona verde Cliente Usuario
+105 - Hoja de trabajo
+106 - Persona contacto azul agente
+107
+108
+109 - Articulo
+110 - Impuesto IVA %
+111 - Despiece
+112 - Vehiculo transporte matricula
+113
+114
+115 - Serializacion numeros series
+116 - Orden produccion fabricacion
+117 - 
+118 - Puntear comprobar verificar
+119 - Reparaciones Herramientas Utiles
+120 - Lotes
+121
+122 - Ordenar
+123 - Remesa lista euro
+124 - Talon Pagare
+125 - Documento hoja texto listado
+126
+127
+128 - Stock existencias
+129 - LIBRE
+130 - LIBRE
+131 - LIBRE
+132 - Canal
+133 - Modelo
+134 - Periodos
+135 - Empleado
+136 - Hacienda modelos
+137 - Familia, Arbol, Registro Fitosanitario
+138 - LIBRE
+139 - LIBRE
+140 - Kits tallas seleccion
+141 - Anticipo monedas mano
+142 - LIBRE
+143 - Monedas pagar documento
+144 - LIBRE
+145
+146 - Marcar todos
+147 - Desmarcar todos

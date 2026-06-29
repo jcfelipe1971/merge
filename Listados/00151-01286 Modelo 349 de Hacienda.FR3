@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TfrxHYReport Name="" Version="3.19" DotMatrixReport="False" EngineOptions.DoublePass="True" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="Default" ReportOptions.CreateDate="39294,4107069213" ReportOptions.Description.Text="" ReportOptions.LastChange="39294,509728912" ScriptLanguage="PascalScript" ScriptText.Text="procedure CabeceraColumna1OnBeforePrint(Sender: TfrxComponent);&#13;&#10;begin&#13;&#10;  with CabeceraColumna1, Engine do&#13;&#10;  begin&#13;&#10;  if periodo='13' then periodost:='1T';&#13;&#10;  if periodo='14' then periodost:='2T';&#13;&#10;  if periodo='15' then periodost:='3T';&#13;&#10;  if periodo='16' then periodost:='4T';&#13;&#10;  end&#13;&#10;end;&#13;&#10;&#13;&#10;begin&#13;&#10;&#13;&#10;end." StoreInDFM="False" FIBOptions.DataSet="DMMain.QListados" FIBOptions.KeyField="LISTADO" FIBOptions.BlobField="DEF_LISTADO" FIBOptions.NameField="TITULO" FIBOptions.GroupField="GRUPO" FIBOptions.TypeField="TIPO" PropData="044C65667403F00003546F70021A08446174617365747301010C2000000020446174615365744E616D653D2266727844424453784D6F64656C6F3334392200010C2400000020446174615365744E616D653D2266727844424453784D6F64656C6F3334395F4465632200010C2500000020446174615365744E616D653D2266727844424453784D6F64656C6F3334395F72656374220000095661726961626C657301010C0E000000204E616D653D22204461746F732200010C3A000000204E616D653D22656D7072657361222056616C75653D22444D4D61696E2E5258456E746F726E6F2E262333343B456D7072657361262333343B2200010C36000000204E616D653D2263616E616C222056616C75653D22444D4D61696E2E5258456E746F726E6F2E262333343B43616E616C262333343B2200010C11000000204E616D653D22656A6572636963696F2200010C21000000204E616D653D22706572696F646F222056616C75653D225B706572696F646F5D2200010C11000000204E616D653D22204D617363617261732200010C1A000000204E616D653D224D6173636172614E222056616C75653D2230220000055374796C650100">
+  <TfrxReportPage Name="" PaperWidth="210" PaperHeight="296,9" PaperSize="256" LeftMargin="4" RightMargin="4" TopMargin="4" BottomMargin="4" ColumnWidth="0" ColumnPositions.Text="" Bin="65535" BinOtherPages="65535" HGuides.Text="" VGuides.Text="">
+    <TfrxMasterData Name="DatosMaestros1" Height="18" Left="0" Top="194" Width="763,46506" Columns="1" ColumnWidth="200" ColumnGap="20" DataSetName="frxDBDSxModelo349_Dec" RowCount="0">
+      <TfrxMemoView Name="Memo1" Left="87" Top="0" Width="30" Height="18" HAlign="haRight" Text="[ReportData.declarados.&#34;COD_PAIS&#34;]"/>
+      <TfrxMemoView Name="Memo2" Left="119" Top="0" Width="88" Height="18" Text="[xModelo349_Dec.&#34;NIF&#34;]"/>
+      <TfrxMemoView Name="Memo3" Left="209" Top="0" Width="368" Height="18" Text="[xModelo349_Dec.&#34;NOMBRE_R_SOCIAL&#34;]"/>
+      <TfrxMemoView Name="Memo4" Left="579" Top="0" Width="23" Height="18" Text="[xModelo349_Dec.&#34;CLAVEOP&#34;]"/>
+      <TfrxMemoView Name="Memo5" Left="604" Top="0" Width="90" Height="18" HAlign="haRight" Text="[[xModelo349_Dec.&#34;IMPORTE&#34;]+[MascaraN]]"/>
+      <TfrxMemoView Name="Memo14" Left="45" Top="0" Width="40" Height="18" HAlign="haRight" Text="[LINE#]"/>
+    </TfrxMasterData>
+    <TfrxHeader Name="CabeceraMaestra1" Height="22" Left="0" Top="155" Width="763,46506" ReprintOnNewPage="True">
+      <TfrxMemoView Name="Memo7" Left="87" Top="0" Width="120" Height="18" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="8" HAlign="haCenter" ParentFont="False" Text="NIF"/>
+      <TfrxMemoView Name="Memo8" Left="209" Top="0" Width="368" Height="18" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="8" HAlign="haCenter" ParentFont="False" Text="RAZON SOCIAL"/>
+      <TfrxMemoView Name="Memo9" Left="579" Top="0" Width="23" Height="18" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="8" ParentFont="False" VAlign="vaCenter" Text="CL"/>
+      <TfrxMemoView Name="Memo10" Left="604" Top="0" Width="90" Height="18" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="8" HAlign="haCenter" ParentFont="False" Text="IMPORTE"/>
+      <TfrxMemoView Name="Memo13" Left="45" Top="0" Width="40" Height="18" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="8" HAlign="haCenter" ParentFont="False" Text="Nº"/>
+    </TfrxHeader>
+    <TfrxColumnHeader Name="CabeceraColumna1" Height="82" Left="0" Top="16" Width="763,46506" OnBeforePrint="CabeceraColumna1OnBeforePrint">
+      <TfrxMemoView Name="Memo6" Left="33" Top="20" Width="652" Height="28" Font.Charset="1" Font.Color="0" Font.Height="-19" Font.Name="Arial" Font.Style="1" HAlign="haCenter" ParentFont="False" Text="RELACION DE DECLARADOS MODELO 349"/>
+      <TfrxMemoView Name="Memo30" Left="373" Top="56" Width="312" Height="18" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" HAlign="haRight" ParentFont="False" Text="Ejercicio: [ejercicio]   Periodo: [periodost]"/>
+    </TfrxColumnHeader>
+    <TfrxFooter Name="PieMaestro1" Height="18" Left="0" Top="382" Width="763,46506">
+      <TfrxMemoView Name="Memo25" Left="521" Top="0" Width="79" Height="18" HAlign="haRight" Text="TOTAL:"/>
+      <TfrxMemoView Name="Memo26" Left="604" Top="0" Width="90" Height="18" HAlign="haRight" Text="[[sum([xModelo349_rect.&#34;IMPORTE&#34;],Band1)]+[MascaraN]]"/>
+    </TfrxFooter>
+    <TfrxMasterData Name="Band1" Height="18" Left="0" Top="347" Width="763,46506" Columns="1" ColumnWidth="200" ColumnGap="20" DataSetName="frxDBDSxModelo349_rect" RowCount="0">
+      <TfrxMemoView Name="Memo16" Left="87" Top="0" Width="29" Height="18" HAlign="haRight" Text="[xModelo349_rect.&#34;COD_PAIS&#34;]"/>
+      <TfrxMemoView Name="Memo17" Left="119" Top="0" Width="88" Height="18" Text="[xModelo349_rect.&#34;NIF&#34;]"/>
+      <TfrxMemoView Name="Memo18" Left="209" Top="0" Width="368" Height="18" Text="[xModelo349_rect.&#34;NOMBRE_R_SOCIAL&#34;]"/>
+      <TfrxMemoView Name="Memo19" Left="579" Top="0" Width="23" Height="18" Text="[xModelo349_rect.&#34;CLAVEOP&#34;]"/>
+      <TfrxMemoView Name="Memo20" Left="604" Top="0" Width="90" Height="18" HAlign="haRight" Text="[[xModelo349_rect.&#34;IMPORTE&#34;]+[MascaraN]]"/>
+      <TfrxMemoView Name="Memo28" Left="45" Top="0" Width="40" Height="18" HAlign="haRight" Text="[LINE#]"/>
+    </TfrxMasterData>
+    <TfrxHeader Name="Band2" Height="62" Left="0" Top="268" Width="763,46506" ReprintOnNewPage="True">
+      <TfrxMemoView Name="Memo21" Left="87" Top="40" Width="120" Height="18" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="8" HAlign="haCenter" ParentFont="False" Text="NIF"/>
+      <TfrxMemoView Name="Memo22" Left="209" Top="40" Width="368" Height="18" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="8" HAlign="haCenter" ParentFont="False" Text="RAZON SOCIAL"/>
+      <TfrxMemoView Name="Memo23" Left="579" Top="40" Width="23" Height="18" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="8" ParentFont="False" VAlign="vaCenter" Text="CL"/>
+      <TfrxMemoView Name="Memo24" Left="604" Top="40" Width="90" Height="18" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="8" HAlign="haCenter" ParentFont="False" Text="IMPORTE"/>
+      <TfrxMemoView Name="Memo27" Left="45" Top="40" Width="40" Height="18" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="8" HAlign="haCenter" ParentFont="False" Text="Nº"/>
+      <TfrxMemoView Name="Memo29" Left="41" Top="9" Width="176" Height="18" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" ParentFont="False" Text="RECTIFICACIONES:"/>
+    </TfrxHeader>
+    <TfrxFooter Name="Band3" Height="22" Left="0" Top="229" Width="763,46506">
+      <TfrxMemoView Name="Memo11" Left="521" Top="4" Width="79" Height="18" HAlign="haRight" Text="TOTAL:"/>
+      <TfrxMemoView Name="Memo12" Left="604" Top="4" Width="90" Height="18" HAlign="haRight" Text="[[sum([xModelo349_Dec.&#34;IMPORTE&#34;],DatosMaestros1)]+[MascaraN]]"/>
+    </TfrxFooter>
+    <TfrxPageFooter Name="PieDe_p_gina1" Height="26" Left="0" Top="457" Width="763,46506">
+      <TfrxMemoView Name="Memo15" Left="570" Top="4" Width="132" Height="20" HAlign="haRight" Text="Página [PAGE#]"/>
+    </TfrxPageFooter>
+  </TfrxReportPage>
+</TfrxHYReport>

@@ -1,0 +1,49 @@
+object ProFPregDeslanza: TProFPregDeslanza
+  Left = 229
+  Top = 138
+  Width = 501
+  Height = 210
+  Caption = 'ProFPregDeslanza'
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object DBGDeslanza: TDBGridFind2000
+    Left = 8
+    Top = 16
+    Width = 473
+    Height = 153
+    TabOrder = 0
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'MS Sans Serif'
+    TitleFont.Style = []
+    Insercion = False
+    ColumnaInicial = 0
+    UsaDicG2K = True
+    Changed = False
+    AutoCambiarColumna = False
+    AutoPostEnCheckBox = False
+    AutoStartDrag = False
+    AutoStartDragInterval = 0
+    IndiceBitmapOrdenable = 0
+    IndiceBitmapAscendente = 0
+    IndiceBitmapChecked = -1
+    IndiceBitmapDescendente = 0
+    BaseDeDatos = DMMain.DataBase
+    BuscarNums = False
+    CampoAOrdenarColor = clInfoBk
+    MensajeNoExiste = False
+    SalirSiVacio = False
+    SalirSiNoExiste = False
+    Posicion = tpCentrado
+    OrdenMultiple = True
+    Filtros = []
+  end
+end

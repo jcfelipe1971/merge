@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TfrxHYReport Name="" Version="3.19" DotMatrixReport="False" EngineOptions.DoublePass="True" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="Default" ReportOptions.CreateDate="38674,7105073495" ReportOptions.Description.Text="" ReportOptions.LastChange="38698,5295056713" ScriptLanguage="PascalScript" ScriptText.Text="procedure Band1OnBeforePrint(Sender: TfrxComponent);&#13;&#10;begin&#13;&#10;  Band1.StartNewPage := [Desglosado];&#13;&#10;  Band3.Visible      := [Desglosado];&#13;&#10;  DatosDe_detalle2.Visible := [Desglosado];&#13;&#10;end;&#13;&#10;&#13;&#10;begin&#13;&#10;&#13;&#10;end." StoreInDFM="False" FIBOptions.DataSet="DMMain.QListados" FIBOptions.KeyField="LISTADO" FIBOptions.BlobField="DEF_LISTADO" FIBOptions.NameField="TITULO" FIBOptions.GroupField="GRUPO" FIBOptions.TypeField="TIPO" PropData="044C65667403F00003546F70021A08446174617365747301010C2000000020446174615365744E616D653D22667278444278496E636964656E63696173220000095661726961626C657301010C13000000204E616D653D2220454E434142455A41444F2200010C1A000000204E616D653D224645434841222056616C75653D22444154452200010C1C000000204E616D653D22504147494E41222056616C75653D2250414745232200010C0F000000204E616D653D2220564152494F532200010C1A000000204E616D653D224D6173636172614E222056616C75653D22302200010C1A000000204E616D653D224D61736361726150222056616C75653D22302200010C1A000000204E616D653D224D6173636172614C222056616C75653D22302200010C09000000204E616D653D224C220000055374796C650100">
+  <TfrxReportPage Name="Page1" PaperWidth="210" PaperHeight="296,9" PaperSize="256" LeftMargin="10" RightMargin="10" TopMargin="10" BottomMargin="10" Columns="1" ColumnWidth="190" ColumnPositions.Text="0" Bin="65535" BinOtherPages="65535" HGuides.Text="" VGuides.Text="">
+    <TfrxColumnHeader Name="Band2" Height="83" Left="0" Top="18,89765" Width="718,1107">
+      <TfrxMemoView Name="Memo1" Left="-2" Top="21" Width="683" Height="24" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Frame.Typ="12" HAlign="haRight" ParentFont="False" VAlign="vaCenter" Text="LISTADO DE INCIDENCIAS [Concepto]"/>
+      <TfrxMemoView Name="Memo2" Left="566" Top="1" Width="116" Height="17" HAlign="haRight" WordWrap="False" Text="Página Nº. [PAGINA]"/>
+      <TfrxMemoView Name="Memo3" Left="434" Top="1" Width="112" Height="16" HAlign="haRight" WordWrap="False" VAlign="vaCenter" Text="[FECHA]"/>
+      <TfrxMemoView Name="Memo4" Left="-2" Top="53" Width="300" Height="17" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" ParentFont="False" WordWrap="False" VAlign="vaCenter" Text="LISTADO ENTRE  [Fecha1]  Y  [Fecha2]"/>
+    </TfrxColumnHeader>
+    <TfrxMasterData Name="Band1" Height="21" Left="0" Top="211,65368" Width="718,1107" OnBeforePrint="Band1OnBeforePrint" Columns="1" ColumnWidth="200" ColumnGap="20" DataSetName="frxDBxIncidencias" PrintIfDetailEmpty="True" RowCount="0">
+      <TfrxMemoView Name="Memo6" Left="74" Top="2" Width="454" Height="18" DataSetName="frxDBxIncidencias" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="[frxDBxIncidencias.&#34;TITULO_INCIDENCIA&#34;]"/>
+      <TfrxMemoView Name="Memo7" Left="607" Top="1" Width="73" Height="18" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="[InFecha]"/>
+      <TfrxMemoView Name="Memo13" Left="0" Top="2" Width="72" Height="18" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" HAlign="haRight" ParentFont="False" Text="Incidencia: "/>
+      <TfrxMemoView Name="Memo15" Left="532" Top="1" Width="72" Height="18" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" HAlign="haRight" ParentFont="False" Text="Fecha: "/>
+    </TfrxMasterData>
+    <TfrxGroupHeader Name="CabeceraDe_grupo1" Height="28" Left="0" Top="162,51979" Width="718,1107" Condition="[xIncidencias.&#34;COD_CLI_PRO&#34;]" ReprintOnNewPage="True">
+      <TfrxMemoView Name="Memo5" Left="0" Top="10" Width="492" Height="15" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" Frame.Typ="8" ParentFont="False" Text="[frxDBxIncidencias.&#34;COD_CLI_PRO&#34;]  [frxDBxIncidencias.&#34;TITULO_TERCERO&#34;]"/>
+    </TfrxGroupHeader>
+    <TfrxDetailData Name="Band3" Height="228" Left="0" Top="257,00804" Width="718,1107" Columns="1" ColumnWidth="200" ColumnGap="20" RowCount="1">
+      <TfrxMemoView Name="Memo9" Left="73" Top="30" Width="608" Height="196" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" Text="[frxDBxIncidencias.&#34;DATOS_INCIDENCIA&#34;]"/>
+      <TfrxMemoView Name="Memo16" Left="532" Top="9" Width="72" Height="18" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" HAlign="haRight" ParentFont="False" Text="Recepción: "/>
+      <TfrxMemoView Name="Memo8" Left="608" Top="8" Width="74" Height="18" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="[RecFecha]"/>
+    </TfrxDetailData>
+    <TfrxDetailData Name="DatosDe_detalle2" Height="218" Left="0" Top="506,45702" Width="718,1107" Columns="1" ColumnWidth="200" ColumnGap="20" RowCount="1">
+      <TfrxMemoView Name="Memo11" Left="71" Top="31,0000000000001" Width="610" Height="182" Font.Charset="1" Font.Color="0" Font.Height="-9" Font.Name="Arial" Font.Style="0" Frame.Typ="15" ParentFont="False" Text="[frxDBxIncidencias.&#34;RESPUESTA_INCIDENCIA&#34;]"/>
+      <TfrxMemoView Name="Memo12" Left="241" Top="3" Width="424" Height="18" Font.Charset="1" Font.Color="0" Font.Height="-11" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="[Documento]"/>
+      <TfrxMemoView Name="Memo10" Left="146" Top="3" Width="92" Height="18" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="[ResFecha]"/>
+      <TfrxMemoView Name="Memo14" Left="72" Top="3" Width="72" Height="18" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="1" HAlign="haRight" ParentFont="False" Text="Respuesta: "/>
+    </TfrxDetailData>
+  </TfrxReportPage>
+</TfrxHYReport>

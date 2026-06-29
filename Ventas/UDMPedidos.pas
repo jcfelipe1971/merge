@@ -1,0 +1,8646 @@
+unit UDMPedidos;
+
+interface
+
+uses {IDIOMA_CODE}gnugettext{IDIOMA_CODE},
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  DB, FIBDataSet, FIBTableDataSet, FIBQuery, UComponentesBusquedaFiltrada,
+  FIBDatabase, UFIBModificados, FIBDataSetRO, HYFIBQuery, Math;
+
+type
+  TDMPedidos = class(TDataModule)
+     QMDetalle: TFIBTableSet;
+     DSQMDetalle: TDataSource;
+     QMCabecera: TFIBTableSet;
+     DSQMCabecera: TDataSource;
+     xCliente: TFIBDataSetRO;
+     DSxCliente: TDataSource;
+     QMDetalleEMPRESA: TIntegerField;
+     QMDetalleEJERCICIO: TIntegerField;
+     QMDetalleSERIE: TFIBStringField;
+     QMDetalleTIPO: TFIBStringField;
+     QMDetalleRIG: TIntegerField;
+     QMDetalleLINEA: TIntegerField;
+     QMDetalleALMACEN: TFIBStringField;
+     QMDetalleARTICULO: TFIBStringField;
+     QMDetalleTITULO: TFIBStringField;
+     QMDetalleUNIDADES: TFloatField;
+     QMDetallePRECIO: TFloatField;
+     QMDetallePIEZAS_X_BULTO: TIntegerField;
+     QMDetalleBULTOS: TIntegerField;
+     QMDetalleDESCUENTO: TFloatField;
+     QMDetalleCOMISION: TFloatField;
+     QMDetalleP_COSTE: TFloatField;
+     QMDetalleM_MOV_STOCK: TIntegerField;
+     QMDetalleTIPO_IVA: TIntegerField;
+     QMDetalleP_IVA: TFloatField;
+     QMDetalleP_RECARGO: TFloatField;
+     QMDetalleBRUTO: TFloatField;
+     QMDetalleB_COMISION: TFloatField;
+     QMDetalleI_DESCUENTO: TFloatField;
+     QMDetalleB_IMPONIBLE: TFloatField;
+     QMDetalleB_DTO_LINEA: TFloatField;
+     QMDetalleI_COMISION: TFloatField;
+     QMDetalleC_IVA: TFloatField;
+     QMDetalleC_RECARGO: TFloatField;
+     QMDetalleT_COSTE: TFloatField;
+     QMDetalleM_BRUTO: TFloatField;
+     QMDetalleLIQUIDO: TFloatField;
+     xAgentes: TFIBDataSetRO;
+     DSxAgentes: TDataSource;
+     xDirecciones: TFIBDataSetRO;
+     DSxDirecciones: TDataSource;
+     xInfoActualizada: TFIBDataSet;
+     DSxInfoActualizada: TDataSource;
+     QMCabeceraEMPRESA: TIntegerField;
+     QMCabeceraEJERCICIO: TIntegerField;
+     QMCabeceraSERIE: TFIBStringField;
+     QMCabeceraTIPO: TFIBStringField;
+     QMCabeceraRIG: TIntegerField;
+     QMCabeceraFECHA: TDateTimeField;
+     QMCabeceraFECHA_ENTREGA_MANUAL: TDateTimeField;
+     QMCabeceraFECHA_RECOGIDA_MANUAL: TDateTimeField;
+     QMCabeceraTERCERO: TIntegerField;
+     QMCabeceraDIRECCION: TIntegerField;
+     QMCabeceraCLIENTE: TIntegerField;
+     QMCabeceraNOTAS: TBlobField;
+     QMCabeceraESTADO: TIntegerField;
+     QMCabeceraBULTOS: TIntegerField;
+     QMCabeceraLINEAS: TIntegerField;
+     QMCabeceraBRUTO: TFloatField;
+     QMCabeceraI_DTO_LINEAS: TFloatField;
+     QMCabeceraS_BASES: TFloatField;
+     QMCabeceraM_BRUTO: TFloatField;
+     QMCabeceraC_TOTAL: TFloatField;
+     QMCabeceraAGENTE: TIntegerField;
+     QMCabeceraS_CUOTA_IVA: TFloatField;
+     QMCabeceraS_CUOTA_RE: TFloatField;
+     QMCabeceraB_DTO_LINEAS: TFloatField;
+     QMCabeceraDTO_PP: TFloatField;
+     QMCabeceraDTO_CIAL: TFloatField;
+     QMCabeceraI_DTO_CIAL: TFloatField;
+     QMCabeceraI_DTO_PP: TFloatField;
+     QMCabeceraB_COMISION: TFloatField;
+     QMCabeceraI_COMISION: TFloatField;
+     QMCabeceraPOR_FINANCIACION: TFloatField;
+     QMCabeceraI_FINANCIACION: TFloatField;
+     QMCabeceraLIQUIDO: TFloatField;
+     QMCabeceraENTRADA: TIntegerField;
+     QMDetalleENTRADA: TIntegerField;
+     EntornoDoc: TEntornoFind2000;
+     xInfoActualizadaESTADO: TIntegerField;
+     xInfoActualizadaBULTOS: TIntegerField;
+     xInfoActualizadaI_DTO_LINEAS: TFloatField;
+     xInfoActualizadaS_BASES: TFloatField;
+     xInfoActualizadaS_CUOTA_IVA: TFloatField;
+     xInfoActualizadaB_DTO_LINEAS: TFloatField;
+     xInfoActualizadaB_COMISION: TFloatField;
+     xInfoActualizadaI_COMISION: TFloatField;
+     xInfoActualizadaI_FINANCIACION: TFloatField;
+     xInfoActualizadaLIQUIDO: TFloatField;
+     QMDetalleCANAL: TIntegerField;
+     QMCabeceraCANAL: TIntegerField;
+     QMCabeceraALMACEN: TFIBStringField;
+     QMCabeceraMONEDA: TFIBStringField;
+     xAlmacenes: TFIBDataSetRO;
+     DSxAlmacenes: TDataSource;
+     QMCabeceraTITULO: TFIBStringField;
+     QMCabeceraFECHA_ENTREGA_PREV: TDateTimeField;
+     QMCabeceraSERVIDO: TIntegerField;
+     QMCabeceraFORMA_PAGO: TFIBStringField;
+     QMCabeceraCAMPANYA: TIntegerField;
+     xCampanyas: TFIBDataSetRO;
+     xCampanyasTITULO: TFIBStringField;
+     DSxCampanyas: TDataSource;
+     xFormasPago: TFIBDataSetRO;
+     DSxFormasPago: TDataSource;
+     TLocal: THYTransaction;
+     QMDetalleNOTAS: TBlobField;
+     QMDetalleUNIDADES_PENDIENTES: TFloatField;
+     QMDetalleUNIDADES_EXT: TFloatField;
+     xArticulos: TFIBDataSetRO;
+     QMCabeceraSU_REFERENCIA: TFIBStringField;
+     QMDetalleSERVIDO: TIntegerField;
+     QMCabeceraPORTES: TIntegerField;
+     QMDetalleDESCUENTO_2: TFloatField;
+     QMDetalleDESCUENTO_3: TFloatField;
+     xInfoActualizadaS_CUOTA_RE: TFloatField;
+     DSxMonedas: TDataSource;
+     xMonedas: TFIBDataSetRO;
+     QMCabeceraTOTAL_CANAL: TFloatField;
+     QMCabeceraNOMBRE_COMERCIAL: TFIBStringField;
+     QMCabeceraTARIFA: TFIBStringField;
+     xTarifas: TFIBDataSetRO;
+     DSxTarifas: TDataSource;
+     QMDetalleUNIDADES_SEC: TFloatField;
+     QMarca: THYFIBQuery;
+     QMCabeceraID_S: TIntegerField;
+     QMDetalleID_DETALLES_S: TIntegerField;
+     QMDetalleID_S: TIntegerField;
+     QMDetalleID_A: TIntegerField;
+     QMDetalleID_C_A: TIntegerField;
+     QMDetalleCOMISION_LINEAL: TFloatField;
+     QMDetalleI_COMISION_LINEAL: TFloatField;
+     QMCabeceraFECHA_REC_CAB: TDateTimeField;
+     QMDetalleFECHA_ENTREGA_PREV: TDateTimeField;
+     QMDetalleDIRECCION_ENTREGA: TIntegerField;
+     QMCabeceraAGRUPACION_KRI: TIntegerField;
+     QMCabeceraEDI: TFIBTableSet;
+     DSQMCabeceraEDI: TDataSource;
+     QMCabeceraEDIEMPRESA: TIntegerField;
+     QMCabeceraEDIEJERCICIO: TIntegerField;
+     QMCabeceraEDICANAL: TIntegerField;
+     QMCabeceraEDISERIE: TFIBStringField;
+     QMCabeceraEDITIPO: TFIBStringField;
+     QMCabeceraEDIRIG: TIntegerField;
+     QMCabeceraEDICLAVE1: TFIBStringField;
+     QMCabeceraEDINODO: TFIBStringField;
+     QMCabeceraEDIFUNCION: TFIBStringField;
+     QMCabeceraEDINUMPED: TFIBStringField;
+     QMCabeceraEDIFECHA: TDateTimeField;
+     QMCabeceraEDIFECHAEPR: TDateTimeField;
+     QMCabeceraEDIFECHAERE: TDateTimeField;
+     QMCabeceraEDIFECHATOP: TDateTimeField;
+     QMCabeceraEDIFORMAPAG: TFIBStringField;
+     QMCabeceraEDICONDESP: TFIBStringField;
+     QMCabeceraEDIPEDABIER: TFIBStringField;
+     QMCabeceraEDILPRECIOS: TFIBStringField;
+     QMCabeceraEDINCONTRAT: TFIBStringField;
+     QMCabeceraEDIFCONTRAT: TDateTimeField;
+     QMCabeceraEDICLIENTE: TFIBStringField;
+     QMCabeceraEDIQPIDE: TFIBStringField;
+     QMCabeceraEDIAQSF: TFIBStringField;
+     QMCabeceraEDIDEPTO: TFIBStringField;
+     QMCabeceraEDIRECEPTOR: TFIBStringField;
+     QMCabeceraEDIMUELLE: TFIBStringField;
+     QMCabeceraEDIVENDEDOR: TFIBStringField;
+     QMCabeceraEDIQPAGA: TFIBStringField;
+     QMCabeceraEDIPORTES: TFIBStringField;
+     QMCabeceraEDIRECOGIDA: TFIBStringField;
+     QMCabeceraEDIREPOSI: TFIBStringField;
+     QMCabeceraEDIENTREGA: TFIBStringField;
+     QMCabeceraEDIMONEDA: TFIBStringField;
+     QMCabeceraEDICALIF1: TFIBStringField;
+     QMCabeceraEDISECUEN1: TIntegerField;
+     QMCabeceraEDITIPO1: TFIBStringField;
+     QMCabeceraEDIPORCEN1: TFloatField;
+     QMCabeceraEDIIMP_DES1: TFloatField;
+     QMCabeceraEDICALIF2: TFIBStringField;
+     QMCabeceraEDISECUEN2: TIntegerField;
+     QMCabeceraEDITIPO2: TFIBStringField;
+     QMCabeceraEDIPORCEN2: TFloatField;
+     QMCabeceraEDIIMP_DES2: TFloatField;
+     QMCabeceraEDICALIF3: TFIBStringField;
+     QMCabeceraEDISECUEN3: TIntegerField;
+     QMCabeceraEDITIPO3: TFIBStringField;
+     QMCabeceraEDIPORCEN3: TFloatField;
+     QMCabeceraEDIIMP_DES3: TFloatField;
+     QMCabeceraEDICALIF4: TFIBStringField;
+     QMCabeceraEDISECUEN4: TIntegerField;
+     QMCabeceraEDITIPO4: TFIBStringField;
+     QMCabeceraEDIPORCEN4: TFloatField;
+     QMCabeceraEDIIMP_DES4: TFloatField;
+     QMCabeceraEDICALIF5: TFIBStringField;
+     QMCabeceraEDISECUEN5: TIntegerField;
+     QMCabeceraEDITIPO5: TFIBStringField;
+     QMCabeceraEDIPORCEN5: TFloatField;
+     QMCabeceraEDIIMP_DES5: TFloatField;
+     QMCabeceraEDITIPOIMP1: TFIBStringField;
+     QMCabeceraEDITASAIMP1: TFloatField;
+     QMCabeceraEDIBASEIMP1: TFloatField;
+     QMCabeceraEDIIMPIMP1: TFloatField;
+     QMCabeceraEDITIPOIMP2: TFIBStringField;
+     QMCabeceraEDITASAIMP2: TFloatField;
+     QMCabeceraEDIBASEIMP2: TFloatField;
+     QMCabeceraEDIIMPIMP2: TFloatField;
+     QMCabeceraEDITIPOIMP3: TFIBStringField;
+     QMCabeceraEDITASAIMP3: TFloatField;
+     QMCabeceraEDIBASEIMP3: TFloatField;
+     QMCabeceraEDIIMPIMP3: TFloatField;
+     QMCabeceraEDIPATREF: TFIBStringField;
+     QMCabeceraEDIPATDIAS: TFIBStringField;
+     QMCabeceraEDIPATMES: TFIBStringField;
+     QMCabeceraEDIFECHAV: TDateTimeField;
+     QMCabeceraEDIVTO1: TDateTimeField;
+     QMCabeceraEDIIMPVTO1: TFloatField;
+     QMCabeceraEDIVTO2: TDateTimeField;
+     QMCabeceraEDIIMPVTO2: TFloatField;
+     QMCabeceraEDIVTO3: TDateTimeField;
+     QMCabeceraEDIIMPVTO3: TFloatField;
+     QMCabeceraEDITBRUTO: TFloatField;
+     QMCabeceraEDITNETO: TFloatField;
+     QMCabeceraEDITCARGDES: TFloatField;
+     QMCabeceraEDIBASEIMP: TFloatField;
+     QMCabeceraEDITOTIMPUES: TFloatField;
+     QMCabeceraEDITOTAL: TFloatField;
+     QMCabeceraEDIFRECOGIDA: TDateTimeField;
+     QMCabeceraEDITRANSPOR: TFIBStringField;
+     QMCabeceraEDIALMRECOG: TFIBStringField;
+     QMCabeceraEDIFREFPAG: TDateTimeField;
+     QMCabeceraEDITOTCANT: TFloatField;
+     QMCabeceraEDITEMPORA: TFIBStringField;
+     QMCabeceraEDIDEPTOVENT: TFIBStringField;
+     QMCabeceraEDISUCURSAL: TFIBStringField;
+     QMCabeceraEDIDESTMSG: TFIBStringField;
+     QMCabeceraEDICONDPAGO: TFIBStringField;
+     QMCabeceraEDITRANSPORT: TFIBStringField;
+     QMCabeceraEDILUGADIENT: TFIBStringField;
+     xInfoActualizadaSUM_UNIDADES: TFloatField;
+     QMDetalleFECHA_REC_DET: TDateTimeField;
+     QMCabeceraIDIOMA: TFIBStringField;
+     xIdiomas: TFIBDataSetRO;
+     DSxIdiomas: TDataSource;
+     xIdiomasTITULO: TFIBStringField;
+     QMDetalleTITULO_IDIOMA: TFIBStringField;
+     QMNIF: TFIBTableSet;
+     QMNIFEMPRESA: TIntegerField;
+     QMNIFEJERCICIO: TIntegerField;
+     QMNIFCANAL: TIntegerField;
+     QMNIFSERIE: TFIBStringField;
+     QMNIFTIPO: TFIBStringField;
+     QMNIFRIG: TIntegerField;
+     QMNIFNIF: TFIBStringField;
+     QMNIFDIRECCION: TFIBStringField;
+     QMNIFC_POSTAL: TFIBStringField;
+     QMNIFPROVINCIA: TFIBStringField;
+     QMNIFNOMBRE: TFIBStringField;
+     QMNIFPAIS: TFIBStringField;
+     DSQMNIF: TDataSource;
+     QMDetalleORDEN: TIntegerField;
+     QMDetallePROC_PROMOCION: TIntegerField;
+     QMDetalleORIGEN: TIntegerField;
+     QMDetalleID_P: TIntegerField;
+     QMDetalleTIPO_LINEA: TFIBStringField;
+     QMCabeceraCAMBIO_FIJO: TIntegerField;
+     QMCabeceraVALOR_CAMB_FIJO: TFloatField;
+     QMCabeceraUSUARIO_CREACION: TIntegerField;
+     QMCabeceraCONTACTO: TIntegerField;
+     QMCabeceraMARGEN_KRI: TFloatField;
+     QMDetalleMARGEN_KRI: TFloatField;
+     QMCabeceraZ_COD_BARRAS_PED: TIntegerField;
+     QMDetalleAPLICA_UNIDADES_SECUNDARIAS: TIntegerField;
+     xProyectos: TFIBDataSetRO;
+     DSxProyectos: TDataSource;
+     QMCabeceraPROYECTO: TIntegerField;
+     QMDetallePROYECTO: TIntegerField;
+     TUpdate: THYTransaction;
+     QMCabeceraNOTAS_INTERNAS_KRI: TBlobField;
+     QMCabeceraTIPO_LINEA_KRI: TIntegerField;
+     QMDetalleTIPO_LINEA_KRI: TIntegerField;
+     xDireccionesTITULO: TFIBStringField;
+     QMCabeceraFECHA_CLIENTE: TDateTimeField;
+     QMDetalleNOTAS2: TBlobField;
+     QMDetalleCRC_NOTAS: TFIBStringField;
+     QMDetalleCRC_NOTAS2: TFIBStringField;
+     QMCabeceraFECHA_CREACION_KRI: TDateTimeField;
+     QMNIFID_S: TIntegerField;
+     QMNIFLOCALIDAD: TFIBStringField;
+     QMNIFTELEFONO01: TFIBStringField;
+     QMNIFTELEFONO02: TFIBStringField;
+     QMNIFTELEFAX: TFIBStringField;
+     QMNIFEMAIL: TFIBStringField;
+     QMNIFNOTAS: TBlobField;
+     QMDetallePRO_NUM_PLANO: TFIBStringField;
+     QMDetalleTIPO_UNIDAD_LOGISTICA: TFIBStringField;
+     QMDetalleUNIDADES_LOGISTICAS: TFloatField;
+     QMDetalleTITULO_UNIDAD_LOGISTICA: TFIBStringField;
+     xRangos: TFIBDataSetRO;
+     DSxRangos: TDataSource;
+     xRangosTITULO: TFIBStringField;
+     QMCabeceraTIPO_PORTES: TIntegerField;
+     QMCabeceraPOR_PORTES: TFloatField;
+     QMCabeceraI_PORTES: TFloatField;
+     QMCabeceraRANGO: TIntegerField;
+     xIndices: TFIBDataSetRO;
+     DSxIndices: TDataSource;
+     xIndicesTITULO: TFIBStringField;
+     QMCabeceraINDICE: TIntegerField;
+     xInfoActualizadaI_PORTES: TFloatField;
+     QMCabeceraPEDIDO_CLIENTE: TFIBStringField;
+     QMCabeceraTRANSPORTISTA: TIntegerField;
+     xDireccionesDIR_TRANSPORTISTA: TIntegerField;
+     QMNIFCOLONIA: TFIBStringField;
+     QMCabeceraMODIFICA_DOC: TIntegerField;
+     xInfoActualizadaMODIFICA_DOC: TIntegerField;
+     QMDetalleLOTE_SIMPLE: TFIBStringField;
+     QMDetalleESTADO: TIntegerField;
+     QMDetalleCLIENTE: TIntegerField;
+     QMDetalleMONEDA: TFIBStringField;
+     QMDetalleUNIDADES_SERVIDAS: TFloatField;
+     QMDetalleUNIDADES_RESERVADAS: TFloatField;
+     QMDetalleENTRADA_AGRUPACION: TIntegerField;
+     QMDetalleORDEN_PRODUCCION: TIntegerField;
+     QMDetallePAIS: TFIBStringField;
+     QMDetalleID_DESPIECE: TIntegerField;
+     QMDetalleFECHA_CONF_DET: TDateTimeField;
+     QMDetalleCODIGO_CLIENTE: TStringField;
+     QMDetalleTITULO_CLIENTE: TStringField;
+     QMDetalleCOSTE_ADICIONAL: TFloatField;
+     QMDetalleID_ORDEN: TIntegerField;
+     QMDetalleID_ESC: TIntegerField;
+     QMDetalleID_MEDIDA: TIntegerField;
+     QMCabeceraPED_PROV_ASOCIADO: TStringField;
+     xInfoActualizadaTITULO_ESTADO: TStringField;
+     QMDetalleTOTAL_UNIDADES_EXT: TFloatField;
+     QMCabeceraLISTO_PARA_PREPARAR: TIntegerField;
+     QMCabeceraPEDIDO_VALORADO: TIntegerField;
+     QMDetalleMARGEN: TFloatField;
+     QMCabeceraEMPLEADO_RESPONSABLE: TIntegerField;
+     QMCabeceraEMPLEADO_ATENCION: TIntegerField;
+     QMCabeceraTITULO_ESTADO: TStringField;
+     QMDetalleMANIPULACION: TIntegerField;
+     QMDetalleALFA_1: TFIBStringField;
+     QMDetalleALFA_2: TFIBStringField;
+     QMDetalleALFA_3: TFIBStringField;
+     QMDetalleALFA_4: TFIBStringField;
+     QMDetalleALFA_5: TFIBStringField;
+     QMDetalleALFA_6: TFIBStringField;
+     QMDetalleALFA_7: TFIBStringField;
+     QMDetalleALFA_8: TFIBStringField;
+     QMCabeceraDOCUMENTO_MUESTRAS: TIntegerField;
+     QMCabeceraTOTAL_ANTICIPADO: TFloatField;
+     xInfoActualizadaTOTAL_ANTICIPADO: TFloatField;
+     QMCabeceraMARGEN: TFloatField;
+     xInfoActualizadaMARGEN: TFloatField;
+     QMCabeceraTIT_CONTACTO: TFIBStringField;
+     QMCabeceraINVERSION_SUJETO_PASIVO: TIntegerField;
+     QMCabeceraUNIDADES: TFloatField;
+     QMDetalleUNIDADES_PREPARADAS: TFloatField;
+     QMCabeceraASEGURADO: TFIBStringField;
+     QMCabeceraPACIENTE: TFIBStringField;
+     QMCabeceraAUTORIZACION: TFIBStringField;
+     QMCabeceraPOLIZA: TFIBStringField;
+     QMCabeceraFEC_REC_IH: TDateTimeField;
+     QMNIFTERCERO: TIntegerField;
+     QMCabeceraVALOR_CAMB_FIJO_INV: TFloatField;
+     QMDetalleINVERSION_SUJETO_PASIVO: TIntegerField;
+     QMFirmas: TFIBDataSetRO;
+     QMFirmasID_FIRMA: TIntegerField;
+     QMFirmasNOMBRE: TFIBStringField;
+     QMFirmasNIF: TFIBStringField;
+     DSQMFirmas: TDataSource;
+     QMCabeceraBANCO: TIntegerField;
+     QMDetalleDECIMALES_UNIDADES: TIntegerField;
+     QMNIFCARNET_APLICADOR: TFIBStringField;
+     QMDetalleTIPO_IMPUESTO_ADICIONAL: TIntegerField;
+     QMDetalleP_IMPUESTO_ADICIONAL: TFloatField;
+     QMDetalleAGENTE: TIntegerField;
+     QMCabeceraZ_OBSERVACION: TFIBStringField;
+     QMCabeceraDIR_ENTREGA_MANUAL: TBlobField;
+     QMCabeceraUSUARIO: TIntegerField;
+     QMDetallePESO: TFloatField;
+     QMDetallePESO_TOTAL: TFloatField;
+     QMDetallePESO_REAL: TFloatField;
+     QMDetalleSIGNO_UNIDADES: TFIBStringField;
+     xInfoActualizadaSUM_PESO: TFloatField;
+     QMCabeceraDIR_COMPLETA: TFIBStringField;
+     QMCabeceraCODIGO_POSTAL: TFIBStringField;
+     QMCabeceraLOCALIDAD: TFIBStringField;
+     xInfoActualizadaRIESGO_ACT: TFloatField;
+     xInfoActualizadaRIESGO_AUT: TFloatField;
+     xInfoActualizadaNO_VENTA_RIESGO: TIntegerField;
+     xInfoActualizadaRIESGO_PED: TFloatField;
+     QMDetalleDIRECCION_ALM_LOGISTICO: TIntegerField;
+     xInfoActualizadaRIESGO_EMP: TFloatField;
+     xInfoActualizadaRIESGO_DISPONIBLE: TFloatField;
+     QMDetalleID_ESC_2: TIntegerField;
+     xAvisos: TFIBDataSetRO;
+     QMCabeceraRUTA: TIntegerField;
+     QMCabeceraRUTA_ORDEN: TIntegerField;
+     QMDetalleSTOCK_ALM: TFloatField;
+     QMDetalleSTOCK_ALM2: TFloatField;
+     QMDetalleSTOCK_ALM3: TFloatField;
+     QMDetalleSTOCKV_ALM: TFloatField;
+     QMDetalleSTOCKV_ALM2: TFloatField;
+     QMDetalleSTOCKV_ALM3: TFloatField;
+     QMDetalleSTOCKR_ALM: TFloatField;
+     QMDetalleSTOCKR_ALM2: TFloatField;
+     QMDetalleSTOCKR_ALM3: TFloatField;
+     QMDetalleSTOCK_VIRTUAL: TFloatField;
+     QMDetalleSTOCK_MONTURAS: TFloatField;
+     QMDetalleSTOCK_REF_BASE: TFloatField;
+     QMDetalleSTOCKM_ALM: TFloatField;
+     QMDetalleSTOCKM_ALM2: TFloatField;
+     QMDetalleSTOCKM_ALM3: TFloatField;
+     QMDetalleU_POR_U_LOGISTICA: TFloatField;
+     QMDetalleRELACIONAR_U_LOGISTICA: TIntegerField;
+     QMDetallePEDIR: TIntegerField;
+     QMDetalleTIPO_IVA_ART: TIntegerField;
+     QMCabeceraCANAL_DST_PEC: TIntegerField;
+     QMCabeceraSERIE_DST_PEC: TFIBStringField;
+     QMCabeceraTIPO_DST_PEC: TFIBStringField;
+     QMDetalleECOTASA: TFloatField;
+     xInfoActualizadaMARGEN_SIN_PORTES: TFloatField;
+     xProveedores: TFIBTableSet;
+     xProveedoresEMPRESA: TIntegerField;
+     xProveedoresEJERCICIO: TIntegerField;
+     xProveedoresCANAL: TIntegerField;
+     xProveedoresSERIE: TFIBStringField;
+     xProveedoresTIPO: TFIBStringField;
+     xProveedoresRIG: TIntegerField;
+     xProveedoresID_S: TIntegerField;
+     xProveedoresID_A: TIntegerField;
+     xProveedoresARTICULO: TFIBStringField;
+     xProveedoresTITULO: TFIBStringField;
+     xProveedoresPROVEEDOR: TIntegerField;
+     xProveedoresNOMBRE_R_SOCIAL: TFIBStringField;
+     xProveedoresNOMBRE_COMERCIAL: TFIBStringField;
+     xProveedoresPRECIO: TFloatField;
+     xProveedoresFECHA_ENTREGA: TDateTimeField;
+     xProveedoresUTILIZAR_COSTE: TIntegerField;
+     xProveedoresOBSERVACIONES: TFIBStringField;
+     DSxProveedores: TDataSource;
+     QMCabeceraMODO_IVA: TIntegerField;
+     QMDetalleREQUIERE_LOTE_SIMPLE: TIntegerField;
+     QMCabeceraID_FICHA_TECNICA: TIntegerField;
+     QMCabeceraTRATADO: TIntegerField;
+     QMNIFNOMBRE_CONTACTO: TFIBStringField;
+     xInfoActualizadaCOUNT_LINEA: TIntegerField;
+     DSxAvisos: TDataSource;
+     xAvisosMENSAJE: TMemoField;
+     xAvisosNOTAS: TMemoField;
+     QMNIFCOMO_NOS_CONOCIERON: TIntegerField;
+     QMDetalleCONTROL_STOCK: TIntegerField;
+     QMDetalleSTOCK: TFloatField;
+     QMCabeceraDIR_NOMBRE_2: TFIBStringField;
+     QMCabeceraZ_CONTACTO: TIntegerField;
+     QMCabeceraQPIDE: TFIBStringField;
+     QMCabeceraMATRICULA: TFIBStringField;
+     QMCabeceraORIGEN_DOCUMENTO: TFIBStringField;
+     QMDetalleUE_UNIDADES: TIntegerField;
+     QMDetalleUE_MEDIDA1: TFloatField;
+     QMDetalleUE_MEDIDA2: TFloatField;
+     QMDetalleUE_MEDIDA3: TFloatField;
+     QMDetalleUE_MEDIDA4: TFloatField;
+     QMDetalleSTOCK_REAL: TFloatField;
+     QMDetalleNO_FABRICACION_KRI: TFIBStringField;
+     QMNIFTIPO_DOC_IDENT: TFIBStringField;
+     QMNIFPAIS_DOC_IDENT: TFIBStringField;
+     QMDetallePRECIO_U_C_DESC: TFloatField;
+     xInfoActualizadaSUMA_BASES: TFloatField;
+     xInfoActualizadaSUMA_COSTES: TFloatField;
+     xInfoActualizadaSUM_UNIDADES_SEC: TFloatField;
+     xInfoActualizadaSUM_UNIDADES_LOGISTICAS: TFloatField;
+     xPedidoAnterior: TFIBDataSetRO;
+     procedure DMDocsPedidoCreate(Sender: TObject);
+     procedure QMCabeceraAfterOpen(DataSet: TDataSet);
+     procedure Graba(DataSet: TDataSet);
+     procedure QMDetalleNewRecord(DataSet: TDataSet);
+     procedure QMCabeceraNewRecord(DataSet: TDataSet);
+     procedure QMCabeceraCLIENTEChange(Sender: TField);
+     procedure QMCabeceraAGENTEChange(Sender: TField);
+     procedure QMCabeceraDIRECCIONChange(Sender: TField);
+     procedure QMCabeceraBeforePost(DataSet: TDataSet);
+     procedure QMDetalleARTICULOChange(Sender: TField);
+     procedure QMDetalleBeforePost(DataSet: TDataSet);
+     procedure QMCabeceraALMACENChange(Sender: TField);
+     procedure AntesDeEditar(DataSet: TDataSet);
+     procedure QMCabeceraCAMPANYAChange(Sender: TField);
+     procedure QMCabeceraFORMA_PAGOChange(Sender: TField);
+     procedure QMCabeceraPostError(DataSet: TDataSet; E: EDatabaseError; var Action: TDataAction);
+     procedure QMCabeceraAfterPost(DataSet: TDataSet);
+     procedure RefrescaTarifa;
+     procedure QMDetalleUNIDADESChange(Sender: TField);
+     procedure QMDetalleAfterOpen(DataSet: TDataSet);
+     procedure QMCabeceraMONEDAChange(Sender: TField);
+     procedure QMCabeceraTOTAL_CANALGetText(Sender: TField; var Text: string; DisplayText: boolean);
+     procedure QMCabeceraTARIFAChange(Sender: TField);
+     procedure QMCabeceraAfterInsert(DataSet: TDataSet);
+     procedure QMCabeceraIDIOMAChange(Sender: TField);
+     procedure QMCabeceraAfterScroll(DataSet: TDataSet);
+     procedure QMNIFNewRecord(DataSet: TDataSet);
+     procedure QMDetalleAfterPost(DataSet: TDataSet);
+     procedure QMDetalleAfterDelete(DataSet: TDataSet);
+     procedure QMDetalleBeforeDelete(DataSet: TDataSet);
+     procedure QMDetalleAfterScroll(DataSet: TDataSet);
+     procedure QMCabeceraBeforeInsert(DataSet: TDataSet);
+     procedure QMCabeceraCONTACTOChange(Sender: TField);
+     procedure QMCabeceraPROYECTOChange(Sender: TField);
+     procedure DataModuleDestroy(Sender: TObject);
+     procedure QMDetallePRECIOChange(Sender: TField);
+     procedure QMDetalleP_COSTEChange(Sender: TField);
+     procedure QMDetalleCOMISIONChange(Sender: TField);
+     procedure QMCabeceraTITULOGetText(Sender: TField; var Text: string; DisplayText: boolean);
+     procedure QMDetalleTIPO_UNIDAD_LOGISTICAChange(Sender: TField);
+     procedure QMDetalleUNIDADES_LOGISTICASChange(Sender: TField);
+     procedure QMCabeceraRANGOChange(Sender: TField);
+     procedure QMCabeceraINDICEChange(Sender: TField);
+     procedure QMCabeceraTIPO_PORTESChange(Sender: TField);
+     procedure QMCabeceraBeforeClose(DataSet: TDataSet);
+     procedure QMCabeceraBeforeDelete(DataSet: TDataSet);
+     procedure QMCabeceraDTO_PPChange(Sender: TField);
+     procedure QMDetalleUNIDADESGetText(Sender: TField; var Text: string; DisplayText: boolean);
+     procedure QMDetalleCalcFields(DataSet: TDataSet);
+     procedure QMCabeceraPED_PROV_ASOCIADOGetText(Sender: TField; var Text: string; DisplayText: boolean);
+     procedure xInfoActualizadaTITULO_ESTADOGetText(Sender: TField; var Text: string; DisplayText: boolean);
+     procedure QMCabeceraCalcFields(DataSet: TDataSet);
+     procedure QMCabeceraTRANSPORTISTAChange(Sender: TField);
+     procedure QMCabeceraVALOR_CAMB_FIJOChange(Sender: TField);
+     procedure QMCabeceraVALOR_CAMB_FIJO_INVChange(Sender: TField);
+     procedure QMDetallePESOGetText(Sender: TField; var Text: string; DisplayText: boolean);
+     procedure QMDetallePESO_TOTALGetText(Sender: TField; var Text: string; DisplayText: boolean);
+     procedure QMDetallePESO_REALGetText(Sender: TField; var Text: string; DisplayText: boolean);
+     procedure QMDetalleTIPO_IVAChange(Sender: TField);
+     procedure QMDetallePESO_REALChange(Sender: TField);
+     procedure QMDetalleALMACENChange(Sender: TField);
+     procedure xInfoActualizadaCalcFields(DataSet: TDataSet);
+     procedure QMDetalleUNIDADES_PENDIENTESGetText(Sender: TField; var Text: string; DisplayText: boolean);
+     procedure QMDetalleUNIDADES_EXTGetText(Sender: TField; var Text: string; DisplayText: boolean);
+     procedure QMDetalleUNIDADES_SERVIDASGetText(Sender: TField; var Text: string; DisplayText: boolean);
+     procedure QMDetalleUNIDADES_RESERVADASGetText(Sender: TField; var Text: string; DisplayText: boolean);
+     procedure QMDetalleUNIDADES_PREPARADASGetText(Sender: TField; var Text: string; DisplayText: boolean);
+     procedure QMDetalleTOTAL_UNIDADES_EXTGetText(Sender: TField; var Text: string; DisplayText: boolean);
+     procedure xClienteAfterOpen(DataSet: TDataSet);
+     procedure xClienteBeforeClose(DataSet: TDataSet);
+     procedure xDireccionesTITULOGetText(Sender: TField; var Text: string; DisplayText: boolean);
+     procedure QMDetalleUNIDADES_SECChange(Sender: TField);
+     procedure QMDetalleBeforeInsert(DataSet: TDataSet);
+     procedure xProveedoresNewRecord(DataSet: TDataSet);
+     procedure xProveedoresAfterPost(DataSet: TDataSet);
+     procedure xProveedoresARTICULOChange(Sender: TField);
+  private
+     { Private declarations }
+     // ComisionAgente: double;
+     ConPromociones: boolean;
+     fecha_old: TDateTime;
+     {RecalculaPrecios,} RecalculaTarifa, editando: boolean;
+     unidades_old: double;
+     Tarifa_old: string;
+     ListoParaPreparar_old: integer;
+     FlagModificandoUnidades: boolean;
+     LiquidoAnt: double;
+     Serie: string;
+     OrdenesSeparadas: boolean;
+     FListadoPedEspeciales: integer;
+     FlagControlStockNegativo: boolean;
+     ImportandoMasivamente: boolean;
+     // FID_Esc: integer;
+     // FEstado: integer;
+     // FTitulo: string;
+     KriConf126, KriConf248, KriConf429, KriConf463: boolean;
+     Param_MODREST006: boolean;
+     Param_MODREST015: boolean;
+     Param_SYSCONF005: integer;
+     Param_MODREST019: boolean;
+     Param_DOCREFE002: boolean;
+     Param_CLIREFE001: boolean;
+     Param_VENULKG001: boolean;
+     Param_DOCPREC002: boolean;
+     Param_DOCPREC003: boolean;
+     Param_VENARTU001: boolean;
+     Param_MOVSTKC001: integer;
+     Param_VENPREC001: boolean;
+     Param_PECLSIM001: boolean;
+     param_DOCPCTA001: boolean;
+     param_DOCDESC001: double;
+     param_PECNOST001: boolean;
+     param_VENPREC002: boolean;
+     param_VENUSEC001: boolean;
+     param_VENCONT001: boolean;
+     Param_PECPREC002: string;
+     Param_PECPREC003, Param_PECPREC004: double;
+     Param_PECPREC006: string;
+     Param_PECPREC005: boolean;
+     param_PECVALI001: integer;
+     OldLinea: TStrings;
+     gUnidades: integer;
+     Medida1, Medida2, Medida3, Medida4, gPrecio: double;
+     AlmacenStock, AlmacenStock2, AlmacenStock3: string;
+     AlmacenStockV, AlmacenStockV2, AlmacenStockV3: string;
+     AlmacenStockR, AlmacenStockR2, AlmacenStockR3: string;
+     AlmacenStockM, AlmacenStockM2, AlmacenStockM3: string;
+     AlmacenStockActual, AlmacenStockVirtual, AlmacenStockReal, AlmacenStockMontura, AlmacenStockRefBase: boolean;
+     StockAlm, StockAlm2, StockAlm3: TStrings;
+     StockAlmV, StockAlmV2, StockAlmV3: TStrings;
+     StockAlmR, StockAlmR2, StockAlmR3: TStrings;
+     StockAlmM, StockAlmM2, StockAlmM3: TStrings;
+     ModificandoCambioFijo: boolean;
+     IdDocEliminaPorte: integer;
+     RespuestaEliminaPorte: boolean;
+     {procedure InfoActualiza; dji lrk kri - TyC}
+     function Traspasado: boolean;
+     {procedure CambiaMonedaFecha; No se utiliza}
+     procedure AbreDocumentos(id_s_d: integer; Destino, Serie: string);
+     {function DameEstado: smallint; No se utiliza}
+     procedure CierraAbreDet(id_detalles_s: integer = 0);
+     function PackingListGenerado: boolean;
+     procedure RellenaDatosLinea(Linea: TStrings);
+     procedure CambiaEstadoDocumento(Estado: integer);
+     procedure EstaleceCondiciones(Articulo: TField; Precio: double; Forzar: boolean = False);
+     function PedidoTieneOrden: boolean;
+     procedure AjustaPorteMinimo;
+     function LineasConPrecioCero(id_s: integer): integer;
+     function LineasConPrecioMenorAlMinimo(id_s: integer; Minimo: double): integer;
+     function ExistePesoCero(Id_s: integer): boolean;
+  protected
+     SQLFind, SQLBase: string;
+  public
+     { Public declarations }
+     CancelarImportacion: boolean;
+     Lineal, Salida: integer;  //SFG_JLA
+     Z_MedidasToldo: boolean;      //SFG_JLA
+     monedaold: string;
+     LocalMascaraN, LocalMascaraL: string;
+     FormCreado: boolean;
+     EnviarConfirmacion: boolean;
+     EnviarConfirmacionAuto: boolean;
+     function BusquedaCompleja: integer;
+     function ClienteTieneEmail: boolean;
+     procedure TraspasarPedidoActual(TipoDestino: string; CanalDestino: integer = 0; SerieDestino: string = ''; AbrirDocumentoDestino: boolean = True; CopiasImprimir: integer = 0; CerrarFactura: boolean = False; FechaDestino: TDateTime = 0; FechaContabilizacion: TDateTime = 0);
+     procedure Duplica(Relaciona: integer);
+     procedure AbrePedido;
+     procedure CierraPedido;
+     procedure ActualizaCondicionesCli(CrearCondicionModelo: boolean);
+     procedure CambiaSerie(SerieVar: string);
+     procedure PreparaNotasDetalle;
+     procedure RefrescaDetalle;
+     procedure CambiaUnidadesExt(Articulo: TField; Modo, Mostrar: boolean);
+     procedure CambiaPreciosTarifa;
+     procedure DatosStocks(var Articulo, Almacen: string);
+     procedure Historico;
+     procedure BorraLineaUnidadesExt;
+     procedure DatosHerencia(var rig, Ejercicio: integer; var tipo, su_referencia, titulo, serie: string);
+     procedure RefrescaTabla;
+     procedure AnulaDocumento;
+     procedure DesvincularOrdenPedido;
+     procedure CambiaMonedaDetalle;
+     procedure MascarasMoneda; virtual;
+     procedure FiltraCabecera(Ejercicio: integer; Serie: string; Rig: integer);
+     function HayDocumentos: boolean;
+     function EstadoDocumento: integer;
+     function HayDetalle: boolean;
+     procedure InfoActualiza; {TyC}
+     procedure AgrupaPedidosFiltradosKri;
+     procedure ControlaRestriccion;
+     function DameDatosClientes: boolean;
+     procedure GrabaDatosCliente(Estado: integer);
+     procedure OrdenarLineas;
+     procedure RefrescaCabecera(Accion: integer);
+     procedure FiltraDocumento(Serie, Filtro: string);
+     procedure CalculaComisionKRI20;
+     function Inhabilitar: boolean;
+     procedure BuscaArticulo(Articulo: string);
+     procedure BuscaOrden(IdOrden: integer);
+     procedure BuscaLoteSimple(LoteSimple: string);
+     procedure FiltraClienteKri(Ejercicio: integer; Serie: string; Cliente, Estado: integer);
+     procedure MoverLinea(direccion: integer);
+     procedure AbreQMNif;
+     procedure CierraQMNif;
+     function ExisteRango(Rango: integer): boolean;
+     function OrdenProduccion: integer;
+     procedure OrdenProduccionTodas;
+     // procedure HabilitarBotonOF;
+     procedure PideDivisiones(Cabecera: boolean);
+     procedure CambiaCampanyaFiltrados(Campanya: integer; NoTenerEnCuentaCampanya: boolean);
+     procedure MarcarPedido;
+     procedure DuplicarPedidoEDI;
+     procedure GenerarPackingList;
+     procedure CambiaDatosEsp;
+     function TieneEscandalloProduccion: boolean;             //SFG_JLA
+     function OrdenProduccionCrea: integer;
+     // procedure Z_ArticuloExistente;
+     function DameEstadoDeOrden: integer;            //SFG_RSL
+     procedure EliminarPackingList;
+     function DameEscandallo(n: integer): string;
+     // procedure RefrescaID_Esc;
+     procedure OrdenarLineasPorDireccionEntrega;
+     procedure OrdenarLineasPorArticulo;
+     procedure ExportarPedidosFiltrados;
+     procedure BusquedaArticulo(Descripcion: string);
+     procedure RellenaDatosOldLinea;
+     function EscandalloActivo: boolean;
+     procedure DuplicarLinea;
+     procedure CreaRuta;
+     procedure Despiece;
+     procedure CrearAlquiler;
+     procedure CreaReciboAnticipo;
+     procedure AsignaEmpleados;
+     function TraspasadoACompra: boolean;
+     procedure ActualizaPorteSegunZona;
+     procedure PosicionarID(IdDoc: integer);
+     procedure Inserta(Articulo: string; Unidades: double; Lote: string; IdUbicacion: integer; Precio: double; Descripcion: string; PCoste, Descuento1, Descuento2, Descuento3: double; FechaPrevista: TDateTime; UnidadesExtendidas1: double = 0; UnidadesExtendidas2: double = 0; UnidadesExtendidas3: double = 0; UnidadesExtendidas4: double = 0);
+     procedure ReiniciaStock(Articulo: string = '');
+     procedure ModificaFechaEntregaPrev(Fecha: TDateTime);
+     procedure ImportaDetalleDesdeExcel(Archivo: string; Configuracion: integer);
+     procedure ImportarXLS(Archivo: string);
+     function DameFechaEntregaPrevista(Cliente: integer; Fecha: TDateTime): TDateTime;
+     procedure ImportacionMasiva(Activa: boolean);
+     procedure ConectaProveedores;
+     procedure DesconectaProveedores;
+     procedure CambiaPCosteLinea(PCoste: double);
+     procedure CambiaCosteAdicionalLinea(CosteAdicional: double);
+     procedure QuitarMarcaTratado;
+     procedure MultiplicaPrecios(Factor: double);
+     procedure ExportacionPedidosPendientes(Archivo: string);
+     procedure Devuelve(SerieDestino: string);
+     procedure MostrarDiferenciaConPedidoAnterior;
+     function PedidoContieneArticulo(Articulo: string): boolean;
+  published
+     property ListadoPedEspeciales: integer Read FListadoPedEspeciales;
+     // property ID_esc: integer Read FID_Esc;
+     // property Estado: integer Read FEstado;
+     // property Titulo: string Read FTitulo;
+  end;
+
+var
+  DMPedidos : TDMPedidos;
+
+implementation
+
+uses UDMMain, UUtiles, UDameDato, UEntorno, UFMPedidos, URecursos, uFBusca,
+  UFMUnidadesExtGes, UFMPreciosArticuloDoc, UFInfoHistorico, UFParada,
+  UFMAlbaranes, UFMFacturas, UFOrdenaLineas, UFMain, UFMDivisiones,
+  UFMPedidosTallas, UFormGest,
+  ZUFMPedidosArtDet, UFMDespiece {$IFNDEF TPV}, UFMPedidosAlquiler{$ENDIF}, UParam,
+  UFMReciboNuevo, UFMAsignaEmpleado {$IFNDEF TPV}, UDMEnvio{$ENDIF}, UHojaCalc, DateUtils, UFMTicketVenta,
+  UDMLstAlbaranes, UDMAlbaranes, UDMLstFactura, UDMFacturas;
+
+{$R *.DFM}
+
+procedure TDMPedidos.DMDocsPedidoCreate(Sender: TObject);
+var
+  i : integer;
+begin
+  DMMain.LogIni('DMPedidos.DMDocsPedidoCreate');
+  TranslateComponent(Self); //IDIOMA_CODE
+
+  StockAlm := TStringList.Create;
+  StockAlm2 := TStringList.Create;
+  StockAlm3 := TStringList.Create;
+
+  StockAlmV := TStringList.Create;
+  StockAlmV2 := TStringList.Create;
+  StockAlmV3 := TStringList.Create;
+
+  StockAlmR := TStringList.Create;
+  StockAlmR2 := TStringList.Create;
+  StockAlmR3 := TStringList.Create;
+
+  StockAlmM := TStringList.Create;
+  StockAlmM2 := TStringList.Create;
+  StockAlmM3 := TStringList.Create;
+
+  OldLinea := TStringList.Create;
+  param_DOCPCTA001 := (LeeParametro('DOCPCTA001', REntorno.Serie) = 'S');
+  KriConf126 := (DMMain.EstadoKri(126) = 1);
+  KriConf248 := (DMMain.EstadoKri(248) = 1);
+  KriConf429 := (DMMain.EstadoKri(429) = 1);
+  KriConf463 := (DMMain.EstadoKri(463) = 1);
+
+  // Para que al abrir, antes de establecer la serie el parámetro tenga un valor.
+  Param_MOVSTKC001 := StrToIntDef(LeeParametro('MOVSTKC001', REntorno.Serie), 0);
+
+  if not TLocal.InTransaction then
+     TLocal.StartTransaction;
+
+  // Se inicializan las variables globales
+  // ComisionAgente := 0;
+  FlagModificandoUnidades := False;
+  ModificandoCambioFijo := False;
+  IdDocEliminaPorte := 0;
+  RespuestaEliminaPorte := False;
+  FlagControlStockNegativo := True;
+  ImportandoMasivamente := False;
+
+  // Máscaras de visualización a los campos numéricos
+  AsignaDisplayFormat(QMCabecera, MascaraN, MascaraI, ShortDateFormat);
+  AsignaDisplayFormat(QMDetalle, MascaraN, MascaraI, ShortDateFormat);
+  AsignaDisplayFormat(xInfoActualizada, MascaraN, MascaraI, ShortDateFormat);
+  AsignaDisplayFormat(xProveedores, MascaraN, MascaraI, ShortDateFormat);
+
+  // Se asignan las máscaras de visualización a los campos que las requieren
+  QMCabeceraDTO_CIAL.DisplayFormat := MascaraP;
+  QMCabeceraDTO_PP.DisplayFormat := MascaraP;
+  QMCabeceraPOR_FINANCIACION.DisplayFormat := MascaraP;
+  QMDetalleMARGEN_KRI.DisplayFormat := MascaraP;
+  QMCabeceraPOR_PORTES.DisplayFormat := MascaraP;
+  QMCabeceraMARGEN.DisplayFormat := MascaraP;
+  // QMCabeceraFECHA.DisplayFormat := ShortDateFormat;
+  QMCabeceraFECHA.DisplayFormat := ShortDateFormat + ' hh:nn';
+  QMCabeceraFECHA_CREACION_KRI.DisplayFormat := ShortDateFormat + ' hh:nn';
+  QMCabeceraFECHA_ENTREGA_MANUAL.DisplayFormat := ShortDateFormat + ' hh:nn';
+  QMCabeceraFECHA_RECOGIDA_MANUAL.DisplayFormat := ShortDateFormat + ' hh:nn';
+  QMCabeceraFECHA_ENTREGA_PREV.DisplayFormat := ShortDateFormat + ' hh:nn';
+  QMCabeceraFECHA_REC_CAB.DisplayFormat := ShortDateFormat + ' hh:nn';
+
+  xInfoActualizadaBULTOS.DisplayFormat := MascaraI;
+  xInfoActualizadaMARGEN.DisplayFormat := MascaraP;
+  xInfoActualizadaMARGEN_SIN_PORTES.DisplayFormat := MascaraP;
+
+  QMDetalleUNIDADES_SEC.DisplayFormat := ',0.000';
+  QMDetalleDESCUENTO.DisplayFormat := MascaraP;
+  QMDetalleDESCUENTO_2.DisplayFormat := MascaraP;
+  QMDetalleDESCUENTO_3.DisplayFormat := MascaraP;
+  QMDetalleCOMISION.DisplayFormat := MascaraP;
+  QMDetalleP_IVA.DisplayFormat := MascaraP;
+  QMDetalleP_RECARGO.DisplayFormat := MascaraP;
+  QMDetalleMARGEN.DisplayFormat := MascaraP;
+  QMDetalleUNIDADES_LOGISTICAS.DisplayFormat := MascaraI;
+  QMDetalleFECHA_REC_DET.DisplayFormat := ShortDateFormat + ' hh:nn';
+  QMDetalleFECHA_ENTREGA_PREV.DisplayFormat := ShortDateFormat + ' hh:nn';
+  QMDetalleFECHA_CONF_DET.DisplayFormat := ShortDateFormat + ' hh:nn';
+
+  with QMCabecera.SelectSQL do
+  begin
+     Clear;
+     Add(' SELECT * FROM VER_CABECERAS_PEDIDO ');
+     Add(' WHERE ');
+     Add(' EMPRESA = ?EMPRESA AND ');
+     Add(' CANAL = ?CANAL AND ');
+     Add(' SERIE = ?SERIE AND ');
+     Add(' TIPO = ''PEC'' ');
+     if (DameRestriccionAgenteUsuario(REntorno.Usuario)) then
+        Add(' AND AGENTE = ' + IntToStr(DameAgenteUsuario(REntorno.Usuario)) + ' ');
+  end;
+
+  SQLFind := QMCabecera.SelectSQL.Text;
+  QMCabecera.SelectSQL.Add(' AND (EJERCICIO = ?EJERCICIO OR ((EJERCICIO < ?EJERCICIO) AND (ESTADO = 0 OR ESTADO = 3))) ');
+  SQLBase := QMCabecera.SelectSQL.Text;
+  QMCabecera.SelectSQL.Add(' ORDER BY EJERCICIO, RIG ');
+
+  with QMCabecera.DeleteSQL do
+  begin
+     Clear;
+     Add('EXECUTE PROCEDURE G_BORRA_RIG_SALIDA_LOG ');
+     Add('(?OLD_EMPRESA, ?OLD_EJERCICIO, ?OLD_CANAL, ?OLD_SERIE, ?OLD_TIPO, ?OLD_RIG, ?OLD_ID_S, ');
+     Add(IntToStr(REntorno.Entrada) + ') ');
+  end;
+
+  with QMDetalle.DeleteSQL do
+  begin
+     Clear;
+     Add('EXECUTE PROCEDURE G_BORRA_LINEA_SALIDA_LOG ');
+     Add('(?OLD_ID_DETALLES_S, ');
+     Add(IntToStr(REntorno.Entrada) + ') ');
+  end;
+
+  DMMain.FiltraTabla(QMCabecera, '11100', False);
+  Serie := REntorno.Serie;
+
+  with EntornoDoc do
+  begin
+     Empresa := REntorno.Empresa;
+     Ejercicio := REntorno.Ejercicio;
+     Canal := REntorno.Canal;
+     Pais := REntorno.Pais;
+     Tarifa := QMCabeceraTARIFA.AsString;
+     if (xCliente.Active) then
+     begin
+        Tercero := xCliente.FieldByName('TERCERO').AsInteger;
+        Cliente := xCliente.FieldByName('CLIENTE').AsInteger;
+     end;
+  end;
+
+  // Asigno nombre a campos ALFA
+  for i := 1 to 8 do
+     QMDetalle.FieldByName(Format('ALFA_%d', [i])).DisplayLabel := LeeParametro(format('ARTDESC%3.3d', [i]));
+
+  if (LeeParametro('LABPNPL001', Serie) <> QMDetallePRO_NUM_PLANO.DisplayLabel) then
+     QMDetallePRO_NUM_PLANO.DisplayLabel := LeeParametro('LABPNPL001', Serie);
+
+  if (LeeParametro('LABFABK001', Serie) <> QMDetalleNO_FABRICACION_KRI.DisplayLabel) then
+     QMDetalleNO_FABRICACION_KRI.DisplayLabel := LeeParametro('LABFABK001', Serie);
+
+  Z_MedidasToldo := False;
+
+  // Mirar si se separan las ordenes o una orden un pedido
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Text := 'SELECT Z_UN_PED_N_OP FROM PRO_CONSTANTES WHERE EMPRESA=?EMPRESA';
+        Params.ByName['EMPRESA'].AsInteger := REntorno.Empresa;
+        ExecQuery;
+        OrdenesSeparadas := (FieldByName['Z_UN_PED_N_OP'].AsInteger = 1);
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Text := 'SELECT LISTADO_PED_ESPECIALES FROM Z_TYC_CONFIGURACION WHERE EMPRESA=?EMPRESA';
+        Params.ByName['EMPRESA'].AsInteger := REntorno.Empresa;
+        ExecQuery;
+        FListadoPedEspeciales := FieldByName['LISTADO_PED_ESPECIALES'].AsInteger;
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.Graba(DataSet: TDataSet);
+begin
+  DMMain.LogIni('DMPedidos.Graba - ' + DataSet.Name);
+  // TFIBTableSet(DataSet).Transaction.CommitRetaining;
+  // DMMain.Graba;
+  // DataSet.Refresh;
+  InfoActualiza;
+
+  {TOLYCOR}
+  if (Z_MedidasToldo) then
+  begin
+     with THYFIBQuery.Create(nil) do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           SQL.Add('UPDATE Z_GES_DETALLES_S_PED_CAB ');
+           SQL.Add('SET ');
+           SQL.Add('LINEAL = ?LINEAL, ');
+           SQL.Add('SALIDA = ?SALIDA ');
+           SQL.Add('WHERE ID_DETALLES_S = ?ID_DETALLES_S ');
+           Params.ByName['ID_DETALLES_S'].AsInteger := QMDetalleID_DETALLES_S.AsInteger;
+           Params.ByName['LINEAL'].AsInteger := Lineal;
+           Params.ByName['SALIDA'].AsInteger := Salida;
+           ExecQuery;
+           FreeHandle;
+        finally
+           Free;
+        end;
+     end;
+     Z_MedidasToldo := False;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMDetalleNewRecord(DataSet: TDataSet);
+var
+  i : integer;
+  Linea, Campo, Valor : string;
+begin
+  DMMain.LogIni('DMPedidos.QMDetalleNewRecord');
+  if ((QMCabecera.State = dsInsert) or (QMCabecera.State = dsEdit)) then
+  begin
+     QMCabecera.Post;
+     QMDetalle.Edit;
+  end;
+
+  QMDetalleEMPRESA.AsInteger := QMCabeceraEMPRESA.AsInteger;
+  QMDetalleEJERCICIO.AsInteger := QMCabeceraEJERCICIO.AsInteger;
+  QMDetalleCANAL.AsInteger := QMCabeceraCANAL.AsInteger;
+  QMDetalleSERIE.AsString := QMCabeceraSERIE.AsString;
+  QMDetalleTIPO.AsString := QMCabeceraTIPO.AsString;
+  QMDetalleRIG.AsInteger := QMCabeceraRIG.AsInteger;
+  QMDetalleID_S.AsInteger := QMCabeceraID_S.AsInteger;
+  QMDetalleALMACEN.AsString := QMCabeceraALMACEN.AsString;
+  // QMDetalleCOMISION.AsFloat := ComisionAgente;
+  QMDetalleTITULO.AsString := '';
+  QMDetalleUNIDADES.AsInteger := 1;
+  QMDetalleENTRADA.AsInteger := REntorno.Entrada;
+  QMDetalleUNIDADES_EXT.AsInteger := 0;
+  QMDetalleUNIDADES_SEC.AsInteger := 0;
+  QMDetalleID_DETALLES_S.AsInteger := 0;
+  QMDetalleTIPO_LINEA.AsString := 'NOR';
+  QMDetalleCOSTE_ADICIONAL.AsFloat := 0;
+  QMDetalleAGENTE.AsInteger := 0;
+
+  { TODO : Reemplazar esto por parámetro }
+  {TOLYCOR}
+  // Especial Lonper
+  if (REntorno.NombrePrograma = 'Lonper.exe') then
+     QMDetalleBULTOS.AsInteger := 2
+  else
+     QMDetalleBULTOS.AsInteger := 0;
+
+  // PIEZAS_X_BULTO puede tener un valor por defecto diferente a 0.
+  QMDetallePIEZAS_X_BULTO.AsInteger := DMMain.EstadoKri(439);
+
+  QMDetalleMARGEN_KRI.AsFloat := QMCabeceraMARGEN_KRI.AsFloat;
+  QMDetallePROYECTO.AsInteger := QMCabeceraPROYECTO.AsInteger;
+  QMDetalleTIPO_LINEA_KRI.AsInteger := QMCabeceraTIPO_LINEA_KRI.AsInteger;
+  QMDetalleINVERSION_SUJETO_PASIVO.AsInteger := QMCabeceraINVERSION_SUJETO_PASIVO.AsInteger;
+
+  Unidades_Old := 0;
+
+  QMDetalleFECHA_ENTREGA_PREV.AsDateTime := QMCabeceraFECHA_ENTREGA_PREV.AsDateTime;
+  QMDetalleDIRECCION_ENTREGA.AsInteger := QMCabeceraDIRECCION.AsInteger;
+  QMDetalleDIRECCION_ALM_LOGISTICO.AsInteger := QMCabeceraDIRECCION.AsInteger;
+  QMDetallePRO_NUM_PLANO.AsString := '';
+  QMDetalleTIPO_UNIDAD_LOGISTICA.AsString := 'GRNL';
+  QMDetalleLOTE_SIMPLE.AsString := '';
+  QMDetalleMANIPULACION.AsInteger := 0;
+
+  // Obtenemos el numero de linea más alto en el Pedido actual
+  QMDetalleLINEA.AsInteger := DMMain.DameLineaSiguiente(QMCabeceraTIPO.AsString, QMCabeceraID_S.AsInteger);
+
+  // Relleno los datos con lo que hay en la linea anterior
+  if (KriConf463) then
+  begin
+     for i := 0 to OldLinea.Count - 1 do
+     begin
+        Linea := OldLinea[i];
+        Campo := Copy(Linea, 1, Pos('=', Linea) - 1);
+        Valor := Copy(Linea, Pos('=', Linea) + 1, Length(Linea));
+        with QMDetalle do
+        begin
+           if (FieldByName(Campo) is TIntegerField) then
+              FieldByName(Campo).AsInteger := StrToIntDef(Valor, 0);
+           if (FieldByName(Campo) is TFloatField) then
+              FieldByName(Campo).AsFloat := StrToFloat(Valor);
+           if ((FieldByName(Campo) is TFIBStringField) or (FieldByName(Campo) is TBlobField)) then
+              FieldByName(Campo).AsString := Valor;
+           if (FieldByName(Campo) is TDateTimeField) then
+              FieldByName(Campo).AsDateTime := StrToDateTime(Valor);
+        end;
+     end;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMCabeceraNewRecord(DataSet: TDataSet);
+var
+  Cliente : integer;
+begin
+  DMMain.LogIni('DMPedidos.QMCabeceraNewRecord - ' + DataSet.Name);
+  QMCabeceraEMPRESA.AsInteger := REntorno.Empresa;
+  QMCabeceraEJERCICIO.AsInteger := REntorno.Ejercicio;
+  QMCabeceraCANAL.AsInteger := REntorno.Canal;
+  QMCabeceraSERIE.AsString := Serie;
+  QMCabeceraTIPO.AsString := 'PEC';
+  QMCabeceraFECHA.AsDateTime := REntorno.FechaTrab;
+  QMCabeceraENTRADA.AsInteger := REntorno.Entrada;
+  QMCabeceraMONEDA.AsString := REntorno.Moneda;
+  QMCabeceraALMACEN.AsString := DMMain.DameAlmacenDocumento('PEC', Serie);
+  QMCabeceraSERVIDO.AsInteger := 0;
+  QMCabeceraLISTO_PARA_PREPARAR.AsInteger := 0;
+  QMCabeceraCAMPANYA.AsInteger := 0;
+  QMCabeceraPORTES.AsInteger := 0;
+  QMCabeceraTARIFA.AsString := REntorno.TarifaDefecto;
+  QMCabeceraPOR_FINANCIACION.AsFloat := 0;
+  QMCabeceraTIPO_LINEA_KRI.AsInteger := 0;
+  QMCabeceraID_S.AsInteger := 0;
+  QMCabeceraRIG.AsInteger := 0;
+  QMCabeceraCAMBIO_FIJO.AsInteger := 0;
+  QMCabeceraMARGEN_KRI.AsFloat := 0;
+  QMCabeceraTIPO_PORTES.AsInteger := 0;
+  QMCabeceraPOR_PORTES.AsFloat := 0;
+  QMCabeceraMARGEN.AsFloat := 0;
+  QMCabeceraI_PORTES.AsFloat := 0;
+  QMCabeceraRANGO.AsInteger := 0;
+  QMCabeceraINDICE.AsInteger := 0;
+  QMCabeceraDOCUMENTO_MUESTRAS.AsInteger := 0;
+  QMCabeceraPROYECTO.AsInteger := StrToIntDef(LeeParametro('DOCVPRY001', Serie), 0);
+  QMCabeceraZ_OBSERVACION.AsString := '';
+
+  Editando := False;
+  Tarifa_old := '';
+  ListoParaPreparar_old := 0;
+
+  Cliente := StrToIntDef(LeeParametro('PECCLIE001', Serie), 0);
+  if (Cliente <> 0) then
+     QMCabeceraCLIENTE.AsInteger := Cliente;
+
+  if (LeeParametro('VENAGEN001', Serie) = 'S') then
+     QMCabeceraAGENTE.AsInteger := DameAgenteUsuario(REntorno.Usuario);
+
+
+  DMMain.LogFin('');
+end;
+
+function TDMPedidos.DameFechaEntregaPrevista(Cliente: integer; Fecha: TDateTime): TDateTime;
+begin
+  /// Devuelve la fecha de entrega prevista
+  /// Tiene en cuenta la configuracion del cliente y dias laborables si el parmamentro PECFECE002 es uno calendario de la empresa
+
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Text := 'SELECT FECHA_ENTREGA_PREV FROM G_DAME_FECHA_ENTREGA_PREV (:EMPRESA, :CLIENTE, :FECHA, :ENTRADA)';
+        Params.ByName['EMPRESA'].AsInteger := REntorno.Empresa;
+        Params.ByName['CLIENTE'].AsInteger := Cliente;
+        Params.ByName['FECHA'].AsDateTime := Fecha;
+        Params.ByName['ENTRADA'].AsInteger := REntorno.Entrada;
+        ExecQuery;
+        Result := FieldByName['FECHA_ENTREGA_PREV'].AsDateTime;
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+end;
+
+procedure TDMPedidos.QMCabeceraCLIENTEChange(Sender: TField);
+begin
+  DMMain.LogIni('DMPedidos.QMCabeceraCLIENTEChange');
+  if ((ImportandoMasivamente) or (not DMMain.ClienteBloqueado(QMCabeceraCLIENTE.AsInteger))) then
+  begin
+     with xCliente do
+     begin
+        Close;
+        Open;
+        // Asignamos a EntornoDoc
+        EntornoDoc.Tercero := FieldByName('TERCERO').AsInteger;
+        EntornoDoc.Tarifa := FieldByName('TARIFA').AsString;
+        EntornoDoc.Cliente := Sender.AsInteger;
+        // Asignamos al Pedido
+        QMCabeceraTERCERO.AsInteger := EntornoDoc.Tercero;
+
+        if (LeeParametro('VENAGEN001', Serie) = 'N') then
+           QMCabeceraAGENTE.AsInteger := FieldByName('AGENTE').AsInteger;
+
+        QMCabeceraDTO_PP.AsFloat := FieldByName('DESCUENTO_PP').AsFloat;
+        QMCabeceraDTO_CIAL.AsFloat := FieldByName('DESCUENTO_CIAL').AsFloat;
+        QMCabeceraMONEDA.AsString := FieldByName('MONEDA').AsString;
+        QMCabeceraIDIOMA.AsString := FieldByName('IDIOMA').AsString;
+        QMCabeceraTITULO.AsString := FieldByName('TITULO').AsString;
+        QMCabeceraNOMBRE_COMERCIAL.AsString := FieldByName('NOMBRE_COMERCIAL').AsString;
+        QMCabeceraRUTA.AsInteger := FieldByName('RUTA').AsInteger;
+        QMCabeceraRUTA_ORDEN.AsInteger := FieldByName('RUTA_ORDEN').AsInteger;
+        if (Param_CLIREFE001) then
+        begin
+           if (Trim(FieldByName('SU_REFERENCIA').AsString) > '') then
+              QMCabeceraSU_REFERENCIA.AsString := FieldByName('SU_REFERENCIA').AsString;
+        end
+        else
+           QMCabeceraSU_REFERENCIA.AsString := '';
+        QMCabeceraFORMA_PAGO.AsString := FieldByName('FORMA_PAGO').AsString;
+        QMCabeceraTARIFA.AsString := EntornoDoc.Tarifa;
+        QMCabeceraDIRECCION.AsInteger := DameDireccionDefectoVentas(FieldByName('EMPRESA').AsInteger, FieldByName('CLIENTE').AsInteger);
+
+        QMCabeceraMODO_IVA.AsInteger := FieldByName('MODO_IVA').AsInteger;
+        QMCabeceraPEDIDO_VALORADO.AsString := FieldByName('PEDIDO_VALORADO').AsString;
+        QMCabeceraFECHA_ENTREGA_PREV.AsDateTime := DameFechaEntregaPrevista(QMCabeceraCLIENTE.AsInteger, QMCabeceraFECHA.AsDateTime);
+
+        QMCabeceraTIPO_PORTES.AsInteger := FieldByName('TIPO_PORTES').AsInteger;
+        case FieldByName('TIPO_PORTES').AsInteger of
+           3: QMCabeceraPOR_PORTES.AsFloat := FieldByName('POR_PORTES').AsFloat;
+           4: QMCabeceraI_PORTES.AsFloat := FieldByName('I_PORTES').AsFloat;
+           5, 6, 7:
+           begin
+              QMCabeceraRANGO.AsInteger := FieldByName('RANGO').AsInteger;
+              QMCabeceraINDICE.AsInteger := FieldByName('INDICE').AsInteger;
+           end;
+        end;
+     end;
+
+     if (LeeParametro('DIRCLA4002', Serie) <> 'S') then
+     begin
+        if (DMMain.EstadoKri(25) = 1) then
+        begin
+           with THYFIBQuery.Create(nil) do
+           begin
+              try
+                 Close;
+                 DataBase := DMMain.DataBase;
+                 SQL.Text := 'EXECUTE PROCEDURE G_DAME_DIRECCION_ENVIO_CLI(:EMPRESA, :CLIENTE)';
+                 Params.ByName['EMPRESA'].AsInteger := QMCabeceraEMPRESA.AsInteger;
+                 Params.ByName['CLIENTE'].AsInteger := QMCabeceraCLIENTE.AsInteger;
+                 ExecQuery;
+                 QMCabeceraDIRECCION.AsInteger := FieldByName['DIRECCION'].AsInteger;
+                 FreeHandle;
+              finally
+                 Free;
+              end;
+           end;
+        end;
+     end
+     else
+     begin
+        // Direccion por defecto es la de Clase=4 (envio por defecto) excepto si solo hay una dirección. Si hay muchas dejo vacio
+        with THYFIBQuery.Create(nil) do
+        begin
+           try
+              Close;
+              DataBase := DMMain.DataBase;
+              SQL.Add(' SELECT (SELECT FIRST 1 DIRECCION FROM SYS_TERCEROS_DIRECCIONES WHERE TERCERO = T.TERCERO AND DIR_CLASE = 4 AND ACTIVO = 1 ORDER BY DIRECCION) DIRECCION_CLASE_4, ');
+              SQL.Add('        (SELECT COUNT(DIRECCION) FROM SYS_TERCEROS_DIRECCIONES WHERE TERCERO = T.TERCERO AND ACTIVO = 1) CANT_DIRECCIONES, ');
+              SQL.Add('        (SELECT FIRST 1 DIRECCION FROM SYS_TERCEROS_DIRECCIONES WHERE TERCERO = T.TERCERO AND DIR_DEFECTO = 1 AND ACTIVO = 1 ORDER BY DIRECCION) DIRECCION ');
+              SQL.Add(' FROM SYS_TERCEROS T ');
+              SQL.Add(' WHERE ');
+              SQL.Add(' T.TERCERO = :TERCERO ');
+              Params.ByName['TERCERO'].AsInteger := QMCabeceraTERCERO.AsInteger;
+              ExecQuery;
+              if (FieldByName['DIRECCION_CLASE_4'].AsInteger <> 0) then
+                 QMCabeceraDIRECCION.AsInteger := FieldByName['DIRECCION_CLASE_4'].AsInteger
+              else
+              if (FieldByName['CANT_DIRECCIONES'].AsInteger = 1) then
+                 QMCabeceraDIRECCION.AsInteger := FieldByName['DIRECCION'].AsInteger
+              else
+                 QMCabeceraDIRECCION.Clear;
+              FreeHandle;
+           finally
+              Free;
+           end;
+        end;
+     end;
+
+     if (not ImportandoMasivamente) then
+        DMMain.MuestraAviso('CLI', xCliente.FieldByName('ID_CLIENTE').AsInteger, QMCabeceraTIPO.AsString);
+
+     if (xCliente.FieldByName('TIPO_PORTES').AsInteger = 0) then
+        ActualizaPorteSegunZona;
+
+     with THYFIBQuery.Create(nil) do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           SQL.Text := 'SELECT BANCO FROM SYS_TERCEROS_DIRECCIONES WHERE TERCERO = :TERCERO AND DIRECCION = :DIRECCION';
+           Params.ByName['TERCERO'].AsInteger := QMCabeceraTERCERO.AsInteger;
+           Params.ByName['DIRECCION'].AsInteger := QMCabeceraDIRECCION.AsInteger;
+           ExecQuery;
+           QMCabeceraBANCO.AsInteger := FieldByName['BANCO'].AsInteger;
+           FreeHandle;
+        finally
+           Free;
+        end;
+     end;
+  end
+  else
+     QMCabecera.Cancel;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMCabeceraAGENTEChange(Sender: TField);
+begin
+  DMMain.LogIni('DMPedidos.QMCabeceraAGENTEChange');
+  with xAgentes do
+  begin
+     Close;
+     Open;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMCabeceraDIRECCIONChange(Sender: TField);
+begin
+  DMMain.LogIni('DMPedidos.QMCabeceraDIRECCIONChange');
+  with xDirecciones do
+  begin
+     Close;
+     Open;
+  end;
+
+  if (xDirecciones.FieldByName('DIR_TRANSPORTISTA').AsInteger <> 0) then
+     QMCabeceraTRANSPORTISTA.AsInteger := xDirecciones.FieldByName('DIR_TRANSPORTISTA').AsInteger
+  else
+     QMCabeceraTRANSPORTISTA.AsInteger := xCliente.FieldByName('TRANSPORTISTA').AsInteger;
+
+  if (xCliente.FieldByName('TIPO_PORTES').AsInteger = 0) then
+  begin
+     QMCabeceraTIPO_PORTES.AsInteger := 0;
+     ActualizaPorteSegunZona;
+  end;
+
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Text := 'SELECT BANCO FROM SYS_TERCEROS_DIRECCIONES WHERE TERCERO = :TERCERO AND DIRECCION = :DIRECCION';
+        Params.ByName['TERCERO'].AsInteger := QMCabeceraTERCERO.AsInteger;
+        Params.ByName['DIRECCION'].AsInteger := QMCabeceraDIRECCION.AsInteger;
+        ExecQuery;
+        QMCabeceraBANCO.AsInteger := FieldByName['BANCO'].AsInteger;
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+
+  if (QMCabecera.State = dsInsert) and param_VENCONT001 then
+  begin
+     // Seleccino de contacto
+     // El primero de la direccion o el primero sin direccino asignada.
+     with THYFIBQuery.Create(nil) do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           SQL.Add(' SELECT 1 ORDEN, C.CONTACTO, C.DIRECCION, D.DIRECCION ');
+           SQL.Add(' FROM SYS_TERCEROS_CONTACTOS C ');
+           SQL.Add(' JOIN SYS_TERCEROS_DIRECCIONES D ON C.TERCERO = D.TERCERO AND C.DIRECCION = D.DIRECCION ');
+           SQL.Add(' WHERE ');
+           SQL.Add(' C.TERCERO = :TERCERO AND ');
+           SQL.Add(' C.DIRECCION = :DIRECCION ');
+           SQL.Add(' UNION ');
+           SQL.Add(' SELECT 2 ORDEN, C.CONTACTO, C.DIRECCION, 0 ');
+           SQL.Add(' FROM SYS_TERCEROS_CONTACTOS C ');
+           SQL.Add(' WHERE ');
+           SQL.Add(' C.TERCERO = :TERCERO AND ');
+           SQL.Add(' C.DIRECCION = 0 ');
+           Params.ByName['TERCERO'].AsInteger := QMCabeceraTERCERO.AsInteger;
+           Params.ByName['DIRECCION'].AsInteger := QMCabeceraDIRECCION.AsInteger;
+           ExecQuery;
+           QMCabeceraCONTACTO.AsInteger := FieldByName['CONTACTO'].AsInteger;
+           FreeHandle;
+        finally
+           Free;
+        end;
+     end;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMCabeceraBeforePost(DataSet: TDataSet);
+var
+  Documentos : string;
+begin
+  DMMain.LogIni('DMPedidos.QMCabeceraBeforePost - ' + DataSet.Name);
+  QMCabeceraENTRADA.AsInteger := REntorno.Entrada;
+
+  QMCabeceraSU_REFERENCIA.AsString := Trim(QMCabeceraSU_REFERENCIA.AsString);
+  QMCabeceraPEDIDO_CLIENTE.AsString := Trim(QMCabeceraPEDIDO_CLIENTE.AsString);
+  QMCabeceraZ_OBSERVACION.AsString := Trim(QMCabeceraZ_OBSERVACION.AsString);
+
+  if Param_DOCREFE002 and (QMCabeceraSU_REFERENCIA.AsString <> '') then
+  begin
+     with TFIBDataSet.Create(nil) do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           Transaction := DameTransactionRO(DMMain.DataBase);
+           try
+              if (not Transaction.InTransaction) then
+                 Transaction.StartTransaction;
+              SelectSQL.Add(' SELECT LIST(TIPO || '' '' || EJERCICIO || ''-'' || SERIE || ''/'' || RIG, '', '') AS DOCUMENTO ');
+              SelectSQL.Add(' FROM GES_CABECERAS_S ');
+              SelectSQL.Add(' WHERE ');
+              SelectSQL.Add(' EMPRESA = :EMPRESA AND ');
+              SelectSQL.Add(' TIPO = :TIPO AND ');
+              SelectSQL.Add(' CLIENTE = :CLIENTE AND ');
+              SelectSQL.Add(' SU_REFERENCIA = :SU_REFERENCIA AND ');
+              SelectSQL.Add(' ID_S <> :ID_S ');
+              Params.ByName['EMPRESA'].AsInteger := QMCabeceraEMPRESA.AsInteger;
+              Params.ByName['TIPO'].AsString := QMCabeceraTIPO.AsString;
+              Params.ByName['CLIENTE'].AsInteger := QMCabeceraCLIENTE.AsInteger;
+              Params.ByName['SU_REFERENCIA'].AsString := QMCabeceraSU_REFERENCIA.AsString;
+              Params.ByName['ID_S'].AsInteger := QMCabeceraID_S.AsInteger;
+              Open;
+              Documentos := FieldByName('DOCUMENTO').AsString;
+              Close;
+              Transaction.Commit;
+           finally
+              Transaction.Free;
+           end;
+        finally
+           Free;
+        end;
+
+        if (Documentos > '') then
+           ShowMessage(format('Hay otro/s documento/s con la misma referencia para este cliente.'#13#10 +
+              '%s', [Documentos]));
+     end;
+  end;
+
+  if (QMCabeceraPEDIDO_CLIENTE.AsString <> '') then
+  begin
+     with TFIBDataSet.Create(nil) do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           Transaction := DameTransactionRO(DMMain.DataBase);
+           try
+              if (not Transaction.InTransaction) then
+                 Transaction.StartTransaction;
+              SelectSQL.Add(' SELECT LIST(TIPO || '' '' || EJERCICIO || ''-'' || SERIE || ''/'' || RIG, '', '') AS DOCUMENTO ');
+              SelectSQL.Add(' FROM GES_CABECERAS_S ');
+              SelectSQL.Add(' WHERE ');
+              SelectSQL.Add(' EMPRESA = :EMPRESA AND ');
+              SelectSQL.Add(' TIPO = :TIPO AND ');
+              SelectSQL.Add(' CLIENTE = :CLIENTE AND ');
+              SelectSQL.Add(' PEDIDO_CLIENTE = :PEDIDO_CLIENTE AND ');
+              SelectSQL.Add(' ID_S <> :ID_S ');
+              Params.ByName['EMPRESA'].AsInteger := QMCabeceraEMPRESA.AsInteger;
+              Params.ByName['TIPO'].AsString := QMCabeceraTIPO.AsString;
+              Params.ByName['CLIENTE'].AsInteger := QMCabeceraCLIENTE.AsInteger;
+              Params.ByName['PEDIDO_CLIENTE'].AsString := QMCabeceraPEDIDO_CLIENTE.AsString;
+              Params.ByName['ID_S'].AsInteger := QMCabeceraID_S.AsInteger;
+              Open;
+              Documentos := FieldByName('DOCUMENTO').AsString;
+              Close;
+              Transaction.Commit;
+           finally
+              Transaction.Free;
+           end;
+        finally
+           Free;
+        end;
+
+        if (Documentos > '') then
+           ShowMessage(format('Hay otro/s documento/s con el mismo nro. de pedido para este cliente.'#13#10 +
+              '%s', [Documentos]));
+     end;
+  end;
+
+  if (DataSet.State = dsInsert) then
+     DMMain.Contador_Gen(DataSet, 'ID_GES_CABECERAS_S', 'ID_S'); // ID
+
+  // RecalculaPrecios := False;
+  RecalculaTarifa := False;
+  if (editando) then
+  begin
+     //Cambio de Moneda
+     {
+     dji lrk kri - No recalculo precios si cambia la moneda o la fecha
+     if ( QMCabeceraMONEDA.AsString <> REntorno.MonedaEmpresa) then
+        if (FechaOld <> QMCabeceraFECHA.AsDateTime) then
+           if (Application.MessageBox('ATENCION! Se recalcularán los precios en función del cambio de moneda.',
+              'Confirmación', MB_OKCANCEL + MB_ICONINFORMATION) = idOk) then
+               RecalculaPrecios := True;
+        else
+           QMCabeceraFECHA.AsDateTime := FechaOld;
+     }
+
+     // Cambio de tarifa
+     if (QMCabeceraTARIFA.AsString <> Tarifa_old) then
+     begin
+        if (HayCambioIVATarifa(QMCabeceraTARIFA.AsString, Tarifa_old)) then
+        begin
+           if (Application.MessageBox(PChar(
+              string(_('ATENCION! Se recalcularán los precios en función la nueva tarifa.'))),
+              PChar(string(_('Confirmación'))), MB_OKCANCEL + MB_ICONINFORMATION) = idOk) then
+              RecalculaTarifa := True
+           else
+           begin
+              RecalculaTarifa := False;
+              QMCabeceraTARIFA.AsString := Tarifa_old;
+           end;
+        end
+        else
+        begin
+           if (Application.MessageBox(PChar(string(_('Desea recalcular los precios en función de la nueva.'))),
+              PChar(string(_('Confirmación'))), MB_OKCANCEL + MB_ICONINFORMATION) = idOk) then
+              RecalculaTarifa := True
+           else
+              RecalculaTarifa := False;
+        end;
+     end;
+  end;
+
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMDetalleARTICULOChange(Sender: TField);
+var
+  MostrarUdsExt, Baja : boolean;
+  AlmacenDefecto : string;
+
+  FechaLimite : TDateTime;
+  UltimaFechaCompra : TDateTime;
+  SerieCompra, RigCompra : string;
+  HaComprado : boolean;
+  DS : TFIBDataSet;
+begin
+  // Si no existe el articulo lo busco en otras tablas (Cod. Barra, Nro. Serie, Cod. Cliente)
+  if (DameIdArticulo(Sender.AsString) <= 0) then
+     BusquedaArticulo(Sender.AsString);
+
+  DMMain.LogIni('DMPedidos.QMDetalleARTICULOChange');
+  if (not DMMain.ArticuloBloqueado(Sender.AsString, 'PEC')) then
+  begin
+     QMDetalleID_A.AsInteger := 0;
+     QMDetalleID_C_A.AsInteger := 0;
+
+     xArticulos.Close;
+     xArticulos.Open;
+
+     // Evaluamos solo si el parámetro está activo (mayor a 0 días) y tenemos un cliente con ficha abierta
+     if (param_PECVALI001 > 0) and (QMCabeceraCLIENTE.AsInteger > 0) and (Sender.AsString <> '') then
+     begin
+        // Calculamos la fecha límite restando los días al día de hoy
+        FechaLimite := Date - param_PECVALI001;
+        HaComprado := False;
+
+        DS := TFIBDataSet.Create(nil);
+        try
+           with DS do
+           begin
+              Transaction := TFIBTransaction.Create(nil);
+              try
+                 with Transaction do
+                 begin
+                    DefaultDatabase := DMMain.DataBase;
+                    TRParams.Clear;
+                    TRParams.Add('read_committed');
+                    TRParams.Add('read');
+                 end;
+                 Close;
+                 DataBase := DMMain.DataBase;
+                 if (not Transaction.InTransaction) then
+                    Transaction.StartTransaction;
+                 SelectSQL.Add(' SELECT FIRST 1 C.FECHA, C.SERIE, C.RIG ');
+                 SelectSQL.Add(' FROM GES_CABECERAS_S C ');
+                 SelectSQL.Add(' JOIN GES_DETALLES_S D ON C.ID_S = D.ID_S ');
+                 SelectSQL.Add(' WHERE ');
+                 SelectSQL.Add(' C.EMPRESA = :EMPRESA AND ');
+                 SelectSQL.Add(' C.CANAL = :CANAL AND ');
+                 SelectSQL.Add(' C.CLIENTE = :CLIENTE AND ');
+                 SelectSQL.Add(' D.ARTICULO = :ARTICULO AND ');
+                 SelectSQL.Add(' C.FECHA >= :FECHA_LIMITE AND ');
+                 SelectSQL.Add(' C.ESTADO <> 2 AND ');
+                 SelectSQL.Add(' C.TIPO IN (''PEC'', ''ALB'', ''FAC'') ');
+                 SelectSQL.Add(' ORDER BY C.FECHA DESC ');
+
+                 Params.ByName['EMPRESA'].AsInteger := REntorno.Empresa;
+                 Params.ByName['CANAL'].AsInteger := REntorno.Canal;
+                 Params.ByName['CLIENTE'].AsInteger := QMCabeceraCLIENTE.AsInteger;
+                 Params.ByName['ARTICULO'].AsString := Sender.AsString;
+                 Params.ByName['FECHA_LIMITE'].AsDateTime := FechaLimite;
+
+                 Open;
+                 if not EOF then
+                 begin
+                    HaComprado := True;
+                    UltimaFechaCompra := DS.FieldByName('FECHA').AsDateTime;
+                    SerieCompra := DS.FieldByName('SERIE').AsString;
+                    RigCompra := DS.FieldByName('RIG').AsString;
+                 end;
+                 Close;
+                 Transaction.Commit;
+              finally
+                 Transaction.Free;
+              end;
+           end;
+        finally
+           FreeAndNil(DS);
+        end;
+
+        // 2. Si no se registra ninguna compra en el periodo, notificamos al usuario.
+        if not HaComprado then
+        begin
+           Application.MessageBox(
+              PChar(Format(
+              'ATENCIÓN: El artículo %s no ha sido comprado por el cliente %s en los últimos %d días.',
+              [Sender.AsString, QMCabeceraTITULO.AsString, param_PECVALI001]
+              )),
+              'Aviso de Compras',
+              MB_OK or MB_ICONINFORMATION
+              );
+        end
+        else
+        begin
+           // DMMain.Log(Format('Última compra registrada el %s (Serie: %s, Rig: %s)', [DateToStr(UltimaFechaCompra), SerieCompra, RigCompra]));
+        end;
+     end;
+
+     Baja := (xArticulos.FieldByName('BAJA').AsInteger = 1);
+     if Baja then
+        raise Exception.Create(_('El articulo esta dado de baja'));
+
+     QMDetalleTITULO.AsString := xArticulos.FieldByName('TITULO_LARGO').AsString;
+     QMDetalleALFA_1.AsString := xArticulos.FieldByName('ALFA_1').AsString;
+     QMDetalleALFA_2.AsString := xArticulos.FieldByName('ALFA_2').AsString;
+     QMDetalleALFA_3.AsString := xArticulos.FieldByName('ALFA_3').AsString;
+     QMDetalleALFA_4.AsString := xArticulos.FieldByName('ALFA_4').AsString;
+     QMDetalleALFA_5.AsString := xArticulos.FieldByName('ALFA_5').AsString;
+     QMDetalleALFA_6.AsString := xArticulos.FieldByName('ALFA_6').AsString;
+     QMDetalleALFA_7.AsString := xArticulos.FieldByName('ALFA_7').AsString;
+     QMDetalleALFA_8.AsString := xArticulos.FieldByName('ALFA_8').AsString;
+     QMDetalleDECIMALES_UNIDADES.AsInteger := DMMain.DameDecimalesUnidad(xArticulos.FieldByName('UNIDADES').AsString);
+     QMDetalleCONTROL_STOCK.AsInteger := xArticulos.FieldByName('CONTROL_STOCK').AsInteger;
+
+     if (xArticulos.FieldByName('PROYECTO').AsInteger <> 0) then
+        QMDetallePROYECTO.AsInteger := xArticulos.FieldByName('PROYECTO').AsInteger;
+
+     with xCliente do
+     begin
+        Close;
+        Open;
+        EntornoDoc.Tarifa := QMCabeceraTARIFA.AsString;
+        EntornoDoc.Cliente := QMCabeceraCLIENTE.AsInteger;
+     end;
+
+     // Solo muestra la ventana de unidades extendidas al pulsar el boton en el FM
+     MostrarUdsExt := (DMMain.EstadoKri(21) = 0) and (not ImportandoMasivamente);
+
+     if (Param_MODREST015) then
+     begin
+        if (xArticulos.FieldByName('TIPO_ARTICULO_TYC').AsString <> 'T') and
+           (xArticulos.FieldByName('TIPO_ARTICULO_TYC').AsString <> 'A') and
+           (xArticulos.FieldByName('TIPO_ARTICULO_TYC').AsString <> 'L') then
+           CambiaUnidadesExt(Sender, False, MostrarUdsExt);
+     end
+     else
+        CambiaUnidadesExt(Sender, False, MostrarUdsExt);
+
+     QMDetalleCOSTE_ADICIONAL.AsFloat := xArticulos.FieldByName('COSTE_ADICIONAL').AsFloat;
+
+     QMDetallePESO_TOTAL.AsFloat := QMDetallePESO.AsFloat * QMDetalleUNIDADES.AsFloat;
+     QMDetalleSIGNO_UNIDADES.AsString := xArticulos.FieldByName('SIGNO').AsString;
+
+     // Calcular la comision de acuerdo al cliente, articulo, familia, agrupacion
+     with THYFIBQuery.Create(nil) do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           SQL.Text := 'EXECUTE PROCEDURE G_COMISION_AGENTE(:EMPRESA, :EJERCICIO, :CANAL, :AGENTE, :CLIENTE, :ARTICULO, :P_COSTE, :P_VENTA)';
+           Params.ByName['EMPRESA'].AsInteger := REntorno.Empresa;
+           Params.ByName['EJERCICIO'].AsInteger := REntorno.Ejercicio;
+           Params.ByName['CANAL'].AsInteger := REntorno.Canal;
+           Params.ByName['AGENTE'].AsInteger := QMCabeceraAGENTE.Value;
+           Params.ByName['CLIENTE'].AsInteger := EntornoDoc.Cliente;
+           Params.ByName['ARTICULO'].AsString := Sender.AsString;
+           Params.ByName['P_COSTE'].AsFloat := 0;
+           Params.ByName['P_VENTA'].AsFloat := 0;
+           ExecQuery;
+           QMDetalleCOMISION.AsFloat := FieldByName['P_COMISION'].AsFloat;
+           QMDetalleCOMISION_LINEAL.AsFloat := FieldByName['COMISION_LINEAL'].AsFloat;
+           FreeHandle;
+        finally
+           Free;
+        end;
+     end;
+
+     with THYFIBQuery.Create(nil) do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           SQL.Add(' SELECT TIPO_IVA, ID_A, ID_C_A, DISPONIBILIDAD, TIPO_IMPUESTO_ADICIONAL ');
+           SQL.Add(' FROM CON_CUENTAS_GES_ART ');
+           SQL.Add(' WHERE ');
+           SQL.Add(' EMPRESA = :EMPRESA AND ');
+           SQL.Add(' EJERCICIO = :EJERCICIO AND ');
+           SQL.Add(' CANAL = :CANAL AND ');
+           SQL.Add(' ARTICULO = :ARTICULO ');
+           Params.ByName['EMPRESA'].AsInteger := REntorno.Empresa;
+           Params.ByName['EJERCICIO'].AsInteger := REntorno.Ejercicio;
+           Params.ByName['CANAL'].AsInteger := REntorno.Canal;
+           Params.ByName['ARTICULO'].AsString := Sender.AsString;
+           ExecQuery;
+           if (FieldByName['ID_C_A'].AsInteger = 0) then
+              raise Exception.Create(_('No se ha podido encontrar el artículo en el ejercicio'));
+           QMDetalleTIPO_IVA.AsString := FieldByName['TIPO_IVA'].AsString;
+           QMDetalleID_A.AsInteger := FieldByName['ID_A'].AsInteger;
+           QMDetalleID_C_A.AsInteger := FieldByName['ID_C_A'].AsInteger;
+           QMDetalleTIPO_IMPUESTO_ADICIONAL.AsInteger := FieldByName['TIPO_IMPUESTO_ADICIONAL'].AsInteger;
+
+           if REntorno.VerSoloArticulosDisponibles then
+              if (not (FieldByName['DISPONIBILIDAD'].AsInteger in [1, 2])) then
+                 QMDetalle.Cancel;
+
+           FreeHandle;
+        finally
+           Free;
+        end;
+     end;
+
+     QMDetalleTITULO_IDIOMA.AsString := DameTituloIdiomaArticulo(QMDetalleID_A.AsInteger, QMCabeceraIDIOMA.AsString);
+
+     if ({REntorno.PVP_Ud_Sec and} (xArticulos.FieldByName('PVP_POR_UD_SECUNDARIA').AsInteger = 1)) then
+        QMDetalleAPLICA_UNIDADES_SECUNDARIAS.AsInteger := 1;
+
+     // Unidad Logistica
+     if (QMDetalle.State in [dsEdit, dsInsert]) then
+     begin
+        with THYFIBQuery.Create(nil) do
+        begin
+           try
+              Close;
+              DataBase := DMMain.DataBase;
+              SQL.Add(' SELECT A.TIPO, S.UNIDADES FROM ART_ARTICULOS_UNIDAD_LOGISTICA A ');
+              SQL.Add(' JOIN SYS_TIPO_UNIDAD_LOGISTICA S ');
+              SQL.Add(' ON A.TIPO = S.TIPO ');
+              SQL.Add(' WHERE ');
+              SQL.Add(' A.EMPRESA = ?EMPRESA AND ');
+              SQL.Add(' A.ARTICULO = ?ARTICULO AND ');
+              SQL.Add(' A.DEFECTO = 1 ');
+              Params.ByName['EMPRESA'].AsInteger := REntorno.Empresa;
+              Params.ByName['ARTICULO'].AsString := QMDetalleARTICULO.AsString;
+              ExecQuery;
+              QMDetalleTIPO_UNIDAD_LOGISTICA.AsString := FieldByName['TIPO'].AsString;
+              QMDetalleUNIDADES.AsFloat := FieldByName['UNIDADES'].AsFloat;
+              FreeHandle;
+           finally
+              Free;
+           end;
+        end;
+     end;
+
+     // Si calcula el peso segun las unidades secundarias
+     if param_VENUSEC001 and (QMDetalleAPLICA_UNIDADES_SECUNDARIAS.AsInteger = 1) then
+        QMDetallePESO.AsFloat := xArticulos.FieldByName('PESO').AsFloat * QMDetalleUNIDADES_SEC.AsFloat * QMDetalleUNIDADES_LOGISTICAS.AsFloat {dji}
+     else
+        QMDetallePESO.AsFloat := xArticulos.FieldByName('PESO').AsFloat * xArticulos.FieldByName('FACTOR_UNIDAD').AsFloat;
+
+     QMDetallePESO_TOTAL.AsFloat := QMDetallePESO.AsFloat * QMDetalleUNIDADES_LOGISTICAS.AsFloat;
+
+     if Param_VENULKG001 and (QMDetalleTIPO_UNIDAD_LOGISTICA.AsString = 'KG') then
+     begin
+        FlagModificandoUnidades := True;
+        try
+           QMDetalleUNIDADES.AsFloat := QMDetallePESO.AsFloat * 1;
+           QMDetallePESO_TOTAL.AsFloat := QMDetalleUNIDADES.AsFloat;
+        finally
+           FlagModificandoUnidades := False;
+        end;
+     end;
+
+     if Param_VENARTU001 and (QMDetalleARTICULO.AsString = REntorno.ArtTextoLibre) then
+        QMDetalleUNIDADES.AsInteger := 0;
+
+     DMMain.MuestraAviso('ART', xArticulos.FieldByName('ID_A').AsInteger, QMCabeceraTIPO.AsString);
+
+     if (Param_PECLSIM001) then
+     begin
+        QMDetalleLOTE_SIMPLE.AsString := DMMain.DameLoteSimple(QMDetalleARTICULO.AsString, QMCabeceraFECHA.AsDateTime);
+     end;
+
+     QMDetalleCalcFields(QMDetalle);
+
+     // Asignamos Almacen por defecto
+     AlmacenDefecto := DMMain.DameAlmacenDefectoArticulo(QMDetalleARTICULO.AsString);
+     if (AlmacenDefecto <> '') then
+        QMDetalleALMACEN.AsString := AlmacenDefecto
+     else
+        QMDetalleALMACEN.AsString := QMCabeceraALMACEN.AsString;
+  end
+  else
+     QMDetalle.Cancel;
+
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.InfoActualiza;
+begin
+  DMMain.LogIni('DMPedidos.InfoActualiza');
+  with xInfoActualizada do
+  begin
+     Close;
+     // Validadmos si existe algún documento antes de actualizar informacion
+     if (QMCabeceraID_S.AsInteger > 0) then
+        Open;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMDetalleBeforePost(DataSet: TDataSet);
+var
+  RiesgoAut, RiesgoAct, RiesgoPed, RLinea : double;
+  pot10 : extended;
+  P_IVA : real;
+  MaximoDescuento : double;
+  HayStock : integer;
+  s : string;
+begin
+  DMMain.LogIni('DMPedidos.QMDetalleBeforePost');
+
+  MaximoDescuento := param_DOCDESC001;
+  if (MaximoDescuento >= 0) then
+  begin
+     if (QMDetalleDESCUENTO.AsFloat > MaximoDescuento) then
+        raise Exception.Create(Format(_('El descuento no puede ser mayor a %f'), [MaximoDescuento]));
+  end;
+
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Add(' SELECT A.TIPO, S.UNIDADES FROM ART_ARTICULOS_UNIDAD_LOGISTICA A ');
+        SQL.Add(' JOIN SYS_TIPO_UNIDAD_LOGISTICA S ');
+        SQL.Add(' ON A.TIPO = S.TIPO ');
+        SQL.Add(' WHERE ');
+        SQL.Add(' A.EMPRESA = ?EMPRESA AND ');
+        SQL.Add(' A.ARTICULO = ?ARTICULO AND ');
+        SQL.Add(' A.DEFECTO = 1 ');
+        Params.ByName['EMPRESA'].AsInteger := QMDetalleEMPRESA.AsInteger;
+        Params.ByName['ARTICULO'].AsString := QMDetalleARTICULO.AsString;
+        ExecQuery;
+        s := FieldByName['TIPO'].AsString;
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+
+  if (QMDetalleTIPO_UNIDAD_LOGISTICA.AsString <> s) then
+     ShowMessage(_('La unidad logistica de la linea no coincide con la unidad logistica del articulo'));
+
+  if (param_PECNOST001) then
+  begin
+     with THYFIBQuery.Create(nil) do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           SQL.Text := 'SELECT HAY_STOCK FROM G_VENTAS_CONTROLA_STOCK_NEG(:EMPRESA, :CANAL, :ALMACEN, :ARTICULO, :UNIDADES)';
+           Params.ByName['EMPRESA'].AsInteger := QMDetalleEMPRESA.AsInteger;
+           Params.ByName['CANAL'].AsInteger := QMDetalleCANAL.AsInteger;
+           Params.ByName['ALMACEN'].AsString := QMDetalleALMACEN.AsString;
+           Params.ByName['ARTICULO'].AsString := QMDetalleARTICULO.AsString;
+           Params.ByName['UNIDADES'].AsDouble := QMDetalleUNIDADES.AsFloat;
+           ExecQuery;
+           HayStock := Fields[0].AsInteger;
+           FreeHandle;
+        finally
+           Free;
+        end;
+     end;
+
+     if (HayStock < 0) then
+        raise Exception.Create(_('No hay existencias suficientes.'));
+  end;
+
+  QMDetalleENTRADA.AsInteger := REntorno.Entrada;
+
+  if (DataSet.State = dsInsert) then
+  begin
+     DMMain.Contador_Gen(DataSet, 'ID_GES_DETALLES_S', 'ID_DETALLES_S');
+
+     if (Param_MODREST015) then
+        if ((xArticulos.FieldByName('TIPO_ARTICULO_TYC').AsString = 'T') or
+           (xArticulos.FieldByName('TIPO_ARTICULO_TYC').AsString = 'A')) then
+           Z_MedidasToldo := True;
+  end;
+
+  if FlagControlStockNegativo then
+  begin
+     if (QMDetalleCONTROL_STOCK.AsInteger = 1) and (KriConf429 or KriConf248) then
+     begin
+        with THYFIBQuery.Create(nil) do
+        begin
+           try
+              Close;
+              DataBase := DMMain.DataBase;
+              SQL.Text :=
+                 'SELECT EXISTENCIAS, STOCK_MINIMO FROM A_ART_DAME_STOCK_ART_ED (:EMPRESA, 1 /*CANAL*/, :ARTICULO, :ALMACEN, 1, 1, 0, 0, 0, 0, 0, NULL)';
+              Params.ByName['EMPRESA'].AsInteger := REntorno.Empresa;
+              Params.ByName['ALMACEN'].AsString := QMCabeceraALMACEN.AsString;
+              Params.ByName['ARTICULO'].AsString := QMDetalleARTICULO.AsString;
+              ExecQuery;
+              if (KriConf248) then
+              begin
+                 if ((FieldByName['EXISTENCIAS'].AsInteger - QMDetalleUNIDADES.AsInteger) < 0) then
+                    MessageDlg(_('El Stock será negativo'), mtWarning, [mbOK], 0);
+              end;
+              if (KriConf429) then
+              begin
+                 if ((FieldByName['EXISTENCIAS'].AsInteger - QMDetalleUNIDADES.AsInteger) <
+                    FieldByName['STOCK_MINIMO'].AsInteger) then
+                    MessageDlg(Format(_('El articulo %s rebasará el stock mínimo'), [QMDetalleARTICULO.AsString]),
+                       mtWarning, [mbOK], 0);
+              end;
+              FreeHandle;
+           finally
+              Free;
+           end;
+        end;
+     end;
+  end;
+
+  // Calculo el CRC de las notas para poder agrupar
+  QMDetalleCRC_NOTAS.AsString := CalcCRC32Str(FMain.DameTexto(QMDetalleNOTAS));
+  QMDetalleCRC_NOTAS2.AsString := CalcCRC32Str(FMain.DameTexto(QMDetalleNOTAS2));
+
+  // PECCORI001 - Que chequee el riesgo en pedidos.
+  if ((LeeParametro('PECCORI001', Serie) = 'S') and (QMCabeceraCLIENTE.AsString > ' ')) then
+  begin
+     RiesgoPed := DMMain.DameRiesgoPedido(QMCabeceraCLIENTE.AsInteger);
+
+     with THYFIBQuery.Create(nil) do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           SQL.Text := 'SELECT RIESGO_AUT, RIESGO_ACT FROM EMP_CLIENTES WHERE EMPRESA = :EMPRESA AND CLIENTE = :CLIENTE';
+           Params.ByName['EMPRESA'].AsInteger := QMCabeceraEMPRESA.AsInteger;
+           Params.ByName['CLIENTE'].AsInteger := QMCabeceraCLIENTE.AsInteger;
+           ExecQuery;
+           RiesgoAut := FieldByName['RIESGO_AUT'].AsFloat;
+           RiesgoAct := FieldByName['RIESGO_ACT'].AsFloat;
+           FreeHandle;
+        finally
+           Free;
+        end;
+     end;
+
+     pot10 := Power(10, REntorno.DecimalesCalculo);
+     RiesgoAut := (Trunc(RiesgoAut * pot10)) / pot10;
+
+     RLinea := QMDetallePRECIO.AsFloat * QMDetalleUNIDADES.AsFloat;
+     RLinea := RLinea - (RLinea * QMDetalleDESCUENTO.AsFloat / 100);
+     RLinea := RLinea - (RLinea * QMDetalleDESCUENTO_2.AsFloat / 100);
+     RLinea := RLinea - (RLinea * QMDetalleDESCUENTO_3.AsFloat / 100);
+
+     if (QMDetalle.State = dsEdit) then
+     begin
+        RLinea := RLinea + (RLinea * QMDetalleP_IVA.AsFloat / 100);
+        RLinea := RLinea - LiquidoAnt;
+     end
+     else
+     begin
+        {Busco porcentaje IVA}
+        with THYFIBQuery.Create(nil) do
+        begin
+           try
+              Close;
+              DataBase := DMMain.DataBase;
+              SQL.Text := 'SELECT P_IVA FROM SYS_TIPO_IVA WHERE PAIS = :PAIS AND TIPO = :TIPO';
+              Params.ByName['PAIS'].AsString := REntorno.Pais;
+              Params.ByName['TIPO'].AsInteger := QMDetalleTIPO_IVA.AsInteger;
+              ExecQuery;
+              P_IVA := FieldByName['P_IVA'].AsFloat;
+              FreeHandle;
+           finally
+              Free;
+           end;
+        end;
+
+        RLinea := RLinea + (RLinea * P_IVA / 100);
+     end;
+
+     if (((RiesgoAut > 0) or (KriConf126)) and
+        (RiesgoAut < RiesgoAct + RiesgoPed + RLinea)) then
+     begin
+        if (not ImportandoMasivamente) then
+           ShowMessage(
+              format(_('El Riesgo Autorizado para el Cliente se ha superado.' + #13#10 +
+              'Riesgo Autorizado: %s' + #13#10 +
+              'Riesgo Actual: %s'), [FormatFloat(MascaraN, RiesgoAut), FormatFloat(MascaraN,
+              RiesgoAct + RiesgoPed + RLinea)])
+              );
+
+        if (xCliente.FieldByName('NO_VENTA_RIESGO').AsInteger = 1) then
+           Abort;
+
+        InfoActualiza;
+     end;
+  end;
+  {------------------------------------------------------------------------------}
+
+  // Unidades Logisticas
+  if (Param_SYSCONF005 = 1) then
+  begin
+     with THYFIBQuery.Create(nil) do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           SQL.Text := 'SELECT UNIDADES, RELACIONAR_CON_UNIDADES FROM SYS_TIPO_UNIDAD_LOGISTICA WHERE TIPO=?TIPO';
+           Params.ByName['TIPO'].AsString := QMDetalleTIPO_UNIDAD_LOGISTICA.AsString;
+           ExecQuery;
+           if ((QMDetalleUNIDADES.AsFloat <> QMDetalleUNIDADES_LOGISTICAS.AsFloat *
+              FieldByName['UNIDADES'].AsFloat) and
+              (FieldByName['RELACIONAR_CON_UNIDADES'].AsInteger = 1)) then
+              ShowMessage(_('ATENCION! Las Unidades Logísticas no coinciden exactamente con las unidades del artículo'));
+           FreeHandle;
+        finally
+           Free;
+        end;
+     end;
+  end;
+
+  // Calculo fecha prevista segun plazo fabricación de escandallo
+  if (xCliente.FieldByName('FECHA_ENTREGA_X_STOCK').AsInteger <> 0) then
+  begin
+     with THYFIBQuery.Create(nil) do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           SQL.Text := 'SELECT PLAZO_FABRICACION FROM PRO_ESCANDALLO WHERE EMPRESA=?EMPRESA AND COMPUESTO=?COMPUESTO AND DEFECTO=1';
+           Params.ByName['EMPRESA'].AsInteger := QMCabeceraEMPRESA.AsInteger;
+           Params.ByName['COMPUESTO'].AsString := QMDetalleARTICULO.AsString;
+           ExecQuery;
+           QMDetalleFECHA_ENTREGA_PREV.AsDateTime :=
+              Trunc(QMCabeceraFECHA.AsDateTime) + FieldByName['PLAZO_FABRICACION'].AsInteger;
+           FreeHandle;
+        finally
+           Free;
+        end;
+     end;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMCabeceraAfterOpen(DataSet: TDataSet);
+begin
+  DMMain.LogIni('DMPedidos.QMCabeceraAfterOpen - ' + DataSet.Name);
+  xCliente.Open;
+  xAlmacenes.Open;
+  QMDetalle.Open;
+  xDirecciones.Open;
+  xAgentes.Open;
+  xFormasPago.Open;
+  xCampanyas.Open;
+  xMonedas.Open;
+  xTarifas.Open;
+  xIdiomas.Open;
+  QMNif.Open;
+  xProyectos.Open;
+  xRangos.Open;
+  xIndices.Open;
+  QMFirmas.Open;
+
+  InfoActualiza;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMCabeceraALMACENChange(Sender: TField);
+begin
+  DMMain.LogIni('DMPedidos.QMCabeceraALMACENChange');
+  EntornoDoc.Almacen := Sender.AsString;
+  with xAlmacenes do
+  begin
+     Close;
+     Open;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.AntesDeEditar(DataSet: TDataSet);
+begin
+  DMMain.LogIni('DMPedidos.AntesDeEditar - ' + DataSet.Name);
+
+  DMMain.RestingeEdicion(DataSet, QMCabeceraESTADO.AsInteger);
+
+  with EntornoDoc do
+  begin
+     Empresa := REntorno.Empresa;
+     Ejercicio := REntorno.Ejercicio;
+     Canal := REntorno.Canal;
+     Pais := REntorno.Pais;
+     Tarifa := QMCabeceraTARIFA.AsString;
+     Tercero := xCliente.FieldByName('TERCERO').AsInteger;
+     Cliente := xCliente.FieldByName('CLIENTE').AsInteger;
+     Almacen := QMCabeceraALMACEN.AsString;
+  end;
+
+  monedaold := QMCabeceraMONEDA.AsString;
+  unidades_old := QMDetalleUNIDADES.AsFloat;
+  fecha_old := QMCabeceraFECHA.AsDateTime;
+  editando := True;
+  tarifa_old := QMCabeceraTARIFA.AsString;
+  ListoParaPreparar_old := QMCabeceraLISTO_PARA_PREPARAR.AsInteger;
+  EnviarConfirmacion := False;
+  EnviarConfirmacionAuto := False;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMCabeceraCAMPANYAChange(Sender: TField);
+begin
+  DMMain.LogIni('DMPedidos.QMCabeceraCAMPANYAChange');
+  with xCampanyas do
+  begin
+     Close;
+     Open;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMCabeceraFORMA_PAGOChange(Sender: TField);
+begin
+  DMMain.LogIni('DMPedidos.QMCabeceraFORMA_PAGOChange');
+  with xFormasPago do
+  begin
+     Close;
+     Open;
+     if xFormasPago.FieldByName('PRONTO_PAGO').AsInteger = 1 then
+        QMCabeceraDTO_PP.AsFloat := xCliente.FieldByName('DESCUENTO_PP').AsFloat
+     else
+        QMCabeceraDTO_PP.AsFloat := 0;
+  end;
+
+  if xFormasPago.FieldByName('HEREDA_FINANCIACION').AsInteger = 1 then
+     QMCabeceraPOR_FINANCIACION.AsFloat :=
+        xCliente.FieldByName('POR_FINANCIACION').AsFloat;
+
+  if (xCliente.FieldByName('TIPO_PORTES').AsInteger = 0) then
+     ActualizaPorteSegunZona;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.TraspasarPedidoActual(TipoDestino: string; CanalDestino: integer = 0; SerieDestino: string = ''; AbrirDocumentoDestino: boolean = True; CopiasImprimir: integer = 0; CerrarFactura: boolean = False; FechaDestino: TDateTime = 0; FechaContabilizacion: TDateTime = 0);
+var
+  id_s, id_s_d, Envio, CantLineas : integer;
+  Rig, Canal, Ejercicio : integer;
+  SerieDst : string;
+  Q : THYFIBQuery;
+  Continuar : boolean;
+begin
+  if (CanalDestino = 0) then
+     CanalDestino := QMCabeceraCANAL.AsInteger;
+
+  if (FechaDestino = 0) then
+     FechaDestino := REntorno.FechaTrab;
+
+  { TODO -oDuilio : Garantias Navarrete. Filtrar comportamiento con KRICONF_XXX }
+  {dji lrk kri}
+  if (QMCabeceraSERIE.AsString = 'RP') then
+     FechaDestino := Now;
+
+  if (FechaContabilizacion = 0) then
+     FechaContabilizacion := FechaDestino;
+
+  id_s := QMCabeceraID_S.AsInteger;
+  Rig := QMCabeceraRIG.AsInteger;
+  Continuar := True;
+
+  // Comprueba si hay linea de pedido con precio 0
+  if (Param_PECPREC002 = 'S') then
+  begin
+     CantLineas := LineasConPrecioCero(id_s);
+     if CantLineas > 0 then
+     begin
+        Continuar := (MessageDlg(format(_('El pedido %d tiene %d linea(s) con precio 0.') + #13#10 + _('¿Desea continuar?'), [Rig, CantLineas]), mtInformation, [mbYes, mbNo], 0) = mrYes);
+     end;
+  end;
+
+  if Continuar then
+  begin
+     // Comprueba si hay linea de pedido con importe menor al del parametro
+     if (Param_PECPREC003 > 0) then
+     begin
+        CantLineas := LineasConPrecioMenorAlMinimo(id_s, Param_PECPREC003);
+        if CantLineas > 0 then
+        begin
+           Continuar := (MessageDlg(format(_('El pedido %d tiene %d linea(s) con precio menor a %f') + #13#10 + _('¿Desea continuar?'), [Rig, CantLineas, Param_PECPREC003]), mtInformation, [mbYes, mbNo], 0) = mrYes);
+        end;
+     end;
+  end;
+
+  if Continuar then
+  begin
+     // Verificamos que la base imponible no sea menor al minimo establecido.
+     // Solo pedidos positivos
+     // Si contiene el artículo Param_PECPREC006 se ignora el minimo. Es el articulo con el recargo por servicio minimo (DELPLA). 
+     if (Param_PECPREC004 > 0) and (QMCabeceraS_BASES.AsFloat > 0) then
+        if (QMCabeceraS_BASES.AsFloat < Param_PECPREC004) then
+           if (Param_PECPREC006 <> '') and (not PedidoContieneArticulo(Param_PECPREC006)) then
+              Continuar := (MessageDlg(format(_('El importe (base imponible) del pedido %d es menor a %f') + #13#10 + _('¿Desea continuar?'), [Rig, Param_PECPREC004]), mtInformation, [mbYes, mbNo], 0) = mrYes);
+  end;
+
+  if Continuar then
+  begin
+     // Comprueba si hay linea de pedido con importe menor al del parametro
+     if (Param_PECPREC005) then
+     begin
+        if ExistePesoCero(id_s) then
+        begin
+           Continuar := (MessageDlg(format(_('Existe algun producto con peso cero en el pedido %d') + #13#10 + _('¿Desea continuar?'), [Rig]), mtInformation, [mbYes, mbNo], 0) = mrYes);
+        end;
+     end;
+  end;
+
+  if Continuar then
+  begin
+     DMMain.LogIni('DMPedidos.TraspasarPedidoActual');
+     with THYFIBQuery.Create(nil) do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           SQL.Add(' EXECUTE PROCEDURE G_TRASPASO_PEDIDO_A_OTRO_MUL ');
+           SQL.Add(' (?EMPRESA, ?EJERCICIO, ?CANAL, ?SERIE, ?TIPO, ?RIG, ?D_TIPO, ');
+           SQL.Add(' ?ENTRADA, ?FECHA, ?D_EJERCICIO, ?D_CANAL, ?D_SERIE, ?ID_S, 0, 0, 0) ');
+           Params.ByName['EMPRESA'].AsInteger := REntorno.Empresa;
+           Params.ByName['EJERCICIO'].AsInteger := QMCabeceraEJERCICIO.AsInteger;
+           Params.ByName['CANAL'].AsInteger := REntorno.Canal;
+           Params.ByName['SERIE'].AsString := QMCabeceraSERIE.AsString;
+           Params.ByName['TIPO'].AsString := 'PEC';
+           Params.ByName['RIG'].AsInteger := Rig;
+           Params.ByName['D_TIPO'].AsString := TipoDestino;
+           Params.ByName['ENTRADA'].AsInteger := REntorno.Entrada;
+           Params.ByName['FECHA'].AsDateTime := FechaDestino;
+           Params.ByName['D_EJERCICIO'].AsInteger := REntorno.Ejercicio;
+           Params.ByName['D_CANAL'].AsInteger := CanalDestino;
+           Params.ByName['D_SERIE'].AsString := SerieDestino;
+
+           Params.ByName['ID_S'].AsInteger := id_s;
+           ExecQuery;
+           id_s_d := FieldByName['ID_S_D'].AsInteger;
+           FreeHandle;
+        finally
+           Free;
+        end;
+     end;
+
+     // Traspasamos el packing list
+     if (PackingListGenerado) then
+     begin
+        with THYFIBQuery.Create(nil) do
+        begin
+           try
+              Close;
+              DataBase := DMMain.DataBase;
+              SQL.Add('EXECUTE PROCEDURE G_PACKING_LIST_TRASPASAR ');
+              SQL.Add('(?EMPRESA, ?EJERCICIO, ?CANAL, ?SERIE, ?TIPO, ?RIG, ');
+              SQL.Add('?D_TIPO, ?D_EJERCICIO, ?D_CANAL, ?D_SERIE, ?ID_S, ?ID_S_D) ');
+              Params.ByName['EMPRESA'].AsInteger := REntorno.Empresa;
+              Params.ByName['EJERCICIO'].AsInteger := QMCabeceraEJERCICIO.AsInteger;
+              Params.ByName['CANAL'].AsInteger := REntorno.Canal;
+              Params.ByName['SERIE'].AsString := QMCabeceraSERIE.AsString;
+              Params.ByName['TIPO'].AsString := 'PEC';
+              Params.ByName['RIG'].AsInteger := QMCabeceraRIG.AsInteger;
+              Params.ByName['D_TIPO'].AsString := TipoDestino;
+              Params.ByName['D_EJERCICIO'].AsInteger := REntorno.Ejercicio;
+              Params.ByName['D_CANAL'].AsInteger := CanalDestino;
+              Params.ByName['D_SERIE'].AsString := SerieDestino;
+              Params.ByName['ID_S'].AsInteger := QMCabeceraID_S.AsInteger;
+              Params.ByName['ID_S_D'].AsInteger := id_s_d;
+              ExecQuery;
+              FreeHandle;
+           finally
+              Free;
+           end;
+        end;
+     end;
+
+     // Buscar datos de documento destino
+     with THYFIBQuery.Create(nil) do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           SQL.Add(' SELECT EJERCICIO, CANAL, SERIE, RIG, ENVIO ');
+           SQL.Add(' FROM GES_CABECERAS_S ');
+           SQL.Add(' WHERE ');
+           SQL.Add(' ID_S = :ID_S ');
+           Params.ByName['ID_S'].AsInteger := id_s_d;
+           ExecQuery;
+           Ejercicio := FieldByName['EJERCICIO'].AsInteger;
+           Canal := FieldByName['CANAL'].AsInteger;
+           SerieDst := FieldByName['SERIE'].AsString;
+           RIG := FieldByName['RIG'].AsInteger;
+           Envio := FieldByName['ENVIO'].AsInteger;
+           FreeHandle;
+        finally
+           Free;
+        end;
+     end;
+
+     if (CerrarFactura and (TipoDestino = 'FAC')) then
+     begin
+        // Si encuentro una factura, la cierro
+        if (RIG <> 0) then
+        begin
+           Q := THYFIBQuery.Create(nil);
+           try
+              with Q do
+              begin
+                 Close;
+                 DataBase := DMMain.DataBase;
+                 SQL.Text :=
+                    'EXECUTE PROCEDURE G_FACTURA_CIERRA2(:EMPRESA, :EJERCICIO, :CANAL, :SERIE, :RIG, :FECHA, :ENTRADA, :ID_S)';
+                 Params.ByName['EMPRESA'].AsInteger := REntorno.Empresa;
+                 Params.ByName['EJERCICIO'].AsInteger := Ejercicio;
+                 Params.ByName['CANAL'].AsInteger := Canal;
+                 Params.ByName['SERIE'].AsString := SerieDst;
+                 Params.ByName['RIG'].AsInteger := RIG;
+                 Params.ByName['FECHA'].AsDateTime := FechaContabilizacion;
+                 Params.ByName['ENTRADA'].AsInteger := REntorno.Entrada;
+                 Params.ByName['ID_S'].AsInteger := id_s_d;
+                 TFParada.Create(Self).ExecQuery(Q);
+                 FreeHandle;
+              end;
+           finally
+              FreeAndNil(Q);
+           end;
+        end;
+     end;
+
+     // Mediante ID_S_D averiguar ENVIO.
+     {$IFNDEF TPV}
+     if ((TipoDestino = 'ALB') or ((TipoDestino = 'FAC') and (QMCabeceraFORMA_PAGO.AsString = 'RMB'))) then
+     begin
+        if (Envio > 0) then
+        begin
+           AbreData(TDMEnvio, DMEnvio);
+           DMEnvio.ExportarATexto(Envio);
+           CierraData(DMEnvio);
+        end;
+     end;
+     {$ENDIF}
+
+     // Imprimir el documento generado
+     if (CopiasImprimir <> 0) then
+     begin
+        if (TipoDestino = 'ALB') then
+        begin
+           try
+              AbreData(TDMLstAlbaranes, DMLstAlbaranes);
+              try
+                 REntorno.Copias := CopiasImprimir;
+
+                 DMLstAlbaranes.MostrarListado(id_s_d,
+                    Rig,
+                    SerieDst,
+                    1,
+                    1,
+                    Ejercicio,
+                    (LeeParametro('ALBLSTM001') = 'S'));
+              finally
+                 CierraData(DMLstAlbaranes);
+              end;
+           except
+              on E: Exception do
+              begin
+                 ShowMessage(_('Ha habido un problema al imprimir el documento.') + #13#10 + E.Message);
+
+                 if (REntorno.Ejercicio >= QMCabeceraEJERCICIO.AsInteger) then
+                    AbreDocumentos(id_s_d, TipoDestino, QMCabeceraSERIE.AsString);
+              end;
+           end;
+        end
+        else
+        if (TipoDestino = 'FAC') then
+        begin
+           try
+              AbreData(TDMLstFactura, DMLstFactura);
+              try
+                 REntorno.Copias := CopiasImprimir;
+
+                 DMLstFactura.MostrarListado(id_s_d,
+                    Rig,
+                    SerieDst,
+                    1,
+                    1,
+                    Ejercicio,
+                    (LeeParametro('FACLSTM001') = 'S'));
+              finally
+                 CierraData(DMLstFactura);
+              end;
+           except
+              on E: Exception do
+              begin
+                 ShowMessage(_('Ha habido un problema al imprimir el documento.') + #13#10 + E.Message);
+
+                 if (REntorno.Ejercicio >= QMCabeceraEJERCICIO.AsInteger) then
+                    AbreDocumentos(id_s_d, TipoDestino, QMCabeceraSERIE.AsString);
+              end;
+           end;
+        end;
+     end;
+
+     ReiniciaStock;
+
+     if (REntorno.Ejercicio >= QMCabeceraEJERCICIO.AsInteger) then
+     begin
+        QMCabecera.Refresh;
+        if (AbrirDocumentoDestino) then
+           AbreDocumentos(id_s_d, TipoDestino, QMCabeceraSERIE.AsString);
+     end
+     else
+     begin
+        QMCabecera.Close;
+        QMCabecera.Open;
+     end;
+  end;
+
+  DMMain.LogFin('');
+end;
+
+function TDMPedidos.BusquedaCompleja: integer;
+begin
+  DMMain.LogIni('DMPedidos.BusquedaCompleja');
+
+  with QMCabecera do
+  begin
+     Result := TFBusca.Create(Self).SeleccionaBusqueda(QMCabecera, '10110', False, Serie);
+
+     if (Result = mrAll) then
+     begin
+        Close;
+        SelectSQL.Text := SQLBase;
+        SelectSQL.Add(' ORDER BY EJERCICIO, RIG ');
+        DMMain.FiltraTabla(QMCabecera, '11100', False);
+        CambiaSerie(Serie);
+     end
+     else
+     begin
+        if (LeeParametro('DOCFILT001', Serie) = 'S') then
+           Ordenar('EJERCICIO, RIG');
+        Open;
+     end;
+
+     // Después de buscar voy al último registro
+     Last;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.Duplica(Relaciona: integer);
+var
+  IdDocDestino : integer;
+  RiesgoPendiente : double;
+  RiesgoAut, RiesgoAct, RiesgoPed : double;
+  Duplica : boolean;
+begin
+  DMMain.LogIni('DMPedidos.Duplica');
+  Duplica := True;
+  {Que chequee el riesgo en pedidos.}
+  if (LeeParametro('PECCORI001', Serie) = 'S') then
+  begin
+     RiesgoPed := DMMain.DameRiesgoPedido(QMCabeceraCliente.AsInteger);
+
+     with THYFIBQuery.Create(nil) do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           SQL.Add(' SELECT RIESGO_AUT, RIESGO_ACT ');
+           SQL.Add(' FROM EMP_CLIENTES ');
+           SQL.Add(' WHERE ');
+           SQL.Add(' EMPRESA = :EMPRESA AND ');
+           SQL.Add(' CLIENTE = :CLIENTE ');
+           Params.ByName['EMPRESA'].AsInteger := QMCabeceraEMPRESA.AsInteger;
+           Params.ByName['CLIENTE'].AsInteger := QMCabeceraCLIENTE.AsInteger;
+           ExecQuery;
+           RiesgoAut := FieldByName['RIESGO_AUT'].AsFloat;
+           RiesgoAct := FieldByName['RIESGO_ACT'].AsFloat;
+           FreeHandle;
+        finally
+           Free;
+        end;
+     end;
+     RiesgoPendiente := RiesgoAut - RiesgoAct - RiesgoPed;
+     if (RiesgoPendiente < xInfoActualizadaLIQUIDO.AsFloat) then
+     begin
+        if (xCliente.FieldByName('NO_VENTA_RIESGO').AsInteger = 1) then
+           Duplica := False;
+
+        MessageDlg(Format(_('El Riesgo Autorizado para el Cliente se ha superado.' + #13#10 + #13#10 +
+           'Riesgo Autorizado: %s' + #13#10 +
+           'Riesgo Actual: %s'),
+           [FormatFloat(MascaraN, RiesgoAut), FormatFloat(MascaraN, RiesgoAct + RiesgoPed)]),
+           mtInformation, [mbOK], 0);
+     end;
+  end;
+
+  if (Duplica) then {dji lrk kri}
+  begin
+     with THYFIBQuery.Create(nil) do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           SQL.Add(' EXECUTE PROCEDURE G_DOC_S_DUPLICA(:EMPRESA, :EJERCICIO, :CANAL, :SERIE, ''PEC'', :RIG, ');
+           SQL.Add(' :ENTRADA, :D_EJERCICIO, :FECHA, :NREFERENCIA, :ID_S, :RELACIONA, :TIPO_DOC_TRIBUTARIO_DESTINO) ');
+           Params.ByName['EMPRESA'].AsInteger := QMCabeceraEMPRESA.AsInteger;
+           Params.ByName['EJERCICIO'].AsInteger := QMCabeceraEJERCICIO.AsInteger;
+           Params.ByName['CANAL'].AsInteger := QMCabeceraCANAL.AsInteger;
+           Params.ByName['SERIE'].AsString := QMCabeceraSERIE.AsString;
+           Params.ByName['RIG'].AsInteger := QMCabeceraRIG.AsInteger;
+           Params.ByName['ENTRADA'].AsInteger := REntorno.Entrada;
+           // Obtenemos el ejercicio desde la fecha
+           Params.ByName['D_EJERCICIO'].AsInteger := DameEjercicio(QMCabeceraEMPRESA.AsInteger, REntorno.FechaTrab);
+           Params.ByName['FECHA'].AsDateTime := REntorno.FechaTrab;
+           Params.ByName['NREFERENCIA'].AsString := '';
+           Params.ByName['ID_S'].AsInteger := QMCabeceraID_S.AsInteger;
+           Params.ByName['RELACIONA'].AsInteger := Relaciona;
+           Params.ByName['TIPO_DOC_TRIBUTARIO_DESTINO'].AsString := ''; // Para generar un DTE en Chile
+           ExecQuery;
+           IdDocDestino := FieldByName['ID_S_DESTINO'].AsInteger;
+           FreeHandle;
+        finally
+           Free;
+        end;
+     end;
+
+     QMCabecera.Close;
+     QMCabecera.SelectSQL.Text := SQLBase;
+     QMCabecera.SelectSQL.Add(' ORDER BY EJERCICIO, RIG ');
+     DMMain.FiltraTabla(QMCabecera, '11100', False);
+     CambiaSerie(Serie);
+     Refrescar(QMCabecera, 'ID_S', IdDocDestino);
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.CambiaEstadoDocumento(Estado: integer);
+begin
+  DMMain.LogIni('DMPedidos.CambiaEstadoDocumento');
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Text := 'UPDATE GES_CABECERAS_S SET ESTADO = :ESTADO WHERE ID_S = :ID_S';
+        Params.ByName['ESTADO'].AsInteger := Estado;
+        Params.ByName['ID_S'].AsInteger := QMCabeceraID_S.AsInteger;
+        ExecQuery;
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+
+  QMCabecera.Refresh;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.AbrePedido;
+begin
+  DMMain.LogIni('DMPedidos.AbrePedido');
+  CambiaEstadoDocumento(0);
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.CierraPedido;
+begin
+  DMMain.LogIni('DMPedidos.CierraPedido');
+  CambiaEstadoDocumento(5);
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.ActualizaCondicionesCli(CrearCondicionModelo: boolean);
+begin
+  DMMain.LogIni('DMPedidos.ActualizaCondicionesCli');
+  // Actualiza las condiciones Cliente-Articulo de TODOS los articulos del documento
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Add(' EXECUTE PROCEDURE UT_ACTUALIZA_CONDICIONES_CLI ');
+        SQL.Add(' (:ID_S, :CREAR_CONDICION_MODELO) ');
+        Params.ByName['ID_S'].AsInteger := QMCabeceraID_S.AsInteger;
+        Params.ByName['CREAR_CONDICION_MODELO'].AsInteger := BoolToInt(CrearCondicionModelo);
+        ExecQuery;
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMCabeceraPostError(DataSet: TDataSet; E: EDatabaseError; var Action: TDataAction);
+begin
+  DMMain.LogIni('DMPedidos.QMCabeceraPostError - ' + DataSet.Name);
+  DMMain.Log(format('DataSet: %s', [DataSet.Name]));
+  DMMain.Log(format('Error: %s', [E.Message]));
+
+  if QMCabecera.State = dsInsert then
+  begin
+     QMCabeceraRIG.Clear;
+     // DMMain.TContador.Rollback;
+  end;
+
+  EnviarConfirmacion := False;
+  EnviarConfirmacionAuto := False;
+
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMCabeceraAfterPost(DataSet: TDataSet);
+begin
+  DMMain.LogIni('DMPedidos.QMCabeceraAfterPost - ' + DataSet.Name);
+  {
+  dji lrk kri - No recalculo precios si cambia la moneda o la fecha
+
+  if (monedaold <> QMCabeceraMONEDA.AsString) then CambiaMonedaDetalle;
+  if RecalculaPrecios then
+    CambiaMonedaFecha;
+  }
+  if RecalculaTarifa then
+  begin
+     CambiaTarifaVentas(QMCabeceraID_S.AsInteger, QMCabeceraTARIFA.AsString, Tarifa_old);
+     QMCabecera.Refresh;
+  end;
+
+  {dji lrk kri - Divisiones IberFluid}
+  if (DMMain.EstadoKri(155) = 1) then
+     PideDivisiones(True);
+
+  if (QMCabeceraLISTO_PARA_PREPARAR.AsInteger <> ListoParaPreparar_old) and (QMCabeceraLISTO_PARA_PREPARAR.AsInteger = 1) then
+  begin
+     EnviarConfirmacion := True;
+     EnviarConfirmacionAuto := (xCliente.FieldByName('ENVIAR_CONFIRMACION_PEDIDO').AsInteger = 1);
+  end;
+
+  DMMain.LogFin('');
+end;
+
+function TDMPedidos.ClienteTieneEmail: boolean;
+begin
+  DMMain.LogIni('DMPedidos.ClienteTieneEmail');
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        if (QMCabeceraCLIENTE.AsInteger < 0) then
+        begin
+           // Cliente varios: el e-mail se introduce con los datos fiscales del documento
+           SQL.Text := 'SELECT COUNT(*) AS N FROM GES_CABECERAS_S_FAC_NIF WHERE ID_S=?ID_S AND EMAIL > ''''';
+           Params.ByName['ID_S'].AsInteger := QMCabeceraID_S.AsInteger;
+        end
+        else
+        begin
+           SQL.Text := 'SELECT COUNT(*) AS N FROM L_DAME_EMAIL_TERCERO_TIPO(?TERCERO, ''ALL'') WHERE EMAIL > ''''';
+           Params.ByName['TERCERO'].AsInteger := xCliente.FieldByName('TERCERO').AsInteger;
+        end;
+        ExecQuery;
+        Result := (FieldByName['N'].AsInteger > 0);
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.CambiaSerie(SerieVar: string);
+begin
+  DMMain.LogIni('DMPedidos.CambiaSerie');
+  Serie := SerieVar;
+
+  AlmacenStock := LeeParametro('PECSTKA001', Serie);
+  if (AlmacenStock = '') then
+     AlmacenStock := 'NOCALC';
+  if (AlmacenStock <> 'NOCALC') then
+     AlmacenStock := Copy(AlmacenStock, 1, 3);
+
+  AlmacenStock2 := LeeParametro('PECSTKA002', Serie);
+  if (AlmacenStock2 = '') then
+     AlmacenStock2 := 'NOCALC';
+  if (AlmacenStock2 <> 'NOCALC') then
+     AlmacenStock2 := Copy(AlmacenStock2, 1, 3);
+
+  AlmacenStock3 := LeeParametro('PECSTKA003', Serie);
+  if (AlmacenStock3 = '') then
+     AlmacenStock3 := 'NOCALC';
+  if (AlmacenStock3 <> 'NOCALC') then
+     AlmacenStock3 := Copy(AlmacenStock3, 1, 3);
+
+  AlmacenStockV := LeeParametro('PECSTKV001', Serie);
+  if (AlmacenStockV = '') then
+     AlmacenStockV := 'NOCALC';
+  if (AlmacenStockV <> 'NOCALC') then
+     AlmacenStockV := Copy(AlmacenStockV, 1, 3);
+
+  AlmacenStockV2 := LeeParametro('PECSTKV002', Serie);
+  if (AlmacenStockV2 = '') then
+     AlmacenStockV2 := 'NOCALC';
+  if (AlmacenStockV2 <> 'NOCALC') then
+     AlmacenStockV2 := Copy(AlmacenStockV2, 1, 3);
+
+  AlmacenStockV3 := LeeParametro('PECSTKV003', Serie);
+  if (AlmacenStockV3 = '') then
+     AlmacenStockV3 := 'NOCALC';
+  if (AlmacenStockV3 <> 'NOCALC') then
+     AlmacenStockV3 := Copy(AlmacenStockV3, 1, 3);
+
+  AlmacenStockR := LeeParametro('PECSTKR001', Serie);
+  if (AlmacenStockR = '') then
+     AlmacenStockR := 'NOCALC';
+  if (AlmacenStockR <> 'NOCALC') then
+     AlmacenStockR := Copy(AlmacenStockR, 1, 3);
+
+  AlmacenStockR2 := LeeParametro('PECSTKR002', Serie);
+  if (AlmacenStockR2 = '') then
+     AlmacenStockR2 := 'NOCALC';
+  if (AlmacenStockR2 <> 'NOCALC') then
+     AlmacenStockR2 := Copy(AlmacenStockR2, 1, 3);
+
+  AlmacenStockR3 := LeeParametro('PECSTKR003', Serie);
+  if (AlmacenStockR3 = '') then
+     AlmacenStockR3 := 'NOCALC';
+  if (AlmacenStockR3 <> 'NOCALC') then
+     AlmacenStockR3 := Copy(AlmacenStockR3, 1, 3);
+
+  AlmacenStockM := LeeParametro('PECSTKM002', Serie);
+  if (AlmacenStockM = '') then
+     AlmacenStockM := 'NOCALC';
+  if (AlmacenStockM <> 'NOCALC') then
+     AlmacenStockM := Copy(AlmacenStockM, 1, 3);
+
+  AlmacenStockM2 := LeeParametro('PECSTKM003', Serie);
+  if (AlmacenStockM2 = '') then
+     AlmacenStockM2 := 'NOCALC';
+  if (AlmacenStockM2 <> 'NOCALC') then
+     AlmacenStockM2 := Copy(AlmacenStockM2, 1, 3);
+
+  AlmacenStockM3 := LeeParametro('PECSTKM004', Serie);
+  if (AlmacenStockM3 = '') then
+     AlmacenStockM3 := 'NOCALC';
+  if (AlmacenStockM3 <> 'NOCALC') then
+     AlmacenStockM3 := Copy(AlmacenStockM3, 1, 3);
+
+  AlmacenStockActual := (LeeParametro('PECSTKA000', Serie) = 'S');
+  AlmacenStockVirtual := (LeeParametro('PECSTKV009', Serie) = 'S');
+  AlmacenStockReal := (LeeParametro('PECSTKR009', Serie) = 'S');
+  AlmacenStockMontura := (LeeParametro('PECSTKM001', Serie) = 'S');
+  AlmacenStockRefBase := (LeeParametro('PECSTKB001', Serie) = 'S');
+
+  Param_MODREST019 := (LeeParametro('MODREST019', Serie) = 'S');
+  Param_MODREST006 := (LeeParametro('MODREST006', Serie) = 'S');
+  Param_MODREST015 := (LeeParametro('MODREST015', Serie) = 'S');
+  Param_SYSCONF005 := StrToIntDef(LeeParametro('SYSCONF005', Serie), 0);
+  Param_DOCREFE002 := (LeeParametro('DOCREFE002', Serie) = 'S');
+  Param_CLIREFE001 := (LeeParametro('CLIREFE001', Serie) = 'S');
+  Param_VENULKG001 := (LeeParametro('VENULKG001', Serie) = 'S');
+  Param_DOCPREC002 := (LeeParametro('DOCPREC002', Serie) = 'S');
+  Param_DOCPREC003 := (LeeParametro('DOCPREC003', Serie) = 'S');
+  Param_VENARTU001 := (LeeParametro('VENARTU001', Serie) = 'S');
+  Param_MOVSTKC001 := StrToIntDef(LeeParametro('MOVSTKC001', Serie), 0);
+  Param_VENPREC001 := (LeeParametro('VENPREC001', Serie) = 'S');
+  param_VENPREC002 := (LeeParametro('VENPREC002', Serie) = 'S');
+  param_VENUSEC001 := (LeeParametro('VENUSEC001', Serie) = 'S');
+  Param_PECLSIM001 := (LeeParametro('PECLSIM001', Serie) = 'S');
+  param_DOCDESC001 := StrToFloatDef(LeeParametro('DOCDESC001', Serie), -1);
+  param_PECNOST001 := (LeeParametro('PECNOST001', Serie) = 'S');
+  param_VENCONT001 := (LeeParametro('VENCONT001', Serie) = 'S');
+  Param_PECPREC002 := LeeParametro('PECPREC002', Serie);
+  Param_PECPREC003 := StrToFloatDef(LeeParametro('PECPREC003', Serie), 0);
+  Param_PECPREC004 := StrToFloatDef(LeeParametro('PECPREC004', Serie), 0);
+  Param_PECPREC005 := (LeeParametro('PECPREC005', Serie) = 'S');
+  Param_PECPREC006 := Trim(LeeParametro('PECPREC006', Serie));
+  param_PECVALI001 := StrToIntDef(LeeParametro('PECVALI001', Serie), 0);
+
+  QMCabeceraDTO_CIAL.ReadOnly := (LeeParametro('VENREST001', Serie) = 'S');
+  if (LeeParametro('VENREST002', Serie) = 'S') then
+  begin
+     QMDetalleDESCUENTO.ReadOnly := True;
+     QMDetalleDESCUENTO_2.ReadOnly := True;
+     QMDetalleDESCUENTO_3.ReadOnly := True;
+  end;
+
+  with QMCabecera do
+  begin
+     if (not Transaction.InTransaction) then
+        Transaction.StartTransaction;
+
+     Close;
+     Params.ByName['SERIE'].AsString := Serie;
+     Open;
+
+     if (LeeParametro('PECULTD001', Serie) = 'S') then
+        Last;
+  end;
+
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.PreparaNotasDetalle;
+begin
+  DMMain.LogIni('DMPedidos.PreparaNotasDetalle');
+  if (QMDetalle.State in [dsEdit, dsInsert]) then
+     QMDetalle.Post;
+  if (QMCabeceraESTADO.AsInteger = 0) then
+     QMDetalle.Edit;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.RefrescaTarifa;
+begin
+  DMMain.LogIni('DMPedidos.RefrescaTarifa');
+  with xCliente do
+  begin
+     Close;
+     Open;
+     EntornoDoc.Tarifa := QMCabeceraTARIFA.AsString;
+     EntornoDoc.Cliente := QMCabeceraCLIENTE.AsInteger;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.RefrescaDetalle;
+begin
+  DMMain.LogIni('DMPedidos.RefrescaDetalle');
+  if (QMCabecera.RecordCount <> 0) then
+  begin
+     RefrescaTarifa;
+
+     with THYFIBQuery.Create(nil) do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           SQL.Text := 'EXECUTE PROCEDURE UT_REFRESCA_DETALLE_S(:EMPRESA, :EJERCICIO, :CANAL, :SERIE, :TIPO, :RIG, :CLIENTE, :TARIFA, :FECHA, :MONEDA)';
+           Params.ByName['EMPRESA'].AsInteger := QMCabeceraEMPRESA.AsInteger;
+           Params.ByName['EJERCICIO'].AsInteger := QMCabeceraEJERCICIO.AsInteger;
+           Params.ByName['CANAL'].AsInteger := QMCabeceraCANAL.AsInteger;
+           Params.ByName['SERIE'].AsString := QMCabeceraSERIE.AsString;
+           Params.ByName['TIPO'].AsString := 'PEC';
+           Params.ByName['RIG'].AsInteger := QMCabeceraRIG.AsInteger;
+           Params.ByName['CLIENTE'].AsInteger := QMCabeceraCLIENTE.AsInteger;
+           Params.ByName['TARIFA'].AsString := EntornoDoc.Tarifa;
+           Params.ByName['FECHA'].AsDateTime := REntorno.FechaTrab;
+           Params.ByName['MONEDA'].AsString := QMCabeceraMONEDA.AsString;
+           ExecQuery;
+           FreeHandle;
+        finally
+           Free;
+        end;
+     end;
+
+     QMCabecera.Refresh;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.CambiaUnidadesExt(Articulo: TField; Modo, Mostrar: boolean);
+var
+  Tarifa : string;
+  Estado, Cliente : integer;
+  Unidades, Precio, UnidadesExt_Old : double;
+  Articulo_Old : string;
+  ForzarPrecio : boolean;
+begin
+  Estado := 2;
+  if ((QMCabeceraESTADO.AsInteger <> 5) and (not Traspasado)) then
+     if not (QMDetalle.State in [dsEdit, dsInsert]) and Modo then
+        QMDetalle.Edit;
+
+  Precio := 0;
+
+  // Articulo_Old := xArticulos.FieldByName('ARTICULO').AsString;
+  // UnidadesExt_Old := QMDetalleUNIDADES_EXT.AsFloat;
+
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Add(' SELECT ARTICULO, UNIDADES_EXT FROM GES_DETALLES_S ');
+        SQL.Add(' WHERE ');
+        SQL.Add(' ID_DETALLES_S = :ID_DETALLES_S ');
+        Params.ByName['ID_DETALLES_S'].AsInteger := QMDetalleID_DETALLES_S.AsInteger;
+        ExecQuery;
+        Articulo_Old := FieldByName['ARTICULO'].AsString;
+        UnidadesExt_Old := FieldByName['UNIDADES_EXT'].AsFloat;
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+
+  with xArticulos do
+  begin
+     Close;
+     Open;
+     QMDetalleID_A.AsInteger := FieldByName('ID_A').AsInteger;
+     if (Articulo.AsString <> Articulo_Old) then
+     begin
+        QMDetalleUNIDADES_SEC.AsFloat := FieldByName('DEFECTO_UD_SECUNDARIA').AsFloat;
+        // QMDetalleUNIDADES_SEC.AsFloat := QMDetalleUNIDADES.AsFloat * QMDetalleUNIDADES_SEC.AsFloat;
+     end;
+
+     if (FieldByName('CONTROLA_MEDIDAS').AsInteger <> 0) then
+     begin
+        Cliente := EntornoDoc.Cliente;
+        Tarifa := EntornoDoc.Tarifa;
+
+        if (QMDetalle.State = dsInsert) then
+           Estado := 0
+        else
+        if (QMDetalle.State = dsEdit) then
+        begin
+           if (Articulo_Old <> xArticulos.FieldByName('ARTICULO').AsString) then
+           begin
+              with THYFIBQuery.Create(nil) do
+              begin
+                 try
+                    Close;
+                    DataBase := DMMain.DataBase;
+                    SQL.Add(' DELETE FROM GES_DETALLES_S_UE ');
+                    SQL.Add(' WHERE ');
+                    SQL.Add(' EMPRESA = :EMPRESA AND ');
+                    SQL.Add(' EJERCICIO = :EJERCICIO AND ');
+                    SQL.Add(' CANAL = :CANAL AND ');
+                    SQL.Add(' SERIE = :SERIE AND ');
+                    SQL.Add(' TIPO = :TIPO AND ');
+                    SQL.Add(' RIG = :RIG AND ');
+                    SQL.Add(' LINEA = :LINEA ');
+                    Params.ByName['EMPRESA'].AsInteger := QMDetalleEMPRESA.AsInteger;
+                    Params.ByName['EJERCICIO'].AsInteger := QMDetalleEJERCICIO.AsInteger;
+                    Params.ByName['CANAL'].AsInteger := QMDetalleCANAL.AsInteger;
+                    Params.ByName['SERIE'].AsString := QMDetalleSERIE.AsString;
+                    Params.ByName['TIPO'].AsString := QMDetalleTIPO.AsString;
+                    Params.ByName['RIG'].AsInteger := QMDetalleRIG.AsInteger;
+                    Params.ByName['LINEA'].AsInteger := QMDetalleLINEA.AsInteger;
+                    ExecQuery;
+                    FreeHandle;
+                 finally
+                    Free;
+                 end;
+              end;
+              Estado := 0;
+           end
+           else
+           begin
+              Estado := 1;
+              with THYFIBQuery.Create(nil) do
+              begin
+                 try
+                    Close;
+                    DataBase := DMMain.DataBase;
+                    SQL.Add(' SELECT * FROM GES_DETALLES_S_UE ');
+                    SQL.Add(' WHERE ');
+                    SQL.Add(' EMPRESA = :EMPRESA AND ');
+                    SQL.Add(' EJERCICIO = :EJERCICIO AND ');
+                    SQL.Add(' CANAL = :CANAL AND ');
+                    SQL.Add(' SERIE = :SERIE AND ');
+                    SQL.Add(' TIPO = :TIPO AND ');
+                    SQL.Add(' RIG = :RIG AND ');
+                    SQL.Add(' LINEA = :LINEA ');
+                    Params.ByName['EMPRESA'].AsInteger := QMDetalleEMPRESA.AsInteger;
+                    Params.ByName['EJERCICIO'].AsInteger := QMDetalleEJERCICIO.AsInteger;
+                    Params.ByName['CANAL'].AsInteger := QMDetalleCANAL.AsInteger;
+                    Params.ByName['SERIE'].AsString := QMDetalleSERIE.AsString;
+                    Params.ByName['TIPO'].AsString := QMDetalleTIPO.AsString;
+                    Params.ByName['RIG'].AsInteger := QMDetalleRIG.AsInteger;
+                    Params.ByName['LINEA'].AsInteger := QMDetalleLINEA.AsInteger;
+                    ExecQuery;
+                    Medida1 := FieldByName['MEDIDA1'].AsFloat;
+                    Medida2 := FieldByName['MEDIDA2'].AsFloat;
+                    Medida3 := FieldByName['MEDIDA3'].AsFloat;
+                    Medida4 := FieldByName['MEDIDA4'].AsFloat;
+                    gPrecio := FieldByName['PRECIO'].AsFloat;
+                    gUnidades := FieldByName['UNIDADES'].AsInteger;
+                    FreeHandle;
+                 finally
+                    Free;
+                 end;
+              end;
+           end;
+        end
+        else
+           Estado := 2;
+
+        Unidades := DevuelveValor(xArticulos, Self, QMDetalleEMPRESA.AsInteger,
+           QMDetalleEJERCICIO.AsInteger, QMDetalleCANAL.AsInteger, QMDetalleSERIE.AsString, QMDetalleTIPO.AsString,
+           QMDetalleRIG.AsInteger, QMDetalleLINEA.AsInteger, QMDetalleTIPO_LINEA.AsString, QMDetalleID_P.AsInteger,
+           Estado, Precio, Tarifa, QMDetalleARTICULO.AsString, Cliente,
+           QMDetalleID_A.AsInteger, QMCabeceraMONEDA.AsString, QMCabeceraVALOR_CAMB_FIJO.AsFloat, Mostrar);
+
+        if (Estado <> 2) then
+           QMDetalleUNIDADES_EXT.AsFloat := Unidades;
+        if QMDetalleUNIDADES_EXT.AsFloat = 0 then
+           QMDetalleUNIDADES_EXT.AsFloat := 1;
+
+        // Si se cancela la asignacion de unidades extendidas se cancela la edicion de la linea de detalle
+        if (Estado in [1, 2]) then
+        begin
+           QMDetalle.Cancel;
+           Exit;
+        end;
+     end
+     else
+     begin
+        QMDetalleUNIDADES_EXT.AsFloat := 0;
+        if Modo then
+        begin
+           QMDetalle.Cancel;
+           Exit;
+        end;
+     end;
+  end;
+
+  Precio := DMMain.DameCambio(False, QMCabeceraMONEDA.AsString, REntorno.Moneda, QMCabeceraFECHA.AsDateTime, Precio);
+
+  // Si cambia el articulo o las unidades extendidas o el precio calculado segun unidades extendidas.
+  ForzarPrecio := ((QMDetalle.State = dsInsert) or (xArticulos.FieldByName('ARTICULO').AsString <> Articulo_Old) or
+     (QMDetalleUNIDADES_EXT.AsFloat <> UnidadesExt_Old) or (Precio <> gPrecio));
+  EstaleceCondiciones(Articulo, Precio, ForzarPrecio);
+
+  CalculaComisionKRI20;
+end;
+
+procedure TDMPedidos.CambiaPreciosTarifa;
+var
+  bueno, Abierto : boolean;
+  valor : double;
+begin
+  DMMain.LogIni('DMPedidos.CambiaPreciosTarifa');
+  if (QMCabeceraESTADO.AsInteger <> 5) then
+  begin
+     if not (QMDetalle.State in [dsEdit, dsInsert]) then
+        QMDetalle.Edit;
+     Abierto := True;
+  end
+  else
+     Abierto := False;
+
+  valor := DevuelvePrecio(1, QMDetalleARTICULO.AsString, QMDetalleALMACEN.AsString, bueno,
+     QMCabeceraMONEDA.AsString, QMCabeceraFECHA.AsDateTime,
+     QMDetalleID_A.AsInteger);
+  if (bueno and Abierto) then
+     QMDetallePRECIO.AsFloat := valor;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.DatosStocks(var Articulo, Almacen: string);
+begin
+  DMMain.LogIni('DMPedidos.DatosStocks');
+  Articulo := QMDetalleARTICULO.AsString;
+  Almacen := QMCabeceraALMACEN.AsString;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.Historico;
+begin
+  DMMain.LogIni('DMPedidos.Historico');
+  if QMDetalleArticulo.AsString <> '' then
+  begin
+     FInfoHistorico := TFInfoHistorico.Create(Self);
+     FInfoHistorico.Mostrar(QMCabeceraSERIE.AsString,
+        QMDetalleARTICULO.AsString, QMCabeceraCLIENTE.AsInteger, 0);
+     FInfoHistorico.Free;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.BorraLineaUnidadesExt;
+begin
+  DMMain.LogIni('DMPedidos.BorraLineaUnidadesExt');
+  if QMDetalle.State = dsInsert then
+  begin
+     with THYFIBQuery.Create(nil) do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           SQL.Add(' DELETE FROM GES_DETALLES_S_UE ');
+           SQL.Add(' WHERE ');
+           SQL.Add(' EMPRESA = :EMPRESA AND ');
+           SQL.Add(' EJERCICIO = :EJERCICIO AND ');
+           SQL.Add(' CANAL = :CANAL AND ');
+           SQL.Add(' SERIE = :SERIE AND ');
+           SQL.Add(' TIPO = :TIPO AND ');
+           SQL.Add(' RIG = :RIG AND ');
+           SQL.Add(' LINEA = :LINEA ');
+           Params.ByName['EMPRESA'].AsInteger := QMCabeceraEMPRESA.AsInteger;
+           Params.ByName['EJERCICIO'].AsInteger := QMCabeceraEJERCICIO.AsInteger;
+           Params.ByName['CANAL'].AsInteger := QMCabeceraCANAL.AsInteger;
+           Params.ByName['SERIE'].AsString := QMCabeceraSERIE.AsString;
+           Params.ByName['TIPO'].AsString := QMCabeceraTIPO.AsString;
+           Params.ByName['RIG'].AsInteger := QMCabeceraRIG.AsInteger;
+           Params.ByName['LINEA'].AsInteger := QMDetalleLINEA.AsInteger;
+           ExecQuery;
+           FreeHandle;
+        finally
+           Free;
+        end;
+     end;
+  end
+  else
+  begin
+     if QMDetalle.State = dsEdit then
+     begin
+        with THYFIBQuery.Create(nil) do
+        begin
+           try
+              Close;
+              DataBase := DMMain.DataBase;
+              SQL.Add(' UPDATE GES_DETALLES_S_UE ');
+              SQL.Add(' SET ');
+              SQL.Add(' UNIDADES = :UNIDADES, ');
+              SQL.Add(' MEDIDA1 = :MEDIDA1, ');
+              SQL.Add(' MEDIDA2 = :MEDIDA2, ');
+              SQL.Add(' MEDIDA3 = :MEDIDA3, ');
+              SQL.Add(' MEDIDA4 = :MEDIDA4, ');
+              SQL.Add(' PRECIO = :PRECIO ');
+              SQL.Add(' WHERE ');
+              SQL.Add(' LINEA = :LINEA AND ');
+              SQL.Add(' RIG = :RIG AND ');
+              SQL.Add(' TIPO = :TIPO AND ');
+              SQL.Add(' SERIE = :SERIE AND ');
+              SQL.Add(' CANAL = :CANAL AND ');
+              SQL.Add(' EJERCICIO = :EJERCICIO AND ');
+              SQL.Add(' EMPRESA = :EMPRESA ');
+              Params.ByName['EMPRESA'].AsInteger := QMCabeceraEMPRESA.AsInteger;
+              Params.ByName['EJERCICIO'].AsInteger := QMCabeceraEJERCICIO.AsInteger;
+              Params.ByName['CANAL'].AsInteger := QMCabeceraCANAL.AsInteger;
+              Params.ByName['SERIE'].AsString := QMCabeceraSERIE.AsString;
+              Params.ByName['TIPO'].AsString := QMCabeceraTIPO.AsString;
+              Params.ByName['RIG'].AsInteger := QMCabeceraRIG.AsInteger;
+              Params.ByName['LINEA'].AsInteger := QMDetalleLINEA.AsInteger;
+              Params.ByName['UNIDADES'].AsInteger := gUnidades;
+              Params.ByName['MEDIDA1'].AsFloat := Medida1;
+              Params.ByName['MEDIDA2'].AsFloat := Medida2;
+              Params.ByName['MEDIDA3'].AsFloat := Medida3;
+              Params.ByName['MEDIDA4'].AsFloat := Medida4;
+              Params.ByName['PRECIO'].AsFloat := gPrecio;
+              ExecQuery;
+              FreeHandle;
+           finally
+              Free;
+           end;
+        end;
+     end;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.DatosHerencia(var rig, Ejercicio: integer; var tipo, su_referencia, titulo, Serie: string);
+begin
+  DMMain.LogIni('DMPedidos.DatosHerencia');
+  Rig := QMCabeceraRIG.AsInteger;
+  Tipo := QMCabeceraTIPO.AsString;
+  {dji lrk kri}
+  Su_Referencia := QMCabeceraSU_REFERENCIA.AsString;
+  if (Su_Referencia < ' ') then
+     Su_Referencia := QMCabeceraRIG.AsString + '/' +
+        Copy(IntToStr(QMCabeceraEJERCICIO.AsInteger), 3, 2) + '/' + QMCabeceraSERIE.AsString;
+  Serie := QMCabeceraSERIE.AsString;
+  Titulo := xCliente.FieldByName('TITULO').AsString;
+  Ejercicio := QMCabeceraEJERCICIO.AsInteger;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.EstaleceCondiciones(Articulo: TField; Precio: double; Forzar: boolean = False);
+var
+  Modo : integer;
+begin
+  DMMain.LogIni('DMPedidos.EstaleceCondiciones');
+  if (Param_DOCPREC002 and (QMDetalleALMACEN.AsString = '000')) then
+  begin
+     with THYFIBQuery.Create(nil) do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           SQL.Add(' SELECT PRECIO_VENTA, PRECIO_COSTE ');
+           SQL.Add(' FROM A_ART_DAME_PRECIOS_TARIFA(:EMPRESA, :TARIFA, :ARTICULO, :UNIDADES) ');
+           Params.ByName['EMPRESA'].AsInteger := REntorno.Empresa;
+           Params.ByName['ARTICULO'].AsString := Articulo.AsString;
+           Params.ByName['TARIFA'].AsString := EntornoDoc.Tarifa;
+           Params.ByName['UNIDADES'].AsFloat := QMDetalleUNIDADES.AsFloat;
+           ExecQuery;
+
+           QMDetallePRECIO.AsFloat := FieldByName['PRECIO_VENTA'].AsFloat;
+           // Utiliza precio coste de art_tarifas_precios
+           if (param_DOCPCTA001) then
+              QMDetalleP_COSTE.AsFloat := FieldByName['PRECIO_COSTE'].AsFloat;
+           FreeHandle;
+        finally
+           Free;
+        end;
+     end;
+
+     if (xArticulos.FieldByName('NO_APLICA_DESC_LINEA_CLIENTE').AsInteger = 1) then
+     begin
+        QMDetalleDESCUENTO.AsFloat := 0;
+        QMDetalleDESCUENTO_2.AsFloat := 0;
+        QMDetalleDESCUENTO_3.AsFloat := 0;
+     end
+     else
+     begin
+        with THYFIBQuery.Create(nil) do
+        begin
+           try
+              Close;
+              DataBase := DMMain.DataBase;
+              SQL.Add(' SELECT DTO_CIAL_LINEA, DTO_CIAL_LINEA_2, DTO_CIAL_LINEA_3 FROM EMP_CLIENTES ');
+              SQL.Add(' WHERE ');
+              SQL.Add(' EMPRESA = :EMPRESA AND ');
+              SQL.Add(' CLIENTE = :CLIENTE ');
+              Params.ByName['EMPRESA'].AsInteger := REntorno.Empresa;
+              Params.ByName['CLIENTE'].AsInteger := EntornoDoc.Cliente;
+              ExecQuery;
+              QMDetalleDESCUENTO.AsFloat := FieldByName['DTO_CIAL_LINEA'].AsFloat;
+              QMDetalleDESCUENTO_2.AsFloat := FieldByName['DTO_CIAL_LINEA_2'].AsFloat;
+              QMDetalleDESCUENTO_3.AsFloat := FieldByName['DTO_CIAL_LINEA_3'].AsFloat;
+              FreeHandle;
+           finally
+              Free;
+           end;
+        end;
+     end;
+  end
+  else
+  begin
+     if (QMDetalle.State = dsInsert) or ((QMDetalle.State = dsEdit) and Param_DOCPREC003) then
+     begin
+        with THYFIBQuery.Create(nil) do
+        begin
+           try
+              Close;
+              DataBase := DMMain.DataBase;
+              SQL.Add(' SELECT * FROM G_PRECIO_VENTA_MONEDA(:EMPRESA, :CLIENTE, :ARTICULO, :TARIFA, :FECHA, :EJERCICIO, :CANAL, ');
+              SQL.Add(' :UNIDADES_EXT, :PRECIOP, :UNIDADES, :MONEDA, :ID_A, :UNIDADES_OLD, :IDIOMA, :TIPO_LINEA, :ID_P_OLD, :ALMACEN, :FACTOR) ');
+              Params.ByName['EMPRESA'].AsInteger := REntorno.Empresa;
+              Params.ByName['CLIENTE'].AsInteger := EntornoDoc.Cliente;
+              Params.ByName['ARTICULO'].AsString := Articulo.AsString;
+              Params.ByName['TARIFA'].AsString := EntornoDoc.Tarifa;
+              Params.ByName['FECHA'].AsDateTime := QMCabeceraFECHA.AsDateTime;
+              Params.ByName['EJERCICIO'].AsInteger := REntorno.Ejercicio;
+              Params.ByName['CANAL'].AsInteger := REntorno.Canal;
+              Params.ByName['UNIDADES_EXT'].AsFloat := QMDetalleUNIDADES_EXT.AsFloat;
+              Params.ByName['PRECIOP'].AsFloat := Precio;
+              Params.ByName['UNIDADES'].AsFloat := QMDetalleUNIDADES.AsFloat;
+              Params.ByName['MONEDA'].AsString := QMCabeceraMONEDA.AsString;
+              Params.ByName['ID_A'].AsInteger := QMDetalleID_A.AsInteger;
+              Params.ByName['UNIDADES_OLD'].AsFloat := Unidades_Old;
+              Params.ByName['IDIOMA'].AsString := QMCabeceraIDIOMA.AsString;
+              Params.ByName['TIPO_LINEA'].AsString := QMDetalleTIPO_LINEA.AsString;
+              Params.ByName['ID_P_OLD'].AsInteger := QMDetalleID_P.AsInteger;
+              Params.ByName['ALMACEN'].AsString := QMDetalleALMACEN.AsString;
+              Params.ByName['FACTOR'].AsFloat := QMCabeceraVALOR_CAMB_FIJO.AsFloat;
+              ExecQuery;
+
+              // 0: Precio de Tarifa; 1-11: Precio de condiciones
+              Modo := FieldByName['MODO'].AsInteger;
+
+              if (Trim(QMDetalleTITULO_IDIOMA.AsString) = '') then
+                 QMDetalleTITULO_IDIOMA.AsString := FieldByName['TITULO_IDIOMA'].AsString;
+              if (Trim(QMDetalleTITULO.AsString) = '') then
+                 QMDetalleTITULO.AsString := FieldByName['TITULO'].AsString;
+              QMDetalleP_COSTE.AsFloat := FieldByName['PRECIO_COSTE'].AsFloat;
+
+              if ((FieldByName['PRECIO_ANT'].AsInteger = 0) or Forzar) then
+              begin
+                 QMDetallePRECIO.AsFloat := FieldByName['PRECIO'].AsFloat;
+                 QMDetalleDESCUENTO.AsFloat := FieldByName['DESCUENTO'].AsFloat;
+                 QMDetalleDESCUENTO_2.AsFloat := FieldByName['DESCUENTO_2'].AsFloat;
+                 QMDetalleDESCUENTO_3.AsFloat := FieldByName['DESCUENTO_3'].AsFloat;
+                 QMDetalleID_P.AsInteger := FieldByName['ID_P'].AsInteger;
+              end;
+
+              FreeHandle;
+           finally
+              Free;
+           end;
+        end;
+
+        // Si no hay descuentos según condiciones tomo los descuentos del cliente para las líneas.
+        if ((Modo = 0) and (QMDetalleDESCUENTO.AsFloat = 0) and
+           (xArticulos.FieldByName('NO_APLICA_DESC_LINEA_CLIENTE').AsInteger = 0)) then
+        begin
+           with THYFIBQuery.Create(nil) do
+           begin
+              try
+                 Close;
+                 DataBase := DMMain.DataBase;
+                 SQL.Text :=
+                    'SELECT DTO_CIAL_LINEA, DTO_CIAL_LINEA_2, DTO_CIAL_LINEA_3 FROM EMP_CLIENTES WHERE EMPRESA = :EMPRESA AND CLIENTE = :CLIENTE';
+                 Params.ByName['EMPRESA'].AsInteger := REntorno.Empresa;
+                 Params.ByName['CLIENTE'].AsInteger := EntornoDoc.Cliente;
+                 ExecQuery;
+                 QMDetalleDESCUENTO.AsFloat := FieldByName['DTO_CIAL_LINEA'].AsFloat;
+                 QMDetalleDESCUENTO_2.AsFloat := FieldByName['DTO_CIAL_LINEA_2'].AsFloat;
+                 QMDetalleDESCUENTO_3.AsFloat := FieldByName['DTO_CIAL_LINEA_3'].AsFloat;
+                 FreeHandle;
+              finally
+                 Free;
+              end;
+           end;
+        end;
+     end;
+  end;
+
+  if (QMDetalleID_P.AsInteger > 0) then
+     QMDetallePROC_PROMOCION.AsInteger := 1;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMDetalleUNIDADESChange(Sender: TField);
+{
+var
+  FactorUnidad : double;
+}
+begin
+  DMMain.LogIni('DMPedidos.QMDetalleUNIDADESChange');
+  if ((QMDetalle.State = dsEdit) and (PackingListGenerado) and
+     (not ConfirmaMensaje(_('El Packing List ya ha sido generado y ha cambiado las unidades. ¿Desea continuar?')))) then
+     QMDetalle.Cancel;
+
+  if xArticulos.FieldByName('CONTROLA_MEDIDAS').AsInteger = 0 then
+     {1 - No cambia precio ni condiciones al editar una linea de documentos de venta}
+     if ((not editando) or Param_VENPREC001) then {dji lrk kri}
+        EstaleceCondiciones(QMDetalleARTICULO, 0, (QMDetalle.State = dsInsert));
+
+  // QMDetalleUNIDADES_SEC.AsFloat := QMDetalleUNIDADES.AsFloat * QMDetalleUNIDADES_SEC.AsFloat;
+  // Se calcula las unidades_sec en funcion del pvp de unidades_sec en la pestaña de articulos
+  // QMDetalleUNIDADES_SEC.AsFloat := xArticulos.FieldByName('PVP_POR_UD_SECUNDARIA').AsInteger * xArticulos.FieldByName('DEFECTO_UD_SECUNDARIA').AsFloat * QMDetalleUNIDADES.AsFloat;
+
+  {dji lrk kri - Unidad Logistica}
+  {Creo que no tiene que estar esto
+  if (QMDetalle.State = dsInsert) then
+     FlagModificandoUnidades:=False;}
+
+  if ((QMDetalle.State = dsInsert) or (QMDetalle.State = dsEdit)) and (not FlagModificandoUnidades) then
+  begin
+     FlagModificandoUnidades := True;
+     try
+        if (QMDetalleARTICULO.AsString <> '') then
+        begin
+           with THYFIBQuery.Create(nil) do
+           begin
+              try
+                 Close;
+                 DataBase := DMMain.DataBase;
+                 SQL.Text := 'SELECT UNIDADES, RELACIONAR_CON_UNIDADES FROM SYS_TIPO_UNIDAD_LOGISTICA WHERE TIPO=?TIPO';
+                 Params.ByName['TIPO'].AsString := QMDetalleTIPO_UNIDAD_LOGISTICA.AsString;
+                 ExecQuery;
+
+                 if (Param_SYSCONF005 < 2) then
+                 begin
+                    // Las cajas siempre son enteros. No se puede embalar media caja
+                    if ((FieldByName['UNIDADES'].AsFloat <> 0) and (FieldByName['RELACIONAR_CON_UNIDADES'].AsInteger = 1)) then
+                       QMDetalleUNIDADES_LOGISTICAS.AsFloat := QMDetalleUNIDADES.AsInteger div FieldByName['UNIDADES'].AsInteger;
+                 end;
+
+                 // Siempre habra por lo menos una caja
+                 if (QMDetalleUNIDADES_LOGISTICAS.AsFloat = 0) then
+                 begin
+                    if (QMDetalleUNIDADES.AsInteger = 0) then
+                       QMDetalleUNIDADES_LOGISTICAS.AsFloat := 0
+                    else
+                    if (QMDetalleUNIDADES.AsInteger > 0) then
+                       QMDetalleUNIDADES_LOGISTICAS.AsFloat := 1
+                    else
+                       QMDetalleUNIDADES_LOGISTICAS.AsFloat := -1;
+                 end;
+
+                 FreeHandle;
+              finally
+                 Free;
+              end;
+           end;
+
+           {
+           FactorUnidad := xArticulos.FieldByName('FACTOR_UNIDAD').AsFloat;
+           if (FactorUnidad = 0) then
+              FactorUnidad := 1;
+           }
+
+           if Param_VENULKG001 and (QMDetalleTIPO_UNIDAD_LOGISTICA.AsString = 'KG') then
+           begin
+              QMDetalleUNIDADES.AsFloat := QMDetallePESO.AsFloat * QMDetalleUNIDADES_LOGISTICAS.AsFloat;
+              QMDetallePESO_TOTAL.AsFloat := QMDetalleUNIDADES.AsFloat;
+              QMDetallePESO_REAL.AsFloat := QMDetallePESO_TOTAL.AsFloat;
+           end
+           else
+           begin
+              if param_VENUSEC001 and (QMDetalleAPLICA_UNIDADES_SECUNDARIAS.AsInteger = 1) then
+                 QMDetallePESO_TOTAL.AsFloat := xArticulos.FieldByName('PESO').AsFloat * QMDetalleUNIDADES_SEC.AsFloat * QMDetalleUNIDADES_LOGISTICAS.AsFloat {dji}
+              else
+                 QMDetallePESO_TOTAL.AsFloat := xArticulos.FieldByName('PESO').AsFloat * QMDetalleUNIDADES.AsFloat;
+
+              QMDetallePESO_REAL.AsFloat := QMDetallePESO_TOTAL.AsFloat;
+           end;
+        end;
+     finally
+        FlagModificandoUnidades := False;
+     end;
+  end;
+
+  CalculaComisionKRI20;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMDetalleAfterOpen(DataSet: TDataSet);
+begin
+  DMMain.LogIni('DMPedidos.QMDetalleAfterOpen');
+  xArticulos.Open;
+  RellenaDatosLinea(OldLinea);
+  DMMain.LogFin('');
+end;
+
+function TDMPedidos.Traspasado: boolean;
+begin
+  DMMain.LogIni('DMPedidos.Traspasado');
+  // Miramos si la línea tiene algún documento origen
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Add(' EXECUTE PROCEDURE G_DOCUMENTO_TRASPASADO ');
+        SQL.Add(' (:EMPRESA, :EJERCICIO, :CANAL, :SERIE, :TIPO, :RIG, :LINEA, :ENTRADA) ');
+        Params.ByName['EMPRESA'].AsInteger := QMDetalleEMPRESA.AsInteger;
+        Params.ByName['EJERCICIO'].AsInteger := QMDetalleEJERCICIO.AsInteger;
+        Params.ByName['CANAL'].AsInteger := QMDetalleCANAL.AsInteger;
+        Params.ByName['SERIE'].AsString := QMDetalleSERIE.AsString;
+        Params.ByName['TIPO'].AsString := QMDetalleTIPO.AsString;
+        Params.ByName['RIG'].AsInteger := QMDetalleRIG.AsInteger;
+        Params.ByName['LINEA'].AsInteger := QMDetalleLINEA.AsInteger;
+        Params.ByName['ENTRADA'].AsInteger := REntorno.Entrada;
+        ExecQuery;
+        Result := (FieldByName['TRASPASADO'].AsInteger = 1);
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+  DMMain.LogFin('');
+end;
+
+// Refrescar el Grid de la Pestaña TABLA
+procedure TDMPedidos.RefrescaTabla;
+var
+  id_detalles_s : integer;
+begin
+  DMMain.LogIni('DMPedidos.RefrescaTabla');
+  if (QMCabecera.RecordCount > 0) then
+  begin
+     id_detalles_s := QMDetalleID_DETALLES_S.AsInteger;
+
+     QMDetalle.DisableControls;
+     QMCabecera.Refresh;
+     QMDetalle.EnableControls;
+
+     // Mantengo la posicion en la tabla detalle
+     CierraAbreDet(id_detalles_s);
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.AnulaDocumento;
+var
+  TieneOrden : boolean;
+begin
+  DMMain.Log('DMPedidos.AnulaDocumento');
+  TieneOrden := PedidoTieneOrden;
+
+  // No se pueden borrar pedidos si hay orden asociada
+  if ((LeeParametro('PECDEOT001') = 'N') and TieneOrden) then
+  begin
+     Application.MessageBox(PChar(string(_('No se puede anular un pedido con una orden asociada'))),
+        PChar(string(_('Aviso'))), mb_iconinformation + mb_ok);
+  end
+  else
+  begin
+     if (not TieneOrden) or ((QMCabeceraESTADO.AsInteger = 0) and ConfirmaMensajeCaption(
+        _('Se va(n) a desvincular la(s) orden(es) del pedido. ¿Desea continuar?'), _('Confirmación'))) then
+     begin
+        if (QMCabeceraESTADO.AsInteger = 0) and TieneOrden then
+           DesvincularOrdenPedido;
+
+        with THYFIBQuery.Create(nil) do
+        begin
+           try
+              Close;
+              DataBase := DMMain.DataBase;
+              SQL.Text := 'EXECUTE PROCEDURE G_ANULA_DOCUMENTO_S(:EMPRESA, :EJERCICIO, :CANAL, :SERIE, :TIPO, :RIG, :ENTRADA)';
+              Params.ByName['EMPRESA'].AsInteger := QMCabeceraEMPRESA.AsInteger;
+              Params.ByName['EJERCICIO'].AsInteger := QMCabeceraEJERCICIO.AsInteger;
+              Params.ByName['CANAL'].AsInteger := QMCabeceraCANAL.AsInteger;
+              Params.ByName['SERIE'].AsString := QMCabeceraSERIE.AsString;
+              Params.ByName['TIPO'].AsString := QMCabeceraTIPO.AsString;
+              Params.ByName['RIG'].AsInteger := QMCabeceraRIG.AsInteger;
+              Params.ByName['ENTRADA'].AsInteger := REntorno.Entrada;
+              ExecQuery;
+              FreeHandle;
+           finally
+              Free;
+           end;
+        end;
+
+        QMCabecera.Refresh;
+     end;
+  end;
+end;
+
+procedure TDMPedidos.DesvincularOrdenPedido;
+begin
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Text := 'EXECUTE PROCEDURE DESVINCULAR_ORDEN_PEDIDO(:ID_S)';
+        Params.ByName['ID_S'].AsInteger := QMCabeceraID_S.AsInteger;
+        ExecQuery;
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+end;
+
+procedure TDMPedidos.QMCabeceraMONEDAChange(Sender: TField);
+begin
+  DMMain.LogIni('DMPedidos.QMCabeceraMONEDAChange');
+  xMonedas.Close;
+  xMonedas.Open;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.CambiaMonedaDetalle;
+var
+  Q : THYFIBQuery;
+begin
+  DMMain.LogIni('DMPedidos.CambiaMonedaDetalle');
+  if ((QMCabecera.RecordCount <> 0) and (QMDetalle.RecordCount <> 0)) then
+  begin
+     Q := THYFIBQuery.Create(nil);
+     with Q do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           SQL.Text := 'EXECUTE PROCEDURE UT_REFRESCA_DETALLE_S_MONEDA(:EMPRESA, :EJERCICIO, :CANAL, :SERIE, :TIPO, :RIG, :MONEDAOLD)';
+           Params.ByName['EMPRESA'].AsInteger := QMCabeceraEMPRESA.AsInteger;
+           Params.ByName['EJERCICIO'].AsInteger := QMCabeceraEJERCICIO.AsInteger;
+           Params.ByName['CANAL'].AsInteger := QMCabeceraCANAL.AsInteger;
+           Params.ByName['SERIE'].AsString := QMCabeceraSERIE.AsString;
+           Params.ByName['TIPO'].AsString := QMCabeceraTIPO.AsString;
+           Params.ByName['RIG'].AsInteger := QMCabeceraRIG.AsInteger;
+           Params.ByName['MONEDAOLD'].AsString := monedaold;
+           TFParada.Create(Self).ExecQuery(Q);
+           FreeHandle;
+        finally
+           Free;
+        end;
+     end;
+
+     QMCabecera.Refresh;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.MascarasMoneda;
+begin
+  DMMain.LogIni('DMPedidos.MascarasMoneda');
+  LocalMascaraN := DMMain.MascaraMoneda(QMCabeceraMONEDA.AsString, 1);
+  LocalMascaraL := DMMain.MascaraMoneda(QMCabeceraMONEDA.AsString, 0);
+
+  QMCabeceraLIQUIDO.DisplayFormat := LocalMascaraN;
+  QMCabeceraC_TOTAL.DisplayFormat := LocalMascaraN;
+  QMCabeceraTOTAL_ANTICIPADO.DisplayFormat := MascaraN;
+  QMCabeceraVALOR_CAMB_FIJO.DisplayFormat := '0.000000';
+  QMCabeceraVALOR_CAMB_FIJO_INV.DisplayFormat := '0.000000';
+
+  xInfoActualizadaSUM_UNIDADES.DisplayFormat := LocalMascaraN;
+  xInfoActualizadaS_CUOTA_IVA.DisplayFormat := LocalMascaraN;
+  xInfoActualizadaS_CUOTA_RE.DisplayFormat := LocalMascaraN;
+  xInfoActualizadaLIQUIDO.DisplayFormat := LocalMascaraN;
+  xInfoActualizadaB_COMISION.DisplayFormat := LocalMascaraN;
+  xInfoActualizadaI_COMISION.DisplayFormat := LocalMascaraN;
+  xInfoActualizadaI_FINANCIACION.DisplayFormat := LocalMascaraN;
+  xInfoActualizadaB_DTO_LINEAS.DisplayFormat := LocalMascaraN;
+  xInfoActualizadaS_BASES.DisplayFormat := LocalMascaraN;
+  xInfoActualizadaI_DTO_LINEAS.DisplayFormat := LocalMascaraL;
+  xInfoActualizadaTOTAL_ANTICIPADO.DisplayFormat := MascaraN;
+
+  QMDetalleCOMISION_LINEAL.DisplayFormat := LocalMascaraN;
+  QMDetalleI_COMISION_LINEAL.DisplayFormat := LocalMascaraN;
+  QMDetalleC_RECARGO.DisplayFormat := LocalMascaraN;
+  QMDetalleM_BRUTO.DisplayFormat := LocalMascaraN;
+  QMDetalleLIQUIDO.DisplayFormat := LocalMascaraN;
+  QMDetalleP_COSTE.DisplayFormat := LocalMascaraN;
+  QMDetalleBRUTO.DisplayFormat := LocalMascaraN;
+  QMDetalleT_COSTE.DisplayFormat := LocalMascaraN;
+  QMDetalleB_IMPONIBLE.DisplayFormat := LocalMascaraN;
+  QMDetalleC_IVA.DisplayFormat := LocalMascaraN;
+  QMDetallePRECIO.DisplayFormat := LocalMascaraL;
+  QMDetalleI_DESCUENTO.DisplayFormat := LocalMascaraL;
+  QMDetalleB_DTO_LINEA.DisplayFormat := LocalMascaraL;
+  QMDetalleI_COMISION.DisplayFormat := LocalMascaraL;
+  QMDetalleB_COMISION.DisplayFormat := LocalMascaraL;
+  QMDetalleCOSTE_ADICIONAL.DisplayFormat := LocalMascaraN;
+
+  xProveedoresPRECIO.DisplayFormat := LocalMascaraL;
+
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMCabeceraTOTAL_CANALGetText(Sender: TField; var Text: string; DisplayText: boolean);
+begin
+  DMMain.LogIni('DMPedidos.QMCabeceraTOTAL_CANALGetText');
+  Text := FormatFloat(DMMain.MascaraMoneda(QMCabeceraMONEDA.AsString, 1),
+     QMCabeceraLIQUIDO.AsFloat);
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMCabeceraTARIFAChange(Sender: TField);
+begin
+  DMMain.LogIni('DMPedidos.QMCabeceraTARIFAChange');
+  xTarifas.Close;
+  xTarifas.Open;
+  EntornoDoc.Tarifa := QMCabeceraTARIFA.AsString;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.FiltraCabecera(Ejercicio: integer; Serie: string; Rig: integer);
+begin
+  DMMain.LogIni('DMPedidos.FiltraCabecera');
+  with QMCabecera do
+  begin
+     Close;
+     SelectSQL.Text := SQLFind;
+     SelectSQL.Add(' AND EJERCICIO = ?EJERCICIO ');
+     SelectSQL.Add(' AND RIG = ?RIG ');
+     Params.ByName['EMPRESA'].AsInteger := REntorno.Empresa;
+     Params.ByName['EJERCICIO'].AsInteger := Ejercicio;
+     Params.ByName['CANAL'].AsInteger := REntorno.Canal;
+     Params.ByName['SERIE'].AsString := Serie;
+     Params.ByName['RIG'].AsInteger := Rig;
+     Open;
+  end;
+  DMMain.LogFin('');
+end;
+
+function TDMPedidos.HayDocumentos: boolean;
+begin
+  Result := (QMCabecera.FieldByName('RIG').AsInteger <> 0);
+end;
+
+function TDMPedidos.EstadoDocumento: integer;
+begin
+  Result := -1;
+  if QMCabecera.Active then
+     Result := QMCabecera.FieldByName('ESTADO').AsInteger;
+end;
+
+function TDMPedidos.HayDetalle: boolean;
+begin
+  // DMMain.LogIni('DMPedidos.HayDetalle');
+  Result := (QMDetalle.RecordCount > 0);
+  // DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMCabeceraAfterInsert(DataSet: TDataSet);
+begin
+  DMMain.LogIni('DMPedidos.QMCabeceraAfterInsert - ' + DataSet.Name);
+  monedaold := QMCabeceraMONEDA.AsString;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.AgrupaPedidosFiltradosKri;
+var
+  SavePlace : TBookmark;
+  agrupacion : integer;
+  agrupacionMin : integer;
+  YaAsignados : string;
+begin
+  DMMain.LogIni('DMPedidos.AgrupaPedidosFiltradosKri');
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Text := 'SELECT MIN(ID_S_AG) FROM GES_CABECERAS_S_AGRUP WHERE EMPRESA = ' +
+           REntorno.EmpresaStr + ' AND CANAL = ''' + REntorno.CanalStr +
+           ''' AND TIPO = ''PEC''';
+        ExecQuery;
+        agrupacionMin := FieldByName['MIN'].AsInteger;
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Text := 'SELECT MAX(ID_S_AG) FROM GES_CABECERAS_S_AGRUP';
+        ExecQuery;
+        agrupacion := FieldByName['MAX'].AsInteger + 1;
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Text := 'INSERT INTO GES_CABECERAS_S_AGRUP (EMPRESA,CANAL,TIPO,ID_S_AG) VALUES (' +
+           REntorno.EmpresaStr + ',' + REntorno.CanalStr + ',''PEC'',' +
+           IntToStr(agrupacion) + ')';
+        ExecQuery;
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+
+  YaAsignados := '';
+  with QMCabecera do
+  begin
+     DisableControls;
+     SavePlace := GetBookmark;
+     try
+        First;
+        while not EOF do
+        begin
+           if (QMCabeceraAGRUPACION_KRI.AsInteger <= agrupacionMin) then
+           begin
+              with THYFIBQuery.Create(nil) do
+              begin
+                 try
+                    Close;
+                    DataBase := DMMain.DataBase;
+                    SQL.Text := 'UPDATE GES_CABECERAS_S_AGRUP_DET ' +
+                       'SET ID_S_AG = ' + IntToStr(agrupacion) +
+                       'WHERE ID_S = ' + QMCabecera.FieldByName('ID_S').AsString;
+                    ExecQuery;
+                    FreeHandle;
+                 finally
+                    Free;
+                 end;
+              end;
+              Refresh;
+           end
+           else
+              YaAsignados := YaAsignados + QMCabeceraRIG.AsString + ', ';
+           Next;
+        end;
+        GotoBookmark(SavePlace);
+     finally
+        FreeBookmark(SavePlace);
+     end;
+     EnableControls;
+     if (YaAsignados > '') then
+        MessageDlg(_('Estos Pedidos ya habían sido asignados:') + #13#10 +
+           YaAsignados, mtInformation, [mbOK], 0);
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.ControlaRestriccion;
+begin
+  DMMain.LogIni('DMPedidos.ControlaRestriccion');
+  ControlaBorrado(QMCabeceraID_S.AsInteger, QMCabeceraTIPO.AsString);
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMCabeceraIDIOMAChange(Sender: TField);
+begin
+  DMMain.LogIni('DMPedidos.QMCabeceraIDIOMAChange');
+  with xIdiomas do
+  begin
+     Close;
+     Open;
+  end;
+  DMMain.LogFin('');
+end;
+
+{ No se utiliza
+procedure TDMPedidos.CambiaMonedaFecha;
+var
+  Q : THYFIBQuery;
+begin
+  Q := THYFIBQuery.Create(nil);
+  with Q do
+  begin
+     Close;
+     DataBase := DMMain.DataBase;
+     SQL.Text :=
+        'execute procedure ut_refresca_det_s_moneda_fecha (?EMPRESA,?EJERCICIO,?CANAL,?SERIE,?TIPO,?RIG,?ID_S,?MONEDA,?FECHAOLD,?FECHA)';
+     Params.ByName['EMPRESA'].AsInteger := QMCabeceraEMPRESA.AsInteger;
+     Params.ByName['EJERCICIO'].AsInteger := QMCabeceraEJERCICIO.AsInteger;
+     Params.ByName['CANAL'].AsInteger := QMCabeceraCANAL.AsInteger;
+     Params.ByName['SERIE'].AsString := QMCabeceraSERIE.AsString;
+     Params.ByName['TIPO'].AsString := QMCabeceraTIPO.AsString;
+     Params.ByName['RIG'].AsInteger := QMCabeceraRIG.AsInteger;
+     Params.ByName['ID_S'].AsInteger := QMCabeceraID_S.AsInteger;
+     Params.ByName['MONEDA'].AsString := QMCabeceraMONEDA.AsString;
+     Params.ByName['FECHAOLD'].AsDateTime := fecha_old;
+     Params.ByName['FECHA'].AsDateTime := QMCabeceraFECHA.AsDateTime;
+     TFParada.Create(Self).ExecQuery(Q);
+     FreeHandle;
+  end;
+  FreeAndNil(Q);
+  QMCabecera.Refresh;
+end;
+}
+procedure TDMPedidos.QMCabeceraAfterScroll(DataSet: TDataSet);
+begin
+  DMMain.LogIni('DMPedidos.QMCabeceraAfterScroll - ' + DataSet.Name);
+  IdDocEliminaPorte := 0;
+  fecha_old := QMCabeceraFECHA.AsDateTime;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.AbreDocumentos(id_s_d: integer; Destino, Serie: string);
+begin
+  DMMain.LogIni('DMPedidos.AbreDocumentos');
+  if (Destino = 'ALB') then
+     TraspasoAAlbaran(Serie, id_s_d)
+  else
+  if (Destino = 'FAC') then
+     TraspasoAFactura(Serie, id_s_d)
+  else
+  if (destino = 'TIC') then
+     TraspasoATicket(Serie, id_s_d);
+  DMMain.LogFin('');
+end;
+
+{ No se utiliza
+function TDMPedidos.DameEstado: smallint;
+begin
+  if ((QMDetalleARTICULO.AsString <> '') and (QMDetallePRECIO.AsFloat <> 0) and
+     (QMCabecera.state <> dsInsert) and (QMCabecera.state <> dsEdit) and
+     ((QMDetalle.RecordCount > 0) or ((QMDetalle.RecordCount = 0) and
+     (QMDetalle.state = dsInsert)))) then
+     Result := QMCabeceraESTADO.AsInteger
+  else
+     Result := 1;
+end;
+}
+function TDMPedidos.DameDatosClientes: boolean;
+begin
+  DMMain.LogIni('DMPedidos.DameDatosClientes');
+  if ((QMCabeceraTERCERO.AsInteger <= -1)) then
+  begin
+     Result := True;
+     if QMNIF.RecordCount > 0 then
+        QMNIF.Edit
+     else
+        QMNIF.Insert;
+  end
+  else
+     Result := False;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.GrabaDatosCliente(Estado: integer);
+begin
+  DMMain.LogIni('DMPedidos.GrabaDatosCliente');
+  if (LeeParametro('TERLNIF001') = 'S') then
+     QMNIFNIF.AsString := LimpiaNIF(QMNIFPAIS.AsString, QMNIFNIF.AsString);
+
+  // CLIVARI004 - Permite editar datos de clientes varios de documentos cerrados.
+  if (Estado = mrOk) and ((EstadoDocumento = 0) or (LeeParametro('CLIVARI004') = 'S')) then
+     QMNif.Post
+  else
+     QMNif.Cancel;
+
+  if ((QMNIFNOMBRE.AsString = '') and
+     (QMNifNIF.AsString = '') and
+     (QMNifDIRECCION.AsString = '') and
+     (QMNIFC_POSTAL.AsString = '') and
+     (QMNifLOCALIDAD.AsString = '') and
+     (QMNifPROVINCIA.AsString = '') and
+     // Pais no lo tengo en cuenta porque se rellena con valores por defecto si es vacio. (QMNifPAIS.AsString = '') and
+     (QMNifTELEFONO01.AsString = '') and
+     (QMNifTELEFONO02.AsString = '') and
+     (QMNifTELEFAX.AsString = '') and
+     (QMNifEMAIL.AsString = '')
+     ) then
+  begin
+     with THYFIBQuery.Create(nil) do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           SQL.Text := 'DELETE FROM GES_CABECERAS_S_FAC_NIF WHERE ID_S = ?ID_S';
+           Params.ByName['ID_S'].AsInteger := QMCabeceraID_S.AsInteger;
+           ExecQuery;
+           FreeHandle;
+        finally
+           Free;
+        end;
+     end;
+
+     QMNif.Close;
+     QMNif.Open;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMNIFNewRecord(DataSet: TDataSet);
+begin
+  DMMain.LogIni('DMPedidos.QMNIFNewRecord');
+  QMNifEMPRESA.AsInteger := QMCabeceraEMPRESA.AsInteger;
+  QMNifEJERCICIO.AsInteger := QMCabeceraEJERCICIO.AsInteger;
+  QMNifCANAL.AsInteger := QMCabeceraCANAL.AsInteger;
+  QMNifSERIE.AsString := QMCabeceraSERIE.AsString;
+  QMNifTIPO.AsString := QMCabeceraTIPO.AsString;
+  QMNifRIG.AsInteger := QMCabeceraRIG.AsInteger;
+  QMNifPAIS.AsString := REntorno.Pais;
+  QMNifID_S.AsInteger := QMCabeceraID_S.AsInteger; {dji lrk kri}
+  QMNIFPAIS_DOC_IDENT.AsString := REntorno.Pais;
+  QMNIFTIPO_DOC_IDENT.AsString := DMMain.DameTipoDocPaisDefecto(QMNIFPAIS_DOC_IDENT.AsString);
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.OrdenarLineas;
+begin
+  DMMain.LogIni('DMPedidos.OrdenarLineas');
+  with QMDetalle do
+  begin
+     DisableControls;
+     try
+        OrdenaLineas('PEC', QMCabeceraID_S.AsInteger, Self);
+        Close;
+        Open;
+     finally
+        EnableControls;
+     end;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMDetalleAfterPost(DataSet: TDataSet);
+var
+  i, UnidadesEnteras : integer;
+(*
+  id_esc : integer;
+*)
+begin
+  DMMain.LogIni('DMPedidos.QMDetalleAfterPost');
+  Graba(DataSet);
+
+  (*
+  PASADO A TRIGGER.
+
+  if (Param_MODREST006) then
+  begin
+     // Se asigna el escandallo por defecto de aquel compuesto, si existe
+     if (DMMain.DameConstanteProduccion('GEST_ESC_PORDEFECTO') = 1) then
+     begin
+        // Busco el primer escandallo de produccion
+        // - prefiriendo los activos primero
+        // - que estén marcados como "por defecto"
+        // - el escandallo mas reciente
+        with THYFIBQuery.Create(nil) do
+        begin
+           try
+              Close;
+              DataBase := DMMain.DataBase;
+              SQL.Add(' SELECT FIRST(1) ID_ESC FROM PRO_ESCANDALLO ');
+              SQL.Add(' WHERE ');
+              SQL.Add(' EMPRESA = :EMPRESA AND ');
+              SQL.Add(' COMPUESTO = :ARTICULO AND ');
+              SQL.Add(' TIPO = ''EPR'' AND ');
+              SQL.Add(' ESTADO = 1 ');
+              SQL.Add(' ORDER BY DEFECTO DESC, ESCANDALLO DESC');
+              Params.ByName['EMPRESA'].AsInteger := QMDetalleEMPRESA.AsInteger;
+              Params.ByName['ARTICULO'].AsString := QMDetalleARTICULO.AsString;
+              ExecQuery;
+              id_esc := FieldByName['ID_ESC'].AsInteger;
+              FreeHandle;
+           finally
+              Free;
+           end;
+        end;
+
+        // Si no encuentro ninguno activo, busco uno inactivo u obsoleto.
+        if (id_esc = 0) then
+        begin
+           with THYFIBQuery.Create(nil) do
+           begin
+              try
+                 Close;
+                 DataBase := DMMain.DataBase;
+                 SQL.Add(' SELECT FIRST(1) ID_ESC FROM PRO_ESCANDALLO ');
+                 SQL.Add(' WHERE ');
+                 SQL.Add(' EMPRESA = :EMPRESA AND ');
+                 SQL.Add(' COMPUESTO = :ARTICULO AND ');
+                 SQL.Add(' TIPO = ''EPR'' ');
+                 SQL.Add(' ORDER BY ESTADO, DEFECTO DESC, ESCANDALLO DESC');
+                 Params.ByName['EMPRESA'].AsInteger := QMDetalleEMPRESA.AsInteger;
+                 Params.ByName['ARTICULO'].AsString := QMDetalleARTICULO.AsString;
+                 ExecQuery;
+                 id_esc := FieldByName['ID_ESC'].AsInteger;
+                 FreeHandle;
+              finally
+                 Free;
+              end;
+           end;
+        end;
+
+        if (id_esc <> 0) then
+        begin
+           with THYFIBQuery.Create(nil) do
+           begin
+              try
+                 Close;
+                 DataBase := DMMain.DataBase;
+                 SQL.Add(' UPDATE GES_DETALLES_S_PED ');
+                 SQL.Add(' SET ID_ESC = :ID_ESCANDALLO ');
+                 SQL.Add(' WHERE ID_DETALLES_S = :ID_DETALLES_S ');
+                 Params.ByName['ID_DETALLES_S'].AsInteger := QMDetalleID_DETALLES_S.AsInteger;
+                 Params.ByName['ID_ESCANDALLO'].AsInteger := id_esc;
+                 ExecQuery;
+                 FreeHandle;
+              finally
+                 Free;
+              end;
+           end;
+        end;
+     end;
+  end;
+  *)
+
+  if (QMDetalleID_DESPIECE.AsInteger <> 0) then
+  begin
+     with THYFIBQuery.Create(nil) do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           SQL.Text := 'UPDATE PRO_DESPIECE_CAB SET ID_DETALLE = :ID_DETALLES_S WHERE ID_DESPIECE_CAB = :ID_DESPIECE_CAB AND ID_DETALLE = 0';
+           Params.ByName['ID_DESPIECE_CAB'].AsInteger := QMDetalleID_DESPIECE.AsInteger;
+           Params.ByName['ID_DETALLES_S'].AsInteger := QMDetalleID_DETALLES_S.AsInteger;
+           ExecQuery;
+           FreeHandle;
+        finally
+           Free;
+        end;
+     end;
+  end;
+
+  if xCliente.Active and (xCliente.FieldByName('IMPORTE_MINIMO_PORTE').AsFloat <> 0) then
+     AjustaPorteMinimo;
+
+  if (QMDetalleREQUIERE_LOTE_SIMPLE.AsInteger = 1) and (QMDetalleUNIDADES.AsFloat > 1) then
+  begin
+     if ConfirmaMensaje(_('¿Desea dividir las unidades en lineas diferentes?')) then
+     begin
+        UnidadesEnteras := Trunc(QMDetalleUNIDADES.AsFloat);
+
+        with THYFIBQuery.Create(nil) do
+        begin
+           try
+              Close;
+              DataBase := DMMain.DataBase;
+              SQL.Text := 'UPDATE GES_DETALLES_S SET UNIDADES = 1 WHERE ID_DETALLES_S = :ID_DETALLES_S';
+              Params.ByName['ID_DETALLES_S'].AsInteger := QMDetalleID_DETALLES_S.AsInteger;
+              ExecQuery;
+              FreeHandle;
+           finally
+              Free;
+           end;
+        end;
+        QMDetalle.Refresh;
+        Dec(UnidadesEnteras);
+
+        for i := UnidadesEnteras downto 1 do
+           DuplicarLinea;
+     end;
+  end;
+
+  CierraAbreDet;
+
+  RellenaDatosLinea(OldLinea);
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.AjustaPorteMinimo;
+var
+  BaseImponible : double;
+begin
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Add(' SELECT SUM(D.B_IMPONIBLE) FROM GES_DETALLES_S D ');
+        SQL.Add(' JOIN ART_ARTICULOS A ON D.ID_A = A.ID_A ');
+        SQL.Add(' WHERE ');
+        SQL.Add(' D.ID_S = :ID_S AND ');
+        SQL.Add(' A.TIPO_ARTICULO <> ''POR'' ');
+        Params.ByName['ID_S'].AsInteger := QMCabeceraID_S.AsInteger;
+        ExecQuery;
+        BaseImponible := FieldByName['SUM'].AsFloat;
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+
+  if (BaseImponible > xCliente.FieldByName('IMPORTE_MINIMO_PORTE').AsFloat) then
+  begin
+     if (IdDocEliminaPorte <> QMCabeceraID_S.AsInteger) then
+     begin
+        RespuestaEliminaPorte := ConfirmaMensaje(
+           _('Se ha superado el importe minimo para portes gratis. Desea quitarlos?'));
+        IdDocEliminaPorte := QMCabeceraID_S.AsInteger;
+     end;
+
+     if RespuestaEliminaPorte then
+        with THYFIBQuery.Create(nil) do
+        begin
+           try
+              Close;
+              DataBase := DMMain.DataBase;
+              SQL.Add(' UPDATE GES_DETALLES_S D ');
+              SQL.Add(' SET ');
+              SQL.Add(' UNIDADES = 0 ');
+              SQL.Add(' WHERE ');
+              SQL.Add(' D.ID_S = :ID_S AND ');
+              SQL.Add(' (SELECT TIPO_ARTICULO ');
+              SQL.Add('  FROM ART_ARTICULOS ');
+              SQL.Add('  WHERE ');
+              SQL.Add('  ID_A = D.ID_A) = ''POR'' ');
+              Params.ByName['ID_S'].AsInteger := QMCabeceraID_S.AsInteger;
+              ExecQuery;
+              FreeHandle;
+           finally
+              Free;
+           end;
+        end;
+  end;
+end;
+
+procedure TDMPedidos.CierraAbreDet(id_detalles_s: integer = 0);
+begin
+  DMMain.LogIni('DMPedidos.CierraAbreDet');
+  if (id_detalles_s = 0) then
+     id_detalles_s := QMDetalleID_DETALLES_S.AsInteger;
+
+  with QMDetalle do
+  begin
+     try
+        DisableControls;
+        Close;
+        Open;
+        Last;
+        while ((not BOF) and (id_detalles_s <> QMDetalleID_DETALLES_S.AsInteger)) do
+           Prior;
+     finally
+        EnableControls;
+     end;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMDetalleAfterDelete(DataSet: TDataSet);
+begin
+  DMMain.LogIni('DMPedidos.QMDetalleAfterDelete');
+  Graba(DataSet);
+  if (HayDatosDetalle(QMCabeceraID_S.AsInteger)) then
+  begin
+     if (ConPromociones) then
+     begin
+        CierraAbreDet;
+     end
+     else
+        QMDetalle.Refresh;
+  end
+  else
+  begin
+     CierraAbreDet;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMDetalleBeforeDelete(DataSet: TDataSet);
+begin
+  DMMain.LogIni('DMPedidos.QMDetalleBeforeDelete');
+  DMMain.RestingeEdicion(DataSet, QMCabeceraESTADO.AsInteger);
+  ConPromociones := TienePromociones(QMDetalleID_DETALLES_S.AsInteger);
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.RefrescaCabecera(Accion: integer);
+begin
+  DMMain.LogIni('DMPedidos.RefrescaCabecera');
+  case Accion of
+     1:
+        QMCabecera.Refresh;
+     2:
+        Refrescar(QMCabecera, 'ID_S', QMCabeceraID_S.AsInteger);
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.FiltraDocumento(Serie, Filtro: string);
+begin
+  DMMain.LogIni('DMPedidos.FiltraDocumento');
+  with QMCabecera do
+  begin
+     Close;
+     SelectSQL.Text := SQLBase;
+     if (Trim(Filtro) > '') then
+        SelectSQL.Add(' AND (' + Filtro + ')');
+     SelectSQL.Add(' ORDER BY EJERCICIO, RIG ');
+     DMMain.FiltraTabla(QMCabecera, '11100', False);
+     Params.ByName['SERIE'].AsString := Serie;
+     CambiaSerie(Serie);
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMDetallePRECIOChange(Sender: TField);
+begin
+  DMMain.LogIni('DMPedidos.QMDetallePRECIOChange');
+  CalculaComisionKRI20;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMDetalleP_COSTEChange(Sender: TField);
+begin
+  DMMain.LogIni('DMPedidos.QMDetalleP_COSTEChange');
+  CalculaComisionKRI20;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMDetalleCOMISIONChange(Sender: TField);
+begin
+  DMMain.LogIni('DMPedidos.QMDetalleCOMISIONChange');
+  // Utiliza precio coste de art_tarifas_precios
+  if param_DOCPCTA001 then
+  begin
+     if (QMDetalleCOMISION.AsFloat > 300) or (QMDetalleCOMISION.AsFloat < -300) then
+        QMDetalleCOMISION.AsFloat := 0;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.CalculaComisionKRI20;
+begin
+  DMMain.LogIni('DMPedidos.CalculaComisionKRI20');
+  // ATENCION: En los triggers tambien se recalcula la comision,
+  // usando en lugar del Precio: B_COMISION / UNIDADES
+  // El campo B_COMISION se le restan los descuentos por linia y el descuento comercial (DTO_CIAL).
+
+  // Utiliza precio coste de art_tarifas_precios
+  if param_DOCPCTA001 then
+  begin
+     if QMDetallePRECIO.AsFloat <> 0 then
+        QMDetalleCOMISION.AsFloat := (1 - ((QMDetalleP_COSTE.AsFloat + QMDetalleCOSTE_ADICIONAL.AsFloat) / QMDetallePRECIO.AsFloat)) * 20
+     else
+        QMDetalleCOMISION.AsFloat := 0;
+  end;
+  DMMain.LogFin('');
+end;
+
+{TOLYCOR}
+procedure TDMPedidos.CambiaDatosEsp;
+var
+  HayOrden : boolean;
+  TipoArticulo : string;
+  ComCorte : integer;
+begin
+  DMMain.LogIni('DMPedidos.CambiaDatosEsp');
+  HayOrden := (QMDetalleID_ORDEN.AsInteger <> 0);
+  TipoArticulo := xArticulos.FieldByName('TIPO_ARTICULO_TYC').AsString;
+  ComCorte := xArticulos.FieldByName('Z_COM_CORTE').AsInteger;
+
+  if (TipoArticulo = 'T') or
+     (TipoArticulo = 'A') or
+     (TipoArticulo = 'L') or
+     ((TipoArticulo = 'C') and (ComCorte = 1)) then
+  begin
+     if ((QMCabeceraESTADO.AsInteger = 5) and (not HayOrden)) then
+        HayOrden := True;
+
+     with QMDetalle do
+     begin
+        if (State in [dsEdit, dsInsert]) then
+           Post;
+
+        TZFMPedidosArtDet.Create(Self).AbreDatos(QMDetalleID_DETALLES_S.AsInteger,
+           QMDetalleARTICULO.AsString,
+           QMDetalleTITULO.AsString,
+           TipoArticulo,
+           HayOrden);
+
+        CierraAbreDet;
+     end;
+  end;
+  DMMain.LogFin('');
+end;
+
+{TOLYCOR}
+function TDMPedidos.TieneEscandalloProduccion: boolean;
+begin
+  DMMain.LogIni('DMPedidos.TieneEscandalloProduccion');
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Clear;
+        SQL.Add(' SELECT A.TIPO_ARTICULO_TYC, E.ID_ESC ');
+        SQL.Add(' FROM ART_ARTICULOS A ');
+        SQL.Add(' LEFT JOIN PRO_ESCANDALLO E ');
+        SQL.Add(' ON E.EMPRESA = A.EMPRESA AND E.COMPUESTO = A.ARTICULO AND E.TIPO = ''EPR'' AND E.ESTADO = 1 ');
+        SQL.Add(' WHERE ');
+        SQL.Add(' A.EMPRESA = :EMPRESA AND ');
+        SQL.Add(' A.ARTICULO = :ARTICULO ');
+        Params.ByName['EMPRESA'].AsInteger := QMDetalleEMPRESA.AsInteger;
+        Params.ByName['ARTICULO'].AsString := QMDetalleARTICULO.AsString;
+        ExecQuery;
+        Result := ((FieldByName['ID_ESC'].AsInteger <> 0) or (FieldByName['TIPO_ARTICULO_TYC'].AsString = 'T'));
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+  DMMain.LogFin('');
+end;
+
+{TOLYCOR}
+function TDMPedidos.DameEstadoDeOrden: integer;
+begin
+  DMMain.LogIni('DMPedidos.DameEstadoDeOrden');
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Clear;
+        SQL.Text := 'SELECT SITUACION FROM PRO_ORD WHERE ID_ORDEN = :ID_ORDEN';
+        Params.ByName['ID_ORDEN'].AsInteger := QMDetalleID_ORDEN.AsInteger;
+        ExecQuery;
+        Result := FieldByName['SITUACION'].AsInteger;
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+  DMMain.LogFin('');
+end;
+
+{TOLYCOR}
+function TDMPedidos.OrdenProduccionCrea: integer;
+begin
+  DMMain.LogIni('DMPedidos.OrdenProduccionCrea');
+  if (QMDetalleID_DESPIECE.AsInteger > 0) then
+  begin
+     with THYFIBQuery.Create(nil) do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           SQL.Clear;
+           SQL.Text := 'SELECT ID_ORDEN FROM PRO_DESPIECE_CREAR_OP (:ID_DESPIECE, :ENTRADA)';
+           Params.ByName['ID_DESPIECE'].AsInteger := QMDetalleID_DESPIECE.AsInteger;
+           Params.ByName['ENTRADA'].AsInteger := REntorno.Entrada;
+           ExecQuery;
+           Result := FieldByName['ID_ORDEN'].AsInteger;
+           FreeHandle;
+        finally
+           Free;
+        end;
+     end;
+  end
+  else
+  begin
+     with THYFIBQuery.Create(nil) do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           SQL.Clear;
+           SQL.Text := 'SELECT ID_ORDEN FROM Z_PRO_CREAR_ORDEN_PEDIDO(:ID_S, :FECHA, :ENTRADA)';
+           Params.ByName['ID_S'].AsInteger := QMCabeceraID_S.AsInteger;
+           Params.ByName['FECHA'].AsDateTime := REntorno.FechaTrabSH;
+           Params.ByName['ENTRADA'].AsInteger := REntorno.Entrada;
+           ExecQuery;
+           Result := FieldByName['ID_ORDEN'].AsInteger;
+           FreeHandle;
+        finally
+           Free;
+        end;
+     end;
+  end;
+
+  QMDetalle.Refresh;
+  DMMain.LogFin('');
+end;
+
+{TOLYCOR}
+procedure TDMPedidos.GenerarPackingList;
+begin
+  DMMain.LogIni('DMPedidos.GenerarPackingList');
+  if (not PackingListGenerado) then
+  begin
+     with THYFIBQuery.Create(Self) do
+     begin
+        try
+           Database := DMMain.Database;
+           SQL.Text := 'EXECUTE PROCEDURE G_PACKING_LIST_GENERAR(?EMPRESA, ?EJERCICIO, ?CANAL, ?SERIE, ?TIPO, ?RIG, ?ID_S)';
+           Params.ByName['EMPRESA'].AsInteger := REntorno.Empresa;
+           Params.ByName['EJERCICIO'].AsInteger := QMCabeceraEJERCICIO.AsInteger;
+           Params.ByName['CANAL'].AsInteger := REntorno.Canal;
+           Params.ByName['SERIE'].AsString := QMCabeceraSERIE.AsString;
+           Params.ByName['TIPO'].AsString := 'PEC';
+           Params.ByName['RIG'].AsInteger := QMCabeceraRIG.AsInteger;
+           Params.ByName['ID_S'].AsInteger := QMCabeceraID_S.AsInteger;
+           ExecQuery;
+        finally
+           Free;
+        end;
+     end;
+  end;
+  DMMain.LogFin('');
+end;
+
+{TOLYCOR}
+function TDMPedidos.PackingListGenerado: boolean;
+begin
+  DMMain.LogIni('DMPedidos.PackingListGenerado');
+  with THYFIBQuery.Create(Self) do
+  begin
+     try
+        Database := DMMain.Database;
+        SQL.Text := 'SELECT FIRST 1 ID_S FROM GES_CABECERAS_S_BULTOS WHERE ID_S = ?ID_S';
+        Params.ByName['ID_S'].AsInteger := QMCabeceraID_S.AsInteger;
+        ExecQuery;
+        Result := (FieldByName['ID_S'].AsInteger > 0);
+     finally
+        Free;
+     end;
+  end;
+  DMMain.LogFin('');
+end;
+
+(*
+{TOLYCOR}
+procedure TDMPedidos.Z_ArticuloExistente;
+var
+  long_art, rest_lin, rest_sal, rest_total : integer;
+  Q : THYFIBQuery;
+begin
+  if (KriConf500) then
+  begin
+     if ((xArticulos.FieldByName('TIPO_ARTICULO_TYC').AsString = 'T') or (xArticulos.FieldByName('TIPO_ARTICULO_TYC').AsString = 'A')) then
+     begin
+        long_art := Length(QMDetalleARTICULO.AsString);
+
+        rest_lin := 5;
+        rest_sal := 2;
+        rest_total := 6;
+
+        // Mirar si es del tipo TnombreXXXYYY, TnombreXXXYY , TnombreXXXX
+        if (StrToIntDef(Copy(QMDetalleARTICULO.AsString, long_art - rest_lin, 1), -1) >= 0) then
+        begin
+           rest_lin := 4;
+           rest_sal := 1;
+           rest_total := 5;
+
+           if (StrToIntDef(Copy(QMDetalleARTICULO.AsString, long_art - rest_lin, 1), -1) >= 0) then
+           begin
+              rest_lin := 3;
+              rest_sal := 0;
+              rest_total := 4;
+           end;
+        end;
+
+        Lineal := StrToIntDef(Copy(QMDetalleARTICULO.AsString, long_art - rest_lin, 3), -1);
+        Salida := StrToIntDef(Copy(QMDetalleARTICULO.AsString, long_art - rest_sal, 3), -1);
+
+        if ((Lineal >= 0) and (Salida >= 0)) then
+        begin
+           Q := THYFIBQuery.Create(nil);
+           try
+              with Q do
+              begin
+                 Close;
+                 DataBase := DMMain.DataBase;
+                 SQL.Add(' SELECT FIRST(1) ARTICULO ');
+                 SQL.Add(' FROM ART_ARTICULOS ');
+                 SQL.Add(' WHERE ');
+                 SQL.Add(' EMPRESA = :EMPRESA AND ');
+                 SQL.Add(' ARTICULO LIKE :MODELO AND ');
+                 SQL.Add(' SUBSTRING(ARTICULO FROM ' + IntToStr(long_art - rest_lin) + ' FOR 3) >= :LINEAL AND ');
+                 SQL.Add(' SUBSTRING(ARTICULO FROM ' + IntToStr(long_art - rest_sal) + ' FOR 3) >= :SALIDA ');
+                 SQL.Add(' ORDER BY ARTICULO ');
+                 Params.ByName['EMPRESA'].AsInteger := REntorno.Empresa;
+                 Params.ByName['MODELO'].AsString := Copy(QMDetalleARTICULO.AsString, 1, long_art - rest_total) + '%';
+                 Params.ByName['LINEAL'].AsString := Copy(QMDetalleARTICULO.AsString, long_art - rest_lin, 3);
+                 Params.ByName['SALIDA'].AsString := Copy(QMDetalleARTICULO.AsString, long_art - rest_sal, 3);
+                 ExecQuery;
+                 QMDetalleARTICULO.AsString := FieldByName['ARTICULO'].AsString;
+                 FreeHandle;
+              end;
+           finally
+              FreeAndNil(Q);
+           end;
+        end;
+     end;
+  end;
+end;
+*)
+
+{TOLYCOR}
+function TDMPedidos.PedidoTieneOrden: boolean;
+var
+  id : integer;
+begin
+  DMMain.LogIni('DMPedidos.PedidoTieneOrden');
+
+  Result := False;
+  id := QMDetalleID_DETALLES_S.AsInteger;
+  with QMDetalle do
+  begin
+     DisableControls;
+     try
+        First;
+        while ((not EOF) and (not Result)) do
+        begin
+           if (QMDetalleID_ORDEN.AsInteger <> 0) then
+              Result := True;
+           Next;
+        end;
+     finally
+        EnableControls;
+     end;
+  end;
+
+  Posicionar(QMDetalle, 'ID_DETALLES_S', id);
+
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMCabeceraBeforeDelete(DataSet: TDataSet);
+begin
+  DMMain.Log('DMPedidos.QMCabeceraBeforeDelete - ' + DataSet.Name);
+  DMMain.RestingeEdicion(DataSet, QMCabeceraESTADO.AsInteger);
+
+  // No se pueden borrar pedidos si hay orden asociada
+  if (PedidoTieneOrden) then
+  begin
+     Application.MessageBox(PChar(string(_('No se puede borrar un pedido con una orden asociada'))),
+        PChar(string(_('Aviso'))), mb_iconinformation + mb_ok);
+     Abort;
+  end;
+end;
+
+procedure TDMPedidos.QMDetalleAfterScroll(DataSet: TDataSet);
+begin
+  DMMain.LogIni('DMPedidos.QMDetalleAfterScroll');
+  {dji lrk kri}
+  LiquidoAnt := QMDetalleLIQUIDO.AsFloat;
+
+  // Se realiza en FMPedidos.HabilitaBotonesDetalle
+  {
+  if (FormCreado) then
+     HabilitarBotonOF;
+  }
+  (*
+  {TOLYCOR}
+  if (LeeParametro('MODREST017') = 'S') then
+     FMPedidosTallas.ActualizaEstadoOrden
+  else
+  {$IFNDEF TPV}
+  if (Param_MODREST019) then
+     FMPedidosAlquiler.ActualizaEstadoOrden
+  else
+  {$ENDIF}
+     FMPedidos.ActualizaEstadoOrden;
+  *)
+
+  RellenaDatosLinea(OldLinea);
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMCabeceraBeforeInsert(DataSet: TDataSet);
+begin
+  DMMain.LogIni('DMPedidos.QMCabeceraBeforeInsert - ' + DataSet.Name);
+  with EntornoDoc do
+  begin
+     Empresa := REntorno.Empresa;
+     Ejercicio := REntorno.Ejercicio;
+     Canal := REntorno.Canal;
+     Pais := REntorno.Pais;
+  end;
+  EnviarConfirmacion := False;
+  EnviarConfirmacionAuto := False;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMCabeceraCONTACTOChange(Sender: TField);
+// var
+//   Q : THYFIBQuery;
+begin
+  // Pasa a FMPedidos
+  (*
+  if (QMCabeceraCONTACTO.AsInteger <> 0) then
+  begin
+     Q := THYFIBQuery.Create(nil);
+     with Q do
+     begin
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Text := 'SELECT AGENTE, NOMBRE, APELLIDOS FROM SYS_TERCEROS_CONTACTOS WHERE TERCERO=' + QMCabeceraTERCERO.AsString + ' AND CONTACTO=' + QMCabeceraCONTACTO.AsString;
+        ExecQuery;
+        if ((QMCabecera.State = dsInsert) or (QMCabecera.State = dsEdit)) then
+           if (FieldByName['AGENTE'].AsInteger > 0) then
+              QMCabeceraAGENTE.AsInteger := FieldByName['AGENTE'].AsInteger;
+        if (Trim(FieldByName['NOMBRE'].AsString + Trim(FieldByName['APELLIDOS'].AsString)) > '') then
+           FMPedidos.LFEContactoKri.Text := FieldByName['NOMBRE'].AsString + ' ' + FieldByName['APELLIDOS'].AsString
+        else
+           FMPedidos.LFEContactoKri.Text := '';
+        FreeHandle;
+     end;
+     FreeAndNil(Q);
+  end
+  else
+     FMPedidos.LFEContactoKri.Text := '';
+*)
+end;
+
+procedure TDMPedidos.FiltraClienteKri(Ejercicio: integer; Serie: string; Cliente, Estado: integer);
+begin
+  DMMain.LogIni('DMPedidos.FiltraClienteKri');
+  with QMCabecera do
+  begin
+     Close;
+     SelectSQL.Text := SQLFind;
+     case Estado of
+        // 0: Todas
+        // Activas
+        1:
+           SelectSQL.Add(' AND ESTADO = 0 ');
+        // Cerradas
+        2:
+           SelectSQL.Add(' AND ESTADO = 5 ');
+     end;
+
+     SelectSQL.Add(' AND CLIENTE = ?CLIENTE ');
+     SelectSQL.Add(' ORDER BY EJERCICIO, RIG ');
+
+     Params.ByName['EMPRESA'].AsInteger := REntorno.Empresa;
+     // Params.ByName['EJERCICIO'].AsInteger := Ejercicio;
+     Params.ByName['CANAL'].AsInteger := REntorno.Canal;
+     Params.ByName['SERIE'].AsString := Serie;
+     Params.ByName['CLIENTE'].AsInteger := Cliente;
+
+     Open;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMCabeceraPROYECTOChange(Sender: TField);
+var
+  titulo_ant, titulo : string;
+begin
+  DMMain.LogIni('DMPedidos.QMCabeceraPROYECTOChange');
+  with xProyectos do
+  begin
+     titulo_ant := FieldByName('TITULO').AsString;
+     Close;
+     Open;
+     titulo := FieldByName('TITULO').AsString;
+  end;
+
+  if ((QMCabeceraSU_REFERENCIA.AsString = titulo_ant) or (QMCabeceraSU_REFERENCIA.AsString = '')) then
+  begin
+     if (QMCabeceraPROYECTO.AsInteger = 0) then
+        QMCabeceraSU_REFERENCIA.AsString := ''
+     else
+        QMCabeceraSU_REFERENCIA.AsString := titulo;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.BuscaArticulo(Articulo: string);
+begin
+  DMMain.LogIni('DMPedidos.BuscaArticulo');
+  { TODO -cOptimizacion : Ver si se puede optimizar filtrando GES_DETALLES_S por EECS y TIPO. }
+  with QMCabecera do
+  begin
+     Close;
+     if (Articulo <> '') then
+        ModificaSelect(QMCabecera, ' AND ID_S IN (SELECT ID_S FROM GES_DETALLES_S WHERE ID_A = ' +
+           IntToStr(DameIDArticulo(Articulo)) + ')', (Articulo <> ''))
+     else
+     begin
+        SelectSQL.Text := SQLBase;
+        SelectSQL.Add(' ORDER BY EJERCICIO, RIG ');
+     end;
+
+     if ExisteParametro(QMCabecera, 'EMPRESA') then
+     begin
+        DMMain.FiltraTabla(QMCabecera, '11100', False);
+     end;
+     Params.ByName['SERIE'].AsString := Serie;
+     Open;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.BuscaOrden(IdOrden: integer);
+begin
+  DMMain.LogIni('DMPedidos.BuscaOrden');
+  { TODO -cOptimizacion : Ver si se puede optimizar filtrando GES_DETALLES_S_PED por EECS y TIPO. }
+  with QMCabecera do
+  begin
+     Close;
+     if (IdOrden <> 0) then
+        ModificaSelect(QMCabecera, ' AND ID_S IN (SELECT ID_S FROM GES_DETALLES_S_PED WHERE ID_ORDEN = ' +
+           IntToStr(IdOrden) + ')', (IdOrden <> 0))
+     else
+     begin
+        SelectSQL.Text := SQLBase;
+        SelectSQL.Add(' ORDER BY EJERCICIO, RIG ');
+     end;
+
+     if ExisteParametro(QMCabecera, 'EMPRESA') then
+     begin
+        DMMain.FiltraTabla(QMCabecera, '11100', False);
+     end;
+     Params.ByName['SERIE'].AsString := Serie;
+     Open;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.BuscaLoteSimple(LoteSimple: string);
+begin
+  DMMain.LogIni('DMPedidos.BuscaLoteSimple');
+  { TODO -cOptimizacion : Ver si se puede optimizar filtrando GES_DETALLES_S por EECS y TIPO. }
+  with QMCabecera do
+  begin
+     Close;
+     if (LoteSimple <> '') then
+        ModificaSelect(QMCabecera, ' AND ID_S IN (SELECT ID_S FROM GES_DETALLES_S WHERE LOTE_SIMPLE = ''' +
+           LoteSimple + ''')', (LoteSimple <> ''))
+     else
+     begin
+        SelectSQL.Text := SQLBase;
+        SelectSQL.Add(' ORDER BY EJERCICIO, RIG ');
+     end;
+
+     if ExisteParametro(QMCabecera, 'EMPRESA') then
+     begin
+        DMMain.FiltraTabla(QMCabecera, '11100', False);
+     end;
+     Params.ByName['SERIE'].AsString := Serie;
+     Open;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.MoverLinea(direccion: integer);
+var
+  id_detalles_s : integer;
+begin
+  DMMain.LogIni('DMPedidos.MoverLinea');
+  if ((QMCabecera.State = dsBrowse) and (QMDetalle.State = dsBrowse) and (QMCabeceraESTADO.AsInteger = 0)) then
+  begin
+     id_detalles_s := QMDetalleID_DETALLES_S.AsInteger;
+     with THYFIBQuery.Create(nil) do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           SQL.Text := 'EXECUTE PROCEDURE KRI_MUEVE_LINEA(' + QMDetalleID_DETALLES_S.AsString +
+              ',' + IntToStr(direccion) + ')';
+           ExecQuery;
+           FreeHandle;
+        finally
+           Free;
+        end;
+     end;
+
+     CierraAbreDet(id_detalles_s);
+  end;
+  DMMain.LogFin('');
+end;
+
+function TDMPedidos.Inhabilitar: boolean;
+begin
+  Result := ((QMDetalle.State = dsInsert) or (QMDetalle.State = dsEdit));
+end;
+
+procedure TDMPedidos.DataModuleDestroy(Sender: TObject);
+begin
+  DMMain.LogIni('DMPedidos.DataModuleDestroy');
+  if (TLocal.InTransaction) then
+     TLocal.Commit;
+  if (TUpdate.InTransaction) then
+     TUpdate.Commit;
+
+  OldLinea.Free;
+  StockAlm.Free;
+  StockAlm2.Free;
+  StockAlm3.Free;
+  StockAlmV.Free;
+  StockAlmV2.Free;
+  StockAlmV3.Free;
+  StockAlmR.Free;
+  StockAlmR2.Free;
+  StockAlmR3.Free;
+  StockAlmM.Free;
+  StockAlmM2.Free;
+  StockAlmM3.Free;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.AbreQMNif;
+begin
+  DMMain.LogIni('DMPedidos.AbreQMNif');
+  if (QMCabecera.State in [dsInsert, dsEdit]) then
+     QMCabecera.Post;
+  if (QMDetalle.State in [dsInsert, dsEdit]) then
+     QMDetalle.Post;
+
+  QMNif.Close;
+  QMNif.Open;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.CierraQMNif;
+begin
+  DMMain.LogIni('DMPedidos.CierraQMNif');
+  QMNif.Close;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMCabeceraTITULOGetText(Sender: TField; var Text: string; DisplayText: boolean);
+begin
+  // DMMain.LogIni('DMPedidos.QMCabeceraTITULOGetText');
+
+  if (QMCabeceraTERCERO.AsInteger < 0) then
+     Text := DameNombreTercerosVarios(QMCabeceraTIPO.AsString, QMCabeceraID_S.AsInteger);
+
+  if (Text = '') then
+     Text := QMCabeceraTITULO.AsString;
+
+  // DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMDetalleTIPO_UNIDAD_LOGISTICAChange(Sender: TField);
+begin
+  DMMain.LogIni('DMPedidos.QMDetalleTIPO_UNIDAD_LOGISTICAChange');
+  if ((QMDetalle.State = dsInsert) or (QMDetalle.State = dsEdit)) and (not FlagModificandoUnidades) then
+  begin
+     FlagModificandoUnidades := True;
+     try
+        if (QMDetalleTIPO_UNIDAD_LOGISTICA.AsString <> '') then
+        begin
+           with THYFIBQuery.Create(nil) do
+           begin
+              try
+                 Close;
+                 DataBase := DMMain.DataBase;
+                 SQL.Text := 'SELECT UNIDADES, RELACIONAR_CON_UNIDADES FROM SYS_TIPO_UNIDAD_LOGISTICA WHERE TIPO = ?TIPO';
+                 Params.ByName['TIPO'].AsString := QMDetalleTIPO_UNIDAD_LOGISTICA.AsString;
+                 ExecQuery;
+                 QMDetalle.DisableControls;
+                 try
+                    if (Param_SYSCONF005 < 2) then
+                    begin
+                       // Las cajas siempre son enteros. No se puede embalar media caja}
+                       if ((FieldByName['UNIDADES'].AsFloat <> 0) and
+                          (FieldByName['RELACIONAR_CON_UNIDADES'].AsInteger = 1)) then
+                          QMDetalleUNIDADES_LOGISTICAS.AsFloat :=
+                             QMDetalleUNIDADES.AsInteger div FieldByName['UNIDADES'].AsInteger;
+                    end;
+
+                    // Siempre habra por lo menos una caja
+                    if (QMDetalleUNIDADES_LOGISTICAS.AsFloat = 0) then
+                    begin
+                       if (QMDetalleUNIDADES.AsInteger > 0) then
+                       begin
+                          QMDetalleUNIDADES_LOGISTICAS.AsFloat := 1;
+                          QMDetalleUNIDADES.AsFloat := FieldByName['UNIDADES'].AsFloat;
+                       end
+                       else
+                       begin
+                          QMDetalleUNIDADES_LOGISTICAS.AsFloat := -1;
+                          QMDetalleUNIDADES.AsFloat := FieldByName['UNIDADES'].AsFloat * (-1);
+                       end;
+                    end;
+                 finally
+                    QMDetalle.EnableControls;
+                 end;
+                 FreeHandle;
+              finally
+                 Free;
+              end;
+           end;
+        end;
+     finally
+        FlagModificandoUnidades := False;
+     end;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMDetalleUNIDADES_LOGISTICASChange(Sender: TField);
+{
+var
+  FactorUnidad : double;
+}
+begin
+  DMMain.LogIni('DMPedidos.QMDetalleUNIDADES_LOGISTICASChange');
+  if (Param_SYSCONF005 < 2) then
+  begin
+     if ((QMDetalle.State = dsInsert) or (QMDetalle.State = dsEdit)) and (not FlagModificandoUnidades) then
+     begin
+        FlagModificandoUnidades := True;
+        try
+           if IntToStr(QMDetalleUNIDADES_LOGISTICAS.AsInteger) <> '' then
+           begin
+              with THYFIBQuery.Create(nil) do
+              begin
+                 try
+                    Close;
+                    DataBase := DMMain.DataBase;
+                    SQL.Text :=
+                       'SELECT UNIDADES, RELACIONAR_CON_UNIDADES FROM SYS_TIPO_UNIDAD_LOGISTICA WHERE TIPO = :TIPO';
+                    Params.ByName['TIPO'].AsString := QMDetalleTIPO_UNIDAD_LOGISTICA.AsString;
+                    ExecQuery;
+                    if ((FieldByName['UNIDADES'].AsFloat <> 0) and
+                       (FieldByName['RELACIONAR_CON_UNIDADES'].AsInteger = 1)) then
+                       QMDetalleUNIDADES.AsFloat :=
+                          QMDetalleUNIDADES_LOGISTICAS.AsFloat * FieldByName['UNIDADES'].AsFloat;
+                    FreeHandle;
+                 finally
+                    Free;
+                 end;
+              end;
+
+              {
+              FactorUnidad := xArticulos.FieldByName('FACTOR_UNIDAD').AsFloat;
+              if (FactorUnidad = 0) then
+                 FactorUnidad := 1;
+              }
+              if Param_VENULKG001 and (QMDetalleTIPO_UNIDAD_LOGISTICA.AsString = 'KG') then
+              begin
+                 QMDetalleUNIDADES.AsFloat := QMDetallePESO.AsFloat * QMDetalleUNIDADES_LOGISTICAS.AsFloat;
+                 QMDetallePESO_TOTAL.AsFloat := QMDetalleUNIDADES.AsFloat;
+                 QMDetallePESO_REAL.AsFloat := QMDetallePESO_TOTAL.AsFloat;
+              end
+              else
+              begin
+                 if param_VENUSEC001 and (QMDetalleAPLICA_UNIDADES_SECUNDARIAS.AsInteger = 1) then
+                    QMDetallePESO_TOTAL.AsFloat := xArticulos.FieldByName('PESO').AsFloat * QMDetalleUNIDADES_SEC.AsFloat * QMDetalleUNIDADES_LOGISTICAS.AsFloat {dji}
+                 else
+                    QMDetallePESO_TOTAL.AsFloat := xArticulos.FieldByName('PESO').AsFloat * QMDetalleUNIDADES.AsFloat;
+
+                 QMDetallePESO_REAL.AsFloat := QMDetallePESO_TOTAL.AsFloat;
+              end;
+           end;
+        finally
+           FlagModificandoUnidades := False;
+        end;
+     end;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMCabeceraRANGOChange(Sender: TField);
+begin
+  DMMain.LogIni('DMPedidos.QMCabeceraRANGOChange');
+  with xRangos do
+  begin
+     Close;
+     Params.ByName['RANGO'].AsInteger := Sender.AsInteger;
+     Open;
+  end;
+  QMCabeceraINDICE.Clear;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMCabeceraINDICEChange(Sender: TField);
+begin
+  DMMain.LogIni('DMPedidos.QMCabeceraINDICEChange');
+  with xIndices do
+  begin
+     Close;
+     Params.ByName['INDICE'].AsInteger := Sender.AsInteger;
+     Open;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMCabeceraTIPO_PORTESChange(Sender: TField);
+begin
+  DMMain.LogIni('DMPedidos.QMCabeceraTIPO_PORTESChange');
+  if ((Sender.Value = 6) or (Sender.Value = 5) or (Sender.Value = 7)) then
+  begin
+     QMCabeceraRANGO.Clear;
+     QMCabeceraINDICE.Clear;
+  end;
+  DMMain.LogFin('');
+end;
+
+function TDMPedidos.ExisteRango(Rango: integer): boolean;
+begin
+  DMMain.LogIni('DMPedidos.ExisteRango');
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Text := 'SELECT ID_RANGO FROM EMP_RANGOS WHERE EMPRESA=?EMPRESA AND RANGO=?RANGO';
+        Params.ByName['EMPRESA'].AsInteger := REntorno.Empresa;
+        Params.ByName['RANGO'].AsInteger := Rango;
+        ExecQuery;
+        Result := HayDatos;
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+  DMMain.LogFin('');
+end;
+
+function TDMPedidos.OrdenProduccion: integer;
+begin
+  DMMain.LogIni('DMPedidos.OrdenProduccion');
+  /// Crea un orden de produccion desde la linea de pedido o despiece
+  /// Quedará unida a la linea de pedido a travez de GES_DETALLES_S_PED.ID_ORDEN y/o despiece
+  /// La orden quedará lanzada si PRO_CONSTANTES.GEST_PED_AUTO = 1
+  if (QMDetalleID_DESPIECE.AsInteger > 0) then
+  begin
+     with THYFIBQuery.Create(nil) do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           SQL.Clear;
+           SQL.Text := 'SELECT ID_ORDEN FROM PRO_DESPIECE_CREAR_OP (:ID_DESPIECE, :ENTRADA)';
+           Params.ByName['ID_DESPIECE'].AsInteger := QMDetalleID_DESPIECE.AsInteger;
+           Params.ByName['ENTRADA'].AsInteger := REntorno.Entrada;
+           ExecQuery;
+           Result := FieldByName['ID_ORDEN'].AsInteger;
+           FreeHandle;
+        finally
+           Free;
+        end;
+     end;
+  end
+  else
+  begin
+     with THYFIBQuery.Create(nil) do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           SQL.Text := 'SELECT ID_ORDEN FROM PRO_CREAR_ORDEN_PEDIDO_LINEA(:ID_DETALLES_S, :FECHA, :ENTRADA)';
+           Params.ByName['ID_DETALLES_S'].AsInteger := QMDetalleID_DETALLES_S.AsInteger;
+           Params.ByName['FECHA'].AsDateTime := REntorno.FechaTrabSH;
+           Params.ByName['ENTRADA'].AsInteger := REntorno.Entrada;
+           ExecQuery;
+           Result := FieldByName['ID_ORDEN'].AsInteger;
+           FreeHandle;
+        finally
+           Free;
+        end;
+     end;
+  end;
+
+  QMDetalle.Refresh;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.OrdenProduccionTodas;
+begin
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Clear;
+        SQL.Text := 'EXECUTE PROCEDURE PRO_TRASPASO_PED_MULTI_ORDEN (:ID_S, :ENTRADA)';
+        Params.ByName['ID_S'].AsInteger := QMCabeceraID_S.AsInteger;
+        Params.ByName['ENTRADA'].AsInteger := REntorno.Entrada;
+        ExecQuery;
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+  RefrescaTabla;
+end;
+
+procedure TDMPedidos.QMCabeceraBeforeClose(DataSet: TDataSet);
+begin
+  DMMain.LogIni('DMPedidos.QMCabeceraBeforeClose - ' + DataSet.Name);
+  xCliente.Close;
+  xAlmacenes.Close;
+  QMDetalle.Close;
+  xDirecciones.Close;
+  xAgentes.Close;
+  xFormasPago.Close;
+  xCampanyas.Close;
+  xTarifas.Close;
+  xIdiomas.Close;
+  QMNif.Close;
+  xProyectos.Close;
+  xRangos.Close;
+  xIndices.Close;
+  xInfoActualizada.Close;
+  QMFirmas.Close;
+  xMonedas.Close;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.PideDivisiones(Cabecera: boolean);
+var
+  FMDivisiones : TFMDivisiones;
+begin
+  DMMain.LogIni('DMPedidos.PideDivisiones');
+  FMDivisiones := TFMDivisiones.Create(Self);
+  with FMDivisiones do
+  begin
+     try
+        Inicializa(QMCabeceraID_S.AsInteger, QMDetalleID_DETALLES_S.AsInteger, Cabecera);
+        ShowModal;
+     finally
+        Free;
+     end;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.CambiaCampanyaFiltrados(Campanya: integer; NoTenerEnCuentaCampanya: boolean);
+var
+  id_s : integer;
+begin
+  DMMain.LogIni('DMPedidos.CambiaCampanyaFiltrados');
+  with QMCabecera do
+  begin
+     DisableControls;
+     id_s := QMCabeceraID_S.AsInteger;
+     First;
+     while not EOF do
+     begin
+        // Modifico solo documentos abiertos y con campaña indefinida o sin tener en cuenta la campaña
+        if ((QMCabeceraESTADO.AsInteger = 0) and ((QMCabeceraCAMPANYA.AsInteger = 0) or NoTenerEnCuentaCampanya)) then
+        begin
+           { UPDATE mediante SQL para evitar error extraño del "BLOB Id not fount".
+           Edit;
+           QMCabeceraCAMPANYA.AsInteger := Campanya;
+           Post;
+           }
+           with THYFIBQuery.Create(nil) do
+           begin
+              try
+                 Close;
+                 DataBase := DMMain.DataBase;
+                 SQL.Text := 'UPDATE GES_CABECERAS_S SET CAMPANYA = :CAMPANYA WHERE ID_S = :ID_S';
+                 Params.ByName['CAMPANYA'].AsInteger := Campanya;
+                 Params.ByName['ID_S'].AsInteger := QMCabeceraID_S.AsInteger;
+                 ExecQuery;
+                 FreeHandle;
+              finally
+                 Free;
+              end;
+           end;
+        end;
+        Next;
+     end;
+
+     while ((not BOF) and (QMCabeceraID_S.AsInteger <> id_s)) do
+        Prior;
+     EnableControls;
+  end;
+
+  Refrescar(QMCabecera, 'ID_S', QMCabeceraID_S.AsInteger);
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.MarcarPedido;
+begin
+  DMMain.LogIni('DMPedidos.MarcarPedido');
+  ///    Este procedimiento agrega una X delante de la referencia de una cabecera de documento de ventas
+  ///    Se utiliza principalmente con pedidos
+  ///    'Desactiva Triggers' mediante semaforos para poder hacerlo con documentos cerrados
+
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Text := 'EXECUTE PROCEDURE G_MARCAR_PEDIDO(:ID_S)';
+        Params.ByName['ID_S'].AsInteger := QMCabeceraID_S.AsInteger;
+        ExecQuery;
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+
+  QMCabecera.Refresh;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.DuplicarPedidoEDI;
+var
+  Q : THYFIBQuery;
+  SuReferencia : string;
+begin
+  DMMain.LogIni('DMPedidos.DuplicarPedidoEDI');
+  SuReferencia := QMCabeceraSU_REFERENCIA.AsString;
+
+  Q := THYFIBQuery.Create(nil);
+  try
+     with Q do
+     begin
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Text := 'EXECUTE PROCEDURE DUPLICAR_PEDIDO_EDI (:ID_S, :ENTRADA, :EMPRESA_DES, :EJERCICIO_DES, :CANAL_DES, :SERIE_DES)';
+        Params.ByName['ID_S'].AsInteger := QMCabeceraID_S.AsInteger;
+        Params.ByName['ENTRADA'].AsInteger := REntorno.Entrada;
+        Params.ByName['EMPRESA_DES'].AsInteger := REntorno.Empresa;
+        Params.ByName['EJERCICIO_DES'].AsInteger := REntorno.Ejercicio;
+        Params.ByName['CANAL_DES'].AsInteger := REntorno.Canal;
+        Params.ByName['SERIE_DES'].AsString := Serie;
+        TFParada.Create(Self).ExecQuery(Q);
+        FreeHandle;
+     end;
+  finally
+     FreeAndNil(Q);
+  end;
+
+  // Posiciono sobre el duplicado
+  with QMCabecera do
+  begin
+     DisableControls;
+     try
+        Close;
+        Open;
+        // Seguramente será el último por lo que empiezo desde el final
+        Last;
+        while (not BOF) and (QMCabeceraSU_REFERENCIA.AsString <> SuReferencia) do
+           Prior;
+     finally
+        EnableControls;
+     end;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.EliminarPackingList;
+begin
+  DMMain.LogIni('DMPedidos.EliminarPackingList');
+  with THYFIBQuery.Create(Self) do
+  begin
+     try
+        Database := DMMain.Database;
+        SQL.Text := 'EXECUTE PROCEDURE G_PACKING_LIST_ELIMINAR(:ID_S)';
+        Params.ByName['ID_S'].AsInteger := QMCabeceraID_S.AsInteger;
+        ExecQuery;
+     finally
+        Free;
+     end;
+  end;
+  DMMain.LogFin('');
+end;
+
+function TDMPedidos.DameEscandallo(n: integer): string;
+begin
+  DMMain.LogIni('DMPedidos.DameEscandallo');
+  with THYFIBQuery.Create(Self) do
+  begin
+     try
+        Database := DMMain.Database;
+        SQL.Text := 'SELECT ESCANDALLO FROM PRO_ESCANDALLO WHERE ID_ESC = :ID_ESC AND TIPO = ''EPR''';
+        if (n = 1) then
+           Params.ByName['ID_ESC'].AsInteger := QMDetalleID_ESC.AsInteger
+        else
+           Params.ByName['ID_ESC'].AsInteger := QMDetalleID_ESC_2.AsInteger;
+        ExecQuery;
+        Result := FieldByName['ESCANDALLO'].AsString;
+     finally
+        Free;
+     end;
+  end;
+  DMMain.LogFin('');
+end;
+
+function TDMPedidos.EscandalloActivo: boolean;
+begin
+  DMMain.LogIni('DMPedidos.EscandalloActivo');
+  with THYFIBQuery.Create(Self) do
+  begin
+     try
+        Database := DMMain.Database;
+        SQL.Add(' SELECT ESTADO ');
+        SQL.Add(' FROM PRO_ESCANDALLO ');
+        SQL.Add(' WHERE ID_ESC = :ID_ESC ');
+        Params.ByName['ID_ESC'].AsInteger := QMDetalleID_ESC.AsInteger;
+        ExecQuery;
+        Result := (FieldByName['ESTADO'].AsInteger = 1);
+     finally
+        Free;
+     end;
+  end;
+
+  if (QMDetalleID_ESC_2.AsInteger <> 0) then
+  begin
+     with THYFIBQuery.Create(Self) do
+     begin
+        try
+           Database := DMMain.Database;
+           SQL.Add(' SELECT ESTADO ');
+           SQL.Add(' FROM PRO_ESCANDALLO ');
+           SQL.Add(' WHERE ID_ESC = :ID_ESC ');
+           Params.ByName['ID_ESC'].AsInteger := QMDetalleID_ESC_2.AsInteger;
+           ExecQuery;
+           Result := Result and (FieldByName['ESTADO'].AsInteger = 1);
+        finally
+           Free;
+        end;
+     end;
+  end;
+  DMMain.LogFin('');
+end;
+
+(*
+procedure TDMPedidos.RefrescaID_Esc;
+var
+  Q : THYFIBQuery;
+begin
+  QMDetalle.Refresh;
+
+  Q := THYFIBQuery.Create(Self);
+  with Q do
+  begin
+     try
+        Database := DMMain.Database;
+        SQL.Add(' SELECT GES.ID_ESC, ESC.ESCANDALLO, ESC.COMPUESTO, ART.TITULO, ESC.ESTADO ');
+        SQL.Add(' FROM GES_DETALLES_S_PED GES ');
+        SQL.Add(' LEFT JOIN PRO_ESCANDALLO ESC ');
+        SQL.Add(' ON (GES.ID_ESC = ESC.ID_ESC) ');
+        SQL.Add(' LEFT JOIN ART_ARTICULOS ART ');
+        SQL.Add(' ON (ESC.EMPRESA = ART.EMPRESA AND ESC.COMPUESTO = ART.ARTICULO) ');
+        SQL.Add(' WHERE GES.ID_DETALLES_S = ?ID_DETALLES_S ');
+        Params.ByName['ID_DETALLES_S'].AsInteger := QMDetalleID_DETALLES_S.AsInteger;
+        ExecQuery;
+        // FID_Esc := FieldByName['ID_ESC'].AsInteger;
+        // FEstado := FieldByName['ESTADO'].AsInteger;
+        // FTitulo := FieldByName['TITULO'].AsString;
+     finally
+        Free;
+     end;
+  end;
+end;
+*)
+
+procedure TDMPedidos.QMCabeceraDTO_PPChange(Sender: TField);
+begin
+  DMMain.LogIni('DMPedidos.QMCabeceraDTO_PPChange');
+  if ((xFormasPago.FieldByName('PRONTO_PAGO').AsInteger = 0) and (QMCabeceraDTO_PP.AsFloat <> 0) and
+     (Trim(QMCabeceraFORMA_PAGO.AsString) > '')) then
+  begin
+     QMCabeceraDTO_PP.AsFloat := 0;
+     ShowMessage('La forma de pago no admite descuento pronto pago');
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMDetalleUNIDADESGetText(Sender: TField; var Text: string; DisplayText: boolean);
+begin
+  // DMMain.LogIni('DMPedidos.QMDetalleUNIDADESGetText');
+  // Text := DMMain.DameUnidadesConFormato(QMDetalleARTICULO.AsString, QMDetalleUNIDADES.AsFloat);
+  Text := Format('%.*f', [QMDetalleDECIMALES_UNIDADES.AsInteger, QMDetalleUNIDADES.AsFloat]);
+  // DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.OrdenarLineasPorDireccionEntrega;
+var
+  DS : TFIBDataSet;
+  Orden : integer;
+  IdDetalle : integer;
+begin
+  DMMain.LogIni('DMPedidos.OrdenarLineasPorDireccionEntrega');
+  /// Ordena las lineas por direccion de entrega, articulo, linea
+
+  IdDetalle := QMDetalleID_DETALLES_S.AsInteger;
+
+  if (QMDetalle.State <> dsBrowse) then
+     QMDetalle.Post;
+
+  Orden := 1;
+  DS := TFIBDataSet.Create(nil);
+  try
+     with DS do
+     begin
+        Transaction := TFIBTransaction.Create(nil);
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           with Transaction do
+           begin
+              DefaultDatabase := DMMain.DataBase;
+              TRParams.Clear;
+              TRParams.Add('read_committed');
+              TRParams.Add('read');
+              if (not InTransaction) then
+                 StartTransaction;
+           end;
+           SelectSQL.Add(' SELECT D.ID_DETALLES_S FROM GES_DETALLES_S D ');
+           SelectSQL.Add(' JOIN GES_DETALLES_S_PED P ');
+           SelectSQL.Add(' ON D.ID_DETALLES_S = P.ID_DETALLES_S ');
+           SelectSQL.Add(' WHERE D.ID_S = ?ID_S ');
+           SelectSQL.Add(' ORDER BY P.DIRECCION_ENTREGA, D.ARTICULO, D.LINEA ');
+           Params.ByName['ID_S'].AsInteger := QMCabeceraID_S.AsInteger;
+           Open;
+           while not EOF do
+           begin
+              with THYFIBQuery.Create(nil) do
+              begin
+                 try
+                    Close;
+                    DataBase := DMMain.DataBase;
+                    SQL.Text :=
+                       'UPDATE GES_DETALLES_S SET ORDEN = ?ORDEN WHERE ID_DETALLES_S = ?ID_DETALLES_S AND ORDEN <> ?ORDEN';
+                    Params.ByName['ID_DETALLES_S'].AsInteger := DS.FieldByName('ID_DETALLES_S').AsInteger;
+                    Params.ByName['ORDEN'].AsInteger := Orden;
+                    ExecQuery;
+                    FreeHandle;
+                 finally
+                    Free;
+                 end;
+              end;
+
+              Inc(Orden);
+              Next;
+           end;
+           Close;
+           Transaction.Commit;
+        finally
+           Transaction.Free;
+        end;
+     end;
+  finally
+     FreeAndNil(DS);
+  end;
+
+  Refrescar(QMDetalle, 'ID_DETALLES_S', IdDetalle);
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.OrdenarLineasPorArticulo;
+var
+  DS : TFIBDataSet;
+  Orden : integer;
+  IdDetalle : integer;
+begin
+  DMMain.LogIni('DMPedidos.OrdenarLineasPorArticulo');
+  /// Ordena las lineas por articulo, linea
+
+  IdDetalle := QMDetalleID_DETALLES_S.AsInteger;
+
+  if (QMDetalle.State <> dsBrowse) then
+     QMDetalle.Post;
+
+  Orden := 1;
+  DS := TFIBDataSet.Create(nil);
+  try
+     with DS do
+     begin
+        Transaction := TFIBTransaction.Create(nil);
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           with Transaction do
+           begin
+              DefaultDatabase := DMMain.DataBase;
+              TRParams.Clear;
+              TRParams.Add('read_committed');
+              TRParams.Add('read');
+              if (not InTransaction) then
+                 StartTransaction;
+           end;
+           SelectSQL.Add(' SELECT D.ID_DETALLES_S FROM GES_DETALLES_S D ');
+           SelectSQL.Add(' JOIN GES_DETALLES_S_PED P ');
+           SelectSQL.Add(' ON D.ID_DETALLES_S = P.ID_DETALLES_S ');
+           SelectSQL.Add(' WHERE D.ID_S = ?ID_S ');
+           SelectSQL.Add(' ORDER BY D.ARTICULO, D.LINEA ');
+           Params.ByName['ID_S'].AsInteger := QMCabeceraID_S.AsInteger;
+           Open;
+           while not EOF do
+           begin
+              with THYFIBQuery.Create(nil) do
+              begin
+                 try
+                    Close;
+                    DataBase := DMMain.DataBase;
+                    SQL.Text :=
+                       'UPDATE GES_DETALLES_S SET ORDEN = ?ORDEN WHERE ID_DETALLES_S = ?ID_DETALLES_S AND ORDEN <> ?ORDEN';
+                    Params.ByName['ID_DETALLES_S'].AsInteger := DS.FieldByName('ID_DETALLES_S').AsInteger;
+                    Params.ByName['ORDEN'].AsInteger := Orden;
+                    ExecQuery;
+                    FreeHandle;
+                 finally
+                    Free;
+                 end;
+              end;
+
+              Inc(Orden);
+              Next;
+           end;
+           Close;
+           Transaction.Commit;
+        finally
+           Transaction.Free;
+        end;
+     end;
+  finally
+     FreeAndNil(DS);
+  end;
+
+  Refrescar(QMDetalle, 'ID_DETALLES_S', IdDetalle);
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.ExportarPedidosFiltrados;
+var
+  id_s : integer;
+  s : string;
+  tsCabecera, tsDetalle, tsClientes, tsDireccion : TStrings;
+  Q : THYFIBQuery;
+begin
+  DMMain.LogIni('DMPedidos.ExportarPedidosFiltrados');
+  tsCabecera := TStringList.Create;
+  tsDetalle := TStringList.Create;
+  tsClientes := TStringList.Create;
+  tsDireccion := TStringList.Create;
+
+  try
+     QMDetalle.DisableControls;
+     try
+        with QMCabecera do
+        begin
+           // DisableControls;
+           id_s := QMCabeceraID_S.AsInteger;
+           First;
+           while not EOF do
+           begin
+              // Exporto Cabecera
+              // Ejemplo: 1183;20140210;04V901;;O;N;5;45;;;;;00;0.00;2136.90;PEDIDO R013140282
+
+              s := '';
+              s := s + FieldByName('RIG').AsString + ';';
+              s := s + FormatDateTime('yyyymmdd', FieldByName('FECHA').AsDateTime) + ';';
+              s := s + xCliente.FieldByName('SU_REFERENCIA').AsString + ';'; // ¿SU_REFERENCIA del Cliente?
+              // s := s + FieldByName('AGENTE').AsString + ';'; // Sección para agente A,D,E o P
+              s := s + Copy(xAgentes.FieldByName('TITULO').AsString, 1, 1) + ';'; // Sección para agente A,D,E o P
+              s := s + 'O' + ';'; // ??? - TVA normale (O ou N)
+              s := s + 'N' + ';'; // ??? - Req. équivalence (O ou N)
+              s := s + Copy(FieldByName('FORMA_PAGO').AsString, 1, 1) + ';'; // Forma de Pago (Primer dígito)
+              if (Trim(Copy(FieldByName('FORMA_PAGO').AsString, 2, 2)) > '') then
+                 s := s + Trim(Copy(FieldByName('FORMA_PAGO').AsString, 2, 2)) +
+                    ';' // Forma de Pago (Segundos dígitos, ¿dias de pago?)
+              else
+                 s := s + ';'; // Forma de Pago (Segundos dígitos)
+              s := s + ';';
+              s := s + ';';
+              s := s + ';';
+              s := s + 'N;'; // Modo expedición
+              s := s + Format('%.2d', [FieldByName('DIRECCION').AsInteger]) + ';';
+              // ¿Direccionde envío? ¿En dos caracteres? - N° adresse livraison
+              s := s + FloatToStrDec(0, '.', '0.00') + ';'; // ??? - Frais de port
+              s := s + FloatToStrDec(FieldByName('LIQUIDO').AsFloat, '.', '0.00') + ';';
+              s := s + FieldByName('SU_REFERENCIA').AsString; // ¿Referencia?
+              tsCabecera.Add(s);
+
+              // Exporto detalle
+              // Ejemplo: 1183;ACMS053;40;10.50;0;10.50
+              //          1183;TXMU092;30;59.00;3;57.23
+
+              with QMDetalle do
+              begin
+                 First;
+                 while not EOF do
+                 begin
+                    s := '';
+                    s := s + FieldByName('RIG').AsString + ';';
+                    s := s + FieldByName('ARTICULO').AsString + ';';
+                    s := s + FieldByName('LINEA').AsString + ';';
+                    s := s + FieldByName('UNIDADES').AsString + ';';
+                    s := s + FloatToStrDec(FieldByName('PRECIO').AsFloat, '.', '0.00') + ';';
+                    if (FieldByName('DESCUENTO').AsInteger > 0) then
+                       s := s + IntToStr(FieldByName('DESCUENTO').AsInteger) + ';'
+                    else
+                       s := s + ';';
+                    s := s + FloatToStrDec(FieldByName('PRECIO').AsFloat -
+                       (FieldByName('PRECIO').AsFloat * FieldByName('DESCUENTO').AsFloat / 100), '.', '0.00');
+                    // Precio unitario con el descuento aplicado
+                    tsDetalle.Add(s);
+                    Next;
+                 end;
+              end;
+
+              // Envío datos clientes
+              Q := THYFIBQuery.Create(nil);
+              try
+                 with Q do
+                 begin
+                    Close;
+                    DataBase := DMMain.DataBase;
+                    SQL.Add(' SELECT T.NIF, D.DIR_NOMBRE, D.DIR_NOMBRE_2, L.TITULO AS TITULO_LOCALIDAD, L.CODIGO_POSTAL, P.TITULO AS TITULO_PAIS, ');
+                    SQL.Add(' C.SU_REFERENCIA, T.NOMBRE_R_SOCIAL AS NOMBRE_CLIENTE');
+                    SQL.Add(' FROM EMP_CLIENTES C ');
+                    SQL.Add(' JOIN SYS_TERCEROS T ');
+                    SQL.Add(' ON T.TERCERO = C.TERCERO ');
+                    SQL.Add(' JOIN SYS_TERCEROS_DIRECCIONES D ');
+                    SQL.Add(' ON T.TERCERO = D.TERCERO ');
+                    SQL.Add(' JOIN SYS_LOCALIDADES L ');
+                    SQL.Add(' ON D.ID_LOCAL = L.ID_LOCAL ');
+                    SQL.Add(' JOIN SYS_PAISES P ');
+                    SQL.Add(' ON L.PAIS = P.PAIS ');
+                    SQL.Add(' WHERE ');
+                    SQL.Add(' C.EMPRESA = ?EMPRESA AND ');
+                    SQL.Add(' C.CLIENTE = ?CLIENTE AND ');
+                    SQL.Add(' D.DIR_DEFECTO = 1 ');
+                    Params.ByName['EMPRESA'].AsInteger := QMCabecera.FieldByName('EMPRESA').AsInteger;
+                    Params.ByName['CLIENTE'].AsInteger := QMCabecera.FieldByName('CLIENTE').AsInteger;
+
+                    ExecQuery;
+                    s := '';
+                    s := s + '43' + ';'; // N° province (43 ESPAÑA)
+                    s := s + Copy(Q.FieldByName['NOMBRE_CLIENTE'].AsString, 1, 1) + ';'; // 1° lettre nom client
+                    s := s + Copy(Q.FieldByName['SU_REFERENCIA'].AsString, 4, 3) + ';';
+                    s := s + Trim(Q.FieldByName['NOMBRE_CLIENTE'].AsString) + ';';
+                    s := s + Trim(Q.FieldByName['DIR_NOMBRE'].AsString) + ';';
+                    s := s + Trim(Q.FieldByName['DIR_NOMBRE_2'].AsString) + ';';
+                    s := s + Q.FieldByName['CODIGO_POSTAL'].AsString + ';';
+                    s := s + Trim(Q.FieldByName['TITULO_LOCALIDAD'].AsString) + ';';
+                    s := s + Trim(Q.FieldByName['TITULO_PAIS'].AsString) + ';';
+                    s := s + Copy(QMCabecera.FieldByName('FORMA_PAGO').AsString, 1, 1) + ';';
+                    // Forma de Pago (Primer dígito)
+                    if (Trim(Copy(QMCabecera.FieldByName('FORMA_PAGO').AsString, 2, 2)) > '') then
+                       s := s + Trim(Copy(QMCabecera.FieldByName('FORMA_PAGO').AsString, 2, 2)) +
+                          ';' // Forma de Pago (Segundos dígitos, ¿dias de pago?)
+                    else
+                       s := s + ';'; // Forma de Pago (Segundos dígitos)
+                    s := s + Trim(Q.FieldByName['NIF'].AsString) + ';';
+                    s := s + '0' + ';'; // ??? - TVA normale (O ou N)
+                    s := s + 'N' + ';'; // ??? - Req. équivalence (O ou N)
+
+                    FreeHandle;
+
+                    tsClientes.Add(s);
+                 end;
+              finally
+                 FreeAndNil(Q);
+              end;
+
+              // Envío de la dirección
+              Q := THYFIBQuery.Create(nil);
+              try
+                 with Q do
+                 begin
+                    Close;
+                    DataBase := DMMain.DataBase;
+                    SQL.Add(' select cl.su_referencia as n_client, di.direccion as n_adresse,te.nombre_r_social as nom, di.dir_completa as ligne_1,');
+                    SQL.Add(' di.dir_nombre_2 as ligne_2, lo.codigo_postal as code_postal, lo.titulo as ville, pa.titulo as pays ');
+                    SQL.Add(' from emp_clientes cl ');
+                    SQL.Add(' join sys_terceros te on (te.tercero=cl.tercero) ');
+                    SQL.Add(' join sys_terceros_direcciones di on (te.tercero=di.tercero) ');
+                    SQL.Add(' join sys_localidades lo on (di.id_local=lo.id_local) ');
+                    SQL.Add(' join sys_paises pa on (pa.pais=lo.pais)');
+                    SQL.Add(' where ');
+                    SQL.Add(' te.tercero = ?TERCERO and ');
+                    SQL.Add(' di.direccion = ?DIRECCION ');
+                    SQL.Add(' order by di.direccion ');
+                    Params.ByName['TERCERO'].AsInteger := QMCabecera.FieldByName('TERCERO').AsInteger;
+                    Params.ByName['DIRECCION'].AsInteger := QMCabecera.FieldByName('DIRECCION').AsInteger;
+                    ExecQuery;
+
+                    s := '';
+                    s := s + Copy(Trim(Q.FieldByName['N_CLIENT'].AsString), 1, 6) + ';';
+                    s := s + Format('%.2d', [Q.FieldByName['N_ADRESSE'].AsInteger]) + ';';
+                    s := s + Copy(Trim(Q.FieldByName['NOM'].AsString), 1, 30) + ';';
+                    s := s + Copy(Trim(Q.FieldByName['ligne_1'].AsString), 1, 30) + ';';
+                    s := s + Copy(Trim(Q.FieldByName['ligne_2'].AsString), 1, 30) + ';';
+                    s := s + Copy(Trim(Q.FieldByName['code_postal'].AsString), 1, 5) + ';';
+                    s := s + Copy(Trim(Q.FieldByName['ville'].AsString), 1, 30) + ';';
+                    s := s + Copy(Trim(Q.FieldByName['pays'].AsString), 1, 25) + ';';
+
+                    FreeHandle;
+
+                    tsDireccion.Add(s);
+                 end;
+              finally
+                 FreeAndNil(Q);
+              end;
+
+              Next;
+           end;
+
+           tsCabecera.SaveToFile(REntorno.DirectorioLector + 'Commande_Ent.txt');
+           tsDetalle.SaveToFile(REntorno.DirectorioLector + 'Commande_Lig.txt');
+           tsClientes.SaveToFile(REntorno.DirectorioLector + 'Client.txt');
+           tsDireccion.SaveToFile(REntorno.DirectorioLector + 'Commande_Adl.txt');
+
+           // Vuelvo a posicionar el pedido
+           while ((not BOF) and (QMCabeceraID_S.AsInteger <> id_s)) do
+              Prior;
+           // EnableControls;
+        end;
+     finally
+        QMDetalle.EnableControls;
+     end;
+  finally
+     tsCabecera.Free;
+     tsDetalle.Free;
+     tsClientes.Free;
+     tsDireccion.Free;
+  end;
+
+  ShowMessage(Format(_('Ficheros creados en %s'), [REntorno.DirectorioLector]));
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMDetalleCalcFields(DataSet: TDataSet);
+var
+  i : integer;
+  Stock : double;
+  Articulo : string;
+  Canal : integer;
+begin
+  QMDetalleMARGEN.AsFloat := DMMain.DameMargenUtilidad(QMDetalleB_IMPONIBLE.AsFloat, QMDetalleT_COSTE.AsFloat);
+
+  Articulo := QMDetalleARTICULO.AsString;
+  if (QMDetalleCONTROL_STOCK.AsInteger = 1) and (not ImportandoMasivamente) then
+  begin
+     Canal := Param_MOVSTKC001;
+     if (Canal = 0) then
+        Canal := REntorno.Canal;
+
+     Stock := 0;
+     if (AlmacenStock <> 'NOCALC') then
+     begin
+        with StockAlm do
+        begin
+           i := IndexOfName(Articulo);
+           if (i < 0) then
+           begin
+              Stock := DMMain.DameStockArticulo(REntorno.Empresa, Canal, Articulo, AlmacenStock);
+              Values[Articulo] := FloatToStr(Stock);
+           end
+           else
+           begin
+              Stock := StrToFloat(Values[Articulo]);
+           end;
+        end;
+     end;
+     QMDetalleSTOCK_ALM.AsFloat := Stock;
+
+     Stock := 0;
+     if (AlmacenStock2 <> 'NOCALC') then
+     begin
+        with StockAlm2 do
+        begin
+           i := IndexOfName(Articulo);
+           if (i < 0) then
+           begin
+              Stock := DMMain.DameStockArticulo(REntorno.Empresa, Canal, Articulo, AlmacenStock2);
+              Values[Articulo] := FloatToStr(Stock);
+           end
+           else
+           begin
+              Stock := StrToFloat(Values[Articulo]);
+           end;
+        end;
+     end;
+     QMDetalleSTOCK_ALM2.AsFloat := Stock;
+
+     Stock := 0;
+     if (AlmacenStock3 <> 'NOCALC') then
+     begin
+        with StockAlm3 do
+        begin
+           i := IndexOfName(Articulo);
+           if (i < 0) then
+           begin
+              Stock := DMMain.DameStockArticulo(REntorno.Empresa, Canal, Articulo, AlmacenStock3);
+              Values[Articulo] := FloatToStr(Stock);
+           end
+           else
+           begin
+              Stock := StrToFloat(Values[Articulo]);
+           end;
+        end;
+     end;
+     QMDetalleSTOCK_ALM3.AsFloat := Stock;
+
+     Stock := 0;
+     if (AlmacenStockV <> 'NOCALC') then
+     begin
+        with StockAlmV do
+        begin
+           i := IndexOfName(Articulo);
+           if (i < 0) then
+           begin
+              Stock := DMMain.DameStockVirtualArticulo(REntorno.Empresa, Canal, Articulo, AlmacenStockV);
+              Values[Articulo] := FloatToStr(Stock);
+           end
+           else
+           begin
+              Stock := StrToFloat(Values[Articulo]);
+           end;
+        end;
+     end;
+     QMDetalleSTOCKV_ALM.AsFloat := Stock;
+
+     Stock := 0;
+     if (AlmacenStockV2 <> 'NOCALC') then
+     begin
+        with StockAlmV2 do
+        begin
+           i := IndexOfName(Articulo);
+           if (i < 0) then
+           begin
+              Stock := DMMain.DameStockVirtualArticulo(REntorno.Empresa, Canal, Articulo, AlmacenStockV2);
+              Values[Articulo] := FloatToStr(Stock);
+           end
+           else
+           begin
+              Stock := StrToFloat(Values[Articulo]);
+           end;
+        end;
+     end;
+     QMDetalleSTOCKV_ALM2.AsFloat := Stock;
+
+     Stock := 0;
+     if (AlmacenStockV3 <> 'NOCALC') then
+     begin
+        with StockAlmV3 do
+        begin
+           i := IndexOfName(Articulo);
+           if (i < 0) then
+           begin
+              Stock := DMMain.DameStockVirtualArticulo(REntorno.Empresa, Canal, Articulo, AlmacenStockV3);
+              Values[Articulo] := FloatToStr(Stock);
+           end
+           else
+           begin
+              Stock := StrToFloat(Values[Articulo]);
+           end;
+        end;
+     end;
+     QMDetalleSTOCKV_ALM3.AsFloat := Stock;
+
+     Stock := 0;
+     if (AlmacenStockR <> 'NOCALC') then
+     begin
+        with StockAlmR do
+        begin
+           i := IndexOfName(Articulo);
+           if (i < 0) then
+           begin
+              Stock := DMMain.DameStockRealArticulo(REntorno.Empresa, Canal, Articulo, AlmacenStockR);
+              Values[Articulo] := FloatToStr(Stock);
+           end
+           else
+           begin
+              Stock := StrToFloat(Values[Articulo]);
+           end;
+        end;
+     end;
+     QMDetalleSTOCKR_ALM.AsFloat := Stock;
+
+     Stock := 0;
+     if (AlmacenStockR2 <> 'NOCALC') then
+     begin
+        with StockAlmR2 do
+        begin
+           i := IndexOfName(Articulo);
+           if (i < 0) then
+           begin
+              Stock := DMMain.DameStockRealArticulo(REntorno.Empresa, Canal, Articulo, AlmacenStockR2);
+              Values[Articulo] := FloatToStr(Stock);
+           end
+           else
+           begin
+              Stock := StrToFloat(Values[Articulo]);
+           end;
+        end;
+     end;
+     QMDetalleSTOCKR_ALM2.AsFloat := Stock;
+
+     Stock := 0;
+     if (AlmacenStockR3 <> 'NOCALC') then
+     begin
+        with StockAlmR3 do
+        begin
+           i := IndexOfName(Articulo);
+           if (i < 0) then
+           begin
+              Stock := DMMain.DameStockRealArticulo(REntorno.Empresa, Canal, Articulo, AlmacenStockR3);
+              Values[Articulo] := FloatToStr(Stock);
+           end
+           else
+           begin
+              Stock := StrToFloat(Values[Articulo]);
+           end;
+        end;
+     end;
+     QMDetalleSTOCKR_ALM3.AsFloat := Stock;
+
+     Stock := 0;
+     if (AlmacenStockM <> 'NOCALC') then
+     begin
+        with StockAlmM do
+        begin
+           i := IndexOfName(Articulo);
+           if (i < 0) then
+           begin
+              Stock := DMMain.DameStockMontura(REntorno.Empresa, Canal, Articulo, AlmacenStockM);
+              Values[Articulo] := FloatToStr(Stock);
+           end
+           else
+           begin
+              Stock := StrToFloat(Values[Articulo]);
+           end;
+        end;
+     end;
+     QMDetalleSTOCKM_ALM.AsFloat := Stock;
+
+     Stock := 0;
+     if (AlmacenStockM2 <> 'NOCALC') then
+     begin
+        with StockAlmM2 do
+        begin
+           i := IndexOfName(Articulo);
+           if (i < 0) then
+           begin
+              Stock := DMMain.DameStockMontura(REntorno.Empresa, Canal, Articulo, AlmacenStockM2);
+              Values[Articulo] := FloatToStr(Stock);
+           end
+           else
+           begin
+              Stock := StrToFloat(Values[Articulo]);
+           end;
+        end;
+     end;
+     QMDetalleSTOCKM_ALM2.AsFloat := Stock;
+
+     Stock := 0;
+     if (AlmacenStockM3 <> 'NOCALC') then
+     begin
+        with StockAlmM3 do
+        begin
+           i := IndexOfName(Articulo);
+           if (i < 0) then
+           begin
+              Stock := DMMain.DameStockMontura(REntorno.Empresa, Canal, Articulo, AlmacenStockM3);
+              Values[Articulo] := FloatToStr(Stock);
+           end
+           else
+           begin
+              Stock := StrToFloat(Values[Articulo]);
+           end;
+        end;
+     end;
+     QMDetalleSTOCKM_ALM3.AsFloat := Stock;
+
+     Stock := 0;
+     if AlmacenStockActual then
+        Stock := DMMain.DameStockArticulo(REntorno.Empresa, Canal, Articulo, QMDetalleALMACEN.AsString);
+     QMDetalleSTOCK.AsFloat := Stock;
+
+     Stock := 0;
+     if AlmacenStockVirtual then
+        Stock := DMMain.DameStockVirtualArticulo(REntorno.Empresa, Canal, Articulo, QMDetalleALMACEN.AsString);
+     QMDetalleSTOCK_VIRTUAL.AsFloat := Stock;
+
+     Stock := 0;
+     if AlmacenStockMontura then
+        Stock := DMMain.DameStockMontura(REntorno.Empresa, Canal, Articulo, QMDetalleALMACEN.AsString);
+     QMDetalleSTOCK_MONTURAS.AsFloat := Stock;
+
+     Stock := 0;
+     if AlmacenStockRefBase then
+        Stock := DMMain.DameStockRefBase(REntorno.Empresa, Canal, Articulo, QMDetalleALMACEN.AsString);
+     QMDetalleSTOCK_REF_BASE.AsFloat := Stock;
+
+     Stock := 0;
+     if AlmacenStockReal then
+        Stock := DMMain.DameStockRealArticulo(REntorno.Empresa, Canal, Articulo, QMDetalleALMACEN.AsString);
+     QMDetalleSTOCK_REAL.AsFloat := Stock;
+  end
+  else
+  begin
+     QMDetalleSTOCK.AsFloat := 0;
+     QMDetalleSTOCK_ALM.AsFloat := 0;
+     QMDetalleSTOCK_ALM2.AsFloat := 0;
+     QMDetalleSTOCK_ALM3.AsFloat := 0;
+     QMDetalleSTOCKV_ALM.AsFloat := 0;
+     QMDetalleSTOCKV_ALM2.AsFloat := 0;
+     QMDetalleSTOCKV_ALM3.AsFloat := 0;
+     QMDetalleSTOCKR_ALM.AsFloat := 0;
+     QMDetalleSTOCKR_ALM2.AsFloat := 0;
+     QMDetalleSTOCKR_ALM3.AsFloat := 0;
+     QMDetalleSTOCKM_ALM.AsFloat := 0;
+     QMDetalleSTOCKM_ALM2.AsFloat := 0;
+     QMDetalleSTOCKM_ALM3.AsFloat := 0;
+     QMDetalleSTOCK_VIRTUAL.AsFloat := 0;
+     QMDetalleSTOCK_MONTURAS.AsFloat := 0;
+     QMDetalleSTOCK_REF_BASE.AsFloat := 0;
+     QMDetalleSTOCK_REAL.AsFloat := 0;
+  end;
+end;
+
+procedure TDMPedidos.BusquedaArticulo(Descripcion: string);
+var
+  evt : TFieldNotifyEvent;
+begin
+  DMMain.LogIni('DMPedidos.BusquedaArticulo');
+  evt := QMDetalleARTICULO.OnChange;
+  try
+     QMDetalleARTICULO.OnChange := nil;
+     QMDetalleARTICULO.AsString := DMMain.BusquedaArticulo(Descripcion, QMCabeceraALMACEN.AsString,
+        QMCabeceraCLIENTE.AsInteger);
+  finally
+     QMDetalleARTICULO.OnChange := evt;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.RellenaDatosOldLinea;
+begin
+  DMMain.LogIni('DMPedidos.RellenaDatosOldLinea');
+  RellenaDatosLinea(OldLinea);
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.RellenaDatosLinea(Linea: TStrings);
+
+  procedure AddField(Linea: TStrings; Campo: string);
+  begin
+     if (QMDetalle.FieldByName(Campo) is TDateTimeField) then
+        TStringList(Linea).Add(Campo + '=' + DateTimeToStr(QMDetalle.FieldByName(Campo).AsDateTime))
+     else
+        TStringList(Linea).Add(Campo + '=' + QMDetalle.FieldByName(Campo).AsString);
+  end;
+
+begin
+  DMMain.LogIni('DMPedidos.RellenaDatosLinea');
+  TStringList(Linea).Clear;
+
+  // Si hay lineas copio los datos de la actual.
+  if (QMDetalleLINEA.AsInteger > 0) then
+  begin
+     AddField(Linea, 'ARTICULO');
+     AddField(Linea, 'TITULO');
+     AddField(Linea, 'UNIDADES');
+     // AddField(Linea, 'PRECIO');
+     AddField(Linea, 'DESCUENTO');
+     AddField(Linea, 'DESCUENTO_2');
+     AddField(Linea, 'DESCUENTO_3');
+     AddField(Linea, 'TIPO_IVA');
+     AddField(Linea, 'NOTAS');
+     AddField(Linea, 'NOTAS2');
+     AddField(Linea, 'FECHA_ENTREGA_PREV');
+     AddField(Linea, 'DIRECCION_ENTREGA');
+     AddField(Linea, 'TITULO_IDIOMA');
+     AddField(Linea, 'COSTE_ADICIONAL');
+     AddField(Linea, 'TIPO_UNIDAD_LOGISTICA');
+     AddField(Linea, 'ID_ESC');
+     AddField(Linea, 'FECHA_CONF_DET');
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMCabeceraPED_PROV_ASOCIADOGetText(Sender: TField; var Text: string; DisplayText: boolean);
+begin
+  DMMain.LogIni('DMPedidos.QMCabeceraPED_PROV_ASOCIADOGetText');
+  // Busco el pedido a proveedor relacionado con el documento
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Add(' SELECT FIRST 1 RTIPO || '' '' || REJERCICIO || ''-'' || RSERIE || ''/'' || RRIG ');
+        SQL.Add(' FROM G_RELACIONES_DESTINOS(:EMPRESA, :EJERCICIO, :CANAL, :SERIE, :TIPO, :RIG) ');
+        SQL.Add(' WHERE RTIPO = ''PEP'' ');
+        SQL.Add(' ORDER BY REJERCICIO, RRIG ');
+        Params.ByName['EMPRESA'].AsInteger := QMCabeceraEMPRESA.AsInteger;
+        Params.ByName['EJERCICIO'].AsInteger := QMCabeceraEJERCICIO.AsInteger;
+        Params.ByName['CANAL'].AsInteger := QMCabeceraCANAL.AsInteger;
+        Params.ByName['SERIE'].AsString := QMCabeceraSERIE.AsString;
+        Params.ByName['TIPO'].AsString := QMCabeceraTIPO.AsString;
+        Params.ByName['RIG'].AsInteger := QMCabeceraRIG.AsInteger;
+        ExecQuery;
+        if (Fields[0].AsString > ' ') then
+           Text := Fields[0].AsString;
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.xInfoActualizadaTITULO_ESTADOGetText(Sender: TField; var Text: string; DisplayText: boolean);
+begin
+  DMMain.LogIni('DMPedidos.xInfoActualizadaTITULO_ESTADOGetText');
+  Text := DameTituloEstado(xInfoActualizadaESTADO.AsInteger);
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.DuplicarLinea;
+var
+  old_KriConf463, old_KriConf248, old_KriConf429 : boolean;
+  IdDetallesS, NuevaLinea : integer;
+  Precio : double;
+begin
+  DMMain.LogIni('DMPedidos.DuplicarLinea');
+  old_KriConf463 := KriConf463;
+  old_KriConf248 := KriConf248;
+  old_KriConf429 := KriConf429;
+  try
+     KriConf463 := True;
+     KriConf248 := False;
+     KriConf429 := False;
+     IdDetallesS := QMDetalleID_DETALLES_S.AsInteger;
+
+     // Guardo los datos con lo que hay en la linea si KriConf463 estaba deshabilidatdo
+     RellenaDatosOldLinea;
+     Precio := QMDetalle.FieldByName('PRECIO').AsFloat;
+
+     with QMDetalle do
+     begin
+        Insert;
+        QMDetalle.FieldByName('PRECIO').AsFloat := Precio;
+        Post;
+     end;
+     NuevaLinea := QMDetalleLINEA.AsInteger;
+
+     with THYFIBQuery.Create(nil) do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           SQL.Add(' INSERT INTO GES_DETALLES_S_DETALLES ( ');
+           SQL.Add(' EMPRESA, EJERCICIO, CANAL, SERIE, TIPO, RIG, LINEA, ID_S, ID_DETALLES_S, REFERENCIA, SOPORTE, UNIDADES, ACABADO, ');
+           SQL.Add(' EMBALAJE, FECHA_INSTALACION, LUGAR_INSTALACION, ENTRADA, ENTREGA_AAFF, ALTO_AREA_VISIBLE, ANCHO_AREA_VISIBLE, ');
+           SQL.Add(' ALTO_MEDIDA_TOTAL, ANCHO_MEDIDA_TOTAL, FECHA_INSTALACION_PEND, ENTREGA_AAFF_PEND, HORA_INSTALACION_PEND) ');
+           SQL.Add(' SELECT EMPRESA, EJERCICIO, CANAL, SERIE, TIPO, RIG, :NUEVA_LINEA, ID_S, 0, REFERENCIA, SOPORTE, UNIDADES, ACABADO, EMBALAJE, ');
+           SQL.Add('        FECHA_INSTALACION, LUGAR_INSTALACION, :ENTRADA, ENTREGA_AAFF, ALTO_AREA_VISIBLE, ANCHO_AREA_VISIBLE, ');
+           SQL.Add('        ALTO_MEDIDA_TOTAL, ANCHO_MEDIDA_TOTAL, FECHA_INSTALACION_PEND, ENTREGA_AAFF_PEND, HORA_INSTALACION_PEND ');
+           SQL.Add(' FROM GES_DETALLES_S_DETALLES ');
+           SQL.Add(' WHERE ');
+           SQL.Add(' ID_DETALLES_S = :ID_DETALLES_S ');
+           Params.ByName['NUEVA_LINEA'].AsInteger := NuevaLinea;
+           Params.ByName['ID_DETALLES_S'].AsInteger := IdDetallesS;
+           ExecQuery;
+           FreeHandle;
+        finally
+           Free;
+        end;
+     end;
+
+     QMDetalle.Last;
+  finally
+     KriConf463 := old_KriConf463;
+     KriConf248 := old_KriConf248;
+     KriConf429 := old_KriConf429;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.CreaRuta;
+var
+  IdArticulo, IdEmpleado, IdSOrigen, IdRuta, IdCliente : integer;
+  EmpresaDestino : integer;
+  Notas : TStrings;
+  DocumentoOrigen, ReferenciaOferta, TituloCliente : string;
+begin
+  DMMain.LogIni('DMPedidos.CreaRuta');
+  /// Crea una ruta con fecha prevista de entrega, si no ha sido creada previamente.
+  /// Toma el empleado asociado al usuario.
+  /// Cliente es el cliente relacionado al tercero de la empresa en la empresa JULGAR.
+  /// El resto de campos son valores por defecto.
+  /// Queda asociado al documento (TIPO, ID_S).
+  /// Se crea un tramo vacio para asociarle conductor, vehiculo y remolque
+
+  // Verifico que no haya creado una ruta previamente
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Text := 'SELECT FIRST 1 ID_RUTA FROM TRANS_RUTA WHERE TIPO_DOC_ORI = :TIPO AND ID_DOC_ORI = :ID_S';
+        Params.ByName['TIPO'].AsString := QMCabeceraTIPO.AsString;
+        Params.ByName['ID_S'].AsInteger := QMCabeceraID_S.AsInteger;
+        ExecQuery;
+        IdRuta := FieldByName['ID_RUTA'].AsInteger;
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+
+  if (IdRuta <> 0) then
+     MessageDlg(Format(_('Este documento ya tiene una ruta asignada (Ruta %d)'), [IdRuta]), mtError, [mbOK], 0)
+  else
+  begin
+     // Empresa en la que se debe insertar la ruta
+     EmpresaDestino := REntorno.Empresa;
+     if (DMMain.EstadoKri(494) = 1) then
+        EmpresaDestino := 1;
+
+     // IdCliente := DameIdCliente(QMCabeceraCLIENTE.AsInteger);
+
+     // Obtengo el cliente relacionado con el tercero de la empresa en la empresa destino
+     with THYFIBQuery.Create(nil) do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           SQL.Add(' SELECT C.ID_CLIENTE FROM SYS_EMPRESAS E ');
+           SQL.Add(' JOIN SYS_TERCEROS T ');
+           SQL.Add(' ON E.TERCERO=T.TERCERO ');
+           SQL.Add(' JOIN EMP_CLIENTES C ');
+           SQL.Add(' ON C.TERCERO = T.TERCERO AND C.EMPRESA = :EMPRESA_DESTINO ');
+           SQL.Add(' WHERE ');
+           SQL.Add(' E.EMPRESA = :EMPRESA ');
+           Params.ByName['EMPRESA_DESTINO'].AsInteger := REntorno.Empresa;
+           Params.ByName['EMPRESA'].AsInteger := EmpresaDestino;
+           ExecQuery;
+           IdCliente := FieldByName['ID_CLIENTE'].AsInteger;
+           FreeHandle;
+        finally
+           Free;
+        end;
+     end;
+
+     // Obtengo el ID_A del articulo a utilizar para facturar
+     IdArticulo := DameIDArticulo(REntorno.ArtTextoLibre, EmpresaDestino);
+
+     // Obtengo el empleado asociado al usuario
+     with THYFIBQuery.Create(nil) do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           SQL.Text := 'SELECT ID_EMPLEADO FROM OPE_EMPLEADO WHERE EMPRESA = :EMPRESA AND USUARIO = :USUARIO';
+           Params.ByName['EMPRESA'].AsInteger := REntorno.Empresa;
+           Params.ByName['USUARIO'].AsInteger := REntorno.Usuario;
+           ExecQuery;
+           IdEmpleado := FieldByName['ID_EMPLEADO'].AsInteger;
+           FreeHandle;
+        finally
+           Free;
+        end;
+     end;
+
+     // Calculo el origen del documento - Traigo la primera oferta de la que viene
+     with THYFIBQuery.Create(nil) do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           SQL.Add(' SELECT REJERCICIO || ''-'' || RSERIE || ''/'' || RRIG AS DOCUMENTO, ID_S, SU_REFERENCIA ');
+           SQL.Add(' FROM G_RELACIONES_ORIGENES_ID(:ID_S_PEC) ');
+           SQL.Add(' ORDER BY REJERCICIO, RRIG ');
+           Params.ByName['ID_S_PEC'].AsInteger := QMCabeceraID_S.AsInteger;
+           ExecQuery;
+           DocumentoOrigen := FieldByName['DOCUMENTO'].AsString;
+           IdSOrigen := FieldByName['ID_S'].AsInteger;
+           ReferenciaOferta := FieldByName['SU_REFERENCIA'].AsString;
+           FreeHandle;
+        finally
+           Free;
+        end;
+     end;
+
+     Notas := TStringList.Create;
+     try
+        // Obtengo datos del documento origen
+        with THYFIBQuery.Create(nil) do
+        begin
+           try
+              Close;
+              DataBase := DMMain.DataBase;
+              SQL.Text :=
+                 'SELECT TITULO, CAST(NOTAS AS VARCHAR(32000)) AS NOTAS FROM VER_CABECERAS_OFERTA_C WHERE ID_S = :ID_S';
+              Params.ByName['ID_S'].AsInteger := IdSOrigen;
+              ExecQuery;
+              TituloCliente := FieldByName['TITULO'].AsString;
+              Notas.Text := FieldByName['NOTAS'].AsString;
+              FreeHandle;
+           finally
+              Free;
+           end;
+        end;
+
+        // Creo las notas
+        // Notas.Add(_('Oferta') + ': ' + DocumentoOrigen);
+        // Notas.Add(_('Pedido') + ': ' + Format('%d-%s/%d %s', [QMCabeceraEJERCICIO.AsInteger, QMCabeceraSERIE.AsString, QMCabeceraRIG.AsInteger, REntorno.NombreEmpresa {NombreEmpCom}]));
+        // Notas.Add(_('Cliente') + ': ' + Format('%d %s', [QMCabeceraCLIENTE.AsInteger, QMCabeceraTITULO.AsString]));
+        // Notas.Add(_('Referencia') + ': ' + QMCabeceraSU_REFERENCIA.AsString);
+        Notas.Add('---');
+
+        // Informacion de lineas
+        QMDetalle.First;
+        while not QMDetalle.EOF do
+        begin
+           // Informacion basica
+           Notas.Add(Format('%d: %s %s', [QMDetalleLINEA.AsInteger, QMDetalleARTICULO.AsString,
+              QMDetalleTITULO.AsString]));
+
+           // Detalles de detalle. Busco lugar de entrega
+           {
+           with THYFIBQuery.Create(nil) do
+           begin
+              try
+                 Close;
+                 DataBase := DMMain.DataBase;
+                 SQL.Text := 'SELECT LUGAR_INSTALACION FROM GES_DETALLES_S_DETALLES WHERE ID_DETALLES_S = :ID_DETALLES_S';
+                 Params.ByName['ID_DETALLES_S'].AsInteger := QMDetalleID_DETALLES_S.AsInteger;
+                 ExecQuery;
+                 Notas.Add('   ' + _('Lugar Instalacion:') + ' ' + FieldByName['LUGAR_INSTALACION'].AsString);
+                 FreeHandle;
+              finally
+                 Free;
+              end;
+           end;
+           }
+
+           // Notas de la linea de pedido
+           with THYFIBQuery.Create(nil) do
+           begin
+              try
+                 Close;
+                 DataBase := DMMain.DataBase;
+                 SQL.Text :=
+                    'SELECT CAST(NOTAS AS VARCHAR(32000)) AS NOTAS FROM GES_DETALLES_S WHERE ID_DETALLES_S = :ID_DETALLES_S';
+                 Params.ByName['ID_DETALLES_S'].AsInteger := QMDetalleID_DETALLES_S.AsInteger;
+                 ExecQuery;
+                 Notas.Add('   ' + _('Notas Linea Pedido:') + ' ' + FieldByName['NOTAS'].AsString);
+                 FreeHandle;
+              finally
+                 Free;
+              end;
+           end;
+
+           QMDetalle.Next;
+        end;
+        QMDetalle.First;
+
+        // Creo la ruta
+        IdRuta := DMMain.ContadorGen('CONTA_ID_RUTA');
+        with THYFIBQuery.Create(nil) do
+        begin
+           try
+              Close;
+              DataBase := DMMain.DataBase;
+              SQL.Add(' INSERT INTO TRANS_RUTA ( ');
+              SQL.Add(' ID_RUTA, TITULO, EMPRESA, FECHA_PREV_INI, FECHA_PREV_FIN, TIPO_DOC_ORI, ID_DOC_ORI, ID_EMPLEADO, ');
+              SQL.Add(' ID_ARTICULO, TITULO_ARTICULO, NOTA, ID_CLIENTE, SU_REFERENCIA ');
+              SQL.Add(' /* ');
+              SQL.Add(' ID_PLANTILLA_RUTA, PASAJEROS, FECHA, ');
+              SQL.Add(' KM_PREVISTOS, TIEMPO_PREVISTO, TIPO_CALCULO_PRECIO, UNIDADES, PRECIO, ESTADO, TIPO_DOC, ');
+              SQL.Add(' ID_DOC, FECHA_INI, FECHA_FIN ');
+              SQL.Add(' */ ');
+              SQL.Add(' ) ');
+              SQL.Add(' VALUES ( ');
+              SQL.Add(' :ID_RUTA, :TITULO, :EMPRESA, :FECHA_PREV_INI, :FECHA_PREV_FIN, :TIPO_DOC_ORI, :ID_DOC_ORI, :ID_EMPLEADO, ');
+              SQL.Add(' :ID_ARTICULO, :TITULO_ARTICULO, :NOTA, :ID_CLIENTE, :SU_REFERENCIA) ');
+              Params.ByName['EMPRESA'].AsInteger := EmpresaDestino;
+              Params.ByName['ID_RUTA'].AsInteger := IdRuta;
+              Params.ByName['TITULO'].AsString :=
+                 Copy(Trim(Format('%s-%d %s %s', [DocumentoOrigen, QMCabeceraRIG.AsInteger, TituloCliente, ReferenciaOferta])), 1, 60);
+              Params.ByName['FECHA_PREV_INI'].AsDateTime := QMCabeceraFECHA_ENTREGA_PREV.AsDateTime;
+              Params.ByName['FECHA_PREV_FIN'].AsDateTime := QMCabeceraFECHA_ENTREGA_PREV.AsDateTime + ((1 / 24) * 2);
+              // Dos horas despues de la fecha de inicio
+              Params.ByName['TIPO_DOC_ORI'].AsString := QMCabeceraTIPO.AsString;
+              Params.ByName['ID_DOC_ORI'].AsInteger := QMCabeceraID_S.AsInteger;
+              Params.ByName['ID_EMPLEADO'].AsInteger := IdEmpleado;
+              Params.ByName['ID_ARTICULO'].AsInteger := IdArticulo;
+              Params.ByName['ID_CLIENTE'].AsInteger := IdCliente;
+              Params.ByName['SU_REFERENCIA'].AsString := QMCabeceraSU_REFERENCIA.AsString;
+              Params.ByName['TITULO_ARTICULO'].AsString :=
+                 Copy(_(Format('%s-%d-%s/%d %s', [QMCabeceraTIPO.AsString, QMCabeceraEJERCICIO.AsInteger,
+                 QMCabeceraSERIE.AsString, QMCabeceraRIG.AsInteger, REntorno.NombreEmpresa {NombreEmpCom}])), 1, 60);
+              Params.ByName['NOTA'].AsString := Notas.Text;
+              ExecQuery;
+              FreeHandle;
+           finally
+              Free;
+           end;
+        end;
+
+        // ******************************************************************************************
+        // Si se modifica el comportamiento de KRICONF_515, también habrá que modificarlo a nivel web
+        // ******************************************************************************************
+
+        // Creo un tramo vacio para esta ruta
+        if (DMMain.EstadoKri(515) = 1) then
+        begin
+           with THYFIBQuery.Create(nil) do
+           begin
+              try
+                 Close;
+                 DataBase := DMMain.DataBase;
+                 SQL.Add(' INSERT INTO TRANS_TRAMO ( ');
+                 SQL.Add(' ID_RUTA, EMPRESA, FECHA_PREV_INI, FECHA_PREV_FIN ');
+                 SQL.Add(' /* ');
+                 SQL.Add('  ID_TRAMO, ORDEN, TITULO, ORIGEN, ID_GEO_ORIGEN, TERCERO_ORIGEN, TELEFONO_ORIGEN, NOTA_ORIGEN, DESTINO, ');
+                 SQL.Add('  ID_GEO_DESTINO, TERCERO_DESTINO, TELEFONO_DESTINO, NOTA_DESTINO, REALIZADO_ORI, REALIZADO_DES, ');
+                 SQL.Add('  VISIBLE_CLIENTE, TRAMO_VACIO, FINALIZADO, FECHA_INI, FECHA_FIN, TIPO_DOC, ID_DETALLE_DOC ');
+                 SQL.Add(' */ ');
+                 SQL.Add(' ) ');
+                 SQL.Add(' VALUES ( ');
+                 SQL.Add(' :ID_RUTA, :EMPRESA, :FECHA_PREV_INI, :FECHA_PREV_FIN) ');
+                 Params.ByName['ID_RUTA'].AsInteger := IdRuta;
+                 Params.ByName['EMPRESA'].AsInteger := EmpresaDestino;
+                 Params.ByName['FECHA_PREV_INI'].AsDateTime := QMCabeceraFECHA_ENTREGA_PREV.AsDateTime;
+                 Params.ByName['FECHA_PREV_FIN'].AsDateTime := QMCabeceraFECHA_ENTREGA_PREV.AsDateTime + ((1 / 24) * 2);
+                 // Dos horas despues de la fecha de inicio
+                 ExecQuery;
+                 FreeHandle;
+              finally
+                 Free;
+              end;
+           end;
+        end;
+     finally
+        Notas.Free;
+     end;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.Despiece;
+{
+var
+  IdDespiece : integer;
+}
+begin
+  DMMain.LogIni('DMPedidos.Despiece');
+  // Refresco porque puede que haya cambiado el ID_DESPIECE
+  if (QMDetalle.State <> dsInsert) then
+     QMDetalle.Refresh;
+
+  // Obtengo el ID_DETALLES_S antes de llamar al despiece para poder relacionar los registros
+  if (QMDetalle.State = dsInsert) then
+     DMMain.Contador_Gen(QMDetalle, 'ID_GES_DETALLES_S', 'ID_DETALLES_S');
+
+  FMain.EjecutaAccion(FMain.ADespiece);
+  if (QMDetalleID_DESPIECE.AsInteger = 0) then
+     FMDespiece.SegunProcedencia('PEC', QMDetalleID_DETALLES_S.AsInteger, QMCabeceraID_S.AsInteger, QMDetalle)
+  else
+     FMDespiece.FiltraDespiece(QMDetalleID_DESPIECE.AsInteger, QMDetalle);
+
+  {
+  AbreForm(TFMDespiece, FMDespiece, Self);
+
+  IdDespiece := QMDetalleID_DESPIECE.AsInteger;
+  if (IdDespiece = 0) then
+  begin
+     // Obtengo el ID_DETALLES_S antes de llamar al despiece para poder relacionar los registros
+     DMMain.Contador_Gen(QMDetalle, 'ID_GES_DETALLES_S', 'ID_DETALLES_S');
+
+     IdDespiece := FMDespiece.SegunProcedencia('PEC', QMDetalleID_DETALLES_S.AsInteger, QMCabeceraID_S.AsInteger, QMDetalle);
+     if ((IdDespiece <> 0) and (QMDetalleID_DESPIECE.AsInteger = 0)) then
+     begin
+        QMDetalle.Refresh;
+        QMDetalle.Edit;
+        QMDetalleID_DESPIECE.AsInteger := IdDespiece;
+        // Hacemos un post si esta en modo edicion la linea de la oferta
+        QMDetalle.Post;
+     end;
+
+     QMDetalle.Refresh;
+  end
+  else
+     FMDespiece.FiltraDespiece(IdDespiece, QMDetalle);
+  }
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.CrearAlquiler;
+var
+  IdAlquiler : integer;
+begin
+  DMMain.LogIni('DMPedidos.CrearAlquiler');
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Add(' SELECT ID_ALQ FROM EMP_ALQUILER ');
+        SQL.Add(' WHERE ');
+        SQL.Add(' ID_S_PEC = :ID_S_PEC ');
+        Params.ByName['ID_S_PEC'].AsInteger := QMCabeceraID_S.AsInteger;
+        ExecQuery;
+        IdAlquiler := FieldByName['ID_ALQ'].AsInteger;
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+
+  if (IdAlquiler = 0) then
+  begin
+     IdAlquiler := DMMain.ContadorGen('ID_ALQUILER');
+
+     with THYFIBQuery.Create(nil) do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           SQL.Add(' INSERT INTO EMP_ALQUILER ');
+           SQL.Add('   (EMPRESA, CANAL, ID_ALQ, ID_S_PEC, ALMACEN_DEPOSITO) ');
+           SQL.Add(' VALUES ');
+           SQL.Add('   (:EMPRESA, :CANAL, :ID_ALQ, :ID_S_PEC, :ALMACEN_DEPOSITO) ');
+           Params.ByName['EMPRESA'].AsInteger := QMCabeceraEMPRESA.AsInteger;
+           Params.ByName['CANAL'].AsInteger := QMCabeceraCANAL.AsInteger;
+           Params.ByName['ID_ALQ'].AsInteger := IdAlquiler;
+           Params.ByName['ID_S_PEC'].AsInteger := QMCabeceraID_S.AsInteger;
+           Params.ByName['ALMACEN_DEPOSITO'].AsString := ''; // Toma el primer almacen de tipo *D*eposito
+           ExecQuery;
+           FreeHandle;
+        finally
+           Free;
+        end;
+     end;
+  end;
+
+  {$IFNDEF TPV}
+  FMain.EjecutaAccion(FMain.AAlquileres, 'ID_ALQ = ' + IntToStr(IdAlquiler));
+  {$ENDIF}
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.CreaReciboAnticipo;
+var
+  IdCartera : integer;
+  ImportePendiente : double;
+  TipoRecibo, Referencia : string;
+begin
+  DMMain.LogIni('DMPedidos.CreaReciboAnticipo');
+  if (QMCabeceraESTADO.AsInteger = 0) or ConfirmaMensaje(_('El documento está cerrado/anulado. Desea crear un anticipo de todos modos?')) then
+  begin
+     Referencia := Copy(Trim(Format('Anticipo %s-%s/%d %s', [QMCabeceraTIPO.AsString,
+        QMCabeceraSERIE.AsString, QMCabeceraRIG.AsInteger, QMCabeceraSU_REFERENCIA.AsString])), 1, 60);
+     ImportePendiente := xInfoActualizadaLIQUIDO.AsFloat - DMMain.DameTotalRecibosDocumento(QMCabeceraID_S.AsInteger);
+     if (ImportePendiente <= 0) then
+        ShowMessage(_('Ya se ha anticipado el total del documento.'));
+
+     if (LeeParametro('RECANTC001') <> 'S') then
+        TipoRecibo := 'ANC'
+     else
+        TipoRecibo := 'CLI';
+     IdCartera := UFMReciboNuevo.CreaRecibo(QMCabeceraSERIE.AsString, TipoRecibo, QMCabeceraCLIENTE.AsInteger,
+        ImportePendiente, Referencia, (LeeParametro('RECDESH001') = 'S'));
+
+     if (IdCartera <> 0) then
+     begin
+        with THYFIBQuery.Create(nil) do
+        begin
+           try
+              Close;
+              DataBase := DMMain.DataBase;
+              SQL.Text := 'INSERT INTO GES_CABECERAS_S_CAR (ID_S, ID_CARTERA, ENTRADA) VALUES (:ID_S, :ID_CARTERA, :ENTRADA)';
+              Params.ByName['ID_S'].AsInteger := QMCabeceraID_S.AsInteger;
+              Params.ByName['ID_CARTERA'].AsInteger := IdCartera;
+              Params.ByName['ENTRADA'].AsInteger := REntorno.Entrada;
+              ExecQuery;
+              FreeHandle;
+           finally
+              Free;
+           end;
+        end;
+     end;
+
+     // FMain.MuestraCartera(IdCartera);
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.AsignaEmpleados;
+begin
+  DMMain.LogIni('DMPedidos.AsignaEmpleados');
+  UFMAsignaEmpleado.PideDato(QMCabeceraID_S.AsInteger);
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMCabeceraCalcFields(DataSet: TDataSet);
+begin
+  DMMain.LogIni('DMPedidos.QMCabeceraCalcFields - ' + DataSet.Name);
+  QMCabeceraTITULO_ESTADO.AsString := DameTituloEstado(QMCabeceraESTADO.AsInteger);
+  QMCabeceraMARGEN.AsFloat := DMMain.DameMargenUtilidad(QMCabeceraS_BASES.AsFloat, QMCabeceraC_TOTAL.AsFloat);
+  DMMain.LogFin('');
+end;
+
+function TDMPedidos.TraspasadoACompra: boolean;
+begin
+  DMMain.LogIni('DMPedidos.TraspasadoACompra');
+  /// Devuelve si el documento se ha pasado a algún documento de compra
+
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Add(' SELECT R.D_RIG FROM GES_CABECERAS_E_RELACIONES R ');
+        SQL.Add(' JOIN GES_CABECERAS_S C ON C.EMPRESA = R.O_EMPRESA AND C.EJERCICIO = R.O_EJERCICIO AND C.CANAL = R.O_CANAL AND C.SERIE = R.O_SERIE AND C.TIPO = R.O_TIPO AND C.RIG = R.O_RIG ');
+        SQL.Add(' WHERE ');
+        SQL.Add(' C.ID_S = :ID_S ');
+        Params.ByName['ID_S'].AsInteger := QMCabeceraID_S.AsInteger;
+        ExecQuery;
+        Result := (FieldByName['D_RIG'].AsInteger <> 0);
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.ActualizaPorteSegunZona;
+var
+  Zona : string;
+  CodigoPostal : string;
+  Importe, ImporteReembolso : double;
+  TipoEfectoFacturae : integer;
+begin
+  DMMain.LogIni('DMPedidos.ActualizaPorteSegunZona');
+
+  // Obtengo codigo postal de direccion
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Add(' SELECT L.CODIGO_POSTAL FROM SYS_TERCEROS_DIRECCIONES D ');
+        SQL.Add(' JOIN SYS_LOCALIDADES L ON D.ID_LOCAL = L.ID_LOCAL ');
+        SQL.Add(' WHERE ');
+        SQL.Add(' D.TERCERO = :TERCERO AND ');
+        SQL.Add(' D.DIRECCION = :DIRECCION ');
+
+        Params.ByName['TERCERO'].AsInteger := QMCabeceraTERCERO.AsInteger;
+        Params.ByName['DIRECCION'].AsInteger := QMCabeceraDIRECCION.AsInteger;
+        ExecQuery;
+        CodigoPostal := FieldByName['CODIGO_POSTAL'].AsString;
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Add(' SELECT ZONA, IMPORTE, IMPORTE_RMB ');
+        SQL.Add(' FROM CON_CUENTAS_GES_TAR_PORTES ');
+        SQL.Add(' WHERE ');
+        SQL.Add(' EMPRESA = :EMPRESA AND ');
+        SQL.Add(' EJERCICIO = :EJERCICIO AND ');
+        SQL.Add(' CANAL = :CANAL AND ');
+        SQL.Add(' ACREEDOR = :ACREEDOR AND ');
+        SQL.Add(' ((ZONA = :ZONA) OR ');
+        SQL.Add('  (CODIGO_POSTAL_INI <= :CODIGO_POSTAL) AND (CODIGO_POSTAL_FIN >= :CODIGO_POSTAL)) ');
+        SQL.Add(' ORDER BY ZONA, CODIGO_POSTAL_INI ');
+
+        Params.ByName['EMPRESA'].AsInteger := QMCabeceraEMPRESA.AsInteger;
+        Params.ByName['EJERCICIO'].AsInteger := QMCabeceraEJERCICIO.AsInteger;
+        Params.ByName['CANAL'].AsInteger := QMCabeceraCANAL.AsInteger;
+        Params.ByName['ACREEDOR'].AsInteger := QMCabeceraTRANSPORTISTA.AsInteger;
+        Params.ByName['ZONA'].AsString := xCliente.FieldByName('ZONA').AsString;
+        Params.ByName['CODIGO_POSTAL'].AsString := CodigoPostal;
+        ExecQuery;
+        Zona := Trim(FieldByName['ZONA'].AsString);
+        Importe := FieldByName['IMPORTE'].AsFloat;
+        ImporteReembolso := FieldByName['IMPORTE_RMB'].AsFloat;
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+
+  if ((Importe <> 0) or (ImporteReembolso <> 0)) then
+  begin
+     with THYFIBQuery.Create(nil) do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           SQL.Add(' SELECT E.TIPO_EFECTO_FACTURAE ');
+           SQL.Add(' FROM CON_CUENTAS_GES_FP F ');
+           SQL.Add(' JOIN SYS_TIPO_EFECTO E ON F.TIPO_EFECTO = E.TIPO ');
+           SQL.Add(' WHERE ');
+           SQL.Add(' F.EMPRESA = :EMPRESA AND ');
+           SQL.Add(' F.EJERCICIO = :EJERCICIO AND ');
+           SQL.Add(' F.CANAL = :CANAL AND ');
+           SQL.Add(' F.FORMA_PAGO = :FORMA_PAGO ');
+
+           Params.ByName['EMPRESA'].AsInteger := QMCabeceraEMPRESA.AsInteger;
+           Params.ByName['EJERCICIO'].AsInteger := QMCabeceraEJERCICIO.AsInteger;
+           Params.ByName['CANAL'].AsInteger := QMCabeceraCANAL.AsInteger;
+           Params.ByName['FORMA_PAGO'].AsString := QMCabeceraFORMA_PAGO.AsString;
+           ExecQuery;
+           TipoEfectoFacturae := FieldByName['TIPO_EFECTO_FACTURAE'].AsInteger;
+           FreeHandle;
+        finally
+           Free;
+        end;
+     end;
+
+     if (TipoEfectoFacturae = 18) then
+     begin
+        QMCabeceraTIPO_PORTES.AsInteger := 4;
+        QMCabeceraI_PORTES.AsFloat := ImporteReembolso;
+     end
+     else
+     begin
+        QMCabeceraTIPO_PORTES.AsInteger := 4;
+        QMCabeceraI_PORTES.AsFloat := Importe;
+     end;
+  end;
+
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMCabeceraTRANSPORTISTAChange(Sender: TField);
+begin
+  DMMain.LogIni('DMPedidos.QMCabeceraTRANSPORTISTAChange');
+  if (xCliente.FieldByName('TIPO_PORTES').AsInteger = 0) then
+     ActualizaPorteSegunZona;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.PosicionarID(IdDoc: integer);
+begin
+  DMMain.LogIni('DMPedidos.');
+  // Si pertenece al ejercicio posiciono, sino filtro ese documento
+  if (DMMain.DameEjercicioDoc('PEC', IdDoc) = REntorno.Ejercicio) then
+  begin
+     // Quito filtro si lo hubiera
+     FiltraDocumento(Serie, '');
+     Posicionar(QMCabecera, 'ID_S', IdDoc);
+  end
+  else
+     FiltraDocumento(Serie, 'ID_S = ' + IntToStr(IdDoc));
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMCabeceraVALOR_CAMB_FIJOChange(Sender: TField);
+begin
+  DMMain.LogIni('DMPedidos.QMCabeceraVALOR_CAMB_FIJOChange');
+  if (not ModificandoCambioFijo) then
+  begin
+     ModificandoCambioFijo := True;
+     try
+        if (QMCabeceraVALOR_CAMB_FIJO.AsFloat <> 0) then
+           QMCabeceraVALOR_CAMB_FIJO_INV.AsFloat := 1 / QMCabeceraVALOR_CAMB_FIJO.AsFloat
+        else
+           QMCabeceraVALOR_CAMB_FIJO_INV.AsFloat := 1;
+     finally
+        ModificandoCambioFijo := False;
+     end;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.QMCabeceraVALOR_CAMB_FIJO_INVChange(Sender: TField);
+begin
+  DMMain.LogIni('DMPedidos.QMCabeceraVALOR_CAMB_FIJO_INVChange');
+  if (not ModificandoCambioFijo) then
+  begin
+     ModificandoCambioFijo := True;
+     try
+        if (QMCabeceraVALOR_CAMB_FIJO_INV.AsFloat <> 0) then
+           QMCabeceraVALOR_CAMB_FIJO.AsFloat := 1 / QMCabeceraVALOR_CAMB_FIJO_INV.AsFloat
+        else
+           QMCabeceraVALOR_CAMB_FIJO.AsFloat := 1;
+     finally
+        ModificandoCambioFijo := False;
+     end;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.Inserta(Articulo: string; Unidades: double; Lote: string; IdUbicacion: integer; Precio: double; Descripcion: string; PCoste, Descuento1, Descuento2, Descuento3: double; FechaPrevista: TDateTime; UnidadesExtendidas1: double = 0; UnidadesExtendidas2: double = 0; UnidadesExtendidas3: double = 0; UnidadesExtendidas4: double = 0);
+var
+{ No aplica en este tipo de documento
+  IdLote : integer;
+  Composicion : string;
+}
+  Linea : integer;
+begin
+  DMMain.LogIni('DMPedidos.Inserta');
+  { No aplica en este tipo de documento
+  IdLote := 0;
+  if (ArticuloLoteable(Articulo) = False) then
+     Lote := '';
+  if (ArticuloUbicable(Articulo) = False) then
+     IdUbicacion := 0;
+
+  // Se comprueba que exista el lote
+  if (Lote <> '') then
+  begin
+     IdLote := DameIDLote(Articulo, Lote);
+
+     // Insertamos lote si no existe
+     if (IdLote = 0) then
+     begin
+        with THYFIBQuery.Create(nil) do
+        begin
+           try
+              Close;
+              DataBase := DMMain.DataBase;
+              SQL.Text := 'EXECUTE PROCEDURE G_CREA_LOTE(:EMPRESA, :EJERCICIO, :CANAL, :ARTICULO, :LOTE, :FECHA, :RIG, :SERIE)';
+              Params.ByName['EMPRESA'].AsInteger := QMCabeceraEMPRESA.AsInteger;
+              Params.ByName['EJERCICIO'].AsInteger := QMCabeceraEJERCICIO.AsInteger;
+              Params.ByName['CANAL'].AsInteger := QMCabeceraCANAL.AsInteger;
+              Params.ByName['ARTICULO'].AsString := Articulo;
+              Params.ByName['LOTE'].AsString := Lote;
+              Params.ByName['FECHA'].AsDateTime := REntorno.FechaTrab;
+              Params.ByName['RIG'].AsInteger := QMCabeceraRIG.AsInteger;
+              Params.ByName['SERIE'].AsString := QMCabeceraSERIE.AsString;
+              ExecQuery;
+              IdLote := FieldByName['ID_LOTE'].AsInteger;
+              FreeHandle;
+           finally
+              Free;
+           end;
+        end;
+     end;
+  end;
+
+  // Se comprueba que exista ubicacion
+  if (IdUbicacion <> 0) then
+  begin
+     Composicion := DameComposicionUbicacion(IdUbicacion);
+     if (Composicion = '') then
+        IdUbicacion := 0;
+  end;
+  }
+
+  // Se inserta el registro
+
+  // Evito que se despliegue ventana pidiendio informacion de unidades extendidas.
+  try
+     ImportandoMasivamente := True;
+
+     // Necesito saber la línea en la que se insertará
+     Linea := DMMain.DameLineaSiguiente(QMCabeceraTIPO.AsString, QMCabeceraID_S.AsInteger);
+
+     // Primero se insertan las Unidades Extendidas.
+     // El precio es el precio de la línea debe ser el precio total (UE1xUE2xUE3xUE4xPrecioUnitario)
+     if (UnidadesExtendidas1 <> 0) or (UnidadesExtendidas2 <> 0) or (UnidadesExtendidas3 <> 0) or (UnidadesExtendidas4 <> 0) then
+     begin
+        if (UnidadesExtendidas1 = 0) then
+           UnidadesExtendidas1 := 1;
+        if (UnidadesExtendidas2 = 0) then
+           UnidadesExtendidas2 := 1;
+        if (UnidadesExtendidas3 = 0) then
+           UnidadesExtendidas3 := 1;
+        if (UnidadesExtendidas4 = 0) then
+           UnidadesExtendidas4 := 1;
+
+        with THYFIBQuery.Create(nil) do
+        begin
+           try
+              Close;
+              DataBase := DMMain.DataBase;
+              SQL.Add(' INSERT INTO GES_DETALLES_S_UE ');
+              SQL.Add(' (EMPRESA,EJERCICIO,CANAL,SERIE,TIPO,RIG,LINEA,MEDIDA1,MEDIDA2,MEDIDA3,MEDIDA4,PRECIO,UNIDADES) ');
+              SQL.Add(' VALUES ');
+              SQL.Add(' (:EMPRESA,:EJERCICIO,:CANAL,:SERIE,:TIPO,:RIG,:LINEA,:MEDIDA1,:MEDIDA2,:MEDIDA3,:MEDIDA4,:PRECIO,:UNIDADES) ');
+
+              Params.ByName['EMPRESA'].AsInteger := QMCabeceraEMPRESA.AsInteger;
+              Params.ByName['EJERCICIO'].AsInteger := QMCabeceraEJERCICIO.AsInteger;
+              Params.ByName['CANAL'].AsInteger := QMCabeceraCANAL.AsInteger;
+              Params.ByName['SERIE'].AsString := QMCabeceraSERIE.AsString;
+              Params.ByName['TIPO'].AsString := QMCabeceraTIPO.AsString;
+              Params.ByName['RIG'].AsInteger := QMCabeceraRIG.AsInteger;
+              Params.ByName['LINEA'].AsInteger := Linea;
+              Params.ByName['MEDIDA1'].AsFloat := UnidadesExtendidas1;
+              Params.ByName['MEDIDA2'].AsFloat := UnidadesExtendidas2;
+              Params.ByName['MEDIDA3'].AsFloat := UnidadesExtendidas3;
+              Params.ByName['MEDIDA4'].AsFloat := UnidadesExtendidas4;
+              Params.ByName['PRECIO'].AsFloat := Precio * UnidadesExtendidas1 * UnidadesExtendidas2 * UnidadesExtendidas3 * UnidadesExtendidas4;
+              Params.ByName['UNIDADES'].AsFloat := Unidades;
+              ExecQuery;
+              FreeHandle;
+           finally
+              Free;
+           end;
+        end;
+     end;
+
+     QMDetalle.Insert;
+     QMDetalleLINEA.AsInteger := Linea;
+
+     QMDetalleARTICULO.AsString := Articulo;
+     QMDetalleUNIDADES.AsFloat := Unidades;
+
+     if (Precio >= 0) then
+        QMDetallePRECIO.AsFloat := Precio;
+     if (UnidadesExtendidas1 <> 0) or (UnidadesExtendidas2 <> 0) or (UnidadesExtendidas3 <> 0) or (UnidadesExtendidas4 <> 0) then
+     begin
+        // Calculamnos el precio de la línea y lo multiplicamos por las unidades extendidas.
+        EstaleceCondiciones(QMDetalleARTICULO, 0, True);
+        QMDetallePRECIO.AsFloat := QMDetallePRECIO.AsFloat;//*UnidadesExtendidas1*UnidadesExtendidas2*UnidadesExtendidas3*UnidadesExtendidas4
+     end;
+     if (Descripcion <> '') then
+        QMDetalleTITULO.AsString := Descripcion;
+     if (PCoste >= 0) then
+        QMDetalleP_COSTE.AsFloat := PCoste;
+     if (Descuento1 >= 0) then
+        QMDetalleDESCUENTO.AsFloat := Descuento1;
+     if (Descuento2 >= 0) then
+        QMDetalleDESCUENTO_2.AsFloat := Descuento2;
+     if (Descuento3 >= 0) then
+        QMDetalleDESCUENTO_3.AsFloat := Descuento3;
+     if (FechaPrevista >= QMCabeceraFECHA.AsDateTime) then
+        QMDetalleFECHA_ENTREGA_PREV.AsDateTime := FechaPrevista;
+
+    { No aplica en este tipo de documento
+    if (IdLote <> 0) then
+       QMDetalleID_LOTE.AsInteger := IdLote;
+    if (IdUbicacion <> 0) then // Si es 0 se deja en blanco y el trigger se encgargara
+       QMDetalleID_UBICACION.AsInteger := IdUbicacion;
+    }
+
+     QMDetalle.Post;
+  finally
+     ImportandoMasivamente := False;
+  end;
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.ReiniciaStock(Articulo: string = '');
+var
+  i : integer;
+begin
+  // DMMain.Log('TDMAlbaranes.ReiniciaStock');
+  if (Articulo <> '') then
+  begin
+     with StockAlm do
+     begin
+        i := IndexOfName(Articulo);
+        if (i >= 0) then
+           Delete(i);
+     end;
+
+     with StockAlm2 do
+     begin
+        i := IndexOfName(Articulo);
+        if (i >= 0) then
+           Delete(i);
+     end;
+
+     with StockAlm3 do
+     begin
+        i := IndexOfName(Articulo);
+        if (i >= 0) then
+           Delete(i);
+     end;
+
+     with StockAlmV do
+     begin
+        i := IndexOfName(Articulo);
+        if (i >= 0) then
+           Delete(i);
+     end;
+
+     with StockAlmV2 do
+     begin
+        i := IndexOfName(Articulo);
+        if (i >= 0) then
+           Delete(i);
+     end;
+
+     with StockAlmV3 do
+     begin
+        i := IndexOfName(Articulo);
+        if (i >= 0) then
+           Delete(i);
+     end;
+
+     with StockAlmR do
+     begin
+        i := IndexOfName(Articulo);
+        if (i >= 0) then
+           Delete(i);
+     end;
+
+     with StockAlmR2 do
+     begin
+        i := IndexOfName(Articulo);
+        if (i >= 0) then
+           Delete(i);
+     end;
+
+     with StockAlmR3 do
+     begin
+        i := IndexOfName(Articulo);
+        if (i >= 0) then
+           Delete(i);
+     end;
+
+     with StockAlmM do
+     begin
+        i := IndexOfName(Articulo);
+        if (i >= 0) then
+           Delete(i);
+     end;
+
+     with StockAlmM2 do
+     begin
+        i := IndexOfName(Articulo);
+        if (i >= 0) then
+           Delete(i);
+     end;
+
+     with StockAlmM3 do
+     begin
+        i := IndexOfName(Articulo);
+        if (i >= 0) then
+           Delete(i);
+     end;
+  end
+  else
+  begin
+     StockAlm.Clear;
+     StockAlm2.Clear;
+     StockAlm3.Clear;
+
+     StockAlmV.Clear;
+     StockAlmV2.Clear;
+     StockAlmV3.Clear;
+
+     StockAlmR.Clear;
+     StockAlmR2.Clear;
+     StockAlmR3.Clear;
+
+     StockAlmM.Clear;
+     StockAlmM2.Clear;
+     StockAlmM3.Clear;
+  end;
+end;
+
+procedure TDMPedidos.ModificaFechaEntregaPrev(Fecha: TDateTime);
+begin
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Text := 'UPDATE GES_CABECERAS_S_PED SET FECHA_ENTREGA_PREV = :FECHA_ENTREGA_PREV WHERE ID_S = :ID_S ';
+        Params.ByName['ID_S'].AsInteger := QMCabeceraID_S.AsInteger;
+        Params.ByName['FECHA_ENTREGA_PREV'].AsDateTime := Fecha;
+        ExecQuery;
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+
+  RefrescaTabla;
+end;
+
+procedure TDMPedidos.QMDetallePESOGetText(Sender: TField; var Text: string; DisplayText: boolean);
+begin
+  Text := Format('%.*f', [QMDetalleDECIMALES_UNIDADES.AsInteger, QMDetallePESO.AsFloat]);
+end;
+
+procedure TDMPedidos.QMDetallePESO_TOTALGetText(Sender: TField; var Text: string; DisplayText: boolean);
+begin
+  Text := Format('%.*f', [QMDetalleDECIMALES_UNIDADES.AsInteger, QMDetallePESO_TOTAL.AsFloat]);
+end;
+
+procedure TDMPedidos.QMDetallePESO_REALGetText(Sender: TField; var Text: string; DisplayText: boolean);
+begin
+  Text := Format('%.*f', [QMDetalleDECIMALES_UNIDADES.AsInteger, QMDetallePESO_REAL.AsFloat]);
+end;
+
+procedure TDMPedidos.QMDetalleTIPO_IVAChange(Sender: TField);
+begin
+  QMDetalleP_IVA.AsFloat := DMMain.DamePorcentajeIva(REntorno.Pais, QMDetalleTIPO_IVA.AsInteger);
+end;
+
+procedure TDMPedidos.QMDetallePESO_REALChange(Sender: TField);
+begin
+  FlagModificandoUnidades := True;
+  try
+     if Param_VENULKG001 and (QMDetalleTIPO_UNIDAD_LOGISTICA.AsString = 'KG') then
+     begin
+        QMDetalleUNIDADES.AsFloat := QMDetallePESO_REAL.AsFloat;
+        QMDetallePESO_TOTAL.AsFloat := QMDetallePESO_REAL.AsFloat;
+     end;
+  finally
+     FlagModificandoUnidades := False;
+  end;
+end;
+
+procedure TDMPedidos.ImportaDetalleDesdeExcel(Archivo: string; Configuracion: integer);
+var
+  HCalc : THojaCalc;
+  i, IdDetallesS, Dir_Distribucion, DireccionFinal, CantidadEmpaque : integer;
+  Bultos, IdA : integer;
+  s, Articulo, Sku, Lote, NroOrden, TituloProducto : string;
+  Alfa_1, Alfa_2, Alfa_3, Alfa_4, Alfa_5, Alfa_6, Alfa_7, Alfa_8 : string;
+  Cancelar, Saltar : boolean;
+  PermitirUnidedesCero, SaltarSiNroItemCero, ArticuloTextoLibre, InsertarDetalleDeDetalle : boolean;
+  Unidades, Precio : double;
+  FechaDocumento : TDateTime;
+  FechaEntrega : TDateTime;
+  ColNroItem, ColNroOrden, ColFechaDocumento, ColDirDistribucion, ColFechaEntrega, ColSKU, ColTituloArticulo, ColDirFinal, ColUnidades, ColCantdadEmpaquetado : integer;
+  ColPeso, ColAltoAreaVisible, ColAnchoAreaVisible, ColReferenciaDetalle, ColAltoMedidaTotal, ColEmbalaje, Col_A_DEFINIR_LONPER_COL10, ColLugarInstalacion, ColAnchoMedidaTotal : integer;
+  ColAlfa_1, ColAlfa_2, ColAlfa_3, ColAlfa_4, ColAlfa_5, ColAlfa_6, ColAlfa_7, ColAlfa_8 : integer;
+  Peso, AltoAreaVisible, AnchoAreaVisible, AltoMedidaTotal, AnchoMedidaTotal : double;
+  LugarInstalacion, Embalaje, ReferenciaDetalle : string;
+begin
+  // Configuracion de columnas a importar
+
+  ColNroItem := 0;
+  ColNroOrden := 0;
+  ColFechaDocumento := 0;
+  ColDirDistribucion := 0;
+  ColFechaEntrega := 0;
+  ColSKU := 0; // Codigo de articulo que se busca en ALFA_2
+  ColTituloArticulo := 0;
+  ColDirFinal := 0;
+  ColUnidades := 0;
+  ColCantdadEmpaquetado := 0;
+  ColPeso := 0;
+  ColAltoAreaVisible := 0;
+  ColReferenciaDetalle := 0;
+  ColAltoMedidaTotal := 0;
+  ColEmbalaje := 0;
+  Col_A_DEFINIR_LONPER_COL10 := 0;
+  ColLugarInstalacion := 0;
+  ColAnchoMedidaTotal := 0;
+  ColAlfa_1 := 0;
+  ColAlfa_2 := 0;
+  ColAlfa_3 := 0;
+  ColAlfa_4 := 0;
+  ColAlfa_5 := 0;
+  ColAlfa_6 := 0;
+  ColAlfa_7 := 0;
+  ColAlfa_8 := 0;
+
+  SaltarSiNroItemCero := True;
+  PermitirUnidedesCero := False;
+  ArticuloTextoLibre := False;
+  InsertarDetalleDeDetalle := False;
+
+  if (Configuracion = 1) then
+  begin
+     ColNroItem := 1;
+     ColNroOrden := 2;
+     ColFechaDocumento := 3;
+     ColDirDistribucion := 4;
+     ColFechaEntrega := 5;
+     ColSKU := 6; // Codigo de articulo que se busca en ALFA_2
+     ColTituloArticulo := 7;
+     ColDirFinal := 8;
+     ColUnidades := 9;
+     ColCantdadEmpaquetado := 10;
+     ColPeso := 0;
+     ColAltoAreaVisible := 0;
+     ColReferenciaDetalle := 0;
+     ColAltoMedidaTotal := 0;
+     ColEmbalaje := 0;
+     Col_A_DEFINIR_LONPER_COL10 := 0;
+     ColLugarInstalacion := 0;
+     ColAnchoMedidaTotal := 0;
+
+     SaltarSiNroItemCero := True;
+     PermitirUnidedesCero := False;
+     ArticuloTextoLibre := False;
+  end
+  else
+  if (Configuracion = 2) then
+  begin
+     // Columna 1: Numero de item(secuencial)
+     // Columna 2: Unidades
+     // Columna 3: Peso
+     // Columna 4: Titulo articulo en detalle
+     // Columna 5: Alto Area Visible
+     // Columna 6: Ancho Area Visible
+     // Columna 7: Referencia
+     // Columna 8: Alto Medida Total
+     // Columna 9: Embalaje
+     // Columna 10: ???
+     // Columna 11: LugarInstalacion
+     // Columna 12: Ancho medida total
+
+     ColNroItem := 1;
+     ColNroOrden := 0;
+     ColFechaDocumento := 0;
+     ColDirDistribucion := 0;
+     ColFechaEntrega := 0;
+     ColSKU := 0; // Codigo de articulo que se busca en ALFA_2
+     ColTituloArticulo := 4;
+     ColDirFinal := 0;
+     ColUnidades := 2;
+     ColCantdadEmpaquetado := 0;
+     ColAnchoAreaVisible := 6;
+     ColPeso := 3;
+     ColAltoAreaVisible := 5;
+     ColReferenciaDetalle := 7;
+     ColAltoMedidaTotal := 8;
+     ColEmbalaje := 9;
+     Col_A_DEFINIR_LONPER_COL10 := 10; // ???
+     ColLugarInstalacion := 11;
+     ColAnchoMedidaTotal := 12;
+
+     SaltarSiNroItemCero := False;
+     PermitirUnidedesCero := False;
+     ArticuloTextoLibre := True; // Utiliza siempre el artículo Texto Libre (punto)
+     InsertarDetalleDeDetalle := True;
+  end;
+
+  Cancelar := False;
+  Saltar := False;
+  HCalc := THojaCalc.Create(Archivo, False);
+  try
+     FlagControlStockNegativo := False;
+     HCalc.ActivateSheetByIndex(1);
+     for i := 2 to HCalc.LastRow + 1 do
+     begin
+        // Inicializo datos a importar para la linea
+        Dir_Distribucion := 0;
+        DireccionFinal := 0;
+        // IdA := 0;
+        // Bultos := 0;
+        CantidadEmpaque := 0;
+        Unidades := 0;
+        // FechaDocumento := Today;
+        FechaEntrega := Today;
+        TituloProducto := '';
+        Alfa_1 := '';
+        Alfa_2 := '';
+        Alfa_3 := '';
+        Alfa_4 := '';
+        Alfa_5 := '';
+        Alfa_6 := '';
+        Alfa_7 := '';
+        Alfa_8 := '';
+
+        Peso := 0;
+        AltoAreaVisible := 0;
+        AnchoAreaVisible := 0;
+        AltoMedidaTotal := 0;
+        AnchoMedidaTotal := 0;
+        LugarInstalacion := '';
+        Embalaje := '';
+        ReferenciaDetalle := '';
+
+        if (not Cancelar) and (not Saltar) then
+        begin
+           // Si N_ITEM esta en blanco evito importar la linea.
+           try
+              s := LimpiaCeldaExcel(HCalc.CellText[i, ColNroItem]);
+           except
+              s := '';
+           end;
+
+           if (StrToIntDef(s, 0) = 0) and SaltarSiNroItemCero then
+              Saltar := True;
+
+           if (not Cancelar) and (not Saltar) and (ColNroOrden > 0) then
+           begin
+              if (i = 2) then
+              begin
+                 // Obtenemos numero de orden
+                 try
+                    s := LimpiaCeldaExcel(HCalc.CellText[i, ColNroOrden]);
+                 except
+                    s := '';
+                 end;
+
+                 NroOrden := Trim(s);
+                 if (NroOrden = '') then
+                    Cancelar := (MessageDlg(Format(_('No existe Nro de orden' + #13#10 +
+                       'Linea: %d.' + #13#10 + 'Leido Excel: %s.' + #13#10 + '¿Desea continuar?'), [i, s]), mtWarning,
+                       [mbYes, mbNo], 0) = mrNo);
+
+                 // Asignamos datos del documento obteniendo datos de la primera linea
+                 if (not Cancelar) then
+                 begin
+                    QMCabecera.Edit;
+                    QMCabeceraPEDIDO_CLIENTE.AsString := NroOrden;
+                    QMCabecera.Post;
+                 end;
+              end;
+           end;
+
+           if (not Cancelar) and (not Saltar) and (ColFechaDocumento > 0) then
+           begin
+              if (i = 2) then
+              begin
+                 // Obtenemos fecha de documento
+                 try
+                    s := LimpiaCeldaExcel(HCalc.CellText[i, ColFechaDocumento]);
+                 except
+                    s := '';
+                 end;
+
+                 try
+                    FechaDocumento := StrToDate(s);
+                 except
+                    FechaDocumento := StrToDate('01/01/2000');
+                 end;
+
+                 // Asignamos datos del documento obteniendo datos de la primera linea
+                 if (not Cancelar) then
+                 begin
+                    QMCabecera.Edit;
+                    QMCabeceraFECHA.AsDateTime := FechaDocumento;
+                    QMCabecera.Post;
+                 end;
+              end;
+           end;
+
+           // Obtenemos codigo direccion distribucion
+           if (not Cancelar) and (not Saltar) and (ColDirDistribucion > 0) then
+           begin
+              try
+                 s := LimpiaCeldaExcel(HCalc.CellText[i, ColDirDistribucion]);
+              except
+                 s := '';
+              end;
+              Dir_Distribucion := StrToIntDef(s, 0);
+
+              // Verificamos si existe la direccion de distribuicion
+              with THYFIBQuery.Create(nil) do
+              begin
+                 try
+                    Close;
+                    DataBase := DMMain.DataBase;
+                    SQL.Add('SELECT DIRECCION ');
+                    SQL.Add('FROM SYS_TERCEROS_DIRECCIONES TD ');
+                    SQL.Add('JOIN EMP_CLIENTES CL ON CL.TERCERO = TD.TERCERO ');
+                    SQL.Add('WHERE ');
+                    SQL.Add('CL.EMPRESA = :EMPRESA AND ');
+                    SQL.Add('CL.CLIENTE = :CLIENTE AND ');
+                    SQL.Add('TD.DIRECCION = :DIRECCION ');
+
+                    Params.ByName['EMPRESA'].AsInteger := DMPedidos.QMCabeceraEMPRESA.AsInteger;
+                    Params.ByName['CLIENTE'].AsInteger := DMPedidos.QMCabeceraCLIENTE.AsInteger;
+                    Params.ByName['DIRECCION'].AsInteger := Dir_Distribucion;
+                    ExecQuery;
+                    Dir_Distribucion := FieldByName['DIRECCION'].AsInteger;
+                    FreeHandle;
+                 finally
+                    Free;
+                 end;
+              end;
+
+              if (Dir_Distribucion = 0) then
+                 Cancelar := (MessageDlg(Format(_('No se encontro la direccion de distribuicion para el cliente.' +
+                    #13#10 + 'Linea: %d.' + #13#10 + 'Leido Excel: %s.' + #13#10 + '¿Desea continuar?'), [i, s]),
+                    mtWarning, [mbYes, mbNo], 0) = mrNo);
+           end;
+
+           // Obtenemos fecha de entrega
+           if (not Cancelar) and (not Saltar) and (ColFechaEntrega > 0) then
+           begin
+              try
+                 s := LimpiaCeldaExcel(HCalc.CellText[i, ColFechaEntrega]);
+              except
+                 s := '';
+              end;
+
+              try
+                 FechaEntrega := StrToDate(s);
+              except
+                 FechaEntrega := StrToDate('01/01/2000');
+              end;
+           end;
+
+           // Obtenemos articulo desde codigo SKU
+           if (not Cancelar) and (not Saltar) and (ColSKU > 0) then
+           begin
+              try
+                 s := LimpiaCeldaExcel(HCalc.CellText[i, ColSKU]);
+              except
+                 s := '';
+              end;
+
+              Sku := Trim(s);
+
+              // Obtenemos el articulo que contiene el SKU en ALFA_2
+              Articulo := DMMain.DameArticuloDesdeAlfa(Sku, 2);
+              if (Articulo = '') then
+              begin
+                 Cancelar := (MessageDlg(Format(_('No existe Ariculo para el SKU leido' +
+                    #13#10 + 'Linea: %d.' + #13#10 + 'Leido Excel: %s.' + #13#10 + '¿Desea continuar?'), [i, s]),
+                    mtWarning, [mbYes, mbNo], 0) = mrNo);
+
+                 // Si no cancela, se importará con artículo "." (TEXTO LIBRE)
+                 if not Cancelar then
+                    Articulo := REntorno.ArtTextoLibre;
+              end;
+           end;
+
+           if (not Cancelar) and (not Saltar) and (ArticuloTextoLibre) then
+              Articulo := REntorno.ArtTextoLibre;
+
+           if (not Cancelar) and (not Saltar) then
+           begin
+              IdA := DameIDArticulo(Articulo);
+              if (IdA = 0) then
+                 Cancelar := (MessageDlg(Format(_('No se encontro ID_A de Ariculo' + #13#10 +
+                    'Linea: %d.' + #13#10 + 'Código: %s.' + #13#10 + '¿Desea continuar?'), [i, Articulo]),
+                    mtWarning, [mbYes, mbNo], 0) = mrNo);
+           end;
+
+           // Obtenemos titulo del producto
+           if (not Cancelar) and (not Saltar) and (ColTituloArticulo > 0) then
+           begin
+              try
+                 s := LimpiaCeldaExcel(HCalc.CellText[i, ColTituloArticulo]);
+              except
+                 s := '';
+              end;
+
+              TituloProducto := Trim(s);
+              if (TituloProducto = '') then
+                 Cancelar := (MessageDlg(Format(_('No existe titulo del producto' + #13#10 +
+                    'Linea: %d.' + #13#10 + 'Leido Excel: %s.' + #13#10 + '¿Desea continuar?'), [i, s]), mtWarning,
+                    [mbYes, mbNo], 0) = mrNo);
+           end;
+
+           // Obtenemos codigo direccion final
+           if (not Cancelar) and (not Saltar) and (ColDirFinal > 0) then
+           begin
+              try
+                 s := LimpiaCeldaExcel(HCalc.CellText[i, ColDirFinal]);
+              except
+                 s := '';
+              end;
+
+              DireccionFinal := StrToIntDef(s, 0);
+
+              // Verificamos si existe la direccion
+              with THYFIBQuery.Create(nil) do
+              begin
+                 try
+                    Close;
+                    DataBase := DMMain.DataBase;
+                    SQL.Add('SELECT DIRECCION ');
+                    SQL.Add('FROM SYS_TERCEROS_DIRECCIONES TD ');
+                    SQL.Add('JOIN EMP_CLIENTES CL ON CL.TERCERO = TD.TERCERO ');
+                    SQL.Add('WHERE ');
+                    SQL.Add('CL.EMPRESA = :EMPRESA AND ');
+                    SQL.Add('CL.CLIENTE = :CLIENTE AND ');
+                    SQL.Add('TD.DIRECCION = :DIRECCION ');
+
+                    Params.ByName['EMPRESA'].AsInteger := QMCabeceraEMPRESA.AsInteger;
+                    Params.ByName['CLIENTE'].AsInteger := QMCabeceraCLIENTE.AsInteger;
+                    Params.ByName['DIRECCION'].AsInteger := DireccionFinal;
+                    ExecQuery;
+                    DireccionFinal := FieldByName['DIRECCION'].AsInteger;
+                    FreeHandle;
+                 finally
+                    Free;
+                 end;
+              end;
+
+              if (DireccionFinal = 0) then
+                 Cancelar := (MessageDlg(Format(_('No se encontro la direccion final de entrega para el cliente' +
+                    #13#10 + 'Linea: %d.' + #13#10 + 'Leido Excel: %s.' + #13#10 + '¿Desea continuar?'), [i, s]),
+                    mtWarning, [mbYes, mbNo], 0) = mrNo);
+           end;
+
+           if (not Cancelar) and (not Saltar) and (ColUnidades > 0) then
+           begin
+              if (ColUnidades > 0) then
+              begin
+                 try
+                    s := LimpiaCeldaExcel(HCalc.CellText[i, ColUnidades]);
+                 except
+                    s := '';
+                 end;
+
+                 Unidades := StrToFloatDef(s, 0);
+
+                 if (Unidades = 0) and (not PermitirUnidedesCero) then
+                    Cancelar := (MessageDlg(Format(_('Las unidades son 0.' + #13#10 +
+                       'Linea: %d.' + #13#10 + 'Leido Excel: %s.' + #13#10 + '¿Desea continuar?'), [i, s]), mtWarning,
+                       [mbYes, mbNo], 0) = mrNo);
+              end
+              else
+                 Unidades := 1;
+           end;
+
+           // Obtenemos cantidad empaquetado
+           if (not Cancelar) and (not Saltar) and (ColCantdadEmpaquetado > 0) then
+           begin
+              try
+                 s := LimpiaCeldaExcel(HCalc.CellText[i, ColCantdadEmpaquetado]);
+              except
+                 s := '';
+              end;
+
+              CantidadEmpaque := StrToIntDef(s, 0);
+
+              {
+              if (CantidadEmpaque = 0) then
+                 Cancelar := (MessageDlg(Format(_('Las cantidad empaque es 0.' + #13#10 + 'Linea: %d.' + #13#10 + 'Leido Excel: %s.' + #13#10 + '¿Desea continuar?'), [i, s]), mtWarning, [mbYes, mbNo], 0) = mrNo);
+              }
+           end;
+
+           // Obtenemos Peso
+           if (not Cancelar) and (not Saltar) and (ColPeso > 0) then
+           begin
+              try
+                 s := LimpiaCeldaExcel(HCalc.CellText[i, ColPeso]);
+              except
+                 s := '';
+              end;
+
+              Peso := StrToFloatDef(s, 0);
+
+              {
+              if (Peso = 0) then
+                 Cancelar := (MessageDlg(Format(_('El Peso es vacio .' + #13#10 + 'Linea: %d.' + #13#10 + 'Leido Excel: %s.' + #13#10 + '¿Desea continuar?'), [i, s]), mtWarning, [mbYes, mbNo], 0) = mrNo);
+              }
+           end;
+
+           // Obtenemos Alto Area Visible
+           if (not Cancelar) and (not Saltar) and (ColAltoAreaVisible > 0) then
+           begin
+              try
+                 s := LimpiaCeldaExcel(HCalc.CellText[i, ColAltoAreaVisible]);
+              except
+                 s := '';
+              end;
+
+              AltoAreaVisible := StrToFloatDef(s, 0);
+
+              {
+              if (AltoAreaVisible = 0) then
+                 Cancelar := (MessageDlg(Format(_('El Alto area visible es vacio .' + #13#10 + 'Linea: %d.' + #13#10 + 'Leido Excel: %s.' + #13#10 + '¿Desea continuar?'), [i, s]), mtWarning, [mbYes, mbNo], 0) = mrNo);
+              }
+           end;
+
+           // Obtenemos Ancho Area Visible
+           if (not Cancelar) and (not Saltar) and (ColAnchoAreaVisible > 0) then
+           begin
+              try
+                 s := LimpiaCeldaExcel(HCalc.CellText[i, ColAnchoAreaVisible]);
+              except
+                 s := '';
+              end;
+
+              AnchoAreaVisible := StrToFloatDef(s, 0);
+
+              if (AnchoAreaVisible = 0) then
+                 Cancelar := (MessageDlg(Format(_('El Ancho area visible es vacio .' + #13#10 +
+                    'Linea: %d.' + #13#10 + 'Leido Excel: %s.' + #13#10 + '¿Desea continuar?'), [i, s]), mtWarning,
+                    [mbYes, mbNo], 0) = mrNo);
+           end;
+
+           // Obtenemos Referencia
+           if (not Cancelar) and (not Saltar) and (ColReferenciaDetalle > 0) then
+           begin
+              try
+                 s := LimpiaCeldaExcel(HCalc.CellText[i, ColReferenciaDetalle]);
+              except
+                 s := '';
+              end;
+
+              ReferenciaDetalle := s;
+
+             {
+             if (Referencia = '') then
+                Cancelar := (MessageDlg(Format(_('El Referencia es vacio .' + #13#10 + 'Linea: %d.' + #13#10 + 'Leido Excel: %s.' + #13#10 + '¿Desea continuar?'), [i, s]), mtWarning, [mbYes, mbNo], 0) = mrNo);
+             }
+           end;
+
+           // Obtenemos Alto Medida Total
+           if (not Cancelar) and (not Saltar) and (ColAltoMedidaTotal > 0) then
+           begin
+              try
+                 s := LimpiaCeldaExcel(HCalc.CellText[i, ColAltoMedidaTotal]);
+              except
+                 s := '';
+              end;
+
+              AltoMedidaTotal := StrToFloatDef(s, 0);
+
+              {
+              if (AltoMedidaTotal = '') then
+                 Cancelar := (MessageDlg(Format(_('El Alto Medida Total es vacio .' + #13#10 + 'Linea: %d.' + #13#10 + 'Leido Excel: %s.' + #13#10 + '¿Desea continuar?'), [i, s]), mtWarning, [mbYes, mbNo], 0) = mrNo);
+              }
+           end;
+
+           // Obtenemos el Embalaje
+           if (not Cancelar) and (not Saltar) and (ColEmbalaje > 0) then
+           begin
+              try
+                 s := LimpiaCeldaExcel(HCalc.CellText[i, ColEmbalaje]);
+              except
+                 s := '';
+              end;
+
+              Embalaje := s;
+
+              {
+              if (Embalaje = '') then
+                 Cancelar := (MessageDlg(Format(_('El Embalaje es vacio .' + #13#10 + 'Linea: %d.' + #13#10 + 'Leido Excel: %s.' + #13#10 + '¿Desea continuar?'), [i, s]), mtWarning, [mbYes, mbNo], 0) = mrNo);
+              }
+           end;
+
+           // Obtenemos ???
+           if (not Cancelar) and (not Saltar) and (Col_A_DEFINIR_LONPER_COL10 > 0) then
+           begin
+              try
+                 s := LimpiaCeldaExcel(HCalc.CellText[i, Col_A_DEFINIR_LONPER_COL10]);
+              except
+                 s := '';
+              end;
+
+              {
+              ??? := s;
+
+              if (??? = '') then
+                 Cancelar := (MessageDlg(Format(_('??? es vacio .' + #13#10 + 'Linea: %d.' + #13#10 + 'Leido Excel: %s.' + #13#10 + '¿Desea continuar?'), [i, s]), mtWarning, [mbYes, mbNo], 0) = mrNo);
+              }
+           end;
+
+           // Obtenemos el Lugar Instalación
+           if (not Cancelar) and (not Saltar) and (ColLugarInstalacion > 0) then
+           begin
+              try
+                 s := LimpiaCeldaExcel(HCalc.CellText[i, ColLugarInstalacion]);
+              except
+                 s := '';
+              end;
+
+              LugarInstalacion := s;
+
+              {
+              if (LugarInstalacion = '') then
+                 Cancelar := (MessageDlg(Format(_('El Lugar instalacion es vacio .' + #13#10 + 'Linea: %d.' + #13#10 + 'Leido Excel: %s.' + #13#10 + '¿Desea continuar?'), [i, s]), mtWarning, [mbYes, mbNo], 0) = mrNo);
+              }
+           end;
+
+           // Obtenemos Ancho medida total
+           if (not Cancelar) and (not Saltar) and (ColAnchoMedidaTotal > 0) then
+           begin
+              try
+                 s := LimpiaCeldaExcel(HCalc.CellText[i, ColAnchoMedidaTotal]);
+              except
+                 s := '';
+              end;
+
+              AnchoMedidaTotal := StrToFloatDef(s, 0);
+
+              {
+              if (AnchoMedidaTotal = 0) then
+                 Cancelar := (MessageDlg(Format(_('El Ancho Medida Total es vacio .' + #13#10 + 'Linea: %d.' + #13#10 + 'Leido Excel: %s.' + #13#10 + '¿Desea continuar?'), [i, s]), mtWarning, [mbYes, mbNo], 0) = mrNo);
+              }
+           end;
+
+
+           if (not Cancelar) and (not Saltar) then
+           begin
+              // Verificamos si existe una linea con el articulo
+              with THYFIBQuery.Create(nil) do
+              begin
+                 try
+                    Close;
+                    DataBase := DMMain.DataBase;
+                    SQL.Text :=
+                       'SELECT ID_DETALLES_S FROM GES_DETALLES_S WHERE ID_S = :ID_S AND ARTICULO = :ARTICULO ORDER BY ORDEN';
+                    Params.ByName['ID_S'].AsInteger := DMPedidos.QMCabeceraID_S.AsInteger;
+                    Params.ByName['ARTICULO'].AsString := Articulo;
+                    ExecQuery;
+                    IdDetallesS := FieldByName['ID_DETALLES_S'].AsInteger;
+                    FreeHandle;
+                 finally
+                    Free;
+                 end;
+              end;
+
+              // Si existe hacemos un update, de lo contrario hacemos un insert
+              {
+              if (IdDetallesS > 0) then
+              begin
+                 with THYFIBQuery.Create(nil) do
+                 begin
+                    try
+                       Close;
+                       DataBase := DMMain.DataBase;
+                       SQL.Add(' UPDATE VER_DETALLE_PEDIDO ');
+                       SQL.Add(' SET ');
+                       SQL.Add(' UNIDADES = UNIDADES + :UNIDADES ');
+                       SQL.Add(' WHERE ');
+                       SQL.Add(' ID_DETALLES_S = :ID_DETALLES_S ');
+                       Params.ByName['ID_DETALLES_S'].AsInteger := IdDetallesS;
+                       ExecQuery;
+                       FreeHandle;
+                    finally
+                       Free;
+                    end;
+                 end;
+              end
+              else
+              begin
+              }
+
+              // Si el articulo es válido lo insertamos
+              if (Articulo > '') then
+              begin
+                 with QMDetalle do
+                 begin
+                    Insert;
+                    FieldByName('ARTICULO').AsString := Articulo;
+                    FieldByName('UNIDADES').AsFloat := Unidades;
+                    FieldByName('PESO').AsFloat := Peso;
+
+                    // ??? Se debe tomar la descripcion del articulo o la del excel [TituloProducto]
+                    FieldByName('TITULO').AsString := TituloProducto;
+
+                    // ??? Precio
+
+                    if (Dir_Distribucion > 0) then
+                       FieldByName('DIRECCION_ALM_LOGISTICO').AsInteger := Dir_Distribucion;
+
+                    if (Dir_Distribucion > 0) then
+                       FieldByName('DIRECCION_ENTREGA').AsInteger := DireccionFinal;
+
+                    FieldByName('FECHA_ENTREGA_PREV').AsDateTime := FechaEntrega;
+                    FieldByName('PIEZAS_X_BULTO').AsInteger := CantidadEmpaque;
+
+                    // Caluclo cantidad de bultos
+                    Bultos := 0;
+                    if (CantidadEmpaque <> 0) then
+                       Bultos := Trunc(Unidades / CantidadEmpaque);
+
+                    // Si hay un resto, entrará en un bulto mas
+                    if ((Bultos * CantidadEmpaque) < Unidades) then
+                       Bultos := Bultos + 1;
+
+                    // Por lo menos un bulto
+                    if (Bultos = 0) then
+                       Bultos := 1;
+
+                    FieldByName('BULTOS').AsInteger := Bultos;
+                    Post;
+                 end;
+
+                 // Si la configuracion es 2 insertamos en tabla GES_DETALLES_S_DETALLES
+                 if InsertarDetalleDeDetalle then
+                 begin
+                    with THYFIBQuery.Create(nil) do
+                    begin
+                       try
+                          Close;
+                          DataBase := DMMain.DataBase;
+                          SQL.Add(' INSERT INTO GES_DETALLES_S_DETALLES ( ');
+                          SQL.Add(
+                             ' EMPRESA, EJERCICIO, CANAL, SERIE, TIPO, RIG, LINEA, ID_DETALLES_S, REFERENCIA, /*SOPORTE,*/ EMBALAJE, LUGAR_INSTALACION, ');
+                          SQL.Add(' ALTO_AREA_VISIBLE, ANCHO_AREA_VISIBLE, ALTO_MEDIDA_TOTAL, ANCHO_MEDIDA_TOTAL) ');
+                          SQL.Add(' VALUES ( ');
+                          SQL.Add(
+                             ' :EMPRESA, :EJERCICIO, :CANAL, :SERIE, :TIPO, :RIG, :LINEA, :ID_DETALLES_S, :REFERENCIA,/* _SOPORTE,*/ :EMBALAJE, ');
+                          SQL.Add(
+                             ' :LUGAR_INSTALACION, :ALTO_AREA_VISIBLE, :ANCHO_AREA_VISIBLE, :ALTO_MEDIDA_TOTAL, :ANCHO_MEDIDA_TOTAL) ');
+                          Params.ByName['EMPRESA'].AsInteger := QMCabeceraEMPRESA.AsInteger;
+                          Params.ByName['EJERCICIO'].AsInteger := QMCabeceraEJERCICIO.AsInteger;
+                          Params.ByName['CANAL'].AsInteger := QMCabeceraCANAL.AsInteger;
+                          Params.ByName['SERIE'].AsString := QMCabeceraSERIE.AsString;
+                          Params.ByName['TIPO'].AsString := QMCabeceraTIPO.AsString;
+                          Params.ByName['RIG'].AsInteger := QMCabeceraRIG.AsInteger;
+                          Params.ByName['LINEA'].AsInteger := QMDetalleLINEA.AsInteger;
+                          Params.ByName['ID_DETALLES_S'].AsInteger := QMDetalleID_DETALLES_S.AsInteger;
+                          Params.ByName['REFERENCIA'].AsString := ReferenciaDetalle;
+                          // Params.ByName['SOPORTE'].AsString := QMCabeceraSERIE.AsString;  {***}
+                          Params.ByName['EMBALAJE'].AsString := Embalaje;
+                          Params.ByName['LUGAR_INSTALACION'].AsString := LugarInstalacion;
+                          Params.ByName['ALTO_AREA_VISIBLE'].AsFloat := AltoAreaVisible;
+                          Params.ByName['ANCHO_AREA_VISIBLE'].AsFloat := AnchoAreaVisible;
+                          Params.ByName['ALTO_MEDIDA_TOTAL'].AsFloat := AltoMedidaTotal;
+                          Params.ByName['ANCHO_MEDIDA_TOTAL'].AsFloat := AnchoMedidaTotal;
+                          ExecQuery;
+                          FreeHandle;
+                       finally
+                          Free;
+                       end;
+                    end;
+                 end;
+              end;
+           end;
+        end;
+
+        Saltar := False;
+     end;
+  finally
+     FlagControlStockNegativo := True;
+     HCalc.Free;
+  end;
+
+  RefrescaCabecera(2);
+end;
+
+procedure TDMPedidos.QMDetalleALMACENChange(Sender: TField);
+begin
+  if (param_VENPREC002) then
+     EstaleceCondiciones(QMDetalleARTICULO, 0, (QMDetalle.State in [dsInsert, dsEdit]));
+end;
+
+procedure TDMPedidos.xInfoActualizadaCalcFields(DataSet: TDataSet);
+begin
+  xInfoActualizadaRIESGO_DISPONIBLE.AsFloat :=
+     (xInfoActualizadaRIESGO_AUT.AsFloat) - (xInfoActualizadaRIESGO_ACT.AsFloat + xInfoActualizadaRIESGO_PED.AsFloat);
+end;
+
+procedure TDMPedidos.QMDetalleUNIDADES_PENDIENTESGetText(Sender: TField; var Text: string; DisplayText: boolean);
+begin
+  Text := Format('%.*f', [QMDetalleDECIMALES_UNIDADES.AsInteger, QMDetalleUNIDADES_PENDIENTES.AsFloat]);
+end;
+
+procedure TDMPedidos.QMDetalleUNIDADES_EXTGetText(Sender: TField; var Text: string; DisplayText: boolean);
+begin
+  Text := Format('%.*f', [QMDetalleDECIMALES_UNIDADES.AsInteger, QMDetalleUNIDADES_EXT.AsFloat]);
+end;
+
+procedure TDMPedidos.QMDetalleUNIDADES_SERVIDASGetText(Sender: TField; var Text: string; DisplayText: boolean);
+begin
+  Text := Format('%.*f', [QMDetalleDECIMALES_UNIDADES.AsInteger, QMDetalleUNIDADES_SERVIDAS.AsFloat]);
+end;
+
+procedure TDMPedidos.QMDetalleUNIDADES_RESERVADASGetText(Sender: TField; var Text: string; DisplayText: boolean);
+begin
+  Text := Format('%.*f', [QMDetalleDECIMALES_UNIDADES.AsInteger, QMDetalleUNIDADES_RESERVADAS.AsFloat]);
+end;
+
+procedure TDMPedidos.QMDetalleUNIDADES_PREPARADASGetText(Sender: TField; var Text: string; DisplayText: boolean);
+begin
+  Text := Format('%.*f', [QMDetalleDECIMALES_UNIDADES.AsInteger, QMDetalleUNIDADES_PREPARADAS.AsFloat]);
+end;
+
+procedure TDMPedidos.QMDetalleTOTAL_UNIDADES_EXTGetText(Sender: TField; var Text: string; DisplayText: boolean);
+begin
+  Text := Format('%.*f', [QMDetalleDECIMALES_UNIDADES.AsInteger, QMDetalleTOTAL_UNIDADES_EXT.AsFloat]);
+end;
+
+procedure TDMPedidos.xClienteAfterOpen(DataSet: TDataSet);
+begin
+  xAvisos.Open;
+end;
+
+procedure TDMPedidos.xClienteBeforeClose(DataSet: TDataSet);
+begin
+  xAvisos.Close;
+end;
+
+procedure TDMPedidos.xDireccionesTITULOGetText(Sender: TField; var Text: string; DisplayText: boolean);
+begin
+  if (QMCabeceraCLIENTE.AsInteger < 0) then
+  begin
+     Text := '';
+     with THYFIBQuery.Create(nil) do
+     begin
+        try
+           Close;
+           DataBase := DMMain.DataBase;
+           SQL.Text := 'SELECT DIRECCION FROM UT_JUSTIFICA_DOMICILIO_3(:TERCERO, :CLIENTE, :ID_S, 0) WHERE ((NUM = :NUM) OR (:CLIENTE < 0))';
+           Params.ByName['TERCERO'].AsInteger := QMCabeceraTERCERO.AsInteger;
+           Params.ByName['CLIENTE'].AsInteger := QMCabeceraCLIENTE.AsInteger;
+           Params.ByName['NUM'].AsInteger := QMCabeceraDIRECCION.AsInteger;
+           Params.ByName['ID_S'].AsInteger := QMCabeceraID_S.AsInteger;
+           ExecQuery;
+           Text := FieldByName['DIRECCION'].AsString;
+           FreeHandle;
+        finally
+           Free;
+        end;
+     end;
+  end;
+  if (Text = '') then
+     Text := xDireccionesTITULO.AsString;
+end;
+
+procedure TDMPedidos.ImportarXLS(Archivo: string);
+var
+  HCalc : THojaCalc;
+  s : string;
+  SaltarLinea : boolean;
+  i, UltimaFila, ColCliente, ColOC, ColDireccion, ColArticulo, ColPT, ColDescripcion, ColCantidad : integer;
+  ID_S, ID_A, RIG, Cliente, OC, Direccion, CanPedidos, CanLineas : integer;
+  Articulo, PT, Descripcion : string;
+  Cantidad : real;
+  Errores : TStrings;
+  ArchivoErrores : string;
+  Bloqueo : integer;
+  Mensaje : string;
+begin
+  DMMain.Log('Importando fichero: ' + Archivo);
+
+  // Configuracion de columnas a importar del excel
+
+  CanPedidos := 0;
+  CanLineas := 0;
+  ID_S := 0;
+
+  ColOC := 1;
+  ColCliente := 2;
+  ColDireccion := 3;
+  ColArticulo := 4;
+  ColPT := 5;
+  ColDescripcion := 6;
+  ColCantidad := 7;
+
+  // Formato
+  // +--------+---------+-----------+----------+--------------+----------------------------+----------+
+  // | OC     | CLIENTE | DIRECCION | ARTICULO | PT           | DESCRIPCION                | CANTIDAD |
+  // +--------+---------+-----------+----------+--------------+----------------------------+----------+
+  // | 121974 | 1068    | 5         | 701003   | PT-751-EPYSA | RENOVADOR DE GOMAS INDIANA | 6        |
+
+  CancelarImportacion := False;
+
+  Errores := TStringList.Create;
+  HCalc := THojaCalc.Create(Archivo, False);
+  try
+     HCalc.ActivateSheetByIndex(1);
+     UltimaFila := HCalc.LastRow + 1;
+     for i := 2 to UltimaFila do
+     begin
+        if (not CancelarImportacion) then
+        begin
+           FMPedidos.Progreso(i, UltimaFila);
+           SaltarLinea := False;
+
+           // Leo celdas
+           try
+              s := LimpiaCeldaExcel(HCalc.CellText[i, ColCliente]);
+           except
+              s := '';
+           end;
+           Cliente := StrToIntDef(s, 0);
+           DMMain.Log(Format(_('Cliente: %d (%s)'), [Cliente, s]));
+
+           // OC = Orden de Compra
+           try
+              s := LimpiaCeldaExcel(HCalc.CellText[i, ColOC]);
+           except
+              s := '';
+           end;
+           OC := StrToIntDef(s, 0);
+           DMMain.Log(Format(_('OC: %d (%s)'), [OC, s]));
+
+           try
+              s := LimpiaCeldaExcel(HCalc.CellText[i, ColDireccion]);
+           except
+              s := '';
+           end;
+           Direccion := StrToIntDef(s, 0);
+           DMMain.Log(Format(_('Direccion: %d (%s)'), [Direccion, s]));
+
+           try
+              s := LimpiaCeldaExcel(HCalc.CellText[i, ColArticulo]);
+           except
+              s := '';
+           end;
+           Articulo := s;
+           ID_A := DameIDArticulo(Articulo);
+           DMMain.Log(Format(_('Articulo: %s (%s) (ID_A: %d'), [Articulo, s, ID_A]));
+
+           try
+              s := LimpiaCeldaExcel(HCalc.CellText[i, ColDescripcion]);
+           except
+              s := '';
+           end;
+           Descripcion := s;
+           DMMain.Log(Format(_('Descripcion: %s (%s)'), [Descripcion, s]));
+
+           try
+              s := LimpiaCeldaExcel(HCalc.CellText[i, ColCantidad]);
+           except
+              s := '';
+           end;
+           Cantidad := StrToFloatDef(s, 0);
+           DMMain.Log(Format(_('Cantidad: %f (%s)'), [Cantidad, s]));
+
+           // Verificaciones
+           if (not SaltarLinea) and (OC = 0) then
+           begin
+              SaltarLinea := True;
+              Errores.Add(format(_('Linea %d - Campo OC vacio'), [i]));
+           end;
+
+           if (not SaltarLinea) and (DameTituloCliente(Cliente) = '') then
+           begin
+              SaltarLinea := True;
+              Errores.Add(format(_('Linea %d - No existe el cliente %d'), [i, Cliente]));
+           end;
+
+           if (not SaltarLinea) then
+           begin
+              with THYFIBQuery.Create(nil) do
+              begin
+                 try
+                    Close;
+                    DataBase := DMMain.DataBase;
+                    SQL.Text := 'SELECT BLOQUEO, MOTIVO_BLOQUEO FROM EMP_CLIENTES WHERE EMPRESA = ?EMPRESA AND CLIENTE = ?CLIENTE';
+                    Params.ByName['EMPRESA'].AsInteger := REntorno.Empresa;
+                    Params.ByName['CLIENTE'].AsInteger := Cliente;
+                    ExecQuery;
+                    Bloqueo := FieldByName['BLOQUEO'].AsInteger;
+                    Mensaje := FieldByName['MOTIVO_BLOQUEO'].AsString;
+                    FreeHandle;
+                 finally
+                    Free;
+                 end;
+              end;
+
+               {0.- Sin mensaje
+                1.- Aviso
+                2.- Bloquear}
+              if (Bloqueo > 0) then
+              begin
+                 if (Bloqueo = 1) then
+                    Errores.Add(format(_('Linea %d - Cliente %d tiene aviso: %s'), [i, Cliente, Mensaje]));
+
+                 if (Bloqueo = 2) then
+                 begin
+                    Errores.Add(format(_('Linea %d - Cliente %d bloqueado: %s'), [i, Cliente, Mensaje]));
+                    SaltarLinea := True;
+                 end;
+              end;
+           end;
+
+           if (not SaltarLinea) and (DameDireccionTercero(DameTercero('CLI', Cliente), Direccion) = '') then
+           begin
+              SaltarLinea := True;
+              Errores.Add(format(_('Linea %d - No existe el direccion %d para el cliente %d'), [i, Direccion, Cliente]));
+           end;
+
+           if (not SaltarLinea) and (ID_A = 0) then
+           begin
+              SaltarLinea := True;
+              Errores.Add(format(_('Linea %d - No existe el articulo %s'), [i, Articulo]));
+           end;
+
+           if (not SaltarLinea) and (Cantidad = 0) then
+           begin
+              SaltarLinea := True;
+              Errores.Add(format(_('Linea %d - La cantidad es 0'), [i]));
+           end;
+
+           if (not SaltarLinea) then
+           begin
+              DMMain.Log(format(_('Busco cabecera con Cliente %d + Referencia/SuPedido %d'), [Cliente, OC]));
+              // Verifico si existe un pedido *ABIERTO* con esa Referencia/SuPedido para ese cliente.
+              // Lo busco en esta EPRESA+CANAL+SERIE
+              with THYFIBQuery.Create(nil) do
+              begin
+                 try
+                    Close;
+                    DataBase := DMMain.DataBase;
+                    SQL.Add(' SELECT ID_S, RIG FROM GES_CABECERAS_S ');
+                    SQL.Add(' WHERE ');
+                    SQL.Add(' EMPRESA = :EMPRESA AND ');
+                    SQL.Add(' CANAL = :CANAL AND ');
+                    SQL.Add(' SERIE = :SERIE AND ');
+                    SQL.Add(' TIPO = :TIPO AND ');
+                    SQL.Add(' ESTADO = 0 AND ');
+                    SQL.Add(' ((SU_REFERENCIA = :SU_REFERENCIA) OR (PEDIDO_CLIENTE = :PEDIDO_CLIENTE)) AND ');
+                    SQL.Add(' CLIENTE = :CLIENTE ');
+
+                    Params.ByName['EMPRESA'].AsInteger := REntorno.Empresa;
+                    Params.ByName['CANAL'].AsInteger := REntorno.Canal;
+                    Params.ByName['SERIE'].AsString := Serie;
+                    Params.ByName['TIPO'].AsString := 'PEC';
+                    Params.ByName['CLIENTE'].AsInteger := Cliente;
+                    Params.ByName['SU_REFERENCIA'].AsString := IntToStr(OC);
+                    Params.ByName['PEDIDO_CLIENTE'].AsString := IntToStr(OC);
+                    ExecQuery;
+                    ID_S := FieldByName['ID_S'].AsInteger;
+                    RIG := FieldByName['RIG'].AsInteger;
+                    FreeHandle;
+                 finally
+                    Free;
+                 end;
+              end;
+
+              if (ID_S <> 0) then
+                 DMMain.Log(format(_('Cabecera encontrada: %d (ID_S: %d)'), [RIG, ID_S]))
+              else
+              begin
+                 DMMain.Log(_('Creando cabecera'));
+                 try
+                    with THYFIBQuery.Create(nil) do
+                    begin
+                       try
+                          Close;
+                          DataBase := DMMain.DataBase;
+                          SQL.Add(' SELECT ID_S, RIG ');
+                          SQL.Add(' FROM WEB_INS_CABECERA_VENTA_7(:USUARIOID, :TIPO, :CLIENTE, :REFERENCIA, :ENTRADA, ');
+                          SQL.Add(' :ALMACEN, :FECHA_DOC, :AGENTE, :SERIE, :RIG_IN, :EMPRESA, :CANAL, :LISTO_PARA_PREPARAR, :DIRECCION) ');
+                          Params.ByName['USUARIOID'].AsString := REntorno.Nombre;
+                          Params.ByName['TIPO'].AsString := 'PEC';
+                          Params.ByName['CLIENTE'].AsInteger := Cliente;
+                          Params.ByName['REFERENCIA'].AsString := IntToStr(OC);
+                          Params.ByName['ENTRADA'].AsInteger := REntorno.Entrada;
+                          Params.ByName['ALMACEN'].AsString := REntorno.AlmacenDefecto;
+                          Params.ByName['FECHA_DOC'].AsDateTime := Now;
+                          Params.ByName['AGENTE'].AsInteger := 0;
+                          Params.ByName['SERIE'].AsString := Serie;
+                          Params.ByName['RIG_IN'].AsInteger := 0;
+                          Params.ByName['EMPRESA'].AsInteger := REntorno.Empresa;
+                          Params.ByName['CANAL'].AsInteger := REntorno.Canal;
+                          Params.ByName['LISTO_PARA_PREPARAR'].AsInteger := 1;
+                          Params.ByName['DIRECCION'].AsInteger := Direccion;
+                          ExecQuery;
+                          ID_S := FieldByName['ID_S'].AsInteger;
+                          RIG := FieldByName['RIG'].AsInteger;
+                          FreeHandle;
+                       finally
+                          Free;
+                       end;
+                    end;
+
+                    with THYFIBQuery.Create(nil) do
+                    begin
+                       try
+                          Close;
+                          DataBase := DMMain.DataBase;
+                          SQL.Add(' UPDATE GES_CABECERAS_S ');
+                          SQL.Add(' SET ');
+                          SQL.Add(' PEDIDO_CLIENTE = :PEDIDO_CLIENTE ');
+                          SQL.Add(' WHERE ');
+                          SQL.Add(' ID_S = :ID_S ');
+                          Params.ByName['ID_S'].AsInteger := ID_S;
+                          Params.ByName['PEDIDO_CLIENTE'].AsString := IntToStr(OC);
+                          ExecQuery;
+                          FreeHandle;
+                       finally
+                          Free;
+                       end;
+                    end;
+                    DMMain.Log(format(_('Cabecera creada: %d (ID_S: %d)'), [RIG, ID_S]));
+                    Inc(CanPedidos);
+                 except
+                    on E: Exception do
+                    begin
+                       DMMain.Log(format(_('Linea %d - Error creando cabecera.') + #13#10 + E.Message, [i]));
+                       Errores.Add(format(_('Linea %d - Error creando cabecera.') + #13#10 + E.Message, [i]));
+                       ID_S := 0;
+                    end;
+                 end;
+              end;
+
+              // Ahora creo línea de detalle
+              if (ID_S <> 0) then
+              begin
+                 DMMain.Log(_('Creando Detalle'));
+                 try
+                    with THYFIBQuery.Create(nil) do
+                    begin
+                       try
+                          Close;
+                          DataBase := DMMain.DataBase;
+                          SQL.Add(' EXECUTE PROCEDURE WEB_INS_DETALLE_VENTA (:TIPO, :ID_S, :ID_A, :TITULO, :UNIDADES, NULL, :PRECIO, :DESCUENTO) ');
+                          Params.ByName['TIPO'].AsString := 'PEC';
+                          Params.ByName['ID_S'].AsInteger := ID_S;
+                          Params.ByName['ID_A'].AsInteger := ID_A;
+                          Params.ByName['TITULO'].AsString := Descripcion;
+                          Params.ByName['UNIDADES'].AsFloat := Cantidad;
+                          Params.ByName['PRECIO'].AsFloat := 0;
+                          Params.ByName['DESCUENTO'].AsFloat := 0;
+                          ExecQuery;
+                          FreeHandle;
+                       finally
+                          Free;
+                          Inc(CanLineas);
+                       end;
+                    end;
+                 except
+                    on E: Exception do
+                    begin
+                       DMMain.Log(format(_('Linea %d - Error creando detalle.') + #13#10 + E.Message, [i]));
+                       Errores.Add(format(_('Linea %d - Error creando detalle.') + #13#10 + E.Message, [i]));
+                    end;
+                 end;
+              end;
+           end; // SaltarLinea
+        end; // if (not CancelarImportacion)
+     end; //for
+
+     if Errores.Count > 0 then
+     begin
+        Errores.Insert(0, format(_('Fichero importado: %s'), [Archivo]));
+
+        ArchivoErrores := GetSpecialFolderPath(CSIDL_PERSONAL, True) + '\ErroresImportandoPedidos-' + FormatDateTime('yyyymmdd-hhnnss', Now) + '.txt';
+        if FileExists(ArchivoErrores) then
+           DeleteFile(ArchivoErrores);
+        Errores.SaveToFile(ArchivoErrores);
+
+        // ShowMessage(format(_('Existieron errores en la importacion pueden ser consultados en:' + #13#10 +'%s')), [ArchivoErrores]);
+        DMMain.AbrirArchivo(ArchivoErrores);
+     end;
+  finally
+     HCalc.Free;
+     Errores.Free;
+  end;
+
+  Refrescar(QMCabecera, 'ID_S', IntToStr(ID_S));
+
+  DMMain.Log(format('Importando Finalizada - Pedidos Insertados: %d', [CanPedidos]));
+  MessageDlg(_(format('Proceso finalizado. Pedidos Insertados: %d' + #13#10 + ' Con %d Líneas ', [CanPedidos, CanLineas])), mtInformation, [mbOK], 0);
+end;
+
+procedure TDMPedidos.QMDetalleUNIDADES_SECChange(Sender: TField);
+begin
+  // Si calcula el peso segun las unidades secundarias
+  if param_VENUSEC001 and (QMDetalleAPLICA_UNIDADES_SECUNDARIAS.AsInteger = 1) then
+     QMDetallePESO.AsFloat := xArticulos.FieldByName('PESO').AsFloat * QMDetalleUNIDADES_SEC.AsFloat
+  else
+     QMDetallePESO.AsFloat := xArticulos.FieldByName('PESO').AsFloat * xArticulos.FieldByName('FACTOR_UNIDAD').AsFloat;
+
+  QMDetalleUNIDADESChange(Sender);
+end;
+
+procedure TDMPedidos.ImportacionMasiva(Activa: boolean);
+begin
+  ImportandoMasivamente := Activa;
+end;
+
+procedure TDMPedidos.QMDetalleBeforeInsert(DataSet: TDataSet);
+begin
+  DMMain.RestingeEdicion(DataSet, QMCabeceraESTADO.AsInteger);
+end;
+
+procedure TDMPedidos.CambiaPCosteLinea(PCoste: double);
+begin
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Text := 'EXECUTE PROCEDURE G_CAMBIA_P_COSTE_DETALLE (:ID_DETALLES_S, :P_COSTE)';
+        Params.ByName['P_COSTE'].AsFloat := PCoste;
+        Params.ByName['ID_DETALLES_S'].AsInteger := QMDetalleID_DETALLES_S.AsInteger;
+        ExecQuery;
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+
+  QMDetalle.Refresh;
+  InfoActualiza;
+end;
+
+procedure TDMPedidos.CambiaCosteAdicionalLinea(CosteAdicional: double);
+begin
+  // DMMain.Log('TDMAlbaranes.CambiaCosteAdicionalLinea');
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Text := 'EXECUTE PROCEDURE G_CAMBIA_COSTE_ADIC_DETALLE (:ID_DETALLES_S, :COSTE_ADICIONAL)';
+        Params.ByName['COSTE_ADICIONAL'].AsFloat := CosteAdicional;
+        Params.ByName['ID_DETALLES_S'].AsInteger := QMDetalleID_DETALLES_S.AsInteger;
+        ExecQuery;
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+
+  QMDetalle.Refresh;
+  InfoActualiza;
+end;
+
+procedure TDMPedidos.ConectaProveedores;
+begin
+  xProveedores.Open;
+end;
+
+procedure TDMPedidos.DesconectaProveedores;
+begin
+  xProveedores.Close;
+end;
+
+procedure TDMPedidos.xProveedoresNewRecord(DataSet: TDataSet);
+begin
+  xProveedoresEMPRESA.AsInteger := QMDetalleEMPRESA.AsInteger;
+  xProveedoresEJERCICIO.AsInteger := QMDetalleEJERCICIO.AsInteger;
+  xProveedoresCANAL.AsInteger := QMDetalleCANAL.AsInteger;
+  xProveedoresSERIE.AsString := QMDetalleSERIE.AsString;
+  xProveedoresTIPO.AsString := QMDetalleTIPO.AsString;
+  xProveedoresRIG.AsInteger := QMDetalleRIG.AsInteger;
+  xProveedoresID_S.AsInteger := QMDetalleID_S.AsInteger;
+  xProveedoresID_A.AsInteger := QMDetalleID_A.AsInteger;
+  xProveedoresARTICULO.AsString := QMDetalleARTICULO.AsString;
+end;
+
+procedure TDMPedidos.xProveedoresAfterPost(DataSet: TDataSet);
+begin
+  if (xProveedoresUTILIZAR_COSTE.AsInteger = 1) then
+  begin
+     CierraAbreDet;
+     InfoActualiza;
+  end;
+end;
+
+procedure TDMPedidos.xProveedoresARTICULOChange(Sender: TField);
+begin
+  QMDetalleTITULO.AsString := DameTituloArticulo(QMDetalleARTICULO.AsString);
+  xProveedoresNOMBRE_R_SOCIAL.AsString := DameTituloProveedor(xProveedoresPROVEEDOR.AsInteger);
+  xProveedoresNOMBRE_COMERCIAL.AsString := DameNombreComercialProveedor(xProveedoresPROVEEDOR.AsInteger);
+end;
+
+function TDMPedidos.LineasConPrecioCero(id_s: integer): integer;
+begin
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Text := 'SELECT COUNT(*) AS TOTAL FROM GES_DETALLES_S WHERE ID_S = :ID_S AND PRECIO = 0';
+        Params.ByName['ID_S'].AsInteger := id_s;
+        ExecQuery;
+        Result := FieldByName['TOTAL'].AsInteger;
+        Close;
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+end;
+
+function TDMPedidos.LineasConPrecioMenorAlMinimo(id_s: integer; Minimo: double): integer;
+begin
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Add(' SELECT COUNT(*) AS TOTAL ');
+        SQL.Add(' FROM GES_DETALLES_S ');
+        SQL.Add(' WHERE ');
+        SQL.Add(' ID_S = :ID_S AND ');
+        SQL.Add(' B_IMPONIBLE >= 0 AND ');
+        SQL.Add(' B_IMPONIBLE < :MINIMO ');
+        Params.ByName['ID_S'].AsInteger := id_s;
+        Params.ByName['MINIMO'].AsFloat := Minimo;
+        ExecQuery;
+        Result := FieldByName['TOTAL'].AsInteger;
+        Close;
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+end;
+
+procedure TDMPedidos.QuitarMarcaTratado;
+begin
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Text := 'UPDATE GES_CABECERAS_S_PED SET TRATADO = 0 WHERE EMPRESA = :EMPRESA AND CANAL = :CANAL AND TIPO = ''PEC'' AND TRATADO = 1';
+        Params.ByName['EMPRESA'].AsInteger := REntorno.Empresa;
+        Params.ByName['CANAL'].AsInteger := REntorno.Canal;
+        ExecQuery;
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+
+  RefrescaCabecera(2);
+end;
+
+procedure TDMPedidos.MultiplicaPrecios(Factor: double);
+var
+  id : integer;
+begin
+  DMMain.LogIni('DMPedidos.MultiplicaPrecios');
+
+  id := QMDetalleID_DETALLES_S.AsInteger;
+  with QMDetalle do
+  begin
+     DisableControls;
+     try
+        First;
+        while (not EOF) do
+        begin
+           Edit;
+           QMDetallePRECIO.AsFloat := QMDetallePRECIO.AsFloat * Factor;
+           Post;
+
+           Next;
+        end;
+     finally
+        EnableControls;
+     end;
+  end;
+
+  Posicionar(QMDetalle, 'ID_DETALLES_S', id);
+
+  DMMain.LogFin('');
+end;
+
+procedure TDMPedidos.ExportacionPedidosPendientes(Archivo: string);
+var
+  SQL : TStrings;
+begin
+  /// Exportacion a Excel de pedidos abiertos para almacen ASENGA (KOMBATPADEL)
+
+  SQL := TStringList.Create;
+  try
+     SQL.Add(' SELECT C.ID_S, D.ID_DETALLES_S, ');
+     SQL.Add('        -- ');
+     SQL.Add('        C.EJERCICIO, C.SERIE, C.RIG, C.CLIENTE, C.TITULO TITULO_CLIENTE, C.SU_REFERENCIA, C.Z_OBSERVACION, C.FECHA, ');
+     SQL.Add('        -- ');
+     SQL.Add('        C.DIR_COMPLETA, C.DIR_NOMBRE_2, C.CODIGO_POSTAL, C.LOCALIDAD, C.PAIS, ');
+     SQL.Add('        -- ');
+     SQL.Add('        D.ARTICULO, D.TITULO TITULO_ARTICULO, D.UNIDADES, D.SERVIDO ');
+     SQL.Add(' FROM VER_CABECERAS_PEDIDO_LST C ');
+     SQL.Add(' JOIN VER_DETALLE_PEDIDO D ON C.ID_S = D.ID_S ');
+     SQL.Add(' WHERE ');
+     SQL.Add(' C.EMPRESA = ' + REntorno.EmpresaStr + ' AND ');
+     SQL.Add(' C.EJERCICIO <= ' + REntorno.EjercicioStr + ' AND ');
+     SQL.Add(' C.CANAL = ' + REntorno.CanalStr + ' AND ');
+     SQL.Add(' C.ESTADO = 0 AND ');
+     SQL.Add(' C.TIPO = ''PEC'' ');
+     SQL.Add(' ORDER BY C.EJERCICIO, C.SERIE, C.RIG DESC ');
+
+     ExportarExcel(Archivo, SQL.Text);
+  finally
+     SQL.Free;
+  end;
+end;
+
+function TDMPedidos.ExistePesoCero(Id_s: integer): boolean;
+begin
+  /// Devuelve verdadero si existen lineas con peso=0 y Unidad=KG
+
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Add('SELECT COUNT(*) EXISTE  FROM GES_DETALLES_S D ');
+        SQL.Add('JOIN ART_ARTICULOS A ON(D.EMPRESA = A.EMPRESA AND D.ARTICULO = A.ARTICULO) ');
+        SQL.Add('WHERE ');
+        SQL.Add('D.ID_S = :ID_S AND ');
+        SQL.Add('TRIM(A.UNIDADES) = ''KG''');
+        SQL.Add('AND (D.PESO_REAL = 0) ');
+        Params.ByName['ID_S'].AsInteger := Id_s;
+
+        ExecQuery;
+        Result := (FieldByName['EXISTE'].AsInteger > 0);
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+end;
+
+procedure TDMPedidos.Devuelve(SerieDestino: string);
+var
+  IdDevolucion : integer;
+begin
+  // DMMain.Log('TDMPedidos.Devuelve');
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Text := 'EXECUTE PROCEDURE G_PEC_S_DEVUELVE (:EMPRESA, :EJERCICIO, :CANAL, :SERIE, ''PEC'', :RIG, :ENTRADA, :FECHA, :ID_S)';
+        Params.ByName['EMPRESA'].AsInteger := QMCabeceraEMPRESA.AsInteger;
+        Params.ByName['EJERCICIO'].AsInteger := QMCabeceraEJERCICIO.AsInteger;
+        Params.ByName['CANAL'].AsInteger := QMCabeceraCANAL.AsInteger;
+        Params.ByName['SERIE'].AsString := SerieDestino;
+        Params.ByName['RIG'].AsInteger := QMCabeceraRIG.AsInteger;
+        Params.ByName['ENTRADA'].AsInteger := REntorno.Entrada;
+        Params.ByName['FECHA'].AsDateTime := REntorno.FechaTrab;
+        Params.ByName['ID_S'].AsInteger := QMCabeceraID_S.AsInteger;
+        ExecQuery;
+        IdDevolucion := FieldByName['ID_S_DEVOLUCION'].AsInteger;
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+
+  // Posicionando := True;
+  try
+     Refrescar(QMCabecera, 'ID_S', IdDevolucion);
+  finally
+     // Posicionando := False;
+  end;
+end;
+
+procedure TDMPedidos.MostrarDiferenciaConPedidoAnterior;
+var
+  DS : TFIBDataSet;
+  //Q : THYFIBQuery;
+  MsgDif : string;
+  FechaAnterior : TDateTime;
+  RIGAnterior, ID_S_Anterior : integer;
+begin
+  //DMMain.LogIni('DMPedidos.MostrarDiferenciaConPedidoAnterior');
+
+  if (QMCabeceraCLIENTE.AsInteger = 0) or (QMCabeceraID_S.AsInteger = 0) then
+  begin
+     ShowMessage(_('No hay pedido activo para comparar.'));
+     DMMain.LogFin('');
+     Exit;
+  end;
+
+  RIGAnterior := 0;
+  FechaAnterior := 0;
+
+  DS := TFIBDataSet.Create(nil);
+  try
+     with DS do
+     begin
+        Transaction := TFIBTransaction.Create(nil);
+        try
+           with Transaction do
+           begin
+              DefaultDatabase := DMMain.DataBase;
+              TRParams.Clear;
+              TRParams.Add('read_committed');
+              TRParams.Add('read');
+           end;
+           Close;
+           DataBase := DMMain.DataBase;
+           if (not Transaction.InTransaction) then
+              Transaction.StartTransaction;
+
+           SelectSQL.Add(' SELECT FIRST 1 ID_S, RIG, FECHA');
+           SelectSQL.Add(' FROM GES_CABECERAS_S');
+           SelectSQL.Add(' WHERE');
+           SelectSQL.Add('   EMPRESA  = :EMPRESA AND');
+           SelectSQL.Add('   CANAL    = :CANAL AND');
+           SelectSQL.Add('   TIPO     = ''PEC'' AND');
+           SelectSQL.Add('   CLIENTE  = :CLIENTE AND');
+           SelectSQL.Add('   ID_S    <> :ID_S_ACTUAL AND');
+           SelectSQL.Add('   FECHA    < :FECHA AND ');
+           SelectSQL.Add('   ESTADO  <> 2');                 // excluir anulados
+           SelectSQL.Add(' ORDER BY FECHA DESC');            // el más reciente anterior
+
+           Params.ByName['EMPRESA'].AsInteger := QMCabeceraEMPRESA.AsInteger;
+           Params.ByName['CANAL'].AsInteger := QMCabeceraCANAL.AsInteger;
+           Params.ByName['CLIENTE'].AsInteger := QMCabeceraCLIENTE.AsInteger;
+           Params.ByName['ID_S_ACTUAL'].AsInteger := QMCabeceraID_S.AsInteger;
+           Params.ByName['FECHA'].AsDateTime := QMCabeceraFECHA.AsDateTime;
+
+           Open;
+           if not EOF then
+           begin
+              RIGAnterior := DS.FieldByName('RIG').AsInteger;
+              FechaAnterior := DS.FieldByName('FECHA').AsDateTime;
+              ID_S_Anterior := DS.FieldByName('ID_S').AsInteger;
+           end;
+           Close;
+           Transaction.Commit;
+        finally
+           Transaction.Free;
+        end;
+     end;
+  finally
+     FreeAndNil(DS);
+  end;
+
+  if RIGAnterior = 0 then
+  begin
+     ShowMessage(_('No existe un pedido anterior para este cliente con el que comparar.'));
+     //DMMain.LogFin('');
+     Exit;
+  end;
+
+  // Artículos en el pedido anterior que NO están en el pedido actual
+  MsgDif := '';
+
+  with xPedidoAnterior do
+  begin
+     Close;
+     Params.ByName['ID_S_ACTUAL'].AsInteger := QMCabeceraID_S.AsInteger;
+     Params.ByName['ID_S_ANTERIOR'].AsInteger := ID_S_Anterior;
+     Open;
+     First;
+     while not EOF do
+     begin
+        MsgDif := MsgDif + '* ' +
+           FieldByName('ARTICULO').AsString + '  ' +
+           FieldByName('TITULO').AsString + #13#10;
+        Next;
+     end;
+  end;
+
+  if (MsgDif = '') then
+     ShowMessage(Format(
+        _('Diferencia pedido %d (%s)' + #13#10#13#10 +
+        'No hay artículos del pedido anterior que falten en el pedido actual.'),
+        [RIGAnterior, FormatDateTime(ShortDateFormat, FechaAnterior)]))
+  else
+     ShowMessage(Format(
+        _('Diferencia pedido %d (%s)' + #13#10 +
+        'Artículos del pedido anterior que NO están en este pedido:' + #13#10#13#10 +
+        '%s'),
+        [RIGAnterior, FormatDateTime(ShortDateFormat, FechaAnterior), MsgDif]));
+
+  //DMMain.LogFin('');
+end;
+
+function TDMPedidos.PedidoContieneArticulo(Articulo: string): boolean;
+begin
+  with THYFIBQuery.Create(nil) do
+  begin
+     try
+        Close;
+        DataBase := DMMain.DataBase;
+        SQL.Text := 'SELECT FIRST 1 ARTICULO FROM GES_DETALLES_S WHERE ID_S = :ID_S AND ARTICULO = :ARTICULO';
+        Params.ByName['ID_S'].AsInteger := QMCabeceraID_S.AsInteger;
+        Params.ByName['ARTICULO'].AsString := Articulo;
+        ExecQuery;
+        Result := (FieldByName['ARTICULO'].AsString = aRTICULO);
+        FreeHandle;
+     finally
+        Free;
+     end;
+  end;
+end;
+
+end.

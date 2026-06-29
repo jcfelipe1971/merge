@@ -1,0 +1,6034 @@
+inherited FMOfertas: TFMOfertas
+  Left = 280
+  Top = 170
+  Width = 1151
+  Height = 600
+  HelpContext = 192
+  BorderIcons = [biSystemMenu, biMinimize, biMaximize]
+  BorderStyle = bsSizeable
+  Caption = 'Ofertas a Clientes'
+  Constraints.MinHeight = 600
+  Constraints.MinWidth = 960
+  FormStyle = fsNormal
+  OldCreateOrder = False
+  PopupMenu = CEProveedoresPMEdit
+  Position = poDefault
+  Scaled = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited PMain: TLFPanel
+    Width = 1141
+    Height = 280
+    BorderWidth = 3
+    TabOrder = 1
+    inherited TBMain: TLFToolBar
+      Left = 3
+      Top = 3
+      Width = 1135
+      EdgeBorders = [ebBottom]
+      TabOrder = 1
+      DesignSize = (
+        1131
+        22)
+      inherited NavMain: THYMNavigator
+        DataSource = DMOfertas.DSCabecera
+        Hints.Strings = ()
+        BeforeAction = NavMainBeforeAction
+        DelMessage = #191'Desea borrar la oferta? '
+        EditaControl = EFCliente
+        InsertaControl = EFCliente
+        OnClickBefore = NavMainClickBefore
+        OnClickAfterAdjust = NavMainClickAfterAdjust
+      end
+      inherited EPMain: THYMEditPanel
+        DataSource = DMOfertas.DSCabecera
+        Hints.Strings = ()
+        OnClickBuscar = EPMainClickBuscar
+        OnClickRango = EPMainClickRango
+      end
+      object TButtSep3: TToolButton
+        Left = 319
+        Top = 0
+        Width = 8
+        Style = tbsSeparator
+      end
+      object TButtImprimeListado: TToolButton
+        Left = 327
+        Top = 0
+        Action = AInformeOferta
+        ParentShowHint = False
+        ShowHint = True
+      end
+      object TButtBuscaNIFKRI: TToolButton
+        Left = 350
+        Top = 0
+        Action = ABuscaNIFKRI
+      end
+      object EFBuscaNIFKRI: TLFEditFind2000
+        Left = 373
+        Top = 0
+        Width = 8
+        Height = 22
+        TabOrder = 4
+        Visible = False
+        OnChange = EFBuscaNIFKRIChange
+        Base_de_datos = DMMain.DataBase
+        Transaction = DMMain.TLocal
+        BuscarNums = False
+        BuscarChars = True
+        AutoCambiarFoco = False
+        Campos_Desplegar.Strings = (
+          'EJERCICIO'
+          'NIF'
+          'TELEFONO01')
+        CampoADevolver = 'ID_S'
+        CampoNum = 'NOMBRE'
+        CampoStr = 'RIG'
+        CondicionBusqueda = 'tipo='#39'OFC'#39
+        Posicion = tpCentrado
+        ReemplazarCaracter = True
+        SalirSiVacio = False
+        SalirSiNoExiste = False
+        Tabla_a_buscar = 'GES_CABECERAS_S_FAC_NIF'
+        Tabla_asociada.DesplegarBusqueda = False
+        OrdenadoPor.Strings = (
+          'NOMBRE, EJERCICIO DESC, RIG')
+        Filtros = [obEmpresa, obCanal]
+        Entorno = DMOfertas.EntornoDoc
+      end
+      object TButtSep7: TToolButton
+        Left = 381
+        Top = 0
+        Width = 8
+        Style = tbsSeparator
+      end
+      object TButtCambiarNombre: TToolButton
+        Left = 389
+        Top = 0
+        Action = ACambiarNombre
+        ParentShowHint = False
+        ShowHint = True
+      end
+      object PNLTitiSerie: TLFPanel
+        Left = 412
+        Top = 0
+        Width = 275
+        Height = 22
+        BevelOuter = bvNone
+        Enabled = False
+        TabOrder = 2
+        object LSerie: TLFLabel
+          Left = 12
+          Top = 4
+          Width = 24
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Serie'
+          Layout = tlCenter
+        end
+        object ETitSerie: TLFEdit
+          Left = 110
+          Top = 0
+          Width = 160
+          Height = 21
+          TabStop = False
+          AutoSize = False
+          Color = clInfoBk
+          Enabled = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clGrayText
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 0
+        end
+        object EFSerie: TLFEditFind2000
+          Left = 39
+          Top = 0
+          Width = 70
+          Height = 21
+          TabStop = False
+          AutoSize = False
+          TabOrder = 1
+          OnChange = EFSerieChange
+          Base_de_datos = DMMain.DataBase
+          Transaction = DMMain.TLocal
+          BuscarNums = False
+          BuscarChars = True
+          AutoCambiarFoco = False
+          CampoNum = 'SERIE'
+          CampoStr = 'TITULO'
+          Posicion = tpCentrado
+          ReemplazarCaracter = True
+          SalirSiVacio = False
+          SalirSiNoExiste = False
+          Tabla_a_buscar = 'VER_CANALES_SERIES'
+          Tabla_asociada.DesplegarBusqueda = False
+          OrdenadoPor.Strings = (
+            'SERIE')
+          Filtros = [obEmpresa, obEjercicio, obCanal]
+          Entorno = DMMain.EntornoBusqueda
+        end
+      end
+      object TBuscaReferencia: TToolButton
+        Left = 687
+        Top = 0
+        Hint = 'Busca Referencia de Reparaciones'
+        Action = ABuscaReferencias
+      end
+      object TButtReparacion: TToolButton
+        Left = 710
+        Top = 0
+        Action = AReparacion
+      end
+      object TButtTraspaso: TToolButton
+        Left = 733
+        Top = 0
+        Hint = 'Traspaso de documentos'
+        Caption = 'Traspaso'
+        DropdownMenu = PMTraspaso
+        ImageIndex = 86
+        Style = tbsDropDown
+      end
+      object LTelefono: TLFLabel
+        Left = 769
+        Top = 0
+        Width = 120
+        Height = 22
+        Alignment = taCenter
+        Anchors = []
+        AutoSize = False
+        Caption = 'Tel'#233'fono'
+        Constraints.MinWidth = 120
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Layout = tlCenter
+        OnClick = LTelefonoClick
+      end
+      object PNLRiesgo: TLFPanel
+        Left = 889
+        Top = 0
+        Width = 112
+        Height = 22
+        BevelOuter = bvNone
+        TabOrder = 5
+        object LRiesgo: TLabel
+          Left = 0
+          Top = 0
+          Width = 36
+          Height = 22
+          Align = alLeft
+          Alignment = taRightJustify
+          Caption = 'Riesgo:'
+          ParentShowHint = False
+          ShowHint = True
+        end
+        object LRiesgoAct: TDBText
+          Left = 36
+          Top = 0
+          Width = 76
+          Height = 22
+          Align = alClient
+          AutoSize = True
+          DataField = 'RIESGO_DISPONIBLE'
+          DataSource = DMOfertas.DSInfoActualizada
+          ParentShowHint = False
+          ShowHint = True
+        end
+      end
+      object LBNotas: TLFLabel
+        Left = 1001
+        Top = 0
+        Width = 60
+        Height = 22
+        Alignment = taCenter
+        Anchors = []
+        AutoSize = False
+        Caption = 'Notas'
+        Color = clYellow
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+        Layout = tlCenter
+        Visible = False
+        OnClick = LBNotasClick
+      end
+      object EFReferencia: TLFEditFind2000
+        Left = 1061
+        Top = 0
+        Width = 2
+        Height = 22
+        TabStop = False
+        AutoSize = False
+        TabOrder = 3
+        Base_de_datos = DMMain.DataBase
+        Transaction = DMMain.TLocal
+        BuscarNums = False
+        BuscarChars = True
+        AutoCambiarFoco = False
+        CampoADevolver = 'ID_S_CAB'
+        CampoNum = 'REFERENCIA'
+        CampoStr = 'DETALLE'
+        Posicion = tpCentrado
+        ReemplazarCaracter = True
+        SalirSiVacio = False
+        SalirSiNoExiste = False
+        Tabla_a_buscar = 'ART_GARANTIAS_REPARACION'
+        Tabla_asociada.DesplegarBusqueda = False
+        OrdenadoPor.Strings = (
+          'referencia')
+        Filtros = [obEmpresa]
+        Entorno = DMMain.EntornoBusqueda
+      end
+      object LAdjuntos: TLFLabel
+        Left = 1063
+        Top = 0
+        Width = 60
+        Height = 22
+        Alignment = taCenter
+        Anchors = []
+        AutoSize = False
+        Caption = 'Adjuntos'
+        Color = clYellow
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+        Layout = tlCenter
+        Visible = False
+      end
+      object LEmail: TLFLabel
+        Left = 1123
+        Top = 0
+        Width = 60
+        Height = 22
+        Alignment = taCenter
+        Anchors = []
+        AutoSize = False
+        Caption = 'E-mail'
+        Color = clYellow
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+        Layout = tlCenter
+        Visible = False
+      end
+    end
+    inherited PCMain: TLFPageControl
+      Left = 3
+      Top = 29
+      Width = 1135
+      Height = 248
+      ActivePage = TSProveedores
+      MultiLine = True
+      TabIndex = 5
+      TabOrder = 0
+      inherited TSFicha: TTabSheet
+        object SBACliente: TSpeedButton [0]
+          Left = 107
+          Top = 30
+          Width = 160
+          Height = 21
+          Hint = 'Doble click o Ctrl+Alt+C para ver los datos del Cliente'
+          GroupIndex = -1
+          OnDblClick = SBAClienteDblClick
+        end
+        object SBAAgente: TSpeedButton [1]
+          Left = 112
+          Top = 95
+          Width = 162
+          Height = 21
+          Hint = 'Doble click o Ctrl+Alt+A para ver los datos del Agente'
+          GroupIndex = -1
+          OnDblClick = SBAAgenteDblClick
+        end
+        object SBATercero: TSpeedButton [2]
+          Left = 843
+          Top = 88
+          Width = 281
+          Height = 22
+          GroupIndex = -1
+          OnDblClick = ATerceroExecute
+        end
+        object SBAFichaTecnica: TSpeedButton [3]
+          Left = 115
+          Top = 38
+          Width = 160
+          Height = 21
+          Hint = 'Doble click o Ctrl+Alt+C para ver los datos del Cliente'
+          GroupIndex = -1
+          OnDblClick = SBAFichaTecnicaDblClick
+        end
+        inherited PEdit: TLFPanel
+          Width = 1127
+          Height = 220
+          TabOrder = 1
+          inherited G2KTableLoc: TG2KTBLoc
+            CamposADesplegar.Strings = (
+              'SU_REFERENCIA'
+              'FECHA'
+              'NOMBRE_COMERCIAL')
+            DataSource = DMOfertas.DSCabecera
+            Base_de_datos = DMMain.DataBase
+            Tabla_a_buscar = 'VER_CABECERAS_OFERTA_C'
+            CampoNum = 'RIG'
+            CampoStr = 'TITULO'
+            Filtros = [obEmpresa, obCanal]
+            Entorno = DMOfertas.EntornoDoc
+            OrdenadoPor.Strings = (
+              'RIG')
+          end
+        end
+        object PEdCabecera: TLFPanel
+          Left = 0
+          Top = 0
+          Width = 1127
+          Height = 220
+          Align = alClient
+          BevelOuter = bvNone
+          Enabled = False
+          TabOrder = 0
+          DesignSize = (
+            1127
+            220)
+          object LOferta: TLFLabel
+            Left = 44
+            Top = 2
+            Width = 29
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Oferta'
+            FocusControl = DBERIG
+          end
+          object LEstado: TLFLabel
+            Left = 151
+            Top = 2
+            Width = 33
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Estado'
+          end
+          object LFecha: TLFLabel
+            Left = 422
+            Top = 2
+            Width = 30
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Fecha'
+          end
+          object LReferencia: TLFLabel
+            Left = 400
+            Top = 46
+            Width = 52
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Referencia'
+            FocusControl = DBESuReferencia
+          end
+          object LCliente: TLFLabel
+            Left = 41
+            Top = 24
+            Width = 32
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Cliente'
+          end
+          object LDireccion: TLFLabel
+            Left = 28
+            Top = 46
+            Width = 45
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Direcci'#243'n'
+          end
+          object LAgente: TLFLabel
+            Left = 39
+            Top = 91
+            Width = 34
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Agente'
+          end
+          object LDtoPP: TLFLabel
+            Left = 797
+            Top = 46
+            Width = 40
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Dto. PP.'
+          end
+          object LDtoCial: TLFLabel
+            Left = 794
+            Top = 24
+            Width = 43
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Dto. Cial.'
+          end
+          object LAlmacen: TLFLabel
+            Left = 32
+            Top = 156
+            Width = 41
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Almac'#233'n'
+          end
+          object LFormaPago: TLFLabel
+            Left = 16
+            Top = 113
+            Width = 57
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Forma Pago'
+          end
+          object LTarifa: TLFLabel
+            Left = 46
+            Top = 135
+            Width = 27
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Tarifa'
+          end
+          object LContacto: TLFLabel
+            Left = 30
+            Top = 68
+            Width = 43
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Contacto'
+          end
+          object LVersionAnteriorKri: TLFLabel
+            Left = 770
+            Top = 3
+            Width = 108
+            Height = 13
+            Caption = 'Es versi'#243'n Anterior'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Layout = tlCenter
+            Visible = False
+          end
+          object LObservaciones: TLFLabel
+            Left = 36
+            Top = 200
+            Width = 37
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Observ.'
+            FocusControl = DBEObservaciones
+          end
+          object LFLabel1: TLFLabel
+            Left = 634
+            Top = 2
+            Width = 34
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Validez'
+          end
+          object LFLabel2: TLFLabel
+            Left = 556
+            Top = 24
+            Width = 48
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Plazo Ent.'
+          end
+          object LFechaEntregaPrevista: TLFLabel
+            Left = 391
+            Top = 24
+            Width = 61
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Fec. Entrega'
+            FocusControl = DBESuReferencia
+          end
+          object LTransportista: TLFLabel
+            Left = 391
+            Top = 91
+            Width = 61
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Transportista'
+          end
+          object LPortes: TLFLabel
+            Left = 422
+            Top = 113
+            Width = 30
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Portes'
+          end
+          object LRango: TLFLabel
+            Left = 420
+            Top = 135
+            Width = 32
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Rango'
+          end
+          object LIndice: TLFLabel
+            Left = 423
+            Top = 156
+            Width = 29
+            Height = 13
+            Alignment = taRightJustify
+            Caption = #205'ndice'
+          end
+          object LMonedaFicha: TLFLabel
+            Left = 798
+            Top = 68
+            Width = 39
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Moneda'
+          end
+          object DBTValorCambioFijo: TDBText
+            Left = 842
+            Top = 86
+            Width = 90
+            Height = 17
+            Alignment = taRightJustify
+            DataField = 'VALOR_CAMB_FIJO'
+            DataSource = DMOfertas.DSCabecera
+          end
+          object LPedidoCli: TLFLabel
+            Left = 396
+            Top = 68
+            Width = 56
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Nro. Pedido'
+            FocusControl = DBEPedidoCli
+          end
+          object LNombreComercial: TLFLabel
+            Left = 14
+            Top = 179
+            Width = 60
+            Height = 13
+            Caption = 'N. Comercial'
+          end
+          object LFichaTecnica: TLFLabel
+            Left = 394
+            Top = 179
+            Width = 59
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Fic. T'#233'cnica'
+          end
+          object DBCBRechazadaFicha: TLFDBCheckBox
+            Left = 842
+            Top = 181
+            Width = 140
+            Height = 17
+            Caption = 'Rechazada'
+            ClicksDisabled = False
+            ColorCheck = 57088
+            ShowHint = True
+            TabOrder = 46
+            TabStop = True
+            Alignment = taLeftJustify
+            OnChange = DBCBRechazadaFichaChange
+            DataField = 'RECHAZADA'
+            DataSource = DMOfertas.DSCabecera
+            ParentShowHint = False
+            ValueChecked = '1'
+            ValueUnchecked = '0'
+          end
+          object DBERIG: TLFDbedit
+            Left = 79
+            Top = 0
+            Width = 64
+            Height = 21
+            DataField = 'RIG'
+            DataSource = DMOfertas.DSCabecera
+            TabOrder = 0
+            OnChange = DBERIGChange
+          end
+          object DBESuReferencia: TLFDbedit
+            Left = 458
+            Top = 44
+            Width = 305
+            Height = 21
+            AutoSize = False
+            DataField = 'SU_REFERENCIA'
+            DataSource = DMOfertas.DSCabecera
+            TabOrder = 24
+          end
+          object EFCliente: TLFDBEditFind2000
+            Left = 79
+            Top = 22
+            Width = 64
+            Height = 21
+            AutoSize = False
+            DataField = 'CLIENTE'
+            DataSource = DMOfertas.DSCabecera
+            TabOrder = 3
+            OnChange = EFClienteChange
+            Accion = ANewCliente
+            AutoCambiarFoco = False
+            Base_de_datos = DMMain.DataBase
+            BuscarNums = False
+            Tabla_a_buscar = 'VER_CLIENTES_EF'
+            Tabla_asociada.DesplegarBusqueda = False
+            Campos_Desplegar.Strings = (
+              'NOMBRE_COMERCIAL'
+              'TELEFONOS'
+              'NIF'
+              'LOCALIDAD')
+            CampoNum = 'CLIENTE'
+            CampoStr = 'TITULO'
+            ReemplazarCaracter = True
+            SalirSiNoExiste = False
+            SalirSiVacio = False
+            OnExiste = EFClienteExiste
+            OrdenadoPor.Strings = (
+              'cliente')
+            Filtros = [obEmpresa, obEjercicio, obCanal]
+            Entorno = DMOfertas.EntornoDoc
+          end
+          object DBETituloCliente: TLFDbedit
+            Left = 144
+            Top = 22
+            Width = 240
+            Height = 21
+            TabStop = False
+            AutoSize = False
+            Color = clInfoBk
+            DataField = 'TITULO'
+            DataSource = DMOfertas.DSCabecera
+            Enabled = False
+            ReadOnly = True
+            TabOrder = 5
+            OnDblClick = SBAClienteDblClick
+            OnEnter = DBETituloClienteEnter
+          end
+          object EFDireccion: TLFDBEditFind2000
+            Left = 79
+            Top = 44
+            Width = 64
+            Height = 21
+            AutoSize = False
+            CharCase = ecUpperCase
+            DataField = 'DIRECCION'
+            DataSource = DMOfertas.DSCabecera
+            TabOrder = 6
+            AutoCambiarFoco = False
+            Base_de_datos = DMMain.DataBase
+            BuscarNums = False
+            Tabla_a_buscar = 'VER_DIRECCIONES'
+            Tabla_asociada.DesplegarBusqueda = False
+            Campos_Desplegar.Strings = (
+              'COD_POSTAL'
+              'LOCALIDAD'
+              'DIR_NOMBRE_3'
+              'CLASE')
+            CampoNum = 'DIRECCION'
+            CampoStr = 'TITULO'
+            ReemplazarCaracter = True
+            SalirSiNoExiste = False
+            SalirSiVacio = False
+            OrdenadoPor.Strings = (
+              'CLASE DESC, DIRECCION')
+            Filtros = [obTercero]
+            Entorno = DMOfertas.EntornoDoc
+          end
+          object DBETituloDireccion: TLFDbedit
+            Left = 144
+            Top = 44
+            Width = 240
+            Height = 21
+            TabStop = False
+            AutoSize = False
+            Color = clInfoBk
+            DataField = 'TITULO'
+            DataSource = DMOfertas.DSxDirecciones
+            Enabled = False
+            ReadOnly = True
+            TabOrder = 7
+          end
+          object EFAgente: TLFDBEditFind2000
+            Left = 79
+            Top = 88
+            Width = 64
+            Height = 21
+            AutoSize = False
+            CharCase = ecUpperCase
+            DataField = 'AGENTE'
+            DataSource = DMOfertas.DSCabecera
+            TabOrder = 10
+            Accion = ANewAgente
+            AutoCambiarFoco = False
+            Base_de_datos = DMMain.DataBase
+            BuscarNums = False
+            Tabla_a_buscar = 'VER_AGENTES_CUENTAS'
+            Tabla_asociada.DesplegarBusqueda = False
+            CampoNum = 'AGENTE'
+            CampoStr = 'TITULO'
+            CondicionBusqueda = 'BAJA=0'
+            ReemplazarCaracter = True
+            SalirSiNoExiste = False
+            SalirSiVacio = False
+            OrdenadoPor.Strings = (
+              'agente')
+            Filtros = [obEmpresa, obEjercicio, obCanal]
+            Entorno = DMOfertas.EntornoDoc
+          end
+          object DBETituloAgente: TLFDbedit
+            Left = 144
+            Top = 88
+            Width = 240
+            Height = 21
+            TabStop = False
+            AutoSize = False
+            Color = clInfoBk
+            DataField = 'TITULO'
+            DataSource = DMOfertas.DSxAgentes
+            Enabled = False
+            ReadOnly = True
+            TabOrder = 11
+            OnDblClick = SBAAgenteDblClick
+            OnEnter = DBETituloAgenteEnter
+          end
+          object DBEDtoPP: TLFDbedit
+            Left = 842
+            Top = 44
+            Width = 90
+            Height = 21
+            AutoSize = False
+            DataField = 'DTO_PP'
+            DataSource = DMOfertas.DSCabecera
+            TabOrder = 39
+          end
+          object DBEDtoCial: TLFDbedit
+            Left = 842
+            Top = 22
+            Width = 90
+            Height = 21
+            AutoSize = False
+            DataField = 'DTO_CIAL'
+            DataSource = DMOfertas.DSCabecera
+            TabOrder = 38
+          end
+          object EFAlmacen: TLFDBEditFind2000
+            Left = 79
+            Top = 154
+            Width = 64
+            Height = 21
+            AutoSize = False
+            CharCase = ecUpperCase
+            DataField = 'ALMACEN'
+            DataSource = DMOfertas.DSCabecera
+            TabOrder = 16
+            AutoCambiarFoco = False
+            Base_de_datos = DMMain.DataBase
+            BuscarNums = False
+            Tabla_a_buscar = 'ART_ALMACENES'
+            Tabla_asociada.DesplegarBusqueda = False
+            CampoNum = 'ALMACEN'
+            CampoStr = 'TITULO'
+            ReemplazarCaracter = True
+            SalirSiNoExiste = False
+            SalirSiVacio = False
+            OrdenadoPor.Strings = (
+              'almacen')
+            Filtros = [obEmpresa]
+            Entorno = DMOfertas.EntornoDoc
+          end
+          object DBETituloAlmacen: TLFDbedit
+            Left = 144
+            Top = 154
+            Width = 240
+            Height = 21
+            TabStop = False
+            AutoSize = False
+            Color = clInfoBk
+            DataField = 'TITULO'
+            DataSource = DMOfertas.DSxAlmacenes
+            Enabled = False
+            ReadOnly = True
+            TabOrder = 17
+          end
+          object DBETituloFormaPago: TLFDbedit
+            Left = 144
+            Top = 110
+            Width = 240
+            Height = 21
+            TabStop = False
+            AutoSelect = False
+            AutoSize = False
+            Color = clInfoBk
+            DataField = 'TITULO'
+            DataSource = DMOfertas.DSxFormasPago
+            Enabled = False
+            ReadOnly = True
+            TabOrder = 13
+          end
+          object EFFormaPago: TLFDBEditFind2000
+            Left = 79
+            Top = 110
+            Width = 64
+            Height = 21
+            AutoSelect = False
+            AutoSize = False
+            CharCase = ecUpperCase
+            DataField = 'FORMA_PAGO'
+            DataSource = DMOfertas.DSCabecera
+            TabOrder = 12
+            AutoCambiarFoco = False
+            Base_de_datos = DMMain.DataBase
+            BuscarNums = False
+            Tabla_a_buscar = 'CON_CUENTAS_GES_FP'
+            Tabla_asociada.DesplegarBusqueda = False
+            CampoNum = 'FORMA_PAGO'
+            CampoStr = 'TITULO'
+            CondicionBusqueda = 'ACTIVO=1'
+            ReemplazarCaracter = True
+            SalirSiNoExiste = False
+            SalirSiVacio = False
+            OrdenadoPor.Strings = (
+              'forma_pago')
+            Filtros = [obEmpresa, obEjercicio, obCanal]
+            Entorno = DMOfertas.EntornoDoc
+          end
+          object DBETituloEstado: TLFDbedit
+            Left = 187
+            Top = 0
+            Width = 158
+            Height = 21
+            TabStop = False
+            Color = clInfoBk
+            DataField = 'TITULO_ESTADO'
+            DataSource = DMOfertas.DSInfoActualizada
+            Enabled = False
+            TabOrder = 1
+            OnChange = DBETituloEstadoChange
+          end
+          object DBEFTarifa: TLFDBEditFind2000
+            Left = 79
+            Top = 132
+            Width = 64
+            Height = 21
+            AutoSize = False
+            CharCase = ecUpperCase
+            DataField = 'TARIFA'
+            DataSource = DMOfertas.DSCabecera
+            TabOrder = 14
+            AutoCambiarFoco = False
+            Base_de_datos = DMMain.DataBase
+            BuscarNums = False
+            Tabla_a_buscar = 'VER_TARIFAS_ARTICULO'
+            Tabla_asociada.DesplegarBusqueda = False
+            CampoNum = 'TARIFA'
+            CampoStr = 'TITULO'
+            CondicionBusqueda = 'propaga=1 and activa=1'
+            ReemplazarCaracter = True
+            SalirSiNoExiste = False
+            SalirSiVacio = False
+            OrdenadoPor.Strings = (
+              'TARIFA')
+            Filtros = [obEmpresa]
+            Entorno = DMOfertas.EntornoDoc
+          end
+          object DBETitTarifa: TLFDbedit
+            Left = 144
+            Top = 132
+            Width = 240
+            Height = 21
+            TabStop = False
+            AutoSize = False
+            Color = clInfoBk
+            DataField = 'TITULO'
+            DataSource = DMOfertas.DSxTarifas
+            Enabled = False
+            ReadOnly = True
+            TabOrder = 15
+          end
+          object DBDTPFecha: TLFDBDateEdit
+            Left = 458
+            Top = 0
+            Width = 86
+            Height = 21
+            DataField = 'FECHA'
+            DataSource = DMOfertas.DSCabecera
+            CheckOnExit = True
+            NumGlyphs = 2
+            TabOrder = 20
+            OnExit = DBDTPFechaExit
+          end
+          object DBCBPresupueto: TLFDBCheckBox
+            Left = 842
+            Top = 101
+            Width = 140
+            Height = 17
+            Caption = 'Presupuesto'
+            ClicksDisabled = False
+            ColorCheck = 57088
+            TabOrder = 41
+            TabStop = True
+            Alignment = taLeftJustify
+            DataField = 'PRESUPUESTO'
+            DataSource = DMOfertas.DSCabecera
+            ValueChecked = '1'
+            ValueUnchecked = '0'
+          end
+          object DBEFContacto: TLFDBEditFind2000
+            Left = 79
+            Top = 66
+            Width = 64
+            Height = 21
+            AutoSize = False
+            DataField = 'CONTACTO'
+            DataSource = DMOfertas.DSCabecera
+            TabOrder = 8
+            AutoCambiarFoco = False
+            Base_de_datos = DMMain.DataBase
+            BuscarNums = False
+            Tabla_a_buscar = 'SYS_TERCEROS_CONTACTOS'
+            Tabla_asociada.DesplegarBusqueda = False
+            Campos_Desplegar.Strings = (
+              'APELLIDOS')
+            CampoNum = 'CONTACTO'
+            CampoStr = 'NOMBRE'
+            ReemplazarCaracter = True
+            SalirSiNoExiste = True
+            SalirSiVacio = True
+            OnBusqueda = DBEFContactoBusqueda
+            OrdenadoPor.Strings = (
+              'contacto')
+            Filtros = []
+            Entorno = DMOfertas.EntornoDoc
+          end
+          object DBEContacto: TLFDbedit
+            Left = 144
+            Top = 66
+            Width = 240
+            Height = 21
+            TabStop = False
+            Color = clInfoBk
+            DataField = 'TIT_CONTACTO'
+            DataSource = DMOfertas.DSCabecera
+            Enabled = False
+            TabOrder = 9
+          end
+          object DBEClienteKri: TLFDbedit
+            Left = 126
+            Top = 22
+            Width = 17
+            Height = 21
+            DataField = 'CLIENTE'
+            DataSource = DMOfertas.DSCabecera
+            TabOrder = 4
+            OnExit = DBEClienteKriExit
+            OnKeyUp = DBEClienteKriKeyUp
+          end
+          object DBEObservaciones: TLFDbedit
+            Left = 79
+            Top = 198
+            Width = 684
+            Height = 21
+            AutoSize = False
+            DataField = 'Z_OBSERVACION'
+            DataSource = DMOfertas.DSCabecera
+            TabOrder = 19
+          end
+          object LFDBValidez: TLFDBDateEdit
+            Left = 673
+            Top = 0
+            Width = 90
+            Height = 21
+            DataField = 'FECHA_VALIDEZ'
+            DataSource = DMOfertas.DSCabecera
+            CheckOnExit = True
+            DialogTitle = 'Seleccione una fecha'
+            NumGlyphs = 2
+            TabOrder = 21
+          end
+          object LFDBPlazoE: TLFDbedit
+            Left = 608
+            Top = 22
+            Width = 35
+            Height = 21
+            DataField = 'PLAZO_ENTREGA'
+            DataSource = DMOfertas.DSCabecera
+            TabOrder = 23
+          end
+          object DBCHKListado: TLFDBCheckBox
+            Left = 346
+            Top = 2
+            Width = 38
+            Height = 17
+            Caption = 'List.'
+            ClicksDisabled = False
+            ColorCheck = 57088
+            Layout = checkboxRight
+            TabOrder = 2
+            TabStop = True
+            OnClick = DBCHKListadoClick
+            BiDiMode = bdLeftToRight
+            ParentBiDiMode = False
+            Alignment = taLeftJustify
+            DataField = 'MODIFICA_DOC'
+            DataSource = DMOfertas.DSInfoActualizada
+            ValueChecked = '8'
+            ValueUnchecked = '0'
+          end
+          object DBDTPFechaEntregaPrevista: TLFDBDateEdit
+            Left = 458
+            Top = 22
+            Width = 86
+            Height = 21
+            DataField = 'FECHA_ENTREGA_PREV'
+            DataSource = DMOfertas.DSCabecera
+            CheckOnExit = True
+            NumGlyphs = 2
+            TabOrder = 22
+            OnExit = DBDTPFechaExit
+          end
+          object EFTransportista: TLFDBEditFind2000
+            Left = 458
+            Top = 88
+            Width = 64
+            Height = 21
+            AutoSize = False
+            CharCase = ecUpperCase
+            DataField = 'TRANSPORTISTA'
+            DataSource = DMOfertas.DSCabecera
+            TabOrder = 26
+            OnChange = EFTransportistaChange
+            AutoCambiarFoco = False
+            Base_de_datos = DMMain.DataBase
+            BuscarNums = False
+            Tabla_a_buscar = 'VER_TRANSPORTISTAS'
+            Tabla_asociada.DesplegarBusqueda = False
+            CampoNum = 'TRANSPORTISTA'
+            CampoStr = 'TITULO'
+            ReemplazarCaracter = True
+            SalirSiNoExiste = False
+            SalirSiVacio = True
+            OrdenadoPor.Strings = (
+              'TRANSPORTISTA')
+            Filtros = [obEmpresa]
+            Entorno = DMOfertas.EntornoDoc
+          end
+          object ETituloTransportista: TLFEdit
+            Left = 523
+            Top = 88
+            Width = 240
+            Height = 21
+            TabStop = False
+            AutoSize = False
+            Color = clInfoBk
+            Enabled = False
+            ReadOnly = True
+            TabOrder = 27
+          end
+          object DBEFPortes: TLFDBEditFind2000
+            Left = 458
+            Top = 110
+            Width = 23
+            Height = 21
+            DataField = 'TIPO_PORTES'
+            DataSource = DMOfertas.DSCabecera
+            TabOrder = 28
+            OnChange = DBEFPortesChange
+            AutoCambiarFoco = False
+            Base_de_datos = DMMain.DataBase
+            BuscarNums = False
+            Tabla_a_buscar = 'CON_CUENTAS_GES_PORTES'
+            Tabla_asociada.DesplegarBusqueda = False
+            CampoNum = 'TIPO'
+            CampoStr = 'TITULO'
+            ReemplazarCaracter = True
+            SalirSiNoExiste = False
+            SalirSiVacio = False
+            OrdenadoPor.Strings = (
+              'TIPO')
+            Filtros = [obEmpresa, obEjercicio, obCanal]
+            Entorno = DMOfertas.EntornoDoc
+          end
+          object ETituloPortes: TLFEdit
+            Left = 482
+            Top = 110
+            Width = 161
+            Height = 21
+            Color = clInfoBk
+            Enabled = False
+            TabOrder = 29
+          end
+          object DBEPorPortes: TLFDbedit
+            Left = 644
+            Top = 110
+            Width = 59
+            Height = 21
+            DataField = 'POR_PORTES'
+            DataSource = DMOfertas.DSCabecera
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 30
+          end
+          object DBEIPortes: TLFDbedit
+            Left = 704
+            Top = 110
+            Width = 59
+            Height = 21
+            DataField = 'I_PORTES'
+            DataSource = DMOfertas.DSCabecera
+            TabOrder = 31
+          end
+          object DBEFIndice: TLFDBEditFind2000
+            Left = 458
+            Top = 154
+            Width = 64
+            Height = 21
+            DataField = 'INDICE'
+            DataSource = DMOfertas.DSCabecera
+            TabOrder = 34
+            AutoCambiarFoco = False
+            Base_de_datos = DMMain.DataBase
+            BuscarNums = False
+            Tabla_a_buscar = 'EMP_RANGOS_INDICES'
+            Tabla_asociada.DesplegarBusqueda = False
+            CampoNum = 'INDICE'
+            CampoStr = 'TITULO'
+            ReemplazarCaracter = True
+            SalirSiNoExiste = False
+            SalirSiVacio = True
+            OnBusqueda = DBEFIndiceBusqueda
+            OrdenadoPor.Strings = (
+              'INDICE')
+            Filtros = [obEmpresa]
+            Entorno = DMOfertas.EntornoDoc
+          end
+          object DBEIndice: TLFDbedit
+            Left = 523
+            Top = 154
+            Width = 240
+            Height = 21
+            TabStop = False
+            Color = clInfoBk
+            DataField = 'TITULO'
+            DataSource = DMOfertas.DSxIndices
+            Enabled = False
+            ReadOnly = True
+            TabOrder = 35
+          end
+          object DBERango: TLFDbedit
+            Left = 523
+            Top = 132
+            Width = 240
+            Height = 21
+            TabStop = False
+            Color = clInfoBk
+            DataField = 'TITULO'
+            DataSource = DMOfertas.DSxRangos
+            Enabled = False
+            ReadOnly = True
+            TabOrder = 33
+          end
+          object DBEFRango: TLFDBEditFind2000
+            Left = 458
+            Top = 132
+            Width = 64
+            Height = 21
+            DataField = 'RANGO'
+            DataSource = DMOfertas.DSCabecera
+            TabOrder = 32
+            OnChange = DBEFRangoChange
+            AutoCambiarFoco = False
+            Base_de_datos = DMMain.DataBase
+            BuscarNums = False
+            Tabla_a_buscar = 'EMP_RANGOS'
+            Tabla_asociada.DesplegarBusqueda = False
+            CampoNum = 'RANGO'
+            CampoStr = 'TITULO'
+            ReemplazarCaracter = True
+            SalirSiNoExiste = False
+            SalirSiVacio = True
+            OnBusqueda = DBEFRangoBusqueda
+            OrdenadoPor.Strings = (
+              'TIPO')
+            Filtros = [obEmpresa]
+            Entorno = DMOfertas.EntornoDoc
+          end
+          object DBCBAutorizado: TLFDBCheckBox
+            Left = 842
+            Top = 117
+            Width = 140
+            Height = 17
+            Caption = 'Autorizado'
+            ClicksDisabled = False
+            ColorCheck = 57088
+            TabOrder = 42
+            TabStop = True
+            Alignment = taLeftJustify
+            DataField = 'AUTORIZADO'
+            DataSource = DMOfertas.DSCabecera
+            ValueChecked = '1'
+            ValueUnchecked = '0'
+          end
+          object DBEFMonedaFicha: TLFDBEditFind2000
+            Left = 842
+            Top = 66
+            Width = 90
+            Height = 21
+            DataField = 'MONEDA'
+            DataSource = DMOfertas.DSCabecera
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 40
+            OnChange = DBEFMonedaChange
+            AutoCambiarFoco = False
+            Base_de_datos = DMMain.DataBase
+            BuscarNums = False
+            Tabla_a_buscar = 'SYS_MONEDAS'
+            Tabla_asociada.DesplegarBusqueda = False
+            CampoNum = 'MONEDA'
+            CampoStr = 'TITULO'
+            ReemplazarCaracter = True
+            SalirSiNoExiste = False
+            SalirSiVacio = False
+            OrdenadoPor.Strings = (
+              'MONEDA')
+            Filtros = []
+            Entorno = DMFacturas.EntornoDoc
+          end
+          object DBCBDocumentoMuestras: TLFDBCheckBox
+            Left = 842
+            Top = 133
+            Width = 140
+            Height = 16
+            Caption = 'Muestras'
+            ClicksDisabled = False
+            ColorCheck = 57088
+            TabOrder = 43
+            TabStop = True
+            Alignment = taLeftJustify
+            DataField = 'DOCUMENTO_MUESTRAS'
+            DataSource = DMOfertas.DSCabecera
+            ValueChecked = '1'
+            ValueUnchecked = '0'
+          end
+          object DBEPedidoCli: TLFDbedit
+            Left = 458
+            Top = 66
+            Width = 305
+            Height = 21
+            AutoSize = False
+            DataField = 'PEDIDO_CLIENTE'
+            DataSource = DMOfertas.DSCabecera
+            TabOrder = 25
+          end
+          object DBENombreComercial: TLFDbedit
+            Left = 79
+            Top = 176
+            Width = 305
+            Height = 21
+            TabStop = False
+            Color = clAqua
+            DataField = 'NOMBRE_COMERCIAL'
+            DataSource = DMOfertas.DSCabecera
+            Enabled = False
+            ReadOnly = True
+            TabOrder = 18
+            OnDblClick = ATerceroExecute
+          end
+          object CBPreparado: TLFDBCheckBox
+            Left = 842
+            Top = 149
+            Width = 140
+            Height = 17
+            Caption = 'Preparado'
+            ClicksDisabled = False
+            ColorCheck = 57088
+            TabOrder = 44
+            TabStop = True
+            Alignment = taLeftJustify
+            DataField = 'PREPARADO'
+            DataSource = DMOfertas.DSCabecera
+            ValueChecked = '1'
+            ValueUnchecked = '0'
+          end
+          object DBCBAceptada: TLFDBCheckBox
+            Left = 842
+            Top = 165
+            Width = 140
+            Height = 17
+            Caption = 'Aceptada'
+            ClicksDisabled = False
+            ColorCheck = 57088
+            TabOrder = 45
+            TabStop = True
+            Alignment = taLeftJustify
+            DataField = 'ACEPTADA'
+            DataSource = DMOfertas.DSCabecera
+            ValueChecked = '1'
+            ValueUnchecked = '0'
+          end
+          object DBCBEmpaquetadoEmpresa: TLFDBCheckBox
+            Left = 842
+            Top = 197
+            Width = 140
+            Height = 17
+            Caption = 'Empaquetado Empresa'
+            ClicksDisabled = False
+            ColorCheck = 57088
+            TabOrder = 47
+            TabStop = True
+            Alignment = taLeftJustify
+            DataField = 'EMPAQUETADO_EMPRESA'
+            DataSource = DMOfertas.DSCabecera
+            ValueChecked = '1'
+            ValueUnchecked = '0'
+          end
+          object EFFichaTecnica: TLFDBEditFind2000
+            Left = 458
+            Top = 176
+            Width = 64
+            Height = 21
+            AutoSelect = False
+            AutoSize = False
+            CharCase = ecUpperCase
+            DataField = 'ID_FICHA_TECNICA'
+            DataSource = DMOfertas.DSCabecera
+            TabOrder = 36
+            OnChange = EFFichaTecnicaChange
+            Accion = ANewFichaTecnica
+            AutoCambiarFoco = False
+            Base_de_datos = DMMain.DataBase
+            BuscarNums = False
+            BuscarChar = False
+            Tabla_a_buscar = 'VER_FICHA_TECNICA'
+            Tabla_asociada.DesplegarBusqueda = False
+            Campos_Desplegar.Strings = (
+              'NOMBRE_R_SOCIAL')
+            CampoNum = 'MATRICULA'
+            CampoStr = 'TITULO'
+            CampoADevolver = 'ID_FICHA_TECNICA'
+            ReemplazarCaracter = True
+            SalirSiNoExiste = True
+            SalirSiVacio = True
+            OrdenadoPor.Strings = (
+              'MATRICULA')
+            Filtros = [obEmpresa]
+            Entorno = DMOfertas.EntornoDoc
+          end
+          object EFichaTecnica: TLFEdit
+            Left = 523
+            Top = 176
+            Width = 240
+            Height = 21
+            TabStop = False
+            Color = clAqua
+            Enabled = False
+            TabOrder = 37
+          end
+          object PNLAvisos: TLFPanel
+            Left = 975
+            Top = 0
+            Width = 150
+            Height = 217
+            Anchors = [akLeft, akTop, akRight]
+            BevelOuter = bvNone
+            Enabled = False
+            TabOrder = 48
+            object LAvisos: TLFLabel
+              Left = 0
+              Top = 0
+              Width = 150
+              Height = 13
+              Align = alTop
+              Caption = 'Avisos'
+            end
+            object LNotasCliente: TLFLabel
+              Left = 0
+              Top = 113
+              Width = 150
+              Height = 13
+              Align = alTop
+              Caption = 'Notas Cliente'
+            end
+            object DBMAviso: TLFDBMemo
+              Left = 0
+              Top = 13
+              Width = 150
+              Height = 100
+              Align = alTop
+              Color = clInfoBk
+              DataField = 'MENSAJE'
+              DataSource = DMOfertas.DSxAvisos
+              ReadOnly = True
+              TabOrder = 0
+            end
+            object DBMNotaCliente: TLFDBMemo
+              Left = 0
+              Top = 126
+              Width = 150
+              Height = 91
+              Align = alClient
+              Color = clInfoBk
+              DataField = 'NOTAS'
+              DataSource = DMOfertas.DSxAvisos
+              ReadOnly = True
+              TabOrder = 1
+            end
+          end
+        end
+      end
+      object TSOtros: TTabSheet [1]
+        Caption = '&Otros'
+        ImageIndex = 3
+        OnShow = TSOtrosShow
+        object SBAProyecto: TSpeedButton
+          Left = 120
+          Top = 103
+          Width = 162
+          Height = 21
+          Hint = 'Doble click o Ctrl+Alt+A para ver los datos del Agente'
+          GroupIndex = -1
+          OnDblClick = SBAProyectoDblClick
+        end
+        object PNLEdOtros: TLFPanel
+          Left = 0
+          Top = 22
+          Width = 1127
+          Height = 198
+          Align = alClient
+          BevelOuter = bvNone
+          Enabled = False
+          TabOrder = 1
+          object LMoneda: TLFLabel
+            Left = 34
+            Top = 46
+            Width = 39
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Moneda'
+          end
+          object LCampania: TLFLabel
+            Left = 407
+            Top = 2
+            Width = 45
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Campa'#241'a'
+          end
+          object LBLProyecto: TLFLabel
+            Left = 31
+            Top = 2
+            Width = 42
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Proyecto'
+            FocusControl = EFProyecto
+          end
+          object LBIdioma: TLFLabel
+            Left = 42
+            Top = 24
+            Width = 31
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Idioma'
+          end
+          object LTipoLineaKri: TLFLabel
+            Left = 402
+            Top = 24
+            Width = 50
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Tipo Linea'
+          end
+          object LValorCambio: TLFLabel
+            Left = 171
+            Top = 68
+            Width = 62
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Valor Cambio'
+            FocusControl = DBEValorCambio
+          end
+          object LAdjunto: TLFLabel
+            Left = 416
+            Top = 68
+            Width = 36
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Adjunto'
+            FocusControl = DBEAdjunto
+          end
+          object LPorcFinanciacion: TLFLabel
+            Left = 801
+            Top = 2
+            Width = 35
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Financ.'
+            FocusControl = DBESuReferencia
+          end
+          object LFirma: TLFLabel
+            Left = 429
+            Top = 112
+            Width = 25
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Firma'
+          end
+          object LBancoDireccion: TLFLabel
+            Left = 44
+            Top = 92
+            Width = 31
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Banco'
+          end
+          object LUsuarioCreacion: TLFLabel
+            Left = 5
+            Top = 157
+            Width = 70
+            Height = 13
+            Hint = 'Usuario Creacion'
+            Alignment = taRightJustify
+            Caption = 'Usuario Creac.'
+            FocusControl = DBESuReferencia
+            ParentShowHint = False
+            ShowHint = True
+          end
+          object LModoIVA: TLFLabel
+            Left = 405
+            Top = 48
+            Width = 47
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Modo IVA'
+          end
+          object DBEFMoneda: TLFDBEditFind2000
+            Left = 79
+            Top = 44
+            Width = 64
+            Height = 21
+            DataField = 'MONEDA'
+            DataSource = DMOfertas.DSCabecera
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 4
+            OnChange = DBEFMonedaChange
+            AutoCambiarFoco = False
+            Base_de_datos = DMMain.DataBase
+            BuscarNums = False
+            Tabla_a_buscar = 'SYS_MONEDAS'
+            Tabla_asociada.DesplegarBusqueda = False
+            CampoNum = 'MONEDA'
+            CampoStr = 'TITULO'
+            ReemplazarCaracter = True
+            SalirSiNoExiste = False
+            SalirSiVacio = False
+            OrdenadoPor.Strings = (
+              'MONEDA')
+            Filtros = []
+            Entorno = DMFacturas.EntornoDoc
+          end
+          object DBETitMoneda: TLFDbedit
+            Left = 144
+            Top = 44
+            Width = 240
+            Height = 21
+            TabStop = False
+            Color = clInfoBk
+            DataField = 'TITULO'
+            DataSource = DMOfertas.DSxMonedas
+            Enabled = False
+            ReadOnly = True
+            TabOrder = 5
+          end
+          object EFCampanya: TLFDBEditFind2000
+            Left = 458
+            Top = 0
+            Width = 64
+            Height = 21
+            AutoSelect = False
+            AutoSize = False
+            CharCase = ecUpperCase
+            DataField = 'CAMPANYA'
+            DataSource = DMOfertas.DSCabecera
+            TabOrder = 15
+            AutoCambiarFoco = False
+            Base_de_datos = DMMain.DataBase
+            BuscarNums = False
+            Tabla_a_buscar = 'VER_CAMPANYAS_ACTIVAS'
+            Tabla_asociada.DesplegarBusqueda = False
+            CampoNum = 'CAMPANYA'
+            CampoStr = 'TITULO'
+            ReemplazarCaracter = True
+            SalirSiNoExiste = False
+            SalirSiVacio = False
+            OrdenadoPor.Strings = (
+              'CAMPANYA')
+            Filtros = [obEmpresa, obEjercicio]
+            Entorno = DMOfertas.EntornoDoc
+          end
+          object DBETituloCampanya: TLFDbedit
+            Left = 523
+            Top = 0
+            Width = 240
+            Height = 21
+            TabStop = False
+            AutoSelect = False
+            AutoSize = False
+            Color = clInfoBk
+            DataField = 'TITULO'
+            DataSource = DMOfertas.DSxCampanyas
+            Enabled = False
+            ReadOnly = True
+            TabOrder = 16
+          end
+          object EFProyecto: TLFDBEditFind2000
+            Left = 79
+            Top = 0
+            Width = 64
+            Height = 21
+            AutoSelect = False
+            AutoSize = False
+            CharCase = ecUpperCase
+            DataField = 'PROYECTO'
+            DataSource = DMOfertas.DSCabecera
+            TabOrder = 0
+            AutoCambiarFoco = False
+            Base_de_datos = DMMain.DataBase
+            BuscarNums = False
+            Tabla_a_buscar = 'EMP_PROYECTOS'
+            Tabla_asociada.DesplegarBusqueda = False
+            CampoNum = 'PROYECTO'
+            CampoStr = 'TITULO'
+            ReemplazarCaracter = True
+            SalirSiNoExiste = True
+            SalirSiVacio = True
+            OnBusqueda = EFProyectoBusqueda
+            OrdenadoPor.Strings = (
+              'proyecto')
+            Filtros = [obEmpresa]
+            Entorno = DMOfertas.EntornoDoc
+          end
+          object DBETitProyecto: TLFDbedit
+            Left = 144
+            Top = 0
+            Width = 240
+            Height = 21
+            TabStop = False
+            AutoSelect = False
+            AutoSize = False
+            Color = clAqua
+            DataField = 'TITULO'
+            DataSource = DMOfertas.DSxProyectos
+            Enabled = False
+            ReadOnly = True
+            TabOrder = 1
+          end
+          object DBEFIdioma: TLFDBEditFind2000
+            Left = 79
+            Top = 22
+            Width = 64
+            Height = 21
+            AutoSelect = False
+            AutoSize = False
+            CharCase = ecUpperCase
+            DataField = 'IDIOMA'
+            DataSource = DMOfertas.DSCabecera
+            TabOrder = 2
+            AutoCambiarFoco = False
+            Base_de_datos = DMMain.DataBase
+            BuscarNums = False
+            Tabla_a_buscar = 'SYS_IDIOMAS'
+            Tabla_asociada.DesplegarBusqueda = False
+            CampoNum = 'IDIOMA'
+            CampoStr = 'TITULO'
+            ReemplazarCaracter = True
+            SalirSiNoExiste = False
+            SalirSiVacio = False
+            OrdenadoPor.Strings = (
+              'IDIOMA')
+            Filtros = []
+            Entorno = DMOfertas.EntornoDoc
+          end
+          object DBETitIdioma: TLFDbedit
+            Left = 144
+            Top = 22
+            Width = 240
+            Height = 21
+            TabStop = False
+            AutoSelect = False
+            AutoSize = False
+            Color = clInfoBk
+            DataField = 'TITULO'
+            DataSource = DMOfertas.DSxIdiomas
+            Enabled = False
+            ReadOnly = True
+            TabOrder = 3
+          end
+          object DBEFTipoLineaKri: TLFDBEditFind2000
+            Left = 458
+            Top = 22
+            Width = 64
+            Height = 21
+            AutoSelect = False
+            AutoSize = False
+            CharCase = ecUpperCase
+            DataField = 'TIPO_LINEA_KRI'
+            DataSource = DMOfertas.DSCabecera
+            TabOrder = 17
+            OnChange = DBEFTipoLineaKriChange
+            AutoCambiarFoco = False
+            Base_de_datos = DMMain.DataBase
+            BuscarNums = False
+            Tabla_a_buscar = 'SYS_TIPO_LINEA_VENTA_KRI'
+            Tabla_asociada.DesplegarBusqueda = False
+            CampoNum = 'ID'
+            CampoStr = 'TITULO'
+            ReemplazarCaracter = True
+            SalirSiNoExiste = False
+            SalirSiVacio = False
+            OrdenadoPor.Strings = (
+              'id')
+            Filtros = []
+            Entorno = DMOfertas.EntornoDoc
+          end
+          object ETipoLineaKri: TLFEdit
+            Left = 523
+            Top = 22
+            Width = 240
+            Height = 21
+            TabStop = False
+            Color = clInfoBk
+            Enabled = False
+            TabOrder = 18
+          end
+          object DBCHKCambio: TLFDBCheckBox
+            Left = 79
+            Top = 66
+            Width = 78
+            Height = 17
+            Caption = 'Cambio Fijo'
+            ClicksDisabled = False
+            ColorCheck = 57088
+            TabOrder = 6
+            TabStop = True
+            Alignment = taLeftJustify
+            OnChange = DBCHKCambioChange
+            DataField = 'CAMBIO_FIJO'
+            DataSource = DMOfertas.DSCabecera
+            ValueChecked = '1'
+            ValueUnchecked = '0'
+          end
+          object DBEValorCambio: TLFDbedit
+            Left = 237
+            Top = 66
+            Width = 64
+            Height = 21
+            DataField = 'VALOR_CAMB_FIJO'
+            DataSource = DMOfertas.DSCabecera
+            TabOrder = 7
+          end
+          object DBEAdjunto: TLFDbedit
+            Left = 458
+            Top = 66
+            Width = 285
+            Height = 21
+            AutoSize = False
+            CharCase = ecUpperCase
+            DataField = 'ADJUNTO'
+            DataSource = DMOfertas.DSCabecera
+            TabOrder = 21
+          end
+          object BCargarAdjunto: TButton
+            Left = 745
+            Top = 66
+            Width = 18
+            Height = 21
+            Hint = 'Adjuntar un archivo a la Ofeta'
+            Caption = '...'
+            TabOrder = 22
+            OnClick = BCargarAdjuntoClick
+          end
+          object DBEFinanciacion: TLFDbedit
+            Left = 842
+            Top = 0
+            Width = 64
+            Height = 21
+            DataField = 'POR_FINANCIACION'
+            DataSource = DMOfertas.DSCabecera
+            TabOrder = 23
+          end
+          object CKInversionSujetoPasivo: TLFDBCheckBox
+            Left = 813
+            Top = 24
+            Width = 120
+            Height = 17
+            Caption = 'Inv. Sujeto Pasivo'
+            ClicksDisabled = False
+            ColorCheck = 57088
+            TabOrder = 24
+            TabStop = True
+            Alignment = taLeftJustify
+            DataField = 'INVERSION_SUJETO_PASIVO'
+            DataSource = DMOfertas.DSCabecera
+            ValueChecked = '1'
+            ValueUnchecked = '0'
+          end
+          object PNLFirma: TLFPanel
+            Left = 458
+            Top = 110
+            Width = 185
+            Height = 59
+            BevelOuter = bvNone
+            Color = clWhite
+            TabOrder = 25
+            DesignSize = (
+              185
+              59)
+            object ImgFirma: TImage
+              Left = 0
+              Top = 0
+              Width = 185
+              Height = 59
+              Align = alClient
+              Center = True
+              Proportional = True
+              Stretch = True
+            end
+            object DBTFirmaNombre: TDBText
+              Left = 0
+              Top = 33
+              Width = 185
+              Height = 13
+              Anchors = [akLeft, akRight, akBottom]
+              Color = clBtnFace
+              DataField = 'NOMBRE'
+              DataSource = DMOfertas.DSQMFirmas
+              ParentColor = False
+              Transparent = True
+            end
+            object DBTNIFFirma: TDBText
+              Left = 0
+              Top = 46
+              Width = 185
+              Height = 13
+              Anchors = [akLeft, akRight, akBottom]
+              DataField = 'NIF'
+              DataSource = DMOfertas.DSQMFirmas
+              Transparent = True
+            end
+          end
+          object DBEFBancoDireccion: TLFDBEditFind2000
+            Left = 79
+            Top = 88
+            Width = 64
+            Height = 21
+            DataField = 'BANCO'
+            DataSource = DMOfertas.DSCabecera
+            TabOrder = 8
+            OnChange = DBEFBancoDireccionChange
+            AutoCambiarFoco = False
+            Base_de_datos = DMMain.DataBase
+            BuscarNums = False
+            Tabla_a_buscar = 'SYS_TERCEROS_BANCOS'
+            Tabla_asociada.DesplegarBusqueda = False
+            CampoNum = 'BANCO'
+            CampoStr = 'TITULO'
+            ReemplazarCaracter = True
+            SalirSiNoExiste = False
+            SalirSiVacio = False
+            OnBusqueda = DBEFBancoDireccionBusqueda
+            OrdenadoPor.Strings = (
+              'BANCO')
+            Filtros = []
+            Entorno = DMMain.EntornoBusqueda
+          end
+          object EBancoDireccion: TLFEdit
+            Left = 144
+            Top = 88
+            Width = 240
+            Height = 21
+            TabStop = False
+            Color = clInfoBk
+            Enabled = False
+            TabOrder = 9
+          end
+          object EUsuarioCreacion: TLFEdit
+            Left = 144
+            Top = 154
+            Width = 240
+            Height = 21
+            TabStop = False
+            AutoSelect = False
+            AutoSize = False
+            Color = clInfoBk
+            Enabled = False
+            TabOrder = 14
+          end
+          object DBEFUsuarioCreacion: TLFDBEditFind2000
+            Left = 79
+            Top = 154
+            Width = 64
+            Height = 21
+            TabStop = False
+            AutoSize = False
+            CharCase = ecUpperCase
+            Color = clInfoBk
+            DataField = 'USUARIO_CREACION'
+            DataSource = DMOfertas.DSCabecera
+            Enabled = False
+            TabOrder = 13
+            OnChange = DBEFUsuarioCreacionChange
+            AutoCambiarFoco = False
+            Base_de_datos = DMMain.DataBase
+            BuscarNums = False
+            Tabla_a_buscar = 'SYS_USUARIOS'
+            Tabla_asociada.DesplegarBusqueda = False
+            CampoNum = 'USUARIO'
+            CampoStr = 'NOMBRE'
+            CondicionBusqueda = 'ACTIVO = 1'
+            ReemplazarCaracter = True
+            SalirSiNoExiste = False
+            SalirSiVacio = False
+            OrdenadoPor.Strings = (
+              'USUARIO')
+            Filtros = []
+          end
+          object EFModoIva: TLFDBEditFind2000
+            Left = 458
+            Top = 44
+            Width = 64
+            Height = 21
+            DataField = 'MODO_IVA'
+            DataSource = DMOfertas.DSCabecera
+            TabOrder = 19
+            OnChange = EFModoIvaChange
+            AutoCambiarFoco = False
+            Base_de_datos = DMMain.DataBase
+            BuscarNums = False
+            Tabla_a_buscar = 'SYS_MODO_IVA'
+            Tabla_asociada.DesplegarBusqueda = False
+            CampoNum = 'MODO'
+            CampoStr = 'TITULO'
+            ReemplazarCaracter = True
+            SalirSiNoExiste = False
+            SalirSiVacio = False
+            OrdenadoPor.Strings = (
+              'MODO')
+            Filtros = []
+          end
+          object EModoIva: TLFEdit
+            Left = 523
+            Top = 44
+            Width = 240
+            Height = 21
+            TabStop = False
+            Color = clInfoBk
+            ReadOnly = True
+            TabOrder = 20
+          end
+          object DBCBRechazada: TLFDBCheckBox
+            Left = -2
+            Top = 113
+            Width = 78
+            Height = 17
+            Caption = 'Rechazada'
+            ClicksDisabled = False
+            ColorCheck = 57088
+            Layout = checkboxRight
+            TabOrder = 10
+            TabStop = True
+            Alignment = taLeftJustify
+            OnChange = DBCBRechazadaChange
+            DataField = 'RECHAZADA'
+            DataSource = DMOfertas.DSCabecera
+            ValueChecked = '1'
+            ValueUnchecked = '0'
+          end
+          object DBDEFechaRechazo: TLFDBDateEdit
+            Left = 79
+            Top = 110
+            Width = 90
+            Height = 21
+            DataField = 'RECHAZADA_FECHA'
+            DataSource = DMOfertas.DSCabecera
+            CheckOnExit = True
+            DialogTitle = 'Seleccione una fecha'
+            NumGlyphs = 2
+            TabOrder = 11
+          end
+          object DBEMotivoRechazo: TLFDbedit
+            Left = 79
+            Top = 132
+            Width = 305
+            Height = 21
+            AutoSize = False
+            DataField = 'RECHAZADA_MOTIVO'
+            DataSource = DMOfertas.DSCabecera
+            TabOrder = 12
+          end
+        end
+        object PNLCabOtros: TLFPanel
+          Left = 0
+          Top = 0
+          Width = 1127
+          Height = 22
+          Align = alTop
+          BevelOuter = bvNone
+          TabOrder = 0
+          object PNLTitOtros: TLFPanel
+            Left = 0
+            Top = 0
+            Width = 648
+            Height = 22
+            Align = alLeft
+            BevelOuter = bvNone
+            Enabled = False
+            TabOrder = 0
+            object LOtrosFecha: TLFLabel
+              Left = 543
+              Top = 3
+              Width = 30
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'Fecha'
+              Layout = tlCenter
+            end
+            object LOtrosReferencia: TLFLabel
+              Left = 344
+              Top = 0
+              Width = 52
+              Height = 21
+              AutoSize = False
+              Caption = 'Referencia'
+              Layout = tlCenter
+            end
+            object DBEOtrosFecha: TLFDbedit
+              Left = 577
+              Top = 0
+              Width = 71
+              Height = 21
+              TabStop = False
+              Color = clInfoBk
+              DataField = 'FECHA'
+              DataSource = DMOfertas.DSCabecera
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGrayText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 0
+            end
+            object DBEOtrosReferencia: TLFDbedit
+              Left = 401
+              Top = 0
+              Width = 133
+              Height = 21
+              TabStop = False
+              Color = clInfoBk
+              DataField = 'SU_REFERENCIA'
+              DataSource = DMOfertas.DSCabecera
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGrayText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 1
+            end
+            object DBEOtrosTitulo: TLFDbedit
+              Left = 70
+              Top = 0
+              Width = 267
+              Height = 21
+              TabStop = False
+              Color = clInfoBk
+              DataField = 'TITULO'
+              DataSource = DMOfertas.DSxCliente
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGrayText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 2
+            end
+            object DBEOtrosRIG: TLFDbedit
+              Left = 0
+              Top = 0
+              Width = 69
+              Height = 21
+              TabStop = False
+              Color = clInfoBk
+              DataField = 'RIG'
+              DataSource = DMOfertas.DSCabecera
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGrayText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 3
+              OnChange = DBEFBancoDireccionChange
+            end
+          end
+          object NavOtros: THYMNavigator
+            Left = 655
+            Top = 0
+            Width = 66
+            Height = 21
+            DataSource = DMOfertas.DSCabecera
+            VisibleButtons = [nbEdit, nbPost, nbCancel]
+            Flat = True
+            ParentShowHint = False
+            PopupMenu = CEOtrosPMEdit
+            ShowHint = True
+            TabOrder = 1
+            ModoDeSeguridad = True
+            DelCaption = 'Informaci'#243'n'
+            DelMessage = ' '#191' Borra el registro ? '
+            EditaControl = EFProyecto
+            Exclusivo = False
+            ControlEdit = CEOtros
+            OrdenAscendente = True
+            InsertaUltimo = False
+          end
+        end
+      end
+      object TSNotas: TTabSheet [2]
+        Caption = '&Notas'
+        ImageIndex = 2
+        OnShow = TSNotasShow
+        object PEdNotas: TLFPanel
+          Left = 0
+          Top = 22
+          Width = 1127
+          Height = 198
+          Align = alClient
+          BevelOuter = bvNone
+          Enabled = False
+          TabOrder = 1
+          object splitter: TSplitter
+            Left = 919
+            Top = 29
+            Width = 8
+            Height = 169
+            Cursor = crHSplit
+            Align = alRight
+            Color = clAppWorkSpace
+            ParentColor = False
+          end
+          object TBRichNotas: TLFToolBar
+            Left = 0
+            Top = 0
+            Width = 1127
+            Height = 29
+            EdgeInner = esNone
+            EdgeOuter = esNone
+            Images = DMMain.ToolbarImages
+            TabOrder = 0
+            Visible = False
+            Separators = True
+            object TButtNotasNegrita: TToolButton
+              Left = 0
+              Top = 2
+              Action = FMain.RichEditBold1
+            end
+            object TButtNotasItalica: TToolButton
+              Left = 23
+              Top = 2
+              Action = FMain.RichEditItalic1
+            end
+            object TButtNotasSubrayado: TToolButton
+              Left = 46
+              Top = 2
+              Action = FMain.RichEditUnderline1
+            end
+            object ToolButton13: TToolButton
+              Left = 69
+              Top = 2
+              Width = 8
+              Style = tbsSeparator
+              Visible = False
+            end
+            object TButtNotasAlinIzq: TToolButton
+              Left = 77
+              Top = 2
+              Action = FMain.RichEditAlignLeft1
+            end
+            object TButtNotasAlinCent: TToolButton
+              Left = 100
+              Top = 2
+              Action = FMain.RichEditAlignCenter1
+            end
+            object TButtNotasAlinDer: TToolButton
+              Left = 123
+              Top = 2
+              Action = FMain.RichEditAlignRight1
+            end
+            object ToolButton17: TToolButton
+              Left = 146
+              Top = 2
+              Width = 8
+              Style = tbsSeparator
+              Visible = False
+            end
+            object TButtNotasBullets: TToolButton
+              Left = 154
+              Top = 2
+              Action = FMain.RichEditBullets1
+            end
+            object ToolButton19: TToolButton
+              Left = 177
+              Top = 2
+              Width = 8
+              Style = tbsSeparator
+              Visible = False
+            end
+            object CBFontName: TLFComboBox
+              Left = 185
+              Top = 2
+              Width = 192
+              Height = 21
+              ItemHeight = 13
+              TabOrder = 1
+              OnChange = CBFontNameChange
+            end
+            object ToolButton4: TToolButton
+              Left = 377
+              Top = 2
+              Width = 8
+              Style = tbsSeparator
+            end
+            object PNLTamano: TLFPanel
+              Left = 385
+              Top = 2
+              Width = 40
+              Height = 22
+              TabOrder = 0
+              object EFontSizeNotas: TLFEdit
+                Left = 1
+                Top = 0
+                Width = 24
+                Height = 21
+                TabStop = False
+                TabOrder = 0
+                Text = '0'
+                OnChange = EFontSizeNotasChange
+              end
+              object UpDown1: TUpDown
+                Left = 25
+                Top = 0
+                Width = 15
+                Height = 21
+                Associate = EFontSizeNotas
+                Min = 0
+                Position = 0
+                TabOrder = 1
+                Wrap = True
+              end
+            end
+          end
+          object PNLOrtografia: TLFPanel
+            Left = 927
+            Top = 29
+            Width = 200
+            Height = 169
+            Align = alRight
+            BevelOuter = bvNone
+            TabOrder = 1
+            object TBOrtografia: TLFToolBar
+              Left = 0
+              Top = 0
+              Width = 200
+              Height = 23
+              AutoSize = True
+              DisabledImages = DMMain.ILMain_In
+              EdgeOuter = esNone
+              Flat = True
+              HotImages = DMMain.ILMain_Ac
+              Images = DMMain.ILMain_Ac
+              ParentShowHint = False
+              ShowHint = True
+              TabOrder = 0
+              Wrapable = False
+              Separators = True
+              object TBComprobar: TToolButton
+                Left = 0
+                Top = 0
+                Hint = 'Comprobar'
+                Caption = 'Comprobar'
+                ImageIndex = 85
+                OnClick = TBComprobarClick
+              end
+              object TBSep1: TToolButton
+                Left = 23
+                Top = 0
+                Width = 8
+                ImageIndex = 1
+                Style = tbsSeparator
+              end
+              object TBAgregarPalabra: TToolButton
+                Left = 31
+                Top = 0
+                Hint = 'Agregar Palabra'
+                Caption = 'Agregar Palabra'
+                ImageIndex = 19
+                OnClick = TBAgregarPalabraClick
+              end
+            end
+            object LBPalabras: TListBox
+              Left = 0
+              Top = 23
+              Width = 200
+              Height = 146
+              Align = alClient
+              ItemHeight = 13
+              TabOrder = 1
+            end
+          end
+          object PNLNotas: TLFPanel
+            Left = 0
+            Top = 29
+            Width = 919
+            Height = 169
+            Align = alClient
+            TabOrder = 2
+            object DBRENotas: TDBRichEdit
+              Left = 1
+              Top = 1
+              Width = 917
+              Height = 78
+              Align = alClient
+              DataField = 'NOTAS'
+              DataSource = DMOfertas.DSCabecera
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -13
+              Font.Name = 'Arial'
+              Font.Style = []
+              ParentFont = False
+              PlainText = True
+              ScrollBars = ssVertical
+              TabOrder = 0
+              OnEnter = DBRENotasEnter
+              OnSelectionChange = DBRENotasSelectionChange
+            end
+            object DBRENotasInternas: TDBRichEdit
+              Left = 1
+              Top = 79
+              Width = 917
+              Height = 89
+              Align = alBottom
+              Color = clMoneyGreen
+              DataField = 'NOTAS_INTERNAS_KRI'
+              DataSource = DMOfertas.DSCabecera
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -13
+              Font.Name = 'Arial'
+              Font.Style = []
+              ParentFont = False
+              PlainText = True
+              ScrollBars = ssVertical
+              TabOrder = 1
+              Visible = False
+              OnEnter = DBRENotasInternasEnter
+              OnSelectionChange = DBRENotasSelectionChange
+            end
+          end
+        end
+        object PCabNotas: TLFPanel
+          Left = 0
+          Top = 0
+          Width = 1127
+          Height = 22
+          Align = alTop
+          BevelOuter = bvNone
+          TabOrder = 0
+          object PTitNotas: TLFPanel
+            Left = 0
+            Top = 0
+            Width = 648
+            Height = 22
+            Align = alLeft
+            BevelOuter = bvNone
+            Enabled = False
+            TabOrder = 0
+            object LNotasFecha: TLFLabel
+              Left = 543
+              Top = 3
+              Width = 30
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'Fecha'
+              Layout = tlCenter
+            end
+            object LNotasReferencia: TLFLabel
+              Left = 344
+              Top = 0
+              Width = 52
+              Height = 21
+              AutoSize = False
+              Caption = 'Referencia'
+              Layout = tlCenter
+            end
+            object DBENotasFechaCab: TLFDbedit
+              Left = 577
+              Top = 0
+              Width = 71
+              Height = 21
+              TabStop = False
+              Color = clInfoBk
+              DataField = 'FECHA'
+              DataSource = DMOfertas.DSCabecera
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGrayText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 0
+            end
+            object DBENotasSuReferenciaCab: TLFDbedit
+              Left = 401
+              Top = 0
+              Width = 133
+              Height = 21
+              TabStop = False
+              Color = clInfoBk
+              DataField = 'SU_REFERENCIA'
+              DataSource = DMOfertas.DSCabecera
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGrayText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 1
+            end
+            object DBENotasClienteTituloCab: TLFDbedit
+              Left = 70
+              Top = 0
+              Width = 267
+              Height = 21
+              TabStop = False
+              Color = clInfoBk
+              DataField = 'TITULO'
+              DataSource = DMOfertas.DSxCliente
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGrayText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 2
+            end
+            object DBENotasRIGCab: TLFDbedit
+              Left = 0
+              Top = 0
+              Width = 69
+              Height = 21
+              TabStop = False
+              Color = clInfoBk
+              DataField = 'RIG'
+              DataSource = DMOfertas.DSCabecera
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGrayText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 3
+            end
+          end
+          object NavNotas: THYMNavigator
+            Left = 655
+            Top = 0
+            Width = 66
+            Height = 21
+            DataSource = DMOfertas.DSCabecera
+            VisibleButtons = [nbEdit, nbPost, nbCancel]
+            Flat = True
+            ParentShowHint = False
+            PopupMenu = CENotasPMEdit
+            ShowHint = True
+            TabOrder = 1
+            ModoDeSeguridad = True
+            DelCaption = 'Informaci'#243'n'
+            DelMessage = ' '#191' Borra el registro ? '
+            Exclusivo = False
+            ControlEdit = CENotas
+            OrdenAscendente = True
+            InsertaUltimo = False
+            OnClickAfterAdjust = NavMainClickAfterAdjust
+          end
+        end
+      end
+      inherited TSTabla: TTabSheet
+        inherited DBGMain: THYTDBGrid
+          Width = 1127
+          Height = 220
+          BorderStyle = bsNone
+          DataSource = DMOfertas.DSCabecera
+          OnCellClick = DBGMainCellClick
+          OnKeyDown = DBGMainKeyDown
+          OnKeyUp = DBGMainKeyUp
+          CamposAMarcar.Strings = (
+            'ACEPTADA'
+            'AUTORIZADO'
+            'CAMBIO_FIJO'
+            'DOCUMENTO_MUESTRAS'
+            'INVERSION_SUJETO_PASIVO'
+            'MODIFICA_DOC'
+            'PREPARADO'
+            'PRESUPUESTO'
+            'RECHAZADA')
+          CamposChecked.Strings = (
+            '1'
+            '1'
+            '1'
+            '1'
+            '1'
+            '1'
+            '1'
+            '1'
+            '1')
+          CamposNoChecked.Strings = (
+            '0'
+            '0'
+            '0'
+            '0'
+            '0'
+            '0'
+            '0'
+            '0'
+            '0')
+          CamposAOrdenar.Strings = (
+            'AGENTE'
+            'ALMACEN'
+            'CAMPANYA'
+            'CLIENTE'
+            'CODIGO_POSTAL'
+            'DIR_COMPLETA'
+            'DIRECCION'
+            'ESTADO'
+            'FECHA'
+            'LIQUIDO'
+            'LOCALIDAD'
+            'MONEDA'
+            'NOMBRE'
+            'NOMBRE_COMERCIAL'
+            'PROYECTO'
+            'RIG'
+            'SU_REFERENCIA'
+            'TIT_CONTACTO'
+            'TITULO'
+            'TRANSPORTISTA'
+            'Z_CONTACTO'
+            'Z_OBSERVACION'
+            'PEDIDO_CLIENTE')
+          CamposCalcAOrdenar.Strings = (
+            'TOTAL_CANAL')
+          CamposCalcReferencia.Strings = (
+            'LIQUIDO')
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'RIG'
+              Width = 50
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'FECHA'
+              Width = 70
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'CLIENTE'
+              Width = 50
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'TITULO'
+              Width = 234
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'MONEDA'
+              Width = 30
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'TOTAL_CANAL'
+              Title.Alignment = taRightJustify
+              Width = 100
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'PROYECTO'
+              Width = 50
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'SU_REFERENCIA'
+              Width = 84
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'DIRECCION'
+              ReadOnly = True
+              Width = 25
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'DIR_NOMBRE_2_KRI'
+              ReadOnly = True
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'TOTAL_ANTICIPADO'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'ACEPTADA'
+              Width = 40
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'CAMBIO_FIJO'
+              Width = 40
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'INVERSION_SUJETO_PASIVO'
+              Width = 40
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'PREPARADO'
+              Width = 40
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'PRESUPUESTO'
+              Width = 40
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'AUTORIZADO'
+              Width = 40
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'DOCUMENTO_MUESTRAS'
+              Width = 40
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'MODIFICA_DOC'
+              Width = 40
+              Visible = True
+            end>
+        end
+      end
+      object TSDirManual: TTabSheet
+        Caption = 'Dir. Manual'
+        ImageIndex = 4
+        OnResize = TSDirManualResize
+        object PNLDirManual: TLFPanel
+          Left = 0
+          Top = 0
+          Width = 1127
+          Height = 22
+          Align = alTop
+          AutoSize = True
+          BevelOuter = bvNone
+          TabOrder = 0
+          object PNLDirManual2: TLFPanel
+            Left = 0
+            Top = 0
+            Width = 648
+            Height = 22
+            Align = alLeft
+            BevelOuter = bvNone
+            Enabled = False
+            TabOrder = 0
+            object LDirEntregaFecha: TLFLabel
+              Left = 543
+              Top = 3
+              Width = 30
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'Fecha'
+              Layout = tlCenter
+            end
+            object LDirEntregaReferencia: TLFLabel
+              Left = 345
+              Top = 3
+              Width = 52
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'Referencia'
+              Layout = tlCenter
+            end
+            object DBEDirEntregaFecha: TLFDbedit
+              Left = 577
+              Top = 0
+              Width = 71
+              Height = 21
+              TabStop = False
+              Color = clInfoBk
+              DataField = 'FECHA'
+              DataSource = DMOfertas.DSCabecera
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGrayText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              ReadOnly = True
+              TabOrder = 0
+            end
+            object DBEDirEntregaNombre: TLFDbedit
+              Left = 70
+              Top = 0
+              Width = 267
+              Height = 21
+              TabStop = False
+              Color = clInfoBk
+              DataField = 'TITULO'
+              DataSource = DMOfertas.DSCabecera
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGrayText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              ReadOnly = True
+              TabOrder = 1
+            end
+            object DBEDirEntregaRIG: TLFDbedit
+              Left = 0
+              Top = 0
+              Width = 69
+              Height = 21
+              TabStop = False
+              Color = clInfoBk
+              DataField = 'RIG'
+              DataSource = DMOfertas.DSCabecera
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGrayText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              ReadOnly = True
+              TabOrder = 2
+            end
+            object DBEDirEntregaReferencia: TLFDbedit
+              Left = 401
+              Top = 0
+              Width = 133
+              Height = 21
+              TabStop = False
+              Color = clInfoBk
+              DataField = 'SU_REFERENCIA'
+              DataSource = DMOfertas.DSCabecera
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGrayText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              ReadOnly = True
+              TabOrder = 3
+            end
+          end
+          object NavDirEntrega: THYMNavigator
+            Left = 655
+            Top = 0
+            Width = 66
+            Height = 22
+            DataSource = DMOfertas.DSCabecera
+            VisibleButtons = [nbEdit, nbPost, nbCancel]
+            Flat = True
+            ParentShowHint = False
+            PopupMenu = CEDirEntregaPMEdit
+            ShowHint = True
+            TabOrder = 1
+            BeforeAction = NavNotasBeforeAction
+            ModoDeSeguridad = True
+            DelCaption = 'Informaci'#243'n'
+            DelMessage = ' '#191' Borra el registro ? '
+            EditaControl = DBEEquipoRecogida
+            Exclusivo = False
+            ControlEdit = CEDirEntrega
+            OrdenAscendente = True
+            InsertaUltimo = False
+          end
+        end
+        object PNLDirManualDatos: TLFPanel
+          Left = 0
+          Top = 22
+          Width = 1127
+          Height = 198
+          Align = alClient
+          BevelOuter = bvNone
+          Enabled = False
+          TabOrder = 1
+          object PNLDirEntrega: TLFPanel
+            Left = 600
+            Top = 0
+            Width = 527
+            Height = 198
+            Align = alClient
+            BevelOuter = bvNone
+            TabOrder = 1
+            object PNLEdDirEntrega: TLFPanel
+              Left = 0
+              Top = 0
+              Width = 527
+              Height = 89
+              Align = alTop
+              BevelOuter = bvNone
+              TabOrder = 0
+              object LFLabel3: TLFLabel
+                Left = 0
+                Top = 0
+                Width = 527
+                Height = 13
+                Align = alTop
+                Caption = 'Direccion de Entrega'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'MS Sans Serif'
+                Font.Style = [fsBold]
+                ParentFont = False
+              end
+              object LEquipoEntrega: TLFLabel
+                Left = 26
+                Top = 21
+                Width = 33
+                Height = 13
+                Alignment = taRightJustify
+                Caption = 'Equipo'
+              end
+              object LMatriculaEntrega: TLFLabel
+                Left = 16
+                Top = 41
+                Width = 43
+                Height = 13
+                Alignment = taRightJustify
+                Caption = 'Matricula'
+              end
+              object LFechaEntregaManual: TLFLabel
+                Left = 29
+                Top = 64
+                Width = 30
+                Height = 13
+                Alignment = taRightJustify
+                Caption = 'Fecha'
+              end
+              object DBEEquipoEntrega: TLFDbedit
+                Left = 64
+                Top = 17
+                Width = 297
+                Height = 21
+                DataField = 'EQUIPO_ENTREGA'
+                DataSource = DMOfertas.DSCabecera
+                TabOrder = 0
+              end
+              object DBEMatriculaEntrega: TLFDbedit
+                Left = 64
+                Top = 39
+                Width = 297
+                Height = 21
+                DataField = 'MATRICULA_ENTREGA'
+                DataSource = DMOfertas.DSCabecera
+                TabOrder = 1
+              end
+              object DBDEFechaEntregaManual: TLFDBDateEdit
+                Left = 64
+                Top = 61
+                Width = 121
+                Height = 21
+                DataField = 'FECHA_ENTREGA_MANUAL'
+                DataSource = DMOfertas.DSCabecera
+                CheckOnExit = True
+                NumGlyphs = 2
+                TabOrder = 2
+              end
+              object DBDTPFechaEntregaManual: TDBDateTimePicker
+                Left = 184
+                Top = 61
+                Width = 56
+                Height = 21
+                CalAlignment = dtaLeft
+                Date = 46188.3871174653
+                Format = 'HH:mm'
+                Time = 46188.3871174653
+                DateFormat = dfShort
+                DateMode = dmComboBox
+                Kind = dtkTime
+                ParseInput = False
+                TabOrder = 3
+                DataField = 'FECHA_ENTREGA_MANUAL'
+                DataSource = DMOfertas.DSCabecera
+              end
+            end
+            object DBMDirEntrega: TLFDBMemo
+              Left = 0
+              Top = 89
+              Width = 527
+              Height = 109
+              Align = alClient
+              DataField = 'DIR_ENTREGA_MANUAL'
+              DataSource = DMOfertas.DSCabecera
+              TabOrder = 1
+            end
+          end
+          object PNLDirRecogida: TLFPanel
+            Left = 0
+            Top = 0
+            Width = 600
+            Height = 198
+            Align = alLeft
+            BevelOuter = bvNone
+            TabOrder = 0
+            object PNLEdDirRecogida: TLFPanel
+              Left = 0
+              Top = 0
+              Width = 600
+              Height = 89
+              Align = alTop
+              BevelOuter = bvNone
+              TabOrder = 0
+              object LDirRecogida: TLFLabel
+                Left = 0
+                Top = 0
+                Width = 600
+                Height = 13
+                Align = alTop
+                Caption = 'Direccion de Recogida'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'MS Sans Serif'
+                Font.Style = [fsBold]
+                ParentFont = False
+              end
+              object LEquipoRecogida: TLFLabel
+                Left = 26
+                Top = 21
+                Width = 33
+                Height = 13
+                Alignment = taRightJustify
+                Caption = 'Equipo'
+              end
+              object LMatriculaRecogida: TLFLabel
+                Left = 16
+                Top = 41
+                Width = 43
+                Height = 13
+                Alignment = taRightJustify
+                Caption = 'Matricula'
+              end
+              object LFechaRecogida: TLFLabel
+                Left = 29
+                Top = 64
+                Width = 30
+                Height = 13
+                Alignment = taRightJustify
+                Caption = 'Fecha'
+              end
+              object DBEEquipoRecogida: TLFDbedit
+                Left = 64
+                Top = 17
+                Width = 297
+                Height = 21
+                DataField = 'EQUIPO_RECOGIDA'
+                DataSource = DMOfertas.DSCabecera
+                TabOrder = 0
+              end
+              object DBEMatriculaRecogida: TLFDbedit
+                Left = 64
+                Top = 39
+                Width = 297
+                Height = 21
+                DataField = 'MATRICULA_RECOGIDA'
+                DataSource = DMOfertas.DSCabecera
+                TabOrder = 1
+              end
+              object DBDEFechaRecogidaManual: TLFDBDateEdit
+                Left = 64
+                Top = 61
+                Width = 121
+                Height = 21
+                DataField = 'FECHA_RECOGIDA_MANUAL'
+                DataSource = DMOfertas.DSCabecera
+                CheckOnExit = True
+                NumGlyphs = 2
+                TabOrder = 2
+              end
+              object DBDTPFechaRecogidaManual: TDBDateTimePicker
+                Left = 184
+                Top = 61
+                Width = 56
+                Height = 21
+                CalAlignment = dtaLeft
+                Date = 46188.3871174653
+                Format = 'HH:mm'
+                Time = 46188.3871174653
+                DateFormat = dfShort
+                DateMode = dmComboBox
+                Kind = dtkTime
+                ParseInput = False
+                TabOrder = 3
+                DataField = 'FECHA_RECOGIDA_MANUAL'
+                DataSource = DMOfertas.DSCabecera
+              end
+            end
+            object DBMDirRecogida: TLFDBMemo
+              Left = 0
+              Top = 89
+              Width = 600
+              Height = 109
+              Align = alClient
+              DataField = 'DIR_RECOGIDA_MANUAL'
+              DataSource = DMOfertas.DSCabecera
+              TabOrder = 1
+            end
+          end
+        end
+      end
+      object TSProveedores: TTabSheet
+        Caption = 'Proveedores'
+        ImageIndex = 5
+        OnShow = TSProveedoresShow
+        object PNLProveedores: TLFPanel
+          Left = 0
+          Top = 0
+          Width = 1127
+          Height = 22
+          Align = alTop
+          AutoSize = True
+          BevelOuter = bvNone
+          TabOrder = 0
+          object PNLProveedoresCab: TLFPanel
+            Left = 0
+            Top = 0
+            Width = 648
+            Height = 22
+            Align = alLeft
+            BevelOuter = bvNone
+            Enabled = False
+            TabOrder = 0
+            object LProveedoresFecha: TLFLabel
+              Left = 543
+              Top = 3
+              Width = 30
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'Fecha'
+              Layout = tlCenter
+            end
+            object LProveedoresSuReferencia: TLFLabel
+              Left = 345
+              Top = 3
+              Width = 52
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'Referencia'
+              Layout = tlCenter
+            end
+            object DBEProveedoresFecha: TLFDbedit
+              Left = 577
+              Top = 0
+              Width = 71
+              Height = 21
+              TabStop = False
+              Color = clInfoBk
+              DataField = 'FECHA'
+              DataSource = DMOfertas.DSCabecera
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGrayText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              ReadOnly = True
+              TabOrder = 0
+            end
+            object DBEProveedoresTitulo: TLFDbedit
+              Left = 70
+              Top = 0
+              Width = 267
+              Height = 21
+              TabStop = False
+              Color = clInfoBk
+              DataField = 'TITULO'
+              DataSource = DMOfertas.DSCabecera
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGrayText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              ReadOnly = True
+              TabOrder = 1
+            end
+            object DBEProveedoresRIG: TLFDbedit
+              Left = 0
+              Top = 0
+              Width = 69
+              Height = 21
+              TabStop = False
+              Color = clInfoBk
+              DataField = 'RIG'
+              DataSource = DMOfertas.DSCabecera
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGrayText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              ReadOnly = True
+              TabOrder = 2
+            end
+            object DBEProveedoresSuReferencia: TLFDbedit
+              Left = 401
+              Top = 0
+              Width = 133
+              Height = 21
+              TabStop = False
+              Color = clInfoBk
+              DataField = 'SU_REFERENCIA'
+              DataSource = DMOfertas.DSCabecera
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGrayText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              ReadOnly = True
+              TabOrder = 3
+            end
+          end
+          object NavProveedores: THYMNavigator
+            Left = 655
+            Top = 0
+            Width = 160
+            Height = 22
+            DataSource = DMOfertas.DSxProveedores
+            VisibleButtons = [nbPrior, nbNext, nbInsert, nbDelete, nbEdit, nbPost, nbCancel, nbRefresh]
+            Flat = True
+            ParentShowHint = False
+            PopupMenu = CEProveedoresPMEdit
+            ShowHint = True
+            TabOrder = 1
+            ModoDeSeguridad = True
+            DelCaption = 'Informaci'#243'n'
+            DelMessage = ' '#191' Borra el registro ? '
+            EditaControl = DBGProveedores
+            InsertaControl = DBGProveedores
+            Exclusivo = False
+            ControlEdit = CEProveedores
+            OrdenAscendente = True
+            InsertaUltimo = False
+          end
+        end
+        object DBGProveedores: TDBGridFind2000
+          Left = 0
+          Top = 22
+          Width = 1127
+          Height = 198
+          Align = alClient
+          DataSource = DMOfertas.DSxProveedores
+          TabOrder = 1
+          TitleFont.Charset = DEFAULT_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -11
+          TitleFont.Name = 'MS Sans Serif'
+          TitleFont.Style = []
+          Insercion = False
+          ColumnaInicial = 0
+          UsaDicG2K = True
+          Changed = False
+          Idioma = 'CAS'
+          AutoCambiarColumna = False
+          AutoPostEnCheckBox = True
+          AutoStartDrag = False
+          AutoStartDragInterval = 0
+          IndiceBitmapOrdenable = 0
+          IndiceBitmapAscendente = 1
+          IndiceBitmapChecked = 3
+          IndiceBitmapDescendente = 2
+          BaseDeDatos = DMMain.DataBase
+          Transaction = DMOfertas.TLocal
+          BuscarNums = False
+          Campos.Strings = (
+            'PROVEEDOR'
+            'ARTICULO')
+          CamposAMostrar.Strings = (
+            'PROVEEDOR'
+            '1'
+            'NOMBRE_R_SOCIAL'
+            'ARTICULO'
+            '0')
+          CamposAMostrarAnchos.Strings = (
+            '0'
+            '0')
+          CamposADevolver.Strings = (
+            ''
+            '')
+          CamposDesplegar.Strings = (
+            '1'
+            '1')
+          CampoAOrdenarColor = clInfoBk
+          CampoAOrdenarBitmaps = DMMain.ILOrdGrid
+          CamposAOrdernar.Strings = (
+            'ARTICULO'
+            'FECHA_ENTREGA'
+            'NOMBRE_COMERCIAL'
+            'NOMBRE_R_SOCIAL'
+            'OBSERVACIONES'
+            'PRECIO'
+            'PROVEEDOR'
+            'TITULO'
+            'UTILIZAR_COSTE')
+          ColumnasCheckBoxes.Strings = (
+            'UTILIZAR_COSTE')
+          ColumnasChecked.Strings = (
+            '1')
+          ColumnasNoChecked.Strings = (
+            '0')
+          MensajeNoExiste = False
+          Numericos.Strings = (
+            'PROVEEDOR'
+            'ARTICULO')
+          SalirSiVacio = False
+          SalirSiNoExiste = False
+          Tablas.Strings = (
+            'VER_PROVEEDORES_CUENTAS'
+            'VER_ARTICULOS_EF')
+          Acciones.Strings = (
+            ''
+            '')
+          Titulos.Strings = (
+            'TITULO'
+            'TITULO')
+          Posicion = tpCentrado
+          Planes.Strings = (
+            ''
+            '')
+          OrdenMultiple = True
+          OrdenadosPor.Strings = (
+            'PROVEEDOR'
+            'ARTICULO')
+          Filtros = [obEmpresa, obEjercicio, obCanal]
+          Entorno = DMOfertas.EntornoDoc
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'PROVEEDOR'
+              Width = 60
+              Visible = True
+            end
+            item
+              Color = clInfoBk
+              Expanded = False
+              FieldName = 'NOMBRE_R_SOCIAL'
+              ReadOnly = True
+              Width = 200
+              Visible = True
+            end
+            item
+              Color = clInfoBk
+              Expanded = False
+              FieldName = 'NOMBRE_COMERCIAL'
+              ReadOnly = True
+              Width = 200
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'PRECIO'
+              Width = 70
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'FECHA_ENTREGA'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'UTILIZAR_COSTE'
+              Width = 60
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'OBSERVACIONES'
+              Width = 300
+              Visible = True
+            end>
+        end
+      end
+    end
+  end
+  inherited PDetalle: TLFPanel
+    Top = 280
+    Width = 1141
+    Height = 267
+    inherited TBDetalle: TLFToolBar
+      Width = 1141
+      EdgeInner = esNone
+      EdgeOuter = esNone
+      TabOrder = 2
+      inherited NavDetalle: THYMNavigator
+        DataSource = DMOfertas.DSDetalle
+        Hints.Strings = ()
+        BeforeAction = NavDetalleBeforeAction
+        DelMessage = #191'Desea borrar la l'#237'nea?'
+        OnChangeState = NavDetalleChangeState
+        OnClickAfterAdjust = NavDetalleClickAfterAdjust
+      end
+      object TButtSep8: TToolButton
+        Left = 220
+        Top = 0
+        Width = 8
+        Style = tbsSeparator
+      end
+      object TButtEditaLineas: TToolButton
+        Left = 228
+        Top = 0
+        Hint = 'Edita las notas de la l'#237'nea seleccionada'
+        Action = ANotasDetalle
+        ParentShowHint = False
+        ShowHint = True
+      end
+      object TButtHerencia: TToolButton
+        Left = 251
+        Top = 0
+        Action = AHerencia
+      end
+      object TButtStock: TToolButton
+        Left = 274
+        Top = 0
+        Action = AInfoStocks
+        ParentShowHint = False
+        ShowHint = True
+      end
+      object TButtUnidadesExt: TToolButton
+        Left = 297
+        Top = 0
+        Action = AUnidadesExt
+        ParentShowHint = False
+        ShowHint = True
+      end
+      object TButtPrecios: TToolButton
+        Left = 320
+        Top = 0
+        Action = APreciosTarifa
+        ParentShowHint = False
+        ShowHint = True
+      end
+      object TButtInfoHistorico: TToolButton
+        Left = 343
+        Top = 0
+        Action = AInfoHistorico
+        ParentShowHint = False
+        ShowHint = True
+      end
+      object TButtRecibos: TToolButton
+        Left = 366
+        Top = 0
+        Action = ARecibos
+        ParentShowHint = False
+        ShowHint = True
+      end
+      object ToolButton1: TToolButton
+        Left = 389
+        Top = 0
+        Width = 8
+        Style = tbsSeparator
+      end
+      object TBArtCli: TToolButton
+        Left = 397
+        Top = 0
+        Action = AArtCli
+        ParentShowHint = False
+        ShowHint = True
+      end
+      object TBCliArt: TToolButton
+        Left = 420
+        Top = 0
+        Action = ACliArt
+      end
+      object TButtCambiaDescripcion: TToolButton
+        Left = 443
+        Top = 0
+        Action = ACambiaTitulo
+        ParentShowHint = False
+        ShowHint = True
+      end
+      object ToolButton2: TToolButton
+        Left = 466
+        Top = 0
+        Width = 8
+        Style = tbsSeparator
+      end
+      object TBDescargaLector: TToolButton
+        Left = 474
+        Top = 0
+        Action = ADescargaLector
+        ParentShowHint = False
+        ShowHint = True
+      end
+      object TButtBuscarArticulo: TToolButton
+        Left = 497
+        Top = 0
+        Action = ABuscarArticulo
+        ParentShowHint = False
+        ShowHint = True
+        Style = tbsCheck
+      end
+      object ToolButton3: TToolButton
+        Left = 520
+        Top = 0
+        Width = 8
+        Style = tbsSeparator
+      end
+      object TBBajarLinea: TToolButton
+        Left = 528
+        Top = 0
+        Action = ABajarLinea
+      end
+      object TBSubirLinea: TToolButton
+        Left = 551
+        Top = 0
+        Action = ASubirLinea
+      end
+      object TButtSep1: TToolButton
+        Left = 574
+        Top = 0
+        Width = 8
+        Style = tbsSeparator
+      end
+      object TButtAsignarImagenLinea: TToolButton
+        Left = 582
+        Top = 0
+        Action = AAsignarImagenLinea
+      end
+      object ToolButton6: TToolButton
+        Left = 605
+        Top = 0
+        Width = 8
+        Style = tbsSeparator
+      end
+      object TButtDetalles: TToolButton
+        Left = 613
+        Top = 0
+        Action = ADetallesDeLinea
+      end
+      object TButtDuplicarLinea: TToolButton
+        Left = 636
+        Top = 0
+        Action = ADuplicarLinea
+      end
+      object TBCondicionesClientes: TToolButton
+        Left = 659
+        Top = 0
+        Action = ACondicionesClientes
+      end
+      object TBCreaAnticipo: TToolButton
+        Left = 682
+        Top = 0
+        Action = ACreaAnticipo
+      end
+      object TButtImportarDetalle: TToolButton
+        Left = 705
+        Top = 0
+        Action = AImportarDetalle
+      end
+      object PnlEstadoOfertaEsc: TLFPanel
+        Left = 728
+        Top = 0
+        Width = 150
+        Height = 22
+        BevelOuter = bvNone
+        Enabled = False
+        TabOrder = 1
+        Visible = False
+        object ChkBEstadoOfertaEsc: TLFCheckBox
+          Left = 5
+          Top = 2
+          Width = 128
+          Height = 18
+          Caption = 'Oferta de Esc. Creada'
+          ClicksDisabled = False
+          ColorCheck = 57088
+          TabOrder = 0
+          TabStop = True
+          Alignment = taLeftJustify
+        end
+      end
+    end
+    inherited DBGFDetalle: TDBGridFind2000
+      Top = 44
+      Width = 1141
+      Height = 168
+      BorderStyle = bsNone
+      DataSource = DMOfertas.DSDetalle
+      DefaultDrawing = False
+      Options = [dgEditing, dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+      PopupMenu = nil
+      OnCellClick = DBGFDetalleCellClick
+      OnColEnter = DBGFDetalleColEnter
+      OnDrawColumnCell = DBGFDetalleDrawColumnCell
+      OnDblClick = DBGFDetalleDblClick
+      OnKeyDown = DBGFDetalleKeyDown
+      OnKeyPress = DBGFDetalleKeyPress
+      OnKeyUp = DBGFDetalleKeyUp
+      IniStorage = FSMain
+      ColumnaInicial = 2
+      AutoCambiarColumna = True
+      BuscarNums = True
+      BuscarChars = False
+      Campos.Strings = (
+        'ARTICULO'
+        'ARTICULO'
+        'TIPO_IVA'
+        'ARTICULO'
+        'PROYECTO'
+        'TIPO_LINEA_KRI'
+        'TIPO_UNIDAD_LOGISTICA'
+        'ALMACEN'
+        'ARTICULO'
+        'DIRECCION_ENTREGA'
+        'TIPO_IMPUESTO_ADICIONAL'
+        'ID_DESPIECE')
+      CamposAMostrar.Strings = (
+        'ARTICULO'
+        '0'
+        'ARTICULO'
+        '3'
+        'ALFA_1'
+        'ALFA_2'
+        'FABRICANTE'
+        'TIPO_IVA'
+        '1'
+        'P_IVA'
+        'ARTICULO'
+        '0'
+        'PROYECTO'
+        '0'
+        'TIPO_LINEA_KRI'
+        '0'
+        'TIPO_UNIDAD_LOGISTICA'
+        '0'
+        'ALMACEN'
+        '0'
+        'ARTICULO'
+        '1'
+        'TITULO_ARTICULO_CLIENTE'
+        'DIRECCION_ENTREGA'
+        '0'
+        'TIPO_IMPUESTO_ADICIONAL'
+        '0'
+        'ID_DESPIECE'
+        '3'
+        'ARTICULO'
+        'SU_REFERENCIA'
+        'EJERCICIO')
+      CamposAMostrarAnchos.Strings = (
+        '0'
+        '0'
+        '0'
+        '0'
+        '0'
+        '0'
+        '0'
+        '0'
+        '0'
+        '0'
+        '0'
+        '0')
+      CamposADevolver.Strings = (
+        'ARTICULO'
+        ''
+        ''
+        'ARTICULO'
+        ''
+        ''
+        'TIPO'
+        'ALMACEN'
+        'ARTICULO'
+        ''
+        ''
+        '')
+      CamposDesplegar.Strings = (
+        '0'
+        '1'
+        '1'
+        '0'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1'
+        '1')
+      CamposAOrdernar.Strings = (
+        'ARTICULO'
+        'FECHA_ENTREGA_PREV'
+        'ORDEN'
+        'TITULO'
+        'LINEA'
+        'PRECIO')
+      ColumnasCheckBoxes.Strings = (
+        'APLICA_UNIDADES_SECUNDARIAS'
+        'MANIPULACION'
+        'INVERSION_SUJETO_PASIVO'
+        'REQUIERE_LOTE_SIMPLE')
+      ColumnasChecked.Strings = (
+        '1'
+        '1'
+        '1'
+        '1')
+      ColumnasNoChecked.Strings = (
+        '0'
+        '0'
+        '0'
+        '0')
+      Numericos.Strings = (
+        'BARRAS'
+        'ARTICULO'
+        'TIPO'
+        'NSERIE'
+        'PROYECTO'
+        'ID'
+        'TIPO'
+        'ALMACEN'
+        'CODIGO_CLIENTE'
+        'DIRECCION'
+        'TIPO'
+        'ID_DESPIECE_CAB')
+      SalirSiVacio = True
+      SalirSiNoExiste = True
+      Tablas.Strings = (
+        'VER_ARTICULOS_CON_BARRAS'
+        'VER_ARTICULOS_EF'
+        'SYS_TIPO_IVA'
+        'ART_ARTICULOS_SERIALIZACION'
+        'EMP_PROYECTOS'
+        'SYS_TIPO_LINEA_VENTA_KRI'
+        'VER_ARTICULOS_UNID_LOG'
+        'ART_ALMACENES'
+        'VER_ARTICULOS_COD_CLI'
+        'SYS_TERCEROS_DIRECCIONES'
+        'SYS_TIPO_IMPUESTO_ADICIONAL'
+        'PRO_DESPIECE_CAB')
+      Acciones.Strings = (
+        'ANEWARTICULO'
+        ''
+        ''
+        ''
+        ''
+        ''
+        ''
+        ''
+        ''
+        ''
+        ''
+        '')
+      Titulos.Strings = (
+        'TIPO'
+        'TITULO'
+        'TITULO'
+        'NSERIE'
+        'TITULO'
+        'TITULO'
+        'TITULO'
+        'TITULO'
+        'TITULO_ARTICULO'
+        'DIR_COMPLETA'
+        'TITULO'
+        'TITULO')
+      OnBusqueda = DBGFDetalleBusqueda
+      OnCampoDevuelve = DBGFDetalleCampoDevuelve
+      OnRowChange = DBGFDetalleRowChange
+      Planes.Strings = (
+        ''
+        ''
+        ''
+        ''
+        ''
+        ''
+        ''
+        ''
+        ''
+        ''
+        ''
+        '')
+      OrdenadosPor.Strings = (
+        'BARRAS'
+        'ARTICULO'
+        'TIPO'
+        'NSERIE'
+        'PROYECTO'
+        'ID'
+        'DEFECTO,TIPO'
+        'ALMACEN'
+        'CODIGO_CLIENTE'
+        'DIRECCION'
+        'TIPO'
+        'ID_DESPIECE_CAB')
+      Columns = <
+        item
+          Color = clInfoBk
+          Expanded = False
+          FieldName = 'ORDEN'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clGrayText
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ReadOnly = True
+          Width = 32
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'ARTICULO'
+          Width = 96
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'TITULO'
+          Width = 327
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'UNIDADES'
+          Title.Alignment = taRightJustify
+          Width = 60
+          Visible = True
+        end
+        item
+          Color = clInfoBk
+          Expanded = False
+          FieldName = 'SIGNO_UNIDADES'
+          ReadOnly = True
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'PRECIO'
+          Title.Alignment = taRightJustify
+          Width = 100
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'COSTE_ADICIONAL'
+          Width = 77
+          Visible = True
+        end
+        item
+          Color = clInfoBk
+          Expanded = False
+          FieldName = 'P_COSTE'
+          ReadOnly = True
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'BRUTO'
+          Visible = True
+        end
+        item
+          Color = clInfoBk
+          Expanded = False
+          FieldName = 'MARGEN'
+          ReadOnly = True
+          Width = 45
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'DESCUENTO'
+          Title.Alignment = taRightJustify
+          Width = 51
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'TIPO_IVA'
+          Width = 36
+          Visible = True
+        end
+        item
+          Color = clInfoBk
+          Expanded = False
+          FieldName = 'P_IVA'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clGrayText
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ReadOnly = True
+          Title.Alignment = taRightJustify
+          Width = 46
+          Visible = True
+        end
+        item
+          Color = clInfoBk
+          Expanded = False
+          FieldName = 'B_COMISION'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clGrayText
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ReadOnly = True
+          Title.Alignment = taRightJustify
+          Width = 90
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'DESCUENTO_2'
+          Title.Alignment = taRightJustify
+          Width = 51
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'DESCUENTO_3'
+          Title.Alignment = taRightJustify
+          Width = 51
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'LIQUIDO'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'TIPO_UNIDAD_LOGISTICA'
+          Width = 63
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'TITULO_UNIDAD_LOGISTICA'
+          Width = 95
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'UNIDADES_LOGISTICAS'
+          Width = 65
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'UNIDADES_SEC'
+          Title.Alignment = taRightJustify
+          Width = 1
+          Visible = True
+        end
+        item
+          Color = clInfoBk
+          Expanded = False
+          FieldName = 'UNIDADES_EXT'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clGrayText
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ReadOnly = True
+          Width = 46
+          Visible = True
+        end
+        item
+          Color = clInfoBk
+          Expanded = False
+          FieldName = 'TOTAL_UNIDADES_EXT'
+          ReadOnly = True
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'TIPO_LINEA_KRI'
+          Width = 25
+          Visible = True
+        end
+        item
+          Color = clInfoBk
+          Expanded = False
+          FieldName = 'I_DESCUENTO'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clGrayText
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ReadOnly = True
+          Title.Alignment = taRightJustify
+          Width = 88
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'PIEZAS_X_BULTO'
+          Width = 50
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'BULTOS'
+          Title.Alignment = taRightJustify
+          Width = 50
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'COMISION'
+          Title.Alignment = taRightJustify
+          Width = 50
+          Visible = True
+        end
+        item
+          Color = clInfoBk
+          Expanded = False
+          FieldName = 'I_COMISION'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clGrayText
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ReadOnly = True
+          Title.Alignment = taRightJustify
+          Width = 90
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'COMISION_LINEAL'
+          Visible = True
+        end
+        item
+          Color = clInfoBk
+          Expanded = False
+          FieldName = 'I_COMISION_LINEAL'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clGrayText
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ReadOnly = True
+          Width = 65
+          Visible = True
+        end
+        item
+          Color = clInfoBk
+          Expanded = False
+          FieldName = 'P_RECARGO'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clGrayText
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ReadOnly = True
+          Title.Alignment = taRightJustify
+          Width = 46
+          Visible = True
+        end
+        item
+          Color = clInfoBk
+          Expanded = False
+          FieldName = 'B_DTO_LINEA'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clGrayText
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ReadOnly = True
+          Title.Alignment = taRightJustify
+          Width = 93
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'APLICA_UNIDADES_SECUNDARIAS'
+          Width = 100
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'PROYECTO'
+          Width = 50
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'FECHA_ENTREGA_PREV'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'DIRECCION_ENTREGA'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'CODIGO_CLIENTE'
+          Width = 100
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'TITULO_CLIENTE'
+          Width = 230
+          Visible = True
+        end
+        item
+          Color = clInfoBk
+          Expanded = False
+          FieldName = 'TIPO_LINEA'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clGrayText
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ReadOnly = True
+          Width = 29
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'MANIPULACION'
+          Width = 32
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'INVERSION_SUJETO_PASIVO'
+          Width = 30
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'TIPO_IMPUESTO_ADICIONAL'
+          Width = 50
+          Visible = True
+        end
+        item
+          Color = clInfoBk
+          Expanded = False
+          FieldName = 'P_IMPUESTO_ADICIONAL'
+          ReadOnly = True
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'ID_DESPIECE'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'PESO'
+          Width = 70
+          Visible = True
+        end
+        item
+          Color = clInfoBk
+          Expanded = False
+          FieldName = 'PESO_TOTAL'
+          ReadOnly = True
+          Width = 70
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'PESO_REAL'
+          Width = 70
+          Visible = True
+        end
+        item
+          Color = clInfoBk
+          Expanded = False
+          FieldName = 'ECOTASA'
+          ReadOnly = True
+          Width = 50
+          Visible = True
+        end>
+    end
+    object PCPie: TLFPageControl
+      Left = 0
+      Top = 212
+      Width = 1141
+      Height = 55
+      ActivePage = TSPieGen
+      Align = alBottom
+      OwnerDraw = True
+      TabIndex = 0
+      TabOrder = 0
+      TabPosition = tpBottom
+      TabActiveColor = clWhite
+      TabInactiveColor = 14936298
+      object TSPieGen: TTabSheet
+        Caption = '&Gen'#233'rico'
+        object PPieGenerico: TLFPanel
+          Left = 0
+          Top = 0
+          Width = 1133
+          Height = 29
+          Align = alClient
+          AutoSize = True
+          BevelOuter = bvNone
+          BorderWidth = 2
+          Enabled = False
+          TabOrder = 0
+          object PNLPieUnidades: TLFPanel
+            Left = 2
+            Top = 2
+            Width = 233
+            Height = 25
+            Align = alLeft
+            AutoSize = True
+            BevelOuter = bvNone
+            ParentShowHint = False
+            ShowHint = True
+            TabOrder = 0
+            object LSumUnidades: TLFLabel
+              Left = 0
+              Top = 4
+              Width = 62
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'Uds. (U/L/S)'
+              Layout = tlCenter
+            end
+            object DBESumUnidades: TLFDbedit
+              Left = 66
+              Top = 0
+              Width = 55
+              Height = 21
+              Hint = 'Sum Unidades'
+              TabStop = False
+              AutoSize = False
+              Color = clInfoBk
+              DataField = 'SUM_UNIDADES'
+              DataSource = DMOfertas.DSInfoActualizada
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGrayText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              ReadOnly = True
+              TabOrder = 0
+            end
+            object DBESumUdsLogisticas: TLFDbedit
+              Left = 122
+              Top = 0
+              Width = 55
+              Height = 21
+              Hint = 'Sum Unidades Logisitcas'
+              TabStop = False
+              AutoSize = False
+              Color = clInfoBk
+              DataField = 'SUM_UNIDADES_LOGISTICAS'
+              DataSource = DMOfertas.DSInfoActualizada
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGrayText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              ReadOnly = True
+              TabOrder = 1
+            end
+            object DBESumUdsSec: TLFDbedit
+              Left = 178
+              Top = 0
+              Width = 55
+              Height = 21
+              Hint = 'Sum Unidades Secundarias'
+              TabStop = False
+              AutoSize = False
+              Color = clInfoBk
+              DataField = 'SUM_UNIDADES_SEC'
+              DataSource = DMOfertas.DSInfoActualizada
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGrayText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              ReadOnly = True
+              TabOrder = 2
+            end
+          end
+          object PNLPieInfo: TLFPanel
+            Left = 235
+            Top = 2
+            Width = 299
+            Height = 25
+            Align = alLeft
+            AutoSize = True
+            BevelOuter = bvNone
+            TabOrder = 1
+            object LSumaPeso: TLFLabel
+              Left = 126
+              Top = 4
+              Width = 24
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'Peso'
+              Layout = tlCenter
+            end
+            object LCantLineas: TLFLabel
+              Left = 0
+              Top = 4
+              Width = 17
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'Lin.'
+              Layout = tlCenter
+            end
+            object LBultos: TLFLabel
+              Left = 58
+              Top = 4
+              Width = 29
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'Bultos'
+              Layout = tlCenter
+            end
+            object LMargen: TLFLabel
+              Left = 214
+              Top = 4
+              Width = 36
+              Height = 13
+              Caption = 'Margen'
+            end
+            object DBECOUNT_LINEAS: TLFDbedit
+              Left = 21
+              Top = 0
+              Width = 30
+              Height = 21
+              TabStop = False
+              AutoSize = False
+              Color = clInfoBk
+              DataField = 'COUNT_LINEA'
+              DataSource = DMOfertas.DSInfoActualizada
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGrayText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              ReadOnly = True
+              TabOrder = 0
+            end
+            object DBESumaPeso: TLFDbedit
+              Left = 154
+              Top = 0
+              Width = 55
+              Height = 21
+              TabStop = False
+              AutoSize = False
+              Color = clInfoBk
+              DataField = 'SUM_PESO'
+              DataSource = DMOfertas.DSInfoActualizada
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGrayText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              ReadOnly = True
+              TabOrder = 1
+            end
+            object DBEBultos: TLFDbedit
+              Left = 90
+              Top = 0
+              Width = 30
+              Height = 21
+              TabStop = False
+              AutoSize = False
+              Color = clInfoBk
+              DataField = 'BULTOS'
+              DataSource = DMOfertas.DSInfoActualizada
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGrayText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              ReadOnly = True
+              TabOrder = 2
+            end
+            object DBEMargen: TLFDbedit
+              Left = 254
+              Top = 0
+              Width = 45
+              Height = 21
+              TabStop = False
+              AutoSize = False
+              Color = clInfoBk
+              DataField = 'MARGEN'
+              DataSource = DMOfertas.DSInfoActualizada
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGrayText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              ReadOnly = True
+              TabOrder = 3
+              OnChange = DBEMargenChange
+            end
+          end
+          object PNLInfoImportes: TLFPanel
+            Left = 534
+            Top = 2
+            Width = 597
+            Height = 25
+            Align = alClient
+            AutoSize = True
+            BevelOuter = bvNone
+            TabOrder = 2
+            object LLiquido: TLFLabel
+              Left = 328
+              Top = 4
+              Width = 36
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'L'#237'quido'
+              Layout = tlCenter
+            end
+            object LTotalAnticipo: TLFLabel
+              Left = 458
+              Top = 4
+              Width = 40
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'T. Antic.'
+              Layout = tlCenter
+            end
+            object LCuotaIVARec: TLFLabel
+              Left = 127
+              Top = 4
+              Width = 51
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'IVA y Rec.'
+              Layout = tlCenter
+            end
+            object LBaseImponible: TLFLabel
+              Left = 1
+              Top = 4
+              Width = 33
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'B. Imp.'
+              Layout = tlCenter
+            end
+            object DBETotal_Anticipado: TLFDbedit
+              Left = 502
+              Top = 0
+              Width = 86
+              Height = 21
+              AutoSize = False
+              Color = clInfoBk
+              DataField = 'TOTAL_ANTICIPADO'
+              DataSource = DMOfertas.DSInfoActualizada
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGrayText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              ReadOnly = True
+              TabOrder = 0
+            end
+            object DBES_Bases: TLFDbedit
+              Left = 37
+              Top = 0
+              Width = 86
+              Height = 21
+              AutoSize = False
+              Color = clInfoBk
+              DataField = 'S_BASES'
+              DataSource = DMOfertas.DSInfoActualizada
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGrayText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              ReadOnly = True
+              TabOrder = 1
+            end
+            object DBELiquido: TLFDbedit
+              Left = 368
+              Top = 0
+              Width = 86
+              Height = 21
+              AutoSize = False
+              Color = clInfoBk
+              DataField = 'LIQUIDO'
+              DataSource = DMOfertas.DSInfoActualizada
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGrayText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = [fsBold]
+              ParentFont = False
+              ReadOnly = True
+              TabOrder = 2
+            end
+            object DBECuotaRec: TLFDbedit
+              Left = 252
+              Top = 0
+              Width = 70
+              Height = 21
+              AutoSize = False
+              Color = clInfoBk
+              DataField = 'S_CUOTA_RE'
+              DataSource = DMOfertas.DSInfoActualizada
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGrayText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              ReadOnly = True
+              TabOrder = 3
+            end
+            object DBECuotaIVA: TLFDbedit
+              Left = 181
+              Top = 0
+              Width = 70
+              Height = 21
+              AutoSize = False
+              Color = clInfoBk
+              DataField = 'S_CUOTA_IVA'
+              DataSource = DMOfertas.DSInfoActualizada
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGrayText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              ReadOnly = True
+              TabOrder = 4
+            end
+          end
+        end
+      end
+      object TSPieRetCom: TTabSheet
+        Caption = '&Retenciones/Comisiones'
+        ImageIndex = 1
+        object PPieRetenciones: TLFPanel
+          Left = 0
+          Top = 0
+          Width = 1133
+          Height = 29
+          Align = alClient
+          AutoSize = True
+          BevelOuter = bvNone
+          Enabled = False
+          TabOrder = 0
+          object LBaseComision: TLFLabel
+            Left = 447
+            Top = 5
+            Width = 69
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Base Comisi'#243'n'
+            FocusControl = DBEBaseComision
+            Layout = tlCenter
+          end
+          object LImporte: TLFLabel
+            Left = 634
+            Top = 5
+            Width = 35
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Importe'
+            FocusControl = DBEImp_Comision
+            Layout = tlCenter
+          end
+          object DBEBaseComision: TLFDbedit
+            Left = 522
+            Top = 2
+            Width = 90
+            Height = 21
+            Color = clInfoBk
+            DataField = 'B_COMISION'
+            DataSource = DMOfertas.DSInfoActualizada
+            Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGrayText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 0
+          end
+          object DBEImp_Comision: TLFDbedit
+            Left = 674
+            Top = 2
+            Width = 90
+            Height = 21
+            Color = clInfoBk
+            DataField = 'I_COMISION'
+            DataSource = DMOfertas.DSInfoActualizada
+            Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGrayText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 1
+          end
+        end
+      end
+      object TSPieCarDtos: TTabSheet
+        Caption = '&Cargos y Descuentos'
+        ImageIndex = 2
+        object PPieComisiones: TLFPanel
+          Left = 0
+          Top = 0
+          Width = 1133
+          Height = 29
+          Align = alClient
+          AutoSize = True
+          BevelOuter = bvNone
+          Enabled = False
+          TabOrder = 0
+          object LBaseDtoLinea: TLFLabel
+            Left = 292
+            Top = 5
+            Width = 78
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Base Dto. Lineal'
+            FocusControl = DBEBaseDtoEnLinea
+            Layout = tlCenter
+          end
+          object LPieImporte: TLFLabel
+            Left = 475
+            Top = 5
+            Width = 35
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Importe'
+            Layout = tlCenter
+          end
+          object LImporteFinanciacion: TLFLabel
+            Left = 86
+            Top = 5
+            Width = 98
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Importe Financiaci'#243'n'
+            FocusControl = DBEImpFinanciacion
+            Layout = tlCenter
+          end
+          object LImporteBase: TLFLabel
+            Left = 618
+            Top = 5
+            Width = 52
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Imp. Bases'
+            Layout = tlCenter
+          end
+          object DBEBaseDtoEnLinea: TLFDbedit
+            Left = 374
+            Top = 2
+            Width = 90
+            Height = 21
+            Color = clInfoBk
+            DataField = 'B_DTO_LINEAS'
+            DataSource = DMOfertas.DSInfoActualizada
+            Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGrayText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 1
+          end
+          object DBEImpDtoEnLinea: TLFDbedit
+            Left = 514
+            Top = 2
+            Width = 90
+            Height = 21
+            Color = clInfoBk
+            DataField = 'I_DTO_LINEAS'
+            DataSource = DMOfertas.DSInfoActualizada
+            Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGrayText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 2
+          end
+          object DBEImpFinanciacion: TLFDbedit
+            Left = 188
+            Top = 2
+            Width = 90
+            Height = 21
+            Color = clInfoBk
+            DataField = 'I_FINANCIACION'
+            DataSource = DMOfertas.DSInfoActualizada
+            Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGrayText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 0
+          end
+          object DBESumaBases: TLFDbedit
+            Left = 674
+            Top = 2
+            Width = 90
+            Height = 21
+            Color = clInfoBk
+            DataField = 'S_BASES'
+            DataSource = DMOfertas.DSInfoActualizada
+            Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGrayText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 3
+          end
+        end
+      end
+    end
+    object TBProduccion: TLFToolBar
+      Left = 0
+      Top = 22
+      Width = 1141
+      Height = 22
+      AutoSize = True
+      DisabledImages = DMMain.ILMain_In
+      EdgeBorders = []
+      Flat = True
+      Images = DMMain.ILMain_Ac
+      TabOrder = 3
+      Separators = True
+      object TButtPartidas: TToolButton
+        Left = 0
+        Top = 0
+        Caption = 'Partidas'
+        DropdownMenu = PMPartidas
+        ImageIndex = 25
+        Style = tbsDropDown
+      end
+      object TBOfertasEsc: TToolButton
+        Left = 36
+        Top = 0
+        Hint = 'Crear/Abrir Oferta Escandallo'
+        Caption = 'Crear/seleccionar oferta de escandallo'
+        DropdownMenu = PMImprimeOfertasE
+        ImageIndex = 6
+        ParentShowHint = False
+        ShowHint = True
+        Style = tbsDropDown
+        OnClick = AProCrearRelOfertaEExecute
+      end
+      object TBMedidas: TToolButton
+        Left = 72
+        Top = 0
+        Action = AProMedidas
+        ParentShowHint = False
+        ShowHint = True
+      end
+      object TButtDatosAdicionalesCompuesto: TToolButton
+        Left = 95
+        Top = 0
+        Action = ADatosAdicionalesCompuesto
+      end
+      object TBDespiece: TToolButton
+        Left = 118
+        Top = 0
+        Action = ADespiece
+        ParentShowHint = False
+        ShowHint = True
+      end
+    end
+  end
+  inherited TBActions: TLFToolBar
+    Top = 547
+    Width = 1141
+    ParentColor = False
+    TabOrder = 0
+  end
+  inherited CEMain: TControlEdit
+    PanelEdicion = PEdCabecera
+    Left = 113
+    Top = 317
+  end
+  inherited CEMainPMEdit: TPopUpTeclas
+    Left = 113
+    Top = 350
+  end
+  inherited ALMain: TLFActionList
+    Left = 306
+    Top = 316
+    object AInformeOferta: TAction
+      Category = 'Listados'
+      Caption = 'Informe Oferta'
+      Hint = 'Informe Oferta'
+      ImageIndex = 14
+      OnExecute = AInformeOfertaExecute
+    end
+    object AHerencia: TAction
+      Category = 'Otros'
+      Caption = 'Herencia'
+      Hint = 'Herencia'
+      ImageIndex = 97
+      OnExecute = AHerenciaExecute
+    end
+    object ACambiarNombre: TAction
+      Category = 'Procesos'
+      Caption = 'Cambiar a Nombre Comercial'
+      Hint = 'Cambiar a Nombre Comercial'
+      ImageIndex = 17
+      OnExecute = ACambiarNombreExecute
+    end
+    object AFiltroTodos: TAction
+      Category = 'Filtros'
+      Caption = 'Quitar filtro'
+      Hint = 'Muestra todos los documentos'
+      ImageIndex = 5
+      OnExecute = AFiltroTodosExecute
+    end
+    object AFiltroAbierto: TAction
+      Category = 'Filtros'
+      Caption = 'Abiertos'
+      Hint = 'Muestra los documentos abiertos'
+      ImageIndex = 5
+      OnExecute = AFiltroAbiertoExecute
+    end
+    object AFiltroAbiertoAceptado: TAction
+      Category = 'Filtros'
+      Caption = 'Abiertos y Aceptados'
+      Hint = 'Filtra documentos abiertos y marcados como aceptados'
+      ImageIndex = 5
+      OnExecute = AFiltroAbiertoAceptadoExecute
+    end
+    object AFiltroCerrado: TAction
+      Category = 'Filtros'
+      Caption = 'Cerrados'
+      Hint = 'Muestra documentos cerrados'
+      ImageIndex = 5
+      OnExecute = AFiltroCerradoExecute
+    end
+    object AFiltroAnulado: TAction
+      Category = 'Filtros'
+      Caption = 'Anulados'
+      Hint = 'Muestra los documentos anulados'
+      ImageIndex = 5
+      OnExecute = AFiltroAnuladoExecute
+    end
+    object AAdjuntosOferta: TAction
+      Category = 'Adjuntos'
+      Caption = 'Adjuntos de la Oferta'
+      ImageIndex = 59
+      OnExecute = AAdjuntosOfertaExecute
+    end
+    object LFCategoryAction1: TLFCategoryAction
+      Category = 'Listados'
+      Caption = 'Listados'
+      ImageIndex = 14
+    end
+    object AInformeOferta2: TLFNoSaveAction
+      Category = 'Listados'
+      Caption = 'Informe Oferta 2'
+      Hint = 'Informe Oferta 2'
+      ImageIndex = 14
+      Visible = False
+      OnExecute = AInformeOferta2Execute
+    end
+    object AInformeOferta3: TLFNoSaveAction
+      Category = 'Listados'
+      Caption = 'Informe Oferta 3'
+      Hint = 'Informe Oferta 3'
+      ImageIndex = 14
+      Visible = False
+      OnExecute = AInformeOferta3Execute
+    end
+    object AInformeOferta4: TLFNoSaveAction
+      Category = 'Listados'
+      Caption = 'Informe Oferta 4'
+      Hint = 'Informe Oferta 4'
+      ImageIndex = 14
+      Visible = False
+      OnExecute = AInformeOferta4Execute
+    end
+    object AVisualizarOfertasFiltradas: TAction
+      Category = 'Listados'
+      Caption = 'Visualizar Ofertas Filtradas'
+      Hint = 'Visualizar Ofertas Filtradas'
+      ImageIndex = 14
+      OnExecute = AVisualizarOfertasFiltradasExecute
+    end
+    object AEnviarOfertasMailPDF: TAction
+      Category = 'Listados'
+      Caption = 'Enviar Oferta por e-mail en Pdf (directo)'
+      Hint = 'Enviar Oferta por e-mail en Pdf'
+      ImageIndex = 34
+      ShortCut = 49229
+      OnExecute = AEnviarOfertasMailPDFExecute
+    end
+    object AEnviarOfertasMailPDF2: TAction
+      Category = 'Listados'
+      Caption = 'Enviar Oferta por e-mail en Pdf (mensaje)'
+      Hint = 'Enviar Oferta por e-mail en Pdf por cliente de correo'
+      ImageIndex = 34
+      OnExecute = AEnviarOfertasMailPDF2Execute
+    end
+    object AImprimirOfertasFiltradas: TAction
+      Category = 'Listados'
+      Caption = 'Imprimir Ofertas Filtradas'
+      Hint = 'Imprimir Ofertas Filtradas'
+      ImageIndex = 14
+      OnExecute = AImprimirOfertasFiltradasExecute
+    end
+    object AFacturaProforma: TAction
+      Category = 'Listados;"Factura Proforma"'
+      Caption = 'Factura Proforma'
+      Hint = 'Factura Proforma'
+      ImageIndex = 14
+      OnExecute = AFacturaProformaExecute
+    end
+    object ASep: TAction
+      Category = 'Listados'
+      Caption = '-'
+    end
+    object AResumenOfertas: TAction
+      Category = 'Listados'
+      Caption = 'Resumen Ofertas'
+      Hint = 'Resumen Ofertas'
+      ImageIndex = 14
+      OnExecute = AResumenOfertasExecute
+    end
+    object AMuestraDocumentosVenta: TAction
+      Category = 'Otros'
+      Caption = 'Muestra documentos venta del cliente'
+      Hint = 'Muestra documentos venta del cliente'
+      ImageIndex = 55
+      ShortCut = 115
+      OnExecute = AMuestraDocumentosVentaExecute
+    end
+    object AResumenOfertasFiltradas: TAction
+      Category = 'Listados'
+      Caption = 'Resumen Ofertas Filtradas'
+      Hint = 'Resumen Ofertas Filtradas'
+      ImageIndex = 14
+      OnExecute = AResumenOfertasFiltradasExecute
+    end
+    object AImprimirResumenOfertasFiltradas: TAction
+      Category = 'Listados'
+      Caption = 'Imprimir Resumen Ofertas Filtradas'
+      Hint = 'Imprimir Resumen Ofertas Filtradas'
+      ImageIndex = 14
+      OnExecute = AImprimirResumenOfertasFiltradasExecute
+    end
+    object AAbrirAdjunto: TAction
+      Category = 'Listados'
+      Caption = 'Abrir archivo adjunto'
+      ImageIndex = 59
+      OnExecute = AAbrirAdjuntoExecute
+    end
+    object ASep2: TAction
+      Category = 'Listados'
+      Caption = '-'
+    end
+    object AListarEtiquetas: TAction
+      Category = 'Listados'
+      Caption = 'Listar Etiquetas'
+      Hint = 'Lista Etiquetas de los articulos del documento'
+      ImageIndex = 95
+      OnExecute = AListarEtiquetasExecute
+    end
+    object LFCategoryAction2: TLFCategoryAction
+      Category = 'Listados;"Configuraci'#243'n R'#225'pida de Listados"'
+      Caption = 'Configuraci'#243'n R'#225'pida de Listados'
+      ImageIndex = 77
+    end
+    object AConfOfertas: TAction
+      Category = 'Listados;"Configuraci'#243'n R'#225'pida de Listados"'
+      Caption = 'Listado de Ofertas'
+      Hint = 'Listado de Ofertas'
+      ImageIndex = 77
+      OnExecute = AConfOfertasExecute
+    end
+    object AConfOfertasCliFechas: TAction
+      Category = 'Listados;"Configuraci'#243'n R'#225'pida de Listados"'
+      Caption = 'Listado de Ofertas entre Fechas y Clientes'
+      Hint = 'Listado de Ofertas entre Fechas y Clientes'
+      ImageIndex = 77
+      OnExecute = AConfOfertasCliFechasExecute
+    end
+    object AConfFacProforma: TAction
+      Category = 'Listados;"Configuraci'#243'n R'#225'pida de Listados"'
+      Caption = 'Factura Proforma'
+      Hint = 'Factura Proforma'
+      ImageIndex = 77
+      OnExecute = AConfFacProformaExecute
+    end
+    object LFCategoryAction3: TLFCategoryAction
+      Category = 'Procesos'
+      Caption = 'Procesos'
+      ImageIndex = 16
+    end
+    object ASep3: TAction
+      Category = 'Procesos'
+      Caption = '-'
+    end
+    object AAPedido: TAction
+      Category = 'Procesos'
+      Caption = 'Traspaso a Pedido'
+      Hint = 'Traspasa la Oferta actual a Pedido'
+      ImageIndex = 62
+      OnExecute = AAPedidoExecute
+    end
+    object AAAlbaran: TAction
+      Category = 'Procesos'
+      Caption = 'Traspaso a Albar'#225'n'
+      Hint = 'Traspasa la Oferta actual a Albar'#225'n'
+      ImageIndex = 60
+      OnExecute = AAAlbaranExecute
+    end
+    object AAFactura: TAction
+      Category = 'Procesos'
+      Caption = 'Traspaso a Factura'
+      Hint = 'Traspasa la Oferta actual a Factura'
+      ImageIndex = 61
+      OnExecute = AAFacturaExecute
+    end
+    object AOfertaMulti: TAction
+      Category = 'Procesos'
+      Caption = 'Traspaso de Ofertas MultiCanal'
+      Hint = 'Traspaso de Ofertas MultiCanal'
+      ImageIndex = 132
+      OnExecute = AOfertaMultiExecute
+    end
+    object Asep4: TAction
+      Category = 'Procesos'
+      Caption = '-'
+    end
+    object ADuplicarOferta: TAction
+      Category = 'Procesos'
+      Caption = 'Duplicar Oferta'
+      Hint = 'Duplicar Oferta'
+      ImageIndex = 37
+      OnExecute = ADuplicarOfertaExecute
+    end
+    object AAReparacion: TAction
+      Category = 'Procesos'
+      Caption = 'Traspaso a Reparaci'#243'n'
+      Hint = 'Traspasa la Oferta actual a Reparacion'
+      ImageIndex = 119
+      OnExecute = AAReparacionExecute
+    end
+    object ATicket: TAction
+      Category = 'Procesos'
+      Caption = 'Traspaso a Ticket'
+      Hint = 'Traspasa la Oferta actual a Ticket'
+      ImageIndex = 123
+      OnExecute = ATicketExecute
+    end
+    object ACondicionesClientes: TAction
+      Category = 'Procesos'
+      Caption = 'Regenerar Condiciones de Clientes'
+      Hint = 'Regenerar Condiciones de Clientes'
+      ImageIndex = 25
+      OnExecute = ACondicionesClientesExecute
+    end
+    object ARefrescaDetalle: TAction
+      Category = 'Procesos'
+      Caption = 'Recalcula el Detalle'
+      Hint = 'Recalcula el Detalle'
+      ImageIndex = 3
+      OnExecute = ARefrescaDetalleExecute
+    end
+    object AAnulaDocumento: TAction
+      Category = 'Procesos'
+      Caption = 'Marca el documento como anulado / pendiente'
+      Hint = 'Marca el documento como anulado / pendiente'
+      ImageIndex = 27
+      OnExecute = AAnulaDocumentoExecute
+    end
+    object AAbrirCerrar: TAction
+      Category = 'Procesos'
+      Caption = 'Abrir Oferta'
+      Hint = 'Abre y desbloquea el documento'
+      ImageIndex = 68
+      OnExecute = AAbrirCerrarExecute
+    end
+    object ADuplicaConHerenciaKri: TAction
+      Category = 'Procesos'
+      Caption = 'Nueva Versi'#243'n'
+      Hint = 'Duplica el documento, manteniendo la relaci'#243'n con el anterior'
+      ImageIndex = 98
+      OnExecute = ADuplicaConHerenciaKriExecute
+    end
+    object AVerVersionesKri: TAction
+      Category = 'Procesos'
+      Caption = 'Ver todas las versiones de la Oferta'
+      ImageIndex = 87
+      OnExecute = AVerVersionesKriExecute
+    end
+    object AInsertarDesdeOferta: TAction
+      Category = 'Procesos'
+      Caption = 'Insertar Lineas Desde Oferta'
+      ImageIndex = 37
+      OnExecute = AInsertarDesdeOfertaExecute
+    end
+    object LFCategoryAction4: TLFCategoryAction
+      Category = 'Otros'
+      Caption = 'Otros'
+      ImageIndex = 99
+    end
+    object AOrdenaLineas: TAction
+      Category = 'Otros'
+      Caption = 'Reordenar las L'#237'neas'
+      Hint = 'Reordena el las lineas del documento'
+      ImageIndex = 122
+      OnExecute = AOrdenaLineasExecute
+    end
+    object APasoaPedProv: TAction
+      Category = 'Otros'
+      Caption = 'Paso a Pedido de Proveedor'
+      Hint = 'Pasar l'#237'neas a Pedidos de Proveedor'
+      ImageIndex = 42
+      OnExecute = APasoaPedProvExecute
+    end
+    object AOrdenarPorDireccionEntrega: TAction
+      Category = 'Otros'
+      Caption = 'Ordenar por Dir. Entrega'
+      Hint = 'Ordena las lineas por direccion de entrega'
+      ImageIndex = 46
+      Visible = False
+      OnExecute = AOrdenarPorDireccionEntregaExecute
+    end
+    object ADetallesDeLinea: TAction
+      Category = 'Otros'
+      Caption = 'Detalles de Linea'
+      Hint = 'Detalles de Linea'
+      ImageIndex = 18
+      OnExecute = ADetallesDeLineaExecute
+    end
+    object ACambioPCosteLinea: TAction
+      Category = 'Procesos'
+      Caption = 'Cambio Precio Coste Linea'
+      Hint = 'Cambia el precio de coste de la linea'
+      ImageIndex = 55
+      OnExecute = ACambioPCosteLineaExecute
+    end
+    object ACambioCosteAdicionalLinea: TAction
+      Category = 'Procesos'
+      Caption = 'Cambio Coste Adicional Linea'
+      Hint = 'Cambia el Coste Adicional de la linea'
+      ImageIndex = 55
+      OnExecute = ACambioCosteAdicionalLineaExecute
+    end
+    object ADuplicarLinea: TAction
+      Category = 'Otros'
+      Caption = 'Duplicar Linea'
+      Hint = 'Duplicar Linea'
+      ImageIndex = 37
+      OnExecute = ADuplicarLineaExecute
+    end
+    object LFCategoryAction7: TLFCategoryAction
+      Category = 'Filtros'
+      Caption = 'Filtros'
+      ImageIndex = 5
+    end
+    object LFCategoryAction5: TLFCategoryAction
+      Category = 'Adjuntos'
+      Caption = 'Adjuntos'
+      ImageIndex = 59
+    end
+    object AAdjuntosCliente: TAction
+      Category = 'Adjuntos'
+      Caption = 'Adjuntos del Cliente'
+      ImageIndex = 59
+      OnExecute = AAdjuntosClienteExecute
+    end
+    object AAdjuntosTercero: TAction
+      Category = 'Adjuntos'
+      Caption = 'Adjuntos del Tercero'
+      ImageIndex = 59
+      OnExecute = AAdjuntosTerceroExecute
+    end
+    object AAdjuntosAgente: TAction
+      Category = 'Adjuntos'
+      Caption = 'Adjuntos del Agente'
+      ImageIndex = 59
+      OnExecute = AAdjuntosAgenteExecute
+    end
+    object ACreaAnticipo: TAction
+      Category = 'Otros'
+      Caption = 'Anticipos'
+      Hint = 'Crea Recibo Anticipo'
+      ImageIndex = 141
+      ShortCut = 117
+      OnExecute = ACreaAnticipoExecute
+    end
+    object AAsignaEmpleado: TAction
+      Category = 'Otros'
+      Caption = 'Asigna Empleado'
+      Hint = 'Asigna Empleado Atencion/Responsable'
+      ImageIndex = 135
+      OnExecute = AAsignaEmpleadoExecute
+    end
+    object ARecibos: TAction
+      Category = 'Otros'
+      Caption = 'Recibos de documento'
+      Hint = 'Recibos de documento'
+      ImageIndex = 75
+      OnExecute = ARecibosExecute
+    end
+    object LFCategoryAction6: TLFCategoryAction
+      Category = 'Listados;"Factura Proforma"'
+      Caption = 'Factura Proforma'
+      ImageIndex = 61
+    end
+    object AEnviarProformaMailPDF: TAction
+      Category = 'Listados;"Factura Proforma"'
+      Caption = 'Enviar Proforma por e-mail en Pdf (directo)'
+      Hint = 'Enviar Oferta por e-mail en Pdf'
+      ImageIndex = 34
+      OnExecute = AEnviarProformaMailPDFExecute
+    end
+    object AEnviarProformaMailPDF2: TAction
+      Category = 'Listados;"Factura Proforma"'
+      Caption = 'Enviar Proforma por e-mail en Pdf (mensaje)'
+      Hint = 'Enviar Oferta por e-mail en Pdf por cliente de correo'
+      ImageIndex = 34
+      OnExecute = AEnviarProformaMailPDF2Execute
+    end
+    object APedirFirma: TAction
+      Category = 'Otros'
+      Caption = 'Pedir Firma'
+      Hint = 'Pedir Firma'
+      ImageIndex = 124
+      OnExecute = APedirFirmaExecute
+    end
+    object ABorrarFirma: TAction
+      Category = 'Otros'
+      Caption = 'Borrar Firma'
+      Hint = 'Borrar Firma'
+      ImageIndex = 124
+      OnExecute = ABorrarFirmaExecute
+    end
+    object ACrearHerenciaManual: TAction
+      Category = 'Otros'
+      Caption = 'Crear Herencia Manual'
+      Hint = 'Crear Herencia Manual'
+      ImageIndex = 97
+      OnExecute = ACrearHerenciaManualExecute
+    end
+    object AImportaDetalleDesdeExcel: TAction
+      Category = 'Procesos'
+      Caption = 'Importa Detalle desde Excel'
+      Hint = 'Importa Detalle desde Excel'
+      ImageIndex = 98
+      OnExecute = AImportaDetalleDesdeExcelExecute
+    end
+    object AInsertaArticulosCliente: TAction
+      Category = 'Otros'
+      Caption = 'Inserta Articulos Cliente'
+      Hint = 'Inserta los articulos comprados habitualmente por el cliente'
+      ImageIndex = 105
+      OnExecute = AInsertaArticulosClienteExecute
+    end
+    object ARecuperarCostesEscandallo: TAction
+      Category = 'Otros'
+      Caption = 'Recuperar Costes Escandallo'
+      ImageIndex = 143
+      OnExecute = ARecuperarCostesEscandalloExecute
+    end
+    object ABorradoMasivoLineas: TAction
+      Category = 'Otros'
+      Caption = 'Seleccion y borrado masivo de lineas'
+      Hint = 'Seleccion y borrado masivo de lineas'
+      ImageIndex = 32
+      OnExecute = ABorradoMasivoLineasExecute
+    end
+    object AIncrementarPrecio: TAction
+      Category = 'Procesos'
+      Caption = 'Incrementar Precio'
+      Hint = 'Incrementar Precio'
+      ImageIndex = 56
+      OnExecute = AIncrementarPrecioExecute
+    end
+  end
+  inherited FSMain: TLFFibFormStorage
+    Left = 337
+    Top = 316
+  end
+  inherited CEDetalle: TControlEdit
+    EnlazadoA = CENotas
+    Complementario = nil
+    SubComplementario = ALMain
+    Left = 145
+    Top = 317
+  end
+  inherited CEDetallePMEdit: TPopUpTeclas
+    Left = 145
+    Top = 350
+  end
+  object CENotas: TControlEdit
+    EnlazadoA = CEMain
+    FichaEdicion = TSNotas
+    FichaExclusiva = TSNotas
+    PanelEdicion = PEdNotas
+    SubComplementario = ALMain
+    PopUpMenu = CENotasPMEdit
+    Teclas = DMMain.Teclas
+    Left = 178
+    Top = 317
+  end
+  object CENotasPMEdit: TPopUpTeclas
+    Teclas = DMMain.Teclas
+    Left = 178
+    Top = 350
+    object CENotasMifirst: TMenuItem
+      Caption = 'Primero'
+      Enabled = False
+      ShortCut = 16464
+      Visible = False
+    end
+    object CENotasMiprior: TMenuItem
+      Caption = 'Anterior'
+      Enabled = False
+      ShortCut = 16449
+      Visible = False
+    end
+    object CENotasMinext: TMenuItem
+      Caption = 'Siguiente'
+      Enabled = False
+      ShortCut = 16467
+      Visible = False
+    end
+    object CENotasMilast: TMenuItem
+      Caption = #218'ltimo'
+      Enabled = False
+      ShortCut = 16469
+      Visible = False
+    end
+    object CENotasMiinsert: TMenuItem
+      Caption = 'A'#241'adir'
+      Enabled = False
+      ShortCut = 16429
+      Visible = False
+    end
+    object CENotasMidelete: TMenuItem
+      Caption = 'Borrar'
+      Enabled = False
+      ShortCut = 16430
+      Visible = False
+    end
+    object CENotasMiedit: TMenuItem
+      Caption = 'Modificar'
+      Enabled = False
+      ShortCut = 16453
+    end
+    object CENotasMipost: TMenuItem
+      Caption = 'Grabar'
+      Enabled = False
+      ShortCut = 16455
+    end
+    object CENotasMicancel: TMenuItem
+      Caption = 'Cancelar'
+      Enabled = False
+      ShortCut = 16472
+    end
+    object CENotasMirefresh: TMenuItem
+      Caption = 'Refrescar'
+      Enabled = False
+      ShortCut = 16466
+      Visible = False
+    end
+  end
+  object ALOfertas: TLFActionList
+    Images = DMMain.ILMain_Ac
+    Reset = False
+    Enabled = True
+    Changed = False
+    Left = 305
+    Top = 352
+    object ANotasDetalle: TAction
+      Caption = 'Notas Detalle'
+      Hint = 'Edita las notas de la linea seleccionada (CTRL+N)'
+      ImageIndex = 18
+      ShortCut = 16462
+      OnExecute = ANotasDetalleExecute
+    end
+    object AInfoStocks: TAction
+      Caption = 'AInfoStocks'
+      Hint = 'Informaci'#243'n de Stocks'
+      ImageIndex = 1
+      ShortCut = 16467
+      OnExecute = AInfoStocksExecute
+    end
+    object AUnidadesExt: TAction
+      Caption = 'AUnidadesExt'
+      Hint = 'Unidades Extendidas'
+      ImageIndex = 69
+      ShortCut = 49221
+      OnExecute = AUnidadesExtExecute
+    end
+    object APreciosTarifa: TAction
+      Caption = 'Precios por Tarifa'
+      Hint = 'Precios por Tarifa'
+      ImageIndex = 33
+      ShortCut = 49232
+      OnExecute = APreciosTarifaExecute
+    end
+    object AInfoHistorico: TAction
+      Caption = 'Hist'#243'rico de Precios'
+      Hint = 'Hist'#243'rico de Precios'
+      ImageIndex = 56
+      ShortCut = 49224
+      OnExecute = AInfoHistoricoExecute
+    end
+    object ANewCliente: TAction
+      Caption = 'Cliente nuevo'
+      OnExecute = ANewClienteExecute
+    end
+    object ANewAgente: TAction
+      Caption = 'Agente nuevo'
+      OnExecute = ANewAgenteExecute
+    end
+    object ANewArticulo: TAction
+      Caption = 'Art'#237'culo nuevo'
+      Hint = 'Crear Articulo'
+      OnExecute = ANewArticuloExecute
+    end
+    object AACliente: TAction
+      Caption = 'Ver Datos Cliente'
+      Hint = 'Doble click o Ctrl+Alt+C para ver los datos del Cliente'
+      ShortCut = 49219
+      OnExecute = AAClienteExecute
+    end
+    object AAAgente: TAction
+      Caption = 'Ver Datos Agente'
+      Hint = 'Doble click o Ctrl+Alt+A para ver los datos del Agente'
+      ShortCut = 49217
+      OnExecute = AAAgenteExecute
+    end
+    object AImprime: TAction
+      Caption = 'AImprime'
+      Hint = 'Imprime Informe'
+      ImageIndex = 14
+      ShortCut = 49225
+      OnExecute = AImprimeExecute
+    end
+    object AArticulo: TAction
+      Caption = 'Ver Datos del Art'#237'culo'
+      Hint = 'Doble click o Ctrl+Alt+T para ver los datos del Art'#237'culo'
+      ShortCut = 49236
+      OnExecute = AArticuloExecute
+    end
+    object AArtCli: TAction
+      Caption = 'Muestra los Clientes que compran este  Art'#237'culo'
+      Hint = 'Clientes por Art'#237'culo'
+      ImageIndex = 89
+      ShortCut = 49219
+      OnExecute = AArtCliExecute
+    end
+    object ACliArt: TAction
+      Caption = 'Muestra los Art'#237'culo que compran este  Clientes'
+      Hint = 'Muestra los Art'#237'culo que compran este  Clientes'
+      ImageIndex = 89
+      OnExecute = ACliArtExecute
+    end
+    object ACambiaTitulo: TAction
+      Caption = 'Titulo en el Idioma'
+      Hint = 'Mostrar t'#237'tulos en el idioma'
+      ImageIndex = 91
+      OnExecute = ACambiaTituloExecute
+    end
+    object ANIFOferta: TAction
+      Caption = 'Datos del Cliente'
+      Hint = 'Datos del Cliente'
+      ShortCut = 16452
+      OnExecute = ANIFOfertaExecute
+    end
+    object ABuscaReferencias: TAction
+      Caption = 'Busca Referencias'
+      Hint = 'Busca Referencias'
+      ImageIndex = 83
+      OnExecute = ABuscaReferenciasExecute
+    end
+    object ADescargaLector: TAction
+      Caption = 'Descarga Lector'
+      Hint = 'Descarga los datos leidos con el lector de codigos de barras'
+      ImageIndex = 38
+      OnExecute = ADescargaLectorExecute
+    end
+    object ABuscarArticulo: TAction
+      Caption = 'ABuscarArticulo'
+      Hint = 'Buscar Documentos por articulo'
+      ImageIndex = 109
+      OnExecute = ABuscarArticuloExecute
+    end
+    object ASubirLinea: TAction
+      Caption = 'Subir Linea'
+      Hint = 'Sube la linea'
+      ImageIndex = 53
+      ShortCut = 49217
+      OnExecute = ASubirLineaExecute
+    end
+    object ABajarLinea: TAction
+      Caption = 'Bajar Linea'
+      Hint = 'Baja la linea'
+      ImageIndex = 52
+      ShortCut = 49242
+      OnExecute = ABajarLineaExecute
+    end
+    object ABuscaNIFKRI: TAction
+      Caption = 'Busca en Clientes Varios'
+      Hint = 'Busca en Clientes Varios'
+      ImageIndex = 54
+      OnExecute = ABuscaNIFKRIExecute
+    end
+    object AProCrearRelOfertaE: TAction
+      Caption = 'Crear/seleccionar oferta de escandallo'
+      Hint = 'Crear/seleccionar oferta de escandallo'
+      ImageIndex = 10
+      OnExecute = AProCrearRelOfertaEExecute
+    end
+    object AProOfertaE: TAction
+      Caption = 'AProOfertaE'
+      OnExecute = AProOfertaEExecute
+    end
+    object AProEscandall: TAction
+      Caption = 'AProEscandall'
+      OnExecute = AProEscandallExecute
+    end
+    object AProListadoRelOfertaE: TAction
+      Caption = 'Listado costes (oferta/escandallo)'
+      ImageIndex = 14
+      OnExecute = AProListadoRelOfertaEExecute
+    end
+    object AProConfLstOfertaE: TAction
+      Caption = 'Listado costes (oferta/escandallo)'
+      OnExecute = AProConfLstOfertaEExecute
+    end
+    object AProListadoRelOfertaE2: TAction
+      Caption = 'Listado oferta (cliente/escandallo)'
+      ImageIndex = 14
+      OnExecute = AProListadoRelOfertaE2Execute
+    end
+    object AProConfLstOfertaECli: TAction
+      Caption = 'Listado oferta (cliente/escandallo)'
+      OnExecute = AProConfLstOfertaECliExecute
+    end
+    object AProMedidas: TAction
+      Caption = 'Medidas'
+      Hint = 'Datos Adicionales Oferta Escandallo'
+      ImageIndex = 7
+      OnExecute = AProMedidasExecute
+    end
+    object ADatosAdicionalesCompuesto: TAction
+      Caption = 'Datos Especiales de Compuestos'
+      Hint = 'Datos Especiales de Compuestos'
+      ImageIndex = 10
+      OnExecute = ADatosAdicionalesCompuestoExecute
+    end
+    object ADespiece: TAction
+      Caption = 'Despiece'
+      Hint = 'Despiece'
+      ImageIndex = 111
+      OnExecute = ADespieceExecute
+    end
+    object AAOfertaEsp: TAction
+      Caption = 'AAOfertaEsp'
+      OnExecute = AAOfertaEspExecute
+    end
+    object AAsignarImagenLinea: TAction
+      Caption = 'Asignar Imagen a Linea'
+      Hint = 'Asignar Imagen a Linea'
+      ImageIndex = 28
+      OnExecute = AAsignarImagenLineaExecute
+    end
+    object AReparacion: TAction
+      Caption = 'Reparacion'
+      Hint = 'Ver Reparacion asociada a la oferta'
+      ImageIndex = 119
+      OnExecute = AReparacionExecute
+    end
+    object AProyecto: TAction
+      Caption = 'Proyecto'
+      OnExecute = AProyectoExecute
+    end
+    object AImportarDetalle: TAction
+      Caption = 'Importar Detalle'
+      Hint = 'Importar Articulos desde Texto'
+      ImageIndex = 49
+      OnExecute = AImportarDetalleExecute
+    end
+    object ATercero: TAction
+      Caption = 'ATercero'
+      OnExecute = ATerceroExecute
+    end
+    object AFichaTecnica: TAction
+      Caption = 'Ficha Tecnica'
+      OnExecute = AFichaTecnicaExecute
+    end
+    object ANewFichaTecnica: TAction
+      Caption = 'Nueva Ficha Tecnica'
+      Hint = 'Crea un nueva Ficha Tecnica'
+      OnExecute = ANewFichaTecnicaExecute
+    end
+  end
+  object RelojNotas: TTimer
+    Enabled = False
+    OnTimer = RelojNotasTimer
+    Left = 14
+    Top = 316
+  end
+  object PMImprimeOfertasE: TPopupMenu
+    AutoHotkeys = maManual
+    Images = DMMain.ILMain_Ac
+    Left = 80
+    Top = 350
+    object MICrearseleccionarofertadeescandallo: TMenuItem
+      Action = AProCrearRelOfertaE
+      Hint = 'Crear/Seleccionar Oferta Escandallo'
+    end
+    object MIListadoOfertasEscandallo: TMenuItem
+      Action = AProListadoRelOfertaE
+      Hint = 'Listado costes (oferta/escandallo)'
+    end
+    object MIListadoRelacinOfertasClientesOfertasEscandalloCliente: TMenuItem
+      Action = AProListadoRelOfertaE2
+      Hint = 'Listado oferta (cliente/escandallo)'
+    end
+    object N1: TMenuItem
+      Caption = '-'
+    end
+    object MGConfiguracinListado: TMenuItem
+      Caption = 'Configurador de Listados'
+      object MIConfiguracinListadoOfertasEscandallo: TMenuItem
+        Action = AProConfLstOfertaE
+        Hint = 'Listado costes (oferta/escandallo)'
+      end
+      object MIConfigListadoRelacinOfertasClientesOfertasEscandalloCliente: TMenuItem
+        Action = AProConfLstOfertaECli
+        Hint = 'Listado oferta (cliente/escandallo)'
+      end
+    end
+  end
+  object PMPartidas: TPopupMenu
+    AutoHotkeys = maManual
+    Left = 48
+    Top = 350
+    object MIAadirPartida: TMenuItem
+      Caption = 'A'#241'adir/Borrar Partida'
+      OnClick = MIAadirPartidaClick
+    end
+    object MIModificarPartida: TMenuItem
+      Caption = 'Modificar Partida'
+      OnClick = MIModificarPartidaClick
+    end
+    object MGListadodePartidasdeOferta: TMenuItem
+      Caption = 'Listado Partidas en Oferta '
+      object MIValorado: TMenuItem
+        Caption = 'Valorado'
+        OnClick = MIValoradoClick
+      end
+      object MISinValorar: TMenuItem
+        Caption = 'Sin Valorar'
+        OnClick = MISinValorarClick
+      end
+    end
+    object N2: TMenuItem
+      Caption = '-'
+    end
+    object MGConfiguracindeListados: TMenuItem
+      Caption = 'Configuraci'#243'n de Listados'
+      object MIListadodePartidasenOferta: TMenuItem
+        Caption = 'Listado de Partidas en Oferta Valorado'
+        OnClick = MIListadodePartidasenOfertaClick
+      end
+      object MIListadodePartidasenOfertaSinValorar: TMenuItem
+        Caption = 'Listado de Partidas en Oferta Sin Valorar'
+        OnClick = MIListadodePartidasenOfertaSinValorarClick
+      end
+    end
+  end
+  object PMTraspaso: TPopupMenu
+    AutoHotkeys = maManual
+    Images = DMMain.ILMain_Ac
+    Left = 16
+    Top = 350
+    object MITraspasoaPedido: TMenuItem
+      Action = AAPedido
+    end
+    object MITraspasoaAlbaran: TMenuItem
+      Action = AAAlbaran
+    end
+    object MITraspasoaFactura: TMenuItem
+      Action = AAFactura
+    end
+    object MIOfertaMulti: TMenuItem
+      Action = AOfertaMulti
+    end
+    object MIReparacion: TMenuItem
+      Action = AAReparacion
+    end
+    object MITraspasoATicket: TMenuItem
+      Action = ATicket
+    end
+    object MIDuplicarOferta: TMenuItem
+      Action = ADuplicarOferta
+    end
+    object MIDuplicaConHerenciaKri: TMenuItem
+      Action = ADuplicaConHerenciaKri
+    end
+  end
+  object CEOtros: TControlEdit
+    EnlazadoA = CEMain
+    FichaEdicion = TSOtros
+    FichaExclusiva = TSOtros
+    PanelEdicion = PNLEdOtros
+    SubComplementario = ALMain
+    PopUpMenu = CEOtrosPMEdit
+    Teclas = DMMain.Teclas
+    Left = 211
+    Top = 317
+  end
+  object CEOtrosPMEdit: TPopUpTeclas
+    Left = 211
+    Top = 345
+    object CEOtrosMifirst: TMenuItem
+      Caption = 'Primero'
+      Enabled = False
+      ShortCut = 16464
+      Visible = False
+    end
+    object CEOtrosMiprior: TMenuItem
+      Caption = 'Anterior'
+      Enabled = False
+      ShortCut = 16449
+      Visible = False
+    end
+    object CEOtrosMinext: TMenuItem
+      Caption = 'Siguiente'
+      Enabled = False
+      ShortCut = 16467
+      Visible = False
+    end
+    object CEOtrosMilast: TMenuItem
+      Caption = #218'ltimo'
+      Enabled = False
+      ShortCut = 16469
+      Visible = False
+    end
+    object CEOtrosMiinsert: TMenuItem
+      Caption = 'A'#241'adir'
+      Enabled = False
+      ShortCut = 16429
+      Visible = False
+    end
+    object CEOtrosMidelete: TMenuItem
+      Caption = 'Borrar'
+      Enabled = False
+      ShortCut = 16430
+      Visible = False
+    end
+    object CEOtrosMiedit: TMenuItem
+      Caption = 'Modificar'
+      Enabled = False
+      ShortCut = 16453
+    end
+    object CEOtrosMipost: TMenuItem
+      Caption = 'Grabar'
+      Enabled = False
+      ShortCut = 16455
+    end
+    object CEOtrosMicancel: TMenuItem
+      Caption = 'Cancelar'
+      Enabled = False
+      ShortCut = 16472
+    end
+    object CEOtrosMirefresh: TMenuItem
+      Caption = 'Refrescar'
+      Enabled = False
+      ShortCut = 16466
+      Visible = False
+    end
+  end
+  object CEDirEntrega: TControlEdit
+    EnlazadoA = CEMain
+    FichaEdicion = TSDirManual
+    PanelEdicion = PNLDirManualDatos
+    Complementario = TBDetalle
+    SubComplementario = ALMain
+    PopUpMenu = CEDirEntregaPMEdit
+    Teclas = DMMain.Teclas
+    Left = 240
+    Top = 320
+  end
+  object CEDirEntregaPMEdit: TPopUpTeclas
+    Teclas = DMMain.Teclas
+    Left = 240
+    Top = 352
+    object CEDirEntregaMifirst: TMenuItem
+      Caption = 'Primero'
+      Enabled = False
+      ShortCut = 16464
+      Visible = False
+    end
+    object CEDirEntregaMiprior: TMenuItem
+      Caption = 'Anterior'
+      Enabled = False
+      ShortCut = 16449
+      Visible = False
+    end
+    object CEDirEntregaMinext: TMenuItem
+      Caption = 'Siguiente'
+      Enabled = False
+      ShortCut = 16467
+      Visible = False
+    end
+    object CEDirEntregaMilast: TMenuItem
+      Caption = #218'ltimo'
+      Enabled = False
+      ShortCut = 16469
+      Visible = False
+    end
+    object CEDirEntregaMiinsert: TMenuItem
+      Caption = 'A'#241'adir'
+      Enabled = False
+      ShortCut = 16429
+      Visible = False
+    end
+    object CEDirEntregaMidelete: TMenuItem
+      Caption = 'Borrar'
+      Enabled = False
+      ShortCut = 16430
+      Visible = False
+    end
+    object CEDirEntregaMiedit: TMenuItem
+      Caption = 'Modificar'
+      Enabled = False
+      ShortCut = 16453
+    end
+    object CEDirEntregaMipost: TMenuItem
+      Caption = 'Grabar'
+      Enabled = False
+      ShortCut = 16455
+    end
+    object CEDirEntregaMicancel: TMenuItem
+      Caption = 'Cancelar'
+      Enabled = False
+      ShortCut = 16472
+    end
+    object CEDirEntregaMirefresh: TMenuItem
+      Caption = 'Refrescar'
+      Enabled = False
+      ShortCut = 16466
+      Visible = False
+    end
+  end
+  object CEProveedores: TControlEdit
+    EnlazadoA = CEMain
+    FichaEdicion = TSProveedores
+    SubComplementario = ALMain
+    PopUpMenu = CEProveedoresPMEdit
+    Teclas = DMMain.Teclas
+    Left = 272
+    Top = 320
+  end
+  object CEProveedoresPMEdit: TPopUpTeclas
+    Teclas = DMMain.Teclas
+    Left = 272
+    Top = 352
+    object CEProveedoresMifirst: TMenuItem
+      Caption = 'Primero'
+      Enabled = False
+      ShortCut = 16464
+      Visible = False
+    end
+    object CEProveedoresMiprior: TMenuItem
+      Caption = 'Anterior'
+      Enabled = False
+      ShortCut = 16449
+    end
+    object CEProveedoresMinext: TMenuItem
+      Caption = 'Siguiente'
+      Enabled = False
+      ShortCut = 16467
+    end
+    object CEProveedoresMilast: TMenuItem
+      Caption = #218'ltimo'
+      Enabled = False
+      ShortCut = 16469
+      Visible = False
+    end
+    object CEProveedoresMiinsert: TMenuItem
+      Caption = 'A'#241'adir'
+      Enabled = False
+      ShortCut = 16429
+    end
+    object CEProveedoresMidelete: TMenuItem
+      Caption = 'Borrar'
+      Enabled = False
+      ShortCut = 16430
+    end
+    object CEProveedoresMiedit: TMenuItem
+      Caption = 'Modificar'
+      Enabled = False
+      ShortCut = 16453
+    end
+    object CEProveedoresMipost: TMenuItem
+      Caption = 'Grabar'
+      Enabled = False
+      ShortCut = 16455
+    end
+    object CEProveedoresMicancel: TMenuItem
+      Caption = 'Cancelar'
+      Enabled = False
+      ShortCut = 16472
+    end
+    object CEProveedoresMirefresh: TMenuItem
+      Caption = 'Refrescar'
+      Enabled = False
+      ShortCut = 16466
+    end
+  end
+  object RelojAdjuntos: TTimer
+    OnTimer = RelojAdjuntosTimer
+    Left = 40
+    Top = 320
+  end
+  object RelojEmail: TTimer
+    OnTimer = RelojEmailTimer
+    Left = 64
+    Top = 312
+  end
+  object TmrRefrescaAvisos: TTimer
+    Enabled = False
+    Interval = 250
+    OnTimer = TmrRefrescaAvisosTimer
+    Left = 64
+    Top = 312
+  end
+end
