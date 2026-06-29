@@ -1,0 +1,4982 @@
+inherited CrmFMContactos: TCrmFMContactos
+  Left = 389
+  Top = 182
+  Width = 843
+  Height = 696
+  BorderIcons = [biSystemMenu, biMinimize, biMaximize]
+  BorderStyle = bsSizeable
+  Caption = 'Mantenimiento de Contactos'
+  FormStyle = fsNormal
+  PopupMenu = CEAccionesDetPMEdit
+  Position = poScreenCenter
+  OnDestroy = FormDestroy
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited PMain: TLFPanel
+    Width = 833
+    Height = 643
+    BorderWidth = 0
+    OnResize = PMainResize
+    inherited TBMain: TLFToolBar
+      Left = 0
+      Top = 0
+      Width = 833
+      inherited NavMain: THYMNavigator
+        DataSource = CrmDMContactos.DSQMContactos
+        Hints.Strings = ()
+        BeforeAction = NavMainBeforeAction
+        OnClick = NavMainClick
+        EditaControl = DBEFTercero
+        InsertaControl = DBENombreComercial
+      end
+      inherited EPMain: THYMEditPanel
+        Width = 75
+        VisibleButtons = [neBuscar, neRango, neSalir]
+        Hints.Strings = ()
+        OnClickBuscar = EPMainClickBuscar
+        OnClickRango = EPMainClickRango
+      end
+      inherited TSepTerc: TToolButton
+        Left = 303
+      end
+      inherited TbuttComp: TToolButton
+        Left = 311
+        Enabled = False
+      end
+      object TBSep1: TToolButton
+        Left = 334
+        Top = 0
+        Width = 8
+        ImageIndex = 88
+        Style = tbsSeparator
+      end
+      object TBCarpetas: TToolButton
+        Left = 342
+        Top = 0
+        Hint = 'Explorar Carpetas'
+        Caption = 'Explorar Carpetas'
+        ImageIndex = 81
+        OnClick = TBCarpetasClick
+      end
+      object TBDocs: TToolButton
+        Left = 365
+        Top = 0
+        Action = ADocs
+      end
+      object PNLFiltro: TLFPanel
+        Left = 388
+        Top = 0
+        Width = 437
+        Height = 22
+        BevelOuter = bvNone
+        TabOrder = 2
+        object LAgenteFiltro: TLFLabel
+          Left = 12
+          Top = 4
+          Width = 34
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Agente'
+        end
+        object LRutaFiltro: TLFLabel
+          Left = 294
+          Top = 5
+          Width = 23
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Ruta'
+        end
+        object EFAgenteFiltro: TLFEditFind2000
+          Left = 52
+          Top = 1
+          Width = 46
+          Height = 21
+          TabStop = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 0
+          OnChange = EFAgenteFiltroChange
+          Base_de_datos = DMMain.DataBase
+          Transaction = DMMain.TLocal
+          BuscarNums = False
+          BuscarChars = True
+          AutoCambiarFoco = False
+          CampoNum = 'AGENTE'
+          CampoStr = 'TITULO'
+          Posicion = tpCentrado
+          ReemplazarCaracter = True
+          SalirSiVacio = True
+          SalirSiNoExiste = False
+          Tabla_a_buscar = 'VER_AGENTES'
+          Tabla_asociada.DesplegarBusqueda = False
+          OrdenadoPor.Strings = (
+            'AGENTE')
+          Filtros = [obEmpresa]
+          Entorno = DMMain.EntornoBusqueda
+        end
+        object EAgenteFiltro: TLFEdit
+          Left = 99
+          Top = 1
+          Width = 190
+          Height = 21
+          TabStop = False
+          Color = clInfoBk
+          Enabled = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clGrayText
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 1
+          OnDblClick = SBAAgenteDblClick
+        end
+        object CBRutaFiltro: TLFComboBox
+          Left = 320
+          Top = 0
+          Width = 115
+          Height = 21
+          ItemHeight = 13
+          TabOrder = 2
+          OnChange = CBRutaFiltroChange
+        end
+        object BLimpiaFiltroAgente: TButton
+          Left = 266
+          Top = 3
+          Width = 21
+          Height = 17
+          Caption = 'X'
+          TabOrder = 3
+          OnClick = BLimpiaFiltroAgenteClick
+        end
+      end
+    end
+    inherited PCMain: TLFPageControl
+      Left = 0
+      Top = 26
+      Width = 833
+      Height = 497
+      Align = alTop
+      OnChange = PCMainChange
+      OnChanging = PCMainChanging
+      inherited TSFicha: TTabSheet
+        object SBACliente: TSpeedButton [0]
+          Left = 163
+          Top = 50
+          Width = 97
+          Height = 21
+          Hint = 'Doble click o Ctrl+Alt+C para ver los datos del Cliente'
+          GroupIndex = -1
+          OnDblClick = SBAClienteDblClick
+        end
+        object SBAAgente: TSpeedButton [1]
+          Left = 112
+          Top = 295
+          Width = 162
+          Height = 21
+          GroupIndex = -1
+          Caption = 'Ver Datos Agente'
+          OnDblClick = SBAAgenteDblClick
+        end
+        object SBATercero: TSpeedButton [2]
+          Left = 160
+          Top = 31
+          Width = 153
+          Height = 21
+          Hint = 'Doble click o Ctrl+Alt+T para ver los datos del Tercero'
+          GroupIndex = -1
+          OnDblClick = SBATerceroDblClick
+        end
+        object SBAWeb: TSpeedButton [3]
+          Left = 515
+          Top = 272
+          Width = 23
+          Height = 22
+          GroupIndex = -1
+          OnDblClick = SBAWebDblClick
+        end
+        object SBACorreu: TSpeedButton [4]
+          Left = 356
+          Top = 252
+          Width = 23
+          Height = 22
+          GroupIndex = -1
+          OnDblClick = SBACorreuDblClick
+        end
+        object SBAGoogle: TSpeedButton [5]
+          Left = 555
+          Top = 362
+          Width = 23
+          Height = 22
+          GroupIndex = -7
+          OnDblClick = SBAGoogleDblClick
+        end
+        object SBAGaleria: TSpeedButton [6]
+          Left = 617
+          Top = 165
+          Width = 153
+          Height = 22
+          Hint = 'Doble click o para ver los datos de la Galeria'
+          GroupIndex = -1
+        end
+        inherited PEdit: TLFPanel
+          Width = 552
+          Height = 469
+          Align = alLeft
+          inherited G2KTableLoc: TG2KTBLoc
+            Left = 12
+            Top = 8
+            CamposADesplegar.Strings = (
+              'NOMBRE_R_SOCIAL'
+              'NIF')
+            Tabla_a_buscar = 'CRM_VER_CONTACTOS'
+            CampoNum = 'ID_CONTACTO'
+            CampoStr = 'NOMBRE_COMERCIAL'
+          end
+          object LblIdContacto: TLFLabel
+            Left = 85
+            Top = 12
+            Width = 11
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'ID'
+            FocusControl = DBEIdContacto
+          end
+          object LblNombreRSocial: TLFLabel
+            Left = 13
+            Top = 122
+            Width = 83
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Nombre R. Social'
+            FocusControl = DBERazonSocial
+          end
+          object LNIF: TLFLabel
+            Left = 52
+            Top = 166
+            Width = 44
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'CIF / NIF'
+            FocusControl = DBENif
+          end
+          object LDireccion: TLFLabel
+            Left = 51
+            Top = 188
+            Width = 45
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Direcci'#243'n'
+          end
+          object LblFechaAlta: TLFLabel
+            Left = 381
+            Top = 342
+            Width = 51
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Fecha Alta'
+            FocusControl = DBEFechaAlta
+          end
+          object LEmail: TLFLabel
+            Left = 71
+            Top = 276
+            Width = 25
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Email'
+            FocusControl = DBEEmail
+          end
+          object LWeb: TLFLabel
+            Left = 73
+            Top = 298
+            Width = 23
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Web'
+            FocusControl = DBEWeb
+          end
+          object LblRazonSocial: TLFLabel
+            Left = 274
+            Top = 12
+            Width = 63
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Raz'#243'n Social'
+          end
+          object LblFax: TLFLabel
+            Left = 395
+            Top = 230
+            Width = 17
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Fax'
+            FocusControl = DBETelefono1
+          end
+          object LblTelefonos: TLFLabel
+            Left = 49
+            Top = 254
+            Width = 47
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Tel'#233'fonos'
+            FocusControl = DBETelefono1
+          end
+          object LblProvincia: TLFLabel
+            Left = 52
+            Top = 232
+            Width = 44
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Provincia'
+          end
+          object LblLocalidad: TLFLabel
+            Left = 50
+            Top = 210
+            Width = 46
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Localidad'
+          end
+          object LblNombreComercial: TLFLabel
+            Left = 10
+            Top = 100
+            Width = 86
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Nombre Comercial'
+            FocusControl = DBENombreComercial
+          end
+          object LblNombreCorto: TLFLabel
+            Left = 31
+            Top = 144
+            Width = 65
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Nombre Corto'
+            FocusControl = DBERazonSocial
+          end
+          object LblTercero: TLFLabel
+            Left = 59
+            Top = 34
+            Width = 37
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Tercero'
+          end
+          object LblClienteEmp: TLFLabel
+            Left = 28
+            Top = 78
+            Width = 68
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'C'#243'digo Cliente'
+          end
+          object LblAgenteEmp: TLFLabel
+            Left = 62
+            Top = 321
+            Width = 34
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Agente'
+          end
+          object LOrigenContacto: TLFLabel
+            Left = 19
+            Top = 407
+            Width = 77
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Origen Contacto'
+          end
+          object LMapa: TLFLabel
+            Left = 69
+            Top = 429
+            Width = 27
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Mapa'
+          end
+          object LActividadEconomica: TLFLabel
+            Left = 21
+            Top = 452
+            Width = 75
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Actividad Econ.'
+          end
+          object LCliPro: TLFLabel
+            Left = 232
+            Top = 143
+            Width = 86
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Cliente/Proveedor'
+          end
+          object LFormaPago: TLFLabel
+            Left = 411
+            Top = 143
+            Width = 72
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Forma de Pago'
+          end
+          object LblPais: TLFLabel
+            Left = 238
+            Top = 165
+            Width = 22
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Pa'#237's'
+          end
+          object LZona: TLFLabel
+            Left = 72
+            Top = 364
+            Width = 25
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Zona'
+          end
+          object LNivel: TLFLabel
+            Left = 381
+            Top = 452
+            Width = 24
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Nivel'
+          end
+          object LDireccionTercero: TLFLabel
+            Left = 11
+            Top = 56
+            Width = 85
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Direcci'#243'n Tercero'
+          end
+          object LDiasEntreVisitas: TLFLabel
+            Left = 31
+            Top = 342
+            Width = 65
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Dias e/Visitas'
+          end
+          object LFechaUltimaVisita: TLFLabel
+            Left = 162
+            Top = 342
+            Width = 57
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Ultima Visita'
+          end
+          object LHorario: TLFLabel
+            Left = 62
+            Top = 386
+            Width = 34
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Horario'
+          end
+          object LRuta: TLFLabel
+            Left = 358
+            Top = 363
+            Width = 23
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Ruta'
+          end
+          object DBEIdContacto: TLFDbedit
+            Left = 100
+            Top = 8
+            Width = 77
+            Height = 21
+            TabStop = False
+            Color = clInfoBk
+            DataField = 'ID_CONTACTO'
+            DataSource = CrmDMContactos.DSQMContactos
+            Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGrayText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 0
+            OnChange = DBEIdContactoChange
+          end
+          object DBERazonSocial: TLFDbedit
+            Left = 100
+            Top = 118
+            Width = 448
+            Height = 21
+            DataField = 'NOMBRE_R_SOCIAL'
+            DataSource = CrmDMContactos.DSQMContactos
+            TabOrder = 11
+          end
+          object DBENif: TLFDbedit
+            Left = 100
+            Top = 162
+            Width = 124
+            Height = 21
+            DataField = 'NIF'
+            DataSource = CrmDMContactos.DSQMContactos
+            TabOrder = 15
+          end
+          object DBEFechaAlta: TLFDbedit
+            Left = 436
+            Top = 338
+            Width = 112
+            Height = 21
+            Color = clInfoBk
+            DataField = 'FECHA_ALTA'
+            DataSource = CrmDMContactos.DSQMContactos
+            Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGrayText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 33
+          end
+          object DBEEmail: TLFDbedit
+            Left = 100
+            Top = 272
+            Width = 448
+            Height = 21
+            DataField = 'EMAIL'
+            DataSource = CrmDMContactos.DSQMContactos
+            TabOrder = 27
+            OnDblClick = SBACorreuDblClick
+          end
+          object DBEWeb: TLFDbedit
+            Left = 100
+            Top = 294
+            Width = 448
+            Height = 21
+            DataField = 'WEB'
+            DataSource = CrmDMContactos.DSQMContactos
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 28
+            OnDblClick = SBAWebDblClick
+          end
+          object DBENombreCorto: TLFDbedit
+            Left = 100
+            Top = 140
+            Width = 124
+            Height = 21
+            DataField = 'NOMBRE_CORTO'
+            DataSource = CrmDMContactos.DSQMContactos
+            TabOrder = 12
+          end
+          object DBENumContacto: TLFDbedit
+            Left = 178
+            Top = 8
+            Width = 81
+            Height = 21
+            DataField = 'NUM_CONTACTO'
+            DataSource = CrmDMContactos.DSQMContactos
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clInfoText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 1
+            Visible = False
+          end
+          object DBETipoRazon: TLFDBEditFind2000
+            Left = 341
+            Top = 8
+            Width = 57
+            Height = 21
+            DataField = 'TIPO_RAZON'
+            DataSource = CrmDMContactos.DSQMContactos
+            TabOrder = 2
+            AutoCambiarFoco = False
+            Base_de_datos = DMMain.DataBase
+            BuscarNums = False
+            Tabla_a_buscar = 'SYS_TERCEROS_RAZONES'
+            Tabla_asociada.DesplegarBusqueda = False
+            CampoNum = 'RAZON'
+            CampoStr = 'TITULO'
+            ReemplazarCaracter = True
+            SalirSiNoExiste = False
+            SalirSiVacio = False
+            OrdenadoPor.Strings = (
+              'RAZON')
+            Filtros = []
+          end
+          object DBE_TitRazones: TLFDbedit
+            Left = 399
+            Top = 8
+            Width = 149
+            Height = 21
+            Color = clInfoBk
+            DataField = 'TITULO'
+            DataSource = CrmDMContactos.DSxRazones
+            Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGrayText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 3
+          end
+          object DBETelefax: TLFDbedit
+            Left = 417
+            Top = 250
+            Width = 131
+            Height = 21
+            Hint = 'Fax'
+            DataField = 'TELEFAX'
+            DataSource = CrmDMContactos.DSQMContactos
+            ParentShowHint = False
+            ShowHint = True
+            TabOrder = 26
+          end
+          object DBETelefono2: TLFDbedit
+            Left = 232
+            Top = 250
+            Width = 131
+            Height = 21
+            Hint = 'Tel'#233'fono'
+            DataField = 'TELEFONO02'
+            DataSource = CrmDMContactos.DSQMContactos
+            ParentShowHint = False
+            ShowHint = True
+            TabOrder = 25
+          end
+          object DBETelefono1: TLFDbedit
+            Left = 100
+            Top = 250
+            Width = 131
+            Height = 21
+            Hint = 'Tel'#233'fono'
+            DataField = 'TELEFONO01'
+            DataSource = CrmDMContactos.DSQMContactos
+            ParentShowHint = False
+            ShowHint = True
+            TabOrder = 24
+          end
+          object DBEProvincia: TLFDbedit
+            Left = 100
+            Top = 228
+            Width = 149
+            Height = 21
+            Color = clInfoBk
+            DataField = 'PROVINCIA'
+            DataSource = CrmDMContactos.DSxLocalidad
+            Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGrayText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 22
+          end
+          object DBEPais: TLFDbedit
+            Left = 250
+            Top = 228
+            Width = 298
+            Height = 21
+            Color = clInfoBk
+            DataField = 'PAIS'
+            DataSource = CrmDMContactos.DSxLocalidad
+            Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGrayText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 23
+          end
+          object DBECpostal: TLFDbedit
+            Left = 417
+            Top = 206
+            Width = 131
+            Height = 21
+            Color = clInfoBk
+            DataField = 'CODPOSTAL'
+            DataSource = CrmDMContactos.DSxLocalidad
+            Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGrayText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 21
+          end
+          object DBELocalidadNombre: TLFDbedit
+            Left = 178
+            Top = 206
+            Width = 238
+            Height = 21
+            Color = clInfoBk
+            DataField = 'TITULO'
+            DataSource = CrmDMContactos.DSxLocalidad
+            Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGrayText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 20
+          end
+          object DBEFLocalidad: TLFDBEditFind2000
+            Left = 100
+            Top = 206
+            Width = 77
+            Height = 21
+            DataField = 'DIR_LOCALIDAD'
+            DataSource = CrmDMContactos.DSQMContactos
+            ParentShowHint = False
+            ShowHint = False
+            TabOrder = 19
+            AutoCambiarFoco = False
+            Base_de_datos = DMMain.DataBase
+            BuscarNums = False
+            Tabla_a_buscar = 'VER_LOCALIDADES'
+            Tabla_asociada.DesplegarBusqueda = False
+            Campos_Desplegar.Strings = (
+              'provincia'
+              'c_pais')
+            CampoNum = 'CODPOSTAL'
+            CampoStr = 'TITULO'
+            CampoADevolver = 'LOCALIDAD'
+            ReemplazarCaracter = True
+            SalirSiNoExiste = False
+            SalirSiVacio = False
+            OrdenadoPor.Strings = (
+              'LOCALIDAD')
+            Filtros = []
+            Entorno = DMMain.EntornoBusqueda
+          end
+          object DBEDireccion: TLFDbedit
+            Left = 100
+            Top = 184
+            Width = 448
+            Height = 21
+            DataField = 'DIR_NOMBRE'
+            DataSource = CrmDMContactos.DSQMContactos
+            TabOrder = 18
+          end
+          object DBENombreComercial: TLFDbedit
+            Left = 100
+            Top = 96
+            Width = 448
+            Height = 21
+            DataField = 'NOMBRE_COMERCIAL'
+            DataSource = CrmDMContactos.DSQMContactos
+            TabOrder = 10
+          end
+          object DBEFTercero: TLFDBEditFind2000
+            Left = 100
+            Top = 30
+            Width = 77
+            Height = 21
+            DataField = 'TERCERO'
+            DataSource = CrmDMContactos.DSQMContactos
+            ParentShowHint = False
+            ShowHint = False
+            TabOrder = 4
+            OnChange = DBEFTerceroChange
+            AutoCambiarFoco = False
+            Base_de_datos = DMMain.DataBase
+            BuscarNums = False
+            Tabla_a_buscar = 'VER_TERCEROS_EDICION'
+            Tabla_asociada.DesplegarBusqueda = False
+            Campos_Desplegar.Strings = (
+              '')
+            CampoNum = 'TERCERO'
+            CampoStr = 'NOMBRE_COMERCIAL'
+            CampoADevolver = 'TERCERO'
+            ReemplazarCaracter = True
+            SalirSiNoExiste = False
+            SalirSiVacio = False
+            OrdenadoPor.Strings = (
+              'TERCERO')
+            Filtros = []
+            Entorno = DMMain.EntornoBusqueda
+          end
+          object DBEAgenteEmp: TLFDBEditFind2000
+            Left = 100
+            Top = 316
+            Width = 77
+            Height = 21
+            DataField = 'AGENTE'
+            DataSource = CrmDMContactos.DSQMContactos
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 29
+            OnChange = DBEAgenteEmpChange
+            AutoCambiarFoco = False
+            Base_de_datos = DMMain.DataBase
+            BuscarNums = False
+            Tabla_a_buscar = 'VER_AGENTES'
+            Tabla_asociada.DesplegarBusqueda = False
+            CampoNum = 'AGENTE'
+            CampoStr = 'TITULO'
+            ReemplazarCaracter = True
+            SalirSiNoExiste = False
+            SalirSiVacio = False
+            OrdenadoPor.Strings = (
+              'AGENTE')
+            Filtros = [obEmpresa]
+            Entorno = DMMain.EntornoBusqueda
+          end
+          object DBEDescAgenteEmp: TLFEdit
+            Left = 178
+            Top = 316
+            Width = 370
+            Height = 21
+            TabStop = False
+            Color = clAqua
+            Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGrayText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 30
+            OnDblClick = SBAAgenteDblClick
+          end
+          object DBEClienteEmp: TLFDbedit
+            Left = 100
+            Top = 74
+            Width = 77
+            Height = 21
+            TabStop = False
+            Color = clInfoBk
+            DataField = 'CLIENTE'
+            DataSource = CrmDMContactos.DSQMContactos
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGrayText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 8
+            OnChange = DBEClienteEmpChange
+          end
+          object DBETituloTercero: TLFEdit
+            Left = 178
+            Top = 30
+            Width = 370
+            Height = 21
+            TabStop = False
+            Color = clAqua
+            Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGrayText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 5
+          end
+          object DBEDescClienteEmp: TLFEdit
+            Left = 178
+            Top = 74
+            Width = 370
+            Height = 21
+            TabStop = False
+            Color = clAqua
+            Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGrayText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 9
+            OnDblClick = SBAClienteDblClick
+          end
+          object LFDBOrRelacion: TLFDBEditFind2000
+            Left = 100
+            Top = 404
+            Width = 82
+            Height = 21
+            DataField = 'ORIGEN_CONTACTO'
+            DataSource = CrmDMContactos.DSQMContactos
+            TabOrder = 41
+            OnChange = LFDBOrRelacionChange
+            AutoCambiarFoco = False
+            Base_de_datos = DMMain.DataBase
+            BuscarNums = False
+            Tabla_a_buscar = 'CRM_SYS_ORIGEN_CONTACTO'
+            Tabla_asociada.DesplegarBusqueda = False
+            CampoNum = 'TORIGEN'
+            CampoStr = 'DESCRIPCION'
+            ReemplazarCaracter = True
+            SalirSiNoExiste = False
+            SalirSiVacio = False
+            OrdenadoPor.Strings = (
+              'TORIGEN')
+            Filtros = []
+          end
+          object DescOrigenRel: TLFHYDBDescription
+            Left = 183
+            Top = 404
+            Width = 365
+            Height = 21
+            Color = clInfoBk
+            DataSource = CrmDMContactos.DSQMContactos
+            Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGrayText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 42
+            Tabla_a_buscar = 'CRM_SYS_ORIGEN_CONTACTO'
+            Campo_Descripcion = 'DESCRIPCION'
+            Base_de_datos = DMMain.DataBase
+            CamposWhereOrigen.Strings = (
+              'ORIGEN_CONTACTO')
+            CamposWhereTabla.Strings = (
+              'TORIGEN')
+          end
+          object DBELinkGoogle: TLFDbedit
+            Left = 100
+            Top = 426
+            Width = 448
+            Height = 21
+            DataField = 'LINK_GOOGLE'
+            DataSource = CrmDMContactos.DSQMContactos
+            TabOrder = 43
+          end
+          object LFDBActEco: TLFDbedit
+            Left = 100
+            Top = 448
+            Width = 221
+            Height = 21
+            DataField = 'ACTIVITAT_ECONOMICA'
+            DataSource = CrmDMContactos.DSQMContactos
+            TabOrder = 44
+          end
+          object DBECliProv: TLFDbedit
+            Left = 322
+            Top = 140
+            Width = 61
+            Height = 21
+            DataField = 'CLI_PROV_IMP'
+            DataSource = CrmDMContactos.DSQMContactos
+            TabOrder = 13
+          end
+          object EFFormaPago: TLFDBEditFind2000
+            Left = 484
+            Top = 140
+            Width = 64
+            Height = 21
+            Hint = 'Forma de pago a importar'
+            AutoSize = False
+            CharCase = ecUpperCase
+            DataField = 'FORMA_DE_PAGO_IMP'
+            DataSource = CrmDMContactos.DSQMContactos
+            ParentShowHint = False
+            ShowHint = True
+            TabOrder = 14
+            AutoCambiarFoco = False
+            Base_de_datos = DMMain.DataBase
+            BuscarNums = False
+            Tabla_a_buscar = 'CON_CUENTAS_GES_FP'
+            Tabla_asociada.DesplegarBusqueda = False
+            CampoNum = 'FORMA_PAGO'
+            CampoStr = 'TITULO'
+            CondicionBusqueda = 'ACTIVO=1'
+            ReemplazarCaracter = True
+            SalirSiNoExiste = False
+            SalirSiVacio = True
+            OrdenadoPor.Strings = (
+              'FORMA_PAGO')
+            Filtros = [obEmpresa, obEjercicio, obCanal]
+            Entorno = DMMain.EntornoBusqueda
+          end
+          object DBEFPais: TLFDBEditFind2000
+            Left = 264
+            Top = 162
+            Width = 58
+            Height = 21
+            DataField = 'PAIS'
+            DataSource = CrmDMContactos.DSQMContactos
+            TabOrder = 16
+            OnChange = DBEFPaisChange
+            AutoCambiarFoco = False
+            Base_de_datos = DMMain.DataBase
+            BuscarNums = False
+            Tabla_a_buscar = 'SYS_PAISES'
+            Tabla_asociada.DesplegarBusqueda = False
+            CampoNum = 'PAIS'
+            CampoStr = 'TITULO'
+            ReemplazarCaracter = True
+            SalirSiNoExiste = False
+            SalirSiVacio = False
+            OrdenadoPor.Strings = (
+              'PAIS')
+            Filtros = []
+          end
+          object DBETituloPais: TLFEdit
+            Left = 323
+            Top = 162
+            Width = 225
+            Height = 21
+            Color = clInfoBk
+            Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGrayText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 17
+          end
+          object DBEFZona: TLFDBEditFind2000
+            Left = 100
+            Top = 360
+            Width = 66
+            Height = 21
+            DataField = 'ZONA'
+            DataSource = CrmDMContactos.DSQMContactos
+            TabOrder = 34
+            OnChange = DBEFZonaChange
+            AutoCambiarFoco = False
+            Base_de_datos = DMMain.DataBase
+            BuscarNums = False
+            Tabla_a_buscar = 'SYS_ZONAS'
+            Tabla_asociada.DesplegarBusqueda = False
+            CampoNum = 'ZONA'
+            CampoStr = 'TITULO'
+            ReemplazarCaracter = True
+            SalirSiNoExiste = False
+            SalirSiVacio = False
+            OrdenadoPor.Strings = (
+              'DEFECTO DESC, ZONA')
+            Filtros = []
+            Entorno = DMMain.EntornoBusqueda
+          end
+          object ETituloZona: TLFEdit
+            Left = 167
+            Top = 360
+            Width = 186
+            Height = 21
+            Color = clInfoBk
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGrayText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 35
+          end
+          object DBENivel: TLFDbedit
+            Left = 410
+            Top = 448
+            Width = 23
+            Height = 21
+            DataField = 'MARCA_CONTACTO'
+            DataSource = CrmDMContactos.DSQMContactos
+            TabOrder = 45
+          end
+          object CBipad: TLFDBCheckBox
+            Left = 481
+            Top = 449
+            Width = 64
+            Height = 17
+            Caption = 'iPad'
+            ClicksDisabled = False
+            ColorCheck = 57088
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 46
+            TabStop = True
+            Alignment = taLeftJustify
+            DataField = 'IPAD_VISIBLE'
+            DataSource = CrmDMContactos.DSQMContactos
+            ValueChecked = '1'
+            ValueUnchecked = '0'
+          end
+          object DBEFDireccion: TLFDBEditFind2000
+            Left = 100
+            Top = 52
+            Width = 77
+            Height = 21
+            DataField = 'DIRECCION'
+            DataSource = CrmDMContactos.DSQMContactos
+            ParentShowHint = False
+            ShowHint = False
+            TabOrder = 6
+            OnChange = DBEFDireccionChange
+            AutoCambiarFoco = False
+            Base_de_datos = DMMain.DataBase
+            BuscarNums = False
+            Tabla_a_buscar = 'VER_DIRECCIONES'
+            Tabla_asociada.DesplegarBusqueda = False
+            Campos_Desplegar.Strings = (
+              '')
+            CampoNum = 'DIRECCION'
+            CampoStr = 'TITULO'
+            CampoADevolver = 'DIRECCION'
+            ReemplazarCaracter = True
+            SalirSiNoExiste = True
+            SalirSiVacio = True
+            OnBusqueda = DBEFDireccionBusqueda
+            OrdenadoPor.Strings = (
+              'DIRECCION')
+            Filtros = []
+            Entorno = DMMain.EntornoBusqueda
+          end
+          object ETituloDireccion: TLFEdit
+            Left = 178
+            Top = 52
+            Width = 370
+            Height = 21
+            TabStop = False
+            Color = clInfoBk
+            Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGrayText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 7
+          end
+          object DBEDiasEntreVisitas: TLFDbedit
+            Left = 100
+            Top = 338
+            Width = 53
+            Height = 21
+            DataField = 'DIAS_ENTRE_VISITAS'
+            DataSource = CrmDMContactos.DSQMContactos
+            TabOrder = 31
+          end
+          object DBDEFechaUltimaVisita: TLFDBDateEdit
+            Left = 224
+            Top = 338
+            Width = 104
+            Height = 21
+            DataField = 'FECHA_ULTIMA_VISITA'
+            DataSource = CrmDMContactos.DSQMContactos
+            CheckOnExit = True
+            NumGlyphs = 2
+            TabOrder = 32
+          end
+          object DBDTPHorarioDesde1: TDBDateTimePicker
+            Left = 100
+            Top = 382
+            Width = 52
+            Height = 21
+            CalAlignment = dtaLeft
+            Date = 45370.3871174653
+            Format = 'HH:mm'
+            Time = 45370.3871174653
+            DateFormat = dfShort
+            DateMode = dmComboBox
+            Kind = dtkTime
+            ParseInput = False
+            TabOrder = 37
+            DataField = 'HORARIO_1_DESDE'
+            DataSource = CrmDMContactos.DSQMContactos
+          end
+          object DBDTPHorarioHasta1: TDBDateTimePicker
+            Left = 153
+            Top = 382
+            Width = 52
+            Height = 21
+            CalAlignment = dtaLeft
+            Date = 45370.3871174653
+            Format = 'HH:mm'
+            Time = 45370.3871174653
+            DateFormat = dfShort
+            DateMode = dmComboBox
+            Kind = dtkTime
+            ParseInput = False
+            TabOrder = 38
+            DataField = 'HORARIO_1_HASTA'
+            DataSource = CrmDMContactos.DSQMContactos
+          end
+          object DBDateTimePicker1: TDBDateTimePicker
+            Left = 276
+            Top = 382
+            Width = 52
+            Height = 21
+            CalAlignment = dtaLeft
+            Date = 45370.3871174653
+            Format = 'HH:mm'
+            Time = 45370.3871174653
+            DateFormat = dfShort
+            DateMode = dmComboBox
+            Kind = dtkTime
+            ParseInput = False
+            TabOrder = 40
+            DataField = 'HORARIO_1_HASTA'
+            DataSource = CrmDMContactos.DSQMContactos
+          end
+          object DBDateTimePicker2: TDBDateTimePicker
+            Left = 223
+            Top = 382
+            Width = 52
+            Height = 21
+            CalAlignment = dtaLeft
+            Date = 45370.3871174653
+            Format = 'HH:mm'
+            Time = 45370.3871174653
+            DateFormat = dfShort
+            DateMode = dmComboBox
+            Kind = dtkTime
+            ParseInput = False
+            TabOrder = 39
+            DataField = 'HORARIO_2_DESDE'
+            DataSource = CrmDMContactos.DSQMContactos
+          end
+          object DBCBRuta: TRxDBComboBox
+            Left = 385
+            Top = 360
+            Width = 163
+            Height = 21
+            DataField = 'ID_RUTA'
+            DataSource = CrmDMContactos.DSQMContactos
+            ItemHeight = 13
+            TabOrder = 36
+          end
+        end
+        object POtraInformacion: TLFPanel
+          Left = 552
+          Top = 0
+          Width = 273
+          Height = 469
+          Align = alClient
+          BevelOuter = bvNone
+          TabOrder = 1
+          object PNLManteniminetoContactos: TLFPanel
+            Left = 0
+            Top = 193
+            Width = 273
+            Height = 276
+            Align = alClient
+            BevelOuter = bvNone
+            TabOrder = 0
+            object LContactos: TLFLabel
+              Left = 0
+              Top = 0
+              Width = 273
+              Height = 13
+              Align = alTop
+              Alignment = taCenter
+              Caption = 'Contactos'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = [fsBold]
+              ParentFont = False
+            end
+            object PNLContactos: TLFPanel
+              Left = 0
+              Top = 13
+              Width = 273
+              Height = 263
+              Align = alClient
+              BevelOuter = bvNone
+              Caption = 'PNLContactos'
+              TabOrder = 0
+              object DBGPContactos: TDBGridFind2000
+                Left = 0
+                Top = 22
+                Width = 273
+                Height = 241
+                Align = alClient
+                DataSource = CrmDMContactos.DSQMPersonas
+                Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
+                TabOrder = 0
+                TitleFont.Charset = DEFAULT_CHARSET
+                TitleFont.Color = clWindowText
+                TitleFont.Height = -11
+                TitleFont.Name = 'MS Sans Serif'
+                TitleFont.Style = []
+                OnDblClick = DBGPContactosDblClick
+                Insercion = False
+                ColumnaInicial = 0
+                UsaDicG2K = True
+                Changed = False
+                Idioma = 'CAS'
+                AutoCambiarColumna = False
+                AutoPostEnCheckBox = False
+                AutoStartDrag = False
+                AutoStartDragInterval = 0
+                IndiceBitmapOrdenable = 0
+                IndiceBitmapAscendente = 1
+                IndiceBitmapChecked = 3
+                IndiceBitmapDescendente = 2
+                BaseDeDatos = DMMain.DataBase
+                BuscarNums = False
+                CampoAOrdenarColor = clInfoBk
+                CampoAOrdenarBitmaps = DMMain.ILOrdGrid
+                CamposAOrdernar.Strings = (
+                  'APELLIDOS'
+                  'NOMBRE')
+                ColumnasCheckBoxes.Strings = (
+                  'BREVO'
+                  'ENVIO_EMAIL')
+                ColumnasChecked.Strings = (
+                  '1'
+                  '1')
+                ColumnasNoChecked.Strings = (
+                  '0'
+                  '0')
+                MensajeNoExiste = False
+                SalirSiVacio = False
+                SalirSiNoExiste = False
+                Posicion = tpCentrado
+                OrdenMultiple = True
+                Filtros = []
+                Columns = <
+                  item
+                    Color = clInfoBk
+                    Expanded = False
+                    FieldName = 'NOMBRE'
+                    ReadOnly = True
+                    Width = 95
+                    Visible = True
+                  end
+                  item
+                    Color = clInfoBk
+                    Expanded = False
+                    FieldName = 'APELLIDOS'
+                    ReadOnly = True
+                    Width = 95
+                    Visible = True
+                  end
+                  item
+                    Color = clInfoBk
+                    Expanded = False
+                    FieldName = 'TELEFONO'
+                    ReadOnly = True
+                    Width = 95
+                    Visible = True
+                  end
+                  item
+                    Color = clInfoBk
+                    Expanded = False
+                    FieldName = 'EMAIL'
+                    ReadOnly = True
+                    Width = 95
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'MOVIL'
+                    Width = 95
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'FAX'
+                    Width = 95
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'EXTENSION'
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'FECHA ENVIO'
+                    Visible = True
+                  end>
+              end
+              object TBContactos: TLFToolBar
+                Left = 0
+                Top = 0
+                Width = 273
+                Height = 22
+                AutoSize = True
+                EdgeInner = esNone
+                EdgeOuter = esNone
+                Flat = True
+                TabOrder = 1
+                Separators = True
+                object NavContactos: THYMNavigator
+                  Left = 0
+                  Top = 0
+                  Width = 224
+                  Height = 22
+                  DataSource = CrmDMContactos.DSQMPersonas
+                  VisibleButtons = [nbPrior, nbNext, nbInsert, nbDelete, nbEdit, nbPost, nbCancel, nbRefresh]
+                  Flat = True
+                  ParentShowHint = False
+                  ShowHint = True
+                  TabOrder = 0
+                  BeforeAction = NavContactosBeforeAction
+                  ModoDeSeguridad = True
+                  DelCaption = 'Informaci'#243'n'
+                  DelMessage = ' '#191' Borra el registro ? '
+                  Exclusivo = True
+                  OrdenAscendente = True
+                  InsertaUltimo = False
+                end
+              end
+            end
+          end
+          object PNLMantenimientoImagen: TLFPanel
+            Left = 0
+            Top = 0
+            Width = 273
+            Height = 193
+            Align = alTop
+            BevelOuter = bvNone
+            TabOrder = 1
+            object PNLImagen: TLFPanel
+              Left = 0
+              Top = 0
+              Width = 273
+              Height = 144
+              Align = alClient
+              BevelOuter = bvNone
+              TabOrder = 0
+              object Imagen: TImage
+                Left = 0
+                Top = 0
+                Width = 273
+                Height = 144
+                Align = alClient
+                Center = True
+                Proportional = True
+              end
+            end
+            object PNLEditImagen: TLFPanel
+              Left = 0
+              Top = 144
+              Width = 273
+              Height = 49
+              Align = alBottom
+              BevelOuter = bvNone
+              TabOrder = 1
+              object LBLImagen: TLFLabel
+                Left = 10
+                Top = 7
+                Width = 35
+                Height = 13
+                Alignment = taRightJustify
+                Caption = 'Imagen'
+              end
+              object LGaleria: TLFLabel
+                Left = 12
+                Top = 30
+                Width = 33
+                Height = 13
+                Alignment = taRightJustify
+                Caption = 'Galeria'
+              end
+              object DBEFImagen: TLFDBEditFind2000
+                Left = 50
+                Top = 3
+                Width = 50
+                Height = 21
+                DataField = 'CODIGO_IMAGEN'
+                DataSource = CrmDMContactos.DSQMContactos
+                TabOrder = 0
+                OnChange = DBEFImagenChange
+                AutoCambiarFoco = False
+                Base_de_datos = DMMain.DataBase
+                BuscarNums = False
+                Tabla_a_buscar = 'SYS_IMAGENES'
+                Tabla_asociada.DesplegarBusqueda = False
+                CampoNum = 'CODIGO'
+                CampoStr = 'NOMBRE'
+                ReemplazarCaracter = True
+                SalirSiNoExiste = False
+                SalirSiVacio = False
+                OrdenadoPor.Strings = (
+                  'CODIGO')
+                Filtros = []
+              end
+              object ETituloImagen: TLFEdit
+                Left = 101
+                Top = 3
+                Width = 120
+                Height = 21
+                Color = clInfoBk
+                Enabled = False
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clGrayText
+                Font.Height = -11
+                Font.Name = 'MS Sans Serif'
+                Font.Style = []
+                ParentFont = False
+                TabOrder = 1
+              end
+              object BCargarImagen: TButton
+                Left = 174
+                Top = 5
+                Width = 23
+                Height = 18
+                Caption = '...'
+                TabOrder = 2
+                Visible = False
+                OnClick = BCargarImagenClick
+              end
+              object ETituloGaleria: TLFEdit
+                Left = 101
+                Top = 25
+                Width = 120
+                Height = 21
+                Color = clAqua
+                Enabled = False
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clGrayText
+                Font.Height = -11
+                Font.Name = 'MS Sans Serif'
+                Font.Style = []
+                ParentFont = False
+                TabOrder = 5
+                OnDblClick = ETituloGaleriaDblClick
+              end
+              object DBEFGaleria: TLFDBEditFind2000
+                Left = 50
+                Top = 25
+                Width = 50
+                Height = 21
+                DataField = 'ID_GALERIA'
+                DataSource = CrmDMContactos.DSQMContactos
+                TabOrder = 4
+                OnChange = DBEFGaleriaChange
+                AutoCambiarFoco = False
+                Base_de_datos = DMMain.DataBase
+                BuscarNums = False
+                Tabla_a_buscar = 'SYS_GALERIA'
+                Tabla_asociada.DesplegarBusqueda = False
+                CampoNum = 'ID'
+                CampoStr = 'TITULO'
+                ReemplazarCaracter = True
+                SalirSiNoExiste = False
+                SalirSiVacio = False
+                OrdenadoPor.Strings = (
+                  'ID')
+                Filtros = []
+              end
+              object BClipboard: TButton
+                Left = 197
+                Top = 5
+                Width = 23
+                Height = 18
+                Hint = 'Cargar imagen desde porta papeles'
+                Caption = 'P'
+                TabOrder = 3
+                Visible = False
+                OnClick = BClipboardClick
+              end
+            end
+          end
+        end
+      end
+      object TSAcciones: TTabSheet [1]
+        Caption = '&Acciones'
+        OnShow = TSAccionesShow
+        object PnlAcciones: TLFPanel
+          Left = 0
+          Top = 0
+          Width = 825
+          Height = 469
+          Align = alClient
+          BevelOuter = bvNone
+          TabOrder = 0
+          object SBADoc: TSpeedButton
+            Left = 347
+            Top = 59
+            Width = 23
+            Height = 22
+            GroupIndex = -1
+            OnDblClick = SBADocDblClick
+          end
+          object TBAcciones: TLFToolBar
+            Left = 0
+            Top = 0
+            Width = 825
+            Height = 22
+            AutoSize = True
+            EdgeBorders = []
+            EdgeInner = esNone
+            EdgeOuter = esNone
+            Flat = True
+            HotImages = DMMain.ILMain_Ac
+            Images = DMMain.ILMain_Ac
+            TabOrder = 0
+            Separators = True
+            object DBENumAcciones: TLFDbedit
+              Left = 0
+              Top = 0
+              Width = 120
+              Height = 22
+              Color = clInfoBk
+              DataField = 'ID_CONTACTO'
+              DataSource = CrmDMContactos.DSQMContactos
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGrayText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 0
+            end
+            object DBENombreAcciones: TLFDbedit
+              Left = 120
+              Top = 0
+              Width = 334
+              Height = 22
+              Color = clInfoBk
+              DataField = 'NOMBRE_COMERCIAL'
+              DataSource = CrmDMContactos.DSQMContactos
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGrayText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 1
+            end
+            object ToolButton2: TToolButton
+              Left = 454
+              Top = 0
+              Width = 8
+              Style = tbsSeparator
+            end
+            object NavAccionesCab: THYMNavigator
+              Left = 462
+              Top = 0
+              Width = 200
+              Height = 22
+              DataSource = CrmDMContactos.DSQMAcciones
+              Flat = True
+              ParentShowHint = False
+              PopupMenu = CEAccionesPMEdit
+              ShowHint = True
+              TabOrder = 2
+              ModoDeSeguridad = True
+              DelCaption = 'Informaci'#243'n'
+              DelMessage = ' '#191' Borra el registro ? '
+              EditaControl = LFDBEAccion
+              InsertaControl = LFDBEAccion
+              Exclusivo = True
+              ControlEdit = CEAcciones
+              OrdenAscendente = True
+              InsertaUltimo = False
+            end
+            object ToolButton3: TToolButton
+              Left = 662
+              Top = 0
+              Width = 8
+              Style = tbsSeparator
+            end
+            object TBFiltro: TToolButton
+              Left = 670
+              Top = 0
+              Caption = 'Filtro'
+              DropdownMenu = PMFiltroAcciones
+              ImageIndex = 25
+              Style = tbsDropDown
+            end
+            object TBOferta: TToolButton
+              Left = 706
+              Top = 0
+              Action = ACrearOferta
+              ParentShowHint = False
+              ShowHint = True
+            end
+            object AbrirOferta: TToolButton
+              Left = 729
+              Top = 0
+              Action = AADocAsoc
+            end
+          end
+          object PCAcciones: TLFPageControl
+            Left = 0
+            Top = 22
+            Width = 825
+            Height = 447
+            ActivePage = TSFichaAcciones
+            Align = alClient
+            OwnerDraw = True
+            TabIndex = 0
+            TabOrder = 1
+            TabPosition = tpBottom
+            TabActiveColor = clWhite
+            TabInactiveColor = 14936298
+            object TSFichaAcciones: TTabSheet
+              Caption = '&Ficha'
+              object PEditAcciones: TLFPanel
+                Left = 0
+                Top = 0
+                Width = 817
+                Height = 147
+                Align = alTop
+                BevelOuter = bvNone
+                Enabled = False
+                TabOrder = 0
+                object PNLDatosAccion: TLFPanel
+                  Left = 0
+                  Top = 0
+                  Width = 392
+                  Height = 147
+                  Align = alLeft
+                  BevelOuter = bvNone
+                  TabOrder = 0
+                  object LFLabelDoc: TLFLabel
+                    Left = 176
+                    Top = 77
+                    Width = 70
+                    Height = 13
+                    Alignment = taRightJustify
+                    Caption = 'Doc. Asociado'
+                  end
+                  object LAccion: TLFLabel
+                    Left = 227
+                    Top = 11
+                    Width = 82
+                    Height = 13
+                    Alignment = taRightJustify
+                    Caption = 'Acci'#243'n Comercial'
+                    FocusControl = LFDBEAccion
+                  end
+                  object LblAgente: TLFLabel
+                    Left = 34
+                    Top = 33
+                    Width = 34
+                    Height = 13
+                    Alignment = taRightJustify
+                    Caption = 'Agente'
+                  end
+                  object LblDescripccionAccion: TLFLabel
+                    Left = 12
+                    Top = 98
+                    Width = 56
+                    Height = 13
+                    Alignment = taRightJustify
+                    Caption = 'Descripci'#243'n'
+                    FocusControl = DBEDescripcionAccion
+                  end
+                  object LblFechaAccion: TLFLabel
+                    Left = 38
+                    Top = 55
+                    Width = 30
+                    Height = 13
+                    Alignment = taRightJustify
+                    Caption = 'Fecha'
+                    FocusControl = DBDEFechaAccion
+                  end
+                  object LblLinea: TLFLabel
+                    Left = 159
+                    Top = 11
+                    Width = 26
+                    Height = 13
+                    Alignment = taRightJustify
+                    Caption = 'Linea'
+                  end
+                  object LblTipoAccion: TLFLabel
+                    Left = 11
+                    Top = 77
+                    Width = 57
+                    Height = 13
+                    Alignment = taRightJustify
+                    Caption = 'Tipo Acci'#243'n'
+                    FocusControl = DBEFTipoAccion
+                  end
+                  object LIdAccion: TLFLabel
+                    Left = 23
+                    Top = 11
+                    Width = 45
+                    Height = 13
+                    Alignment = taRightJustify
+                    Caption = 'Id Accion'
+                  end
+                  object LDBEjercicio: TLFDBEditFind2000
+                    Left = 251
+                    Top = 73
+                    Width = 61
+                    Height = 21
+                    DataField = 'DOC_EJERCICIO'
+                    DataSource = CrmDMContactos.DSQMAcciones
+                    TabOrder = 8
+                    AutoCambiarFoco = False
+                    Base_de_datos = DMMain.DataBase
+                    BuscarNums = False
+                    Tabla_a_buscar = 'VER_EJERCICIOS'
+                    Tabla_asociada.DesplegarBusqueda = False
+                    CampoNum = 'EJERCICIO'
+                    CampoStr = 'APERTURA'
+                    ReemplazarCaracter = True
+                    SalirSiNoExiste = False
+                    SalirSiVacio = False
+                    OrdenadoPor.Strings = (
+                      'EJERCICIO DESC')
+                    Filtros = [obEmpresa]
+                    Entorno = DMMain.EntornoBusqueda
+                  end
+                  object LFDBDoc: TLFDBEditFind2000
+                    Left = 313
+                    Top = 73
+                    Width = 61
+                    Height = 21
+                    Color = clAqua
+                    DataField = 'DOC_ACCION'
+                    DataSource = CrmDMContactos.DSQMAcciones
+                    Enabled = False
+                    ReadOnly = True
+                    TabOrder = 9
+                    OnChange = LFDBDocChange
+                    OnDblClick = SBADocDblClick
+                    AutoCambiarFoco = False
+                    Base_de_datos = DMMain.DataBase
+                    BuscarNums = False
+                    Tabla_a_buscar = 'GES_CABECERAS_S'
+                    Tabla_asociada.DesplegarBusqueda = False
+                    CampoNum = 'RIG'
+                    CampoStr = 'FECHA'
+                    ReemplazarCaracter = True
+                    SalirSiNoExiste = False
+                    SalirSiVacio = True
+                    OnBusqueda = LFDBDocBusqueda
+                    OrdenadoPor.Strings = (
+                      'EMPRESA'
+                      'FECHA')
+                    Filtros = [obEmpresa]
+                    Entorno = DMMain.EntornoBusqueda
+                  end
+                  object LFDBEAccion: TLFDBEditFind2000
+                    Left = 312
+                    Top = 7
+                    Width = 61
+                    Height = 21
+                    DataField = 'ID_ACCION_CAB'
+                    DataSource = CrmDMContactos.DSQMAcciones
+                    ParentShowHint = False
+                    ShowHint = False
+                    TabOrder = 2
+                    OnChange = LFDBEAccionChange
+                    AutoCambiarFoco = False
+                    Base_de_datos = DMMain.DataBase
+                    BuscarNums = False
+                    Tabla_a_buscar = 'CRM_ACCIONES'
+                    Tabla_asociada.DesplegarBusqueda = False
+                    Campos_Desplegar.Strings = (
+                      '')
+                    CampoNum = 'ID'
+                    CampoStr = 'DESCRIPCION_ACCION'
+                    ReemplazarCaracter = True
+                    SalirSiNoExiste = False
+                    SalirSiVacio = False
+                    OrdenadoPor.Strings = (
+                      'ID')
+                    Filtros = []
+                    Entorno = DMMain.EntornoBusqueda
+                  end
+                  object DBChkBFinAccion: TLFDBCheckBox
+                    Left = 74
+                    Top = 121
+                    Width = 287
+                    Height = 17
+                    Caption = 'Acci'#243'n Comercial Finalizada'
+                    ClicksDisabled = False
+                    ColorCheck = 57088
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clWindowText
+                    Font.Height = -11
+                    Font.Name = 'MS Sans Serif'
+                    Font.Style = [fsBold]
+                    ParentFont = False
+                    TabOrder = 11
+                    TabStop = True
+                    Alignment = taLeftJustify
+                    DataField = 'FIN_ACCION'
+                    DataSource = CrmDMContactos.DSQMAcciones
+                    ValueChecked = '1'
+                    ValueUnchecked = '0'
+                  end
+                  object DBDEFechaAccion: TLFDBDateEdit
+                    Left = 74
+                    Top = 51
+                    Width = 121
+                    Height = 21
+                    DataField = 'FECHA_ACCION'
+                    DataSource = CrmDMContactos.DSQMAcciones
+                    CheckOnExit = True
+                    NumGlyphs = 2
+                    TabOrder = 5
+                  end
+                  object DBEDescripcionAccion: TLFDbedit
+                    Left = 74
+                    Top = 95
+                    Width = 300
+                    Height = 21
+                    DataField = 'DESCRIPCION_ACCION'
+                    DataSource = CrmDMContactos.DSQMAcciones
+                    TabOrder = 10
+                  end
+                  object DBEFAgenteAccion: TLFDBEditFind2000
+                    Left = 74
+                    Top = 29
+                    Width = 64
+                    Height = 21
+                    AutoSize = False
+                    DataField = 'AGENTE'
+                    DataSource = CrmDMContactos.DSQMAcciones
+                    TabOrder = 3
+                    AutoCambiarFoco = False
+                    Base_de_datos = DMMain.DataBase
+                    BuscarNums = False
+                    Tabla_a_buscar = 'VER_AGENTES'
+                    Tabla_asociada.DesplegarBusqueda = False
+                    CampoNum = 'AGENTE'
+                    CampoStr = 'TITULO'
+                    ReemplazarCaracter = True
+                    SalirSiNoExiste = False
+                    SalirSiVacio = False
+                    OrdenadoPor.Strings = (
+                      'AGENTE')
+                    Filtros = [obEmpresa]
+                    Entorno = DMMain.EntornoBusqueda
+                  end
+                  object DBEFTipoAccion: TLFDBEditFind2000
+                    Left = 74
+                    Top = 73
+                    Width = 87
+                    Height = 21
+                    DataField = 'TIPO_ACCION'
+                    DataSource = CrmDMContactos.DSQMAcciones
+                    ParentShowHint = False
+                    ShowHint = False
+                    TabOrder = 7
+                    OnChange = DBEFTipoAccionChange
+                    AutoCambiarFoco = False
+                    Base_de_datos = DMMain.DataBase
+                    BuscarNums = False
+                    Tabla_a_buscar = 'CRM_SYS_ACCIONES'
+                    Tabla_asociada.DesplegarBusqueda = False
+                    Campos_Desplegar.Strings = (
+                      '')
+                    CampoNum = 'ACCION'
+                    CampoStr = 'DESCRIPCION'
+                    CampoADevolver = 'ACCION'
+                    ReemplazarCaracter = True
+                    SalirSiNoExiste = False
+                    SalirSiVacio = False
+                    OrdenadoPor.Strings = (
+                      'ACCION')
+                    Filtros = []
+                    Entorno = DMMain.EntornoBusqueda
+                  end
+                  object DBELineaAccion: TLFDbedit
+                    Left = 189
+                    Top = 7
+                    Width = 33
+                    Height = 21
+                    CharCase = ecUpperCase
+                    Color = clInfoBk
+                    DataField = 'LINEA'
+                    DataSource = CrmDMContactos.DSQMAcciones
+                    Enabled = False
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clGrayText
+                    Font.Height = -11
+                    Font.Name = 'MS Sans Serif'
+                    Font.Style = []
+                    ParentFont = False
+                    ReadOnly = True
+                    TabOrder = 1
+                  end
+                  object DBETituloAgente: TLFDbedit
+                    Left = 139
+                    Top = 29
+                    Width = 234
+                    Height = 21
+                    TabStop = False
+                    AutoSize = False
+                    Color = clInfoBk
+                    DataField = 'TITULO'
+                    DataSource = CrmDMContactos.DSxAgenteAccion
+                    Enabled = False
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clGrayText
+                    Font.Height = -11
+                    Font.Name = 'MS Sans Serif'
+                    Font.Style = []
+                    ParentFont = False
+                    ReadOnly = True
+                    TabOrder = 4
+                  end
+                  object PNLProgresoAcc: TLFPanel
+                    Left = 197
+                    Top = 50
+                    Width = 176
+                    Height = 22
+                    BevelOuter = bvNone
+                    TabOrder = 6
+                    object LProgresoAcc: TLFLabel
+                      Left = 21
+                      Top = 4
+                      Width = 42
+                      Height = 13
+                      Alignment = taRightJustify
+                      Caption = 'Progreso'
+                    end
+                    object TrBProgresoAcc: TTrackBar
+                      Left = 68
+                      Top = 2
+                      Width = 114
+                      Height = 18
+                      Orientation = trHorizontal
+                      Frequency = 10
+                      Position = 10
+                      SelEnd = 0
+                      SelStart = 0
+                      TabOrder = 0
+                      ThumbLength = 15
+                      TickMarks = tmBottomRight
+                      TickStyle = tsNone
+                      OnChange = TrBProgresoAccChange
+                    end
+                  end
+                  object DBEProgreso: TLFDbedit
+                    Left = 328
+                    Top = 51
+                    Width = 45
+                    Height = 21
+                    CharCase = ecUpperCase
+                    Color = clInfoBk
+                    DataField = 'PROGRESO'
+                    DataSource = CrmDMContactos.DSQMAcciones
+                    Enabled = False
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clGrayText
+                    Font.Height = -11
+                    Font.Name = 'MS Sans Serif'
+                    Font.Style = []
+                    ParentFont = False
+                    TabOrder = 12
+                    Visible = False
+                    OnChange = DBEProgresoChange
+                  end
+                  object DBEIdAccion: TLFDbedit
+                    Left = 74
+                    Top = 7
+                    Width = 79
+                    Height = 21
+                    CharCase = ecUpperCase
+                    Color = clInfoBk
+                    DataField = 'ID_ACCION'
+                    DataSource = CrmDMContactos.DSQMAcciones
+                    Enabled = False
+                    Font.Charset = DEFAULT_CHARSET
+                    Font.Color = clGrayText
+                    Font.Height = -11
+                    Font.Name = 'MS Sans Serif'
+                    Font.Style = []
+                    ParentFont = False
+                    ReadOnly = True
+                    TabOrder = 0
+                  end
+                end
+                object DBreNotas: TDBRichEdit
+                  Left = 392
+                  Top = 0
+                  Width = 425
+                  Height = 147
+                  Align = alClient
+                  DataField = 'NOTAS'
+                  DataSource = CrmDMContactos.DSQMAcciones
+                  ScrollBars = ssVertical
+                  TabOrder = 1
+                end
+              end
+              object LFPanelDet: TLFPanel
+                Left = 0
+                Top = 147
+                Width = 817
+                Height = 274
+                Align = alClient
+                BevelOuter = bvNone
+                TabOrder = 1
+                object LSeguimientoAccionComercial: TLFLabel
+                  Left = 0
+                  Top = 0
+                  Width = 817
+                  Height = 13
+                  Align = alTop
+                  Caption = 'Seguimiento Acci'#243'n Comercial'
+                  Font.Charset = DEFAULT_CHARSET
+                  Font.Color = clWindowText
+                  Font.Height = -11
+                  Font.Name = 'MS Sans Serif'
+                  Font.Style = [fsBold]
+                  ParentFont = False
+                end
+                object PNLAsuntos: TLFPanel
+                  Left = 632
+                  Top = 13
+                  Width = 185
+                  Height = 261
+                  Align = alRight
+                  BevelOuter = bvNone
+                  TabOrder = 0
+                  object TBAsuntosSeguimiento: TLFToolBar
+                    Left = 0
+                    Top = 0
+                    Width = 185
+                    Height = 22
+                    AutoSize = True
+                    EdgeBorders = []
+                    EdgeInner = esNone
+                    EdgeOuter = esNone
+                    Flat = True
+                    TabOrder = 0
+                    Separators = True
+                    object NavAsuntosSeguimiento: THYMNavigator
+                      Left = 0
+                      Top = 0
+                      Width = 180
+                      Height = 22
+                      DataSource = CrmDMContactos.DSxAccionDetAsuntos
+                      VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbInsert, nbDelete, nbPost, nbCancel]
+                      Align = alRight
+                      Flat = True
+                      ParentShowHint = False
+                      ShowHint = True
+                      TabOrder = 0
+                      ModoDeSeguridad = True
+                      DelCaption = 'Informaci'#243'n'
+                      DelMessage = ' '#191' Borra el registro ? '
+                      OnClickBefore = NavAccionesDetClickBefore
+                      Exclusivo = True
+                      OrdenAscendente = True
+                      InsertaUltimo = True
+                    end
+                  end
+                  object DBGFAsuntos: TDBGridFind2000
+                    Left = 0
+                    Top = 22
+                    Width = 185
+                    Height = 239
+                    Align = alClient
+                    DataSource = CrmDMContactos.DSxAccionDetAsuntos
+                    TabOrder = 1
+                    TitleFont.Charset = DEFAULT_CHARSET
+                    TitleFont.Color = clWindowText
+                    TitleFont.Height = -11
+                    TitleFont.Name = 'MS Sans Serif'
+                    TitleFont.Style = []
+                    Insercion = False
+                    ColumnaInicial = 0
+                    UsaDicG2K = True
+                    Changed = False
+                    Idioma = 'CAS'
+                    AutoCambiarColumna = False
+                    AutoPostEnCheckBox = False
+                    AutoStartDrag = False
+                    AutoStartDragInterval = 0
+                    IndiceBitmapOrdenable = 0
+                    IndiceBitmapAscendente = 1
+                    IndiceBitmapChecked = 3
+                    IndiceBitmapDescendente = 2
+                    BaseDeDatos = DMMain.DataBase
+                    BuscarNums = False
+                    Campos.Strings = (
+                      'ID_ASUNTO')
+                    CamposAMostrar.Strings = (
+                      'ID_ASUNTO'
+                      '0')
+                    CamposAMostrarAnchos.Strings = (
+                      '0')
+                    CamposADevolver.Strings = (
+                      '')
+                    CamposDesplegar.Strings = (
+                      '1')
+                    CampoAOrdenarColor = clInfoBk
+                    CampoAOrdenarBitmaps = DMMain.ILOrdGrid
+                    CamposAOrdernar.Strings = (
+                      'TITULO')
+                    MensajeNoExiste = False
+                    Numericos.Strings = (
+                      'ID_ASUNTO')
+                    SalirSiVacio = False
+                    SalirSiNoExiste = False
+                    Tablas.Strings = (
+                      'CRM_ASUNTOS')
+                    Acciones.Strings = (
+                      '')
+                    Titulos.Strings = (
+                      'TITULO')
+                    Posicion = tpCentrado
+                    Planes.Strings = (
+                      '')
+                    OrdenMultiple = True
+                    OrdenadosPor.Strings = (
+                      'TITULO')
+                    Filtros = []
+                    Columns = <
+                      item
+                        Expanded = False
+                        FieldName = 'ID_ASUNTO'
+                        Width = 34
+                        Visible = True
+                      end
+                      item
+                        Color = clInfoBk
+                        Expanded = False
+                        FieldName = 'TITULO'
+                        ReadOnly = True
+                        Width = 115
+                        Visible = True
+                      end>
+                  end
+                end
+                object PNLSeguimiento: TLFPanel
+                  Left = 0
+                  Top = 13
+                  Width = 632
+                  Height = 261
+                  Align = alClient
+                  Caption = 'PNLSeguimiento'
+                  TabOrder = 1
+                  object DBNotasDet: TDBRichEdit
+                    Left = 1
+                    Top = 193
+                    Width = 630
+                    Height = 67
+                    Align = alBottom
+                    DataField = 'NOTAS'
+                    DataSource = CrmDMContactos.DSQMAccionesDet
+                    ScrollBars = ssVertical
+                    TabOrder = 0
+                  end
+                  object DBGDetallAccions: TDBGridFind2000
+                    Left = 1
+                    Top = 23
+                    Width = 630
+                    Height = 170
+                    Align = alClient
+                    DataSource = CrmDMContactos.DSQMAccionesDet
+                    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
+                    ReadOnly = True
+                    TabOrder = 1
+                    TitleFont.Charset = DEFAULT_CHARSET
+                    TitleFont.Color = clWindowText
+                    TitleFont.Height = -11
+                    TitleFont.Name = 'MS Sans Serif'
+                    TitleFont.Style = []
+                    OnDblClick = DBGDetallAccionsDblClick
+                    Insercion = False
+                    ColumnaInicial = 0
+                    UsaDicG2K = True
+                    Changed = False
+                    Idioma = 'CAS'
+                    AutoCambiarColumna = False
+                    AutoPostEnCheckBox = False
+                    AutoStartDrag = False
+                    AutoStartDragInterval = 0
+                    IndiceBitmapOrdenable = 0
+                    IndiceBitmapAscendente = 1
+                    IndiceBitmapChecked = 3
+                    IndiceBitmapDescendente = 2
+                    BaseDeDatos = DMMain.DataBase
+                    BuscarNums = False
+                    CampoAOrdenarColor = clInfoBk
+                    CampoAOrdenarBitmaps = DMMain.ILOrdGrid
+                    CamposAOrdernar.Strings = (
+                      'ORDEN'
+                      'FECHA'
+                      'TIPO_SEG')
+                    ColumnasCheckBoxes.Strings = (
+                      'FIN_SEG')
+                    ColumnasChecked.Strings = (
+                      '1')
+                    ColumnasNoChecked.Strings = (
+                      '0')
+                    MensajeNoExiste = False
+                    SalirSiVacio = False
+                    SalirSiNoExiste = False
+                    Posicion = tpCentrado
+                    OrdenMultiple = True
+                    Filtros = []
+                    Columns = <
+                      item
+                        Expanded = False
+                        FieldName = 'ORDEN'
+                        Width = 35
+                        Visible = True
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'FECHA'
+                        Width = 80
+                        Visible = True
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'DESCRIPCION_SEGUIMIENTO'
+                        Visible = True
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'TIPO_SEG'
+                        Width = 87
+                        Visible = True
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'HORA_ACCION'
+                        Width = 77
+                        Visible = True
+                      end
+                      item
+                        Expanded = False
+                        FieldName = 'FIN_SEG'
+                        Width = 82
+                        Visible = True
+                      end>
+                  end
+                  object TBSeguimientoAccionComercial: TLFToolBar
+                    Left = 1
+                    Top = 1
+                    Width = 630
+                    Height = 22
+                    AutoSize = True
+                    EdgeBorders = []
+                    EdgeInner = esNone
+                    EdgeOuter = esNone
+                    Flat = True
+                    TabOrder = 2
+                    Separators = True
+                    object NavAccionesDet: THYMNavigator
+                      Left = 0
+                      Top = 0
+                      Width = 160
+                      Height = 22
+                      DataSource = CrmDMContactos.DSQMAccionesDet
+                      VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbInsert, nbDelete, nbEdit, nbRefresh]
+                      Align = alRight
+                      Flat = True
+                      ParentShowHint = False
+                      PopupMenu = CEAccionesDetPMEdit
+                      ShowHint = True
+                      TabOrder = 0
+                      ModoDeSeguridad = True
+                      DelCaption = 'Informaci'#243'n'
+                      DelMessage = ' '#191' Borra el registro ? '
+                      OnClickBefore = NavAccionesDetClickBefore
+                      Exclusivo = True
+                      ControlEdit = CEAccionesDet
+                      OrdenAscendente = True
+                      InsertaUltimo = True
+                    end
+                  end
+                end
+              end
+            end
+            object TSTablaAcciones: TTabSheet
+              Caption = '&Tabla'
+              ImageIndex = 1
+              OnShow = TSTablaAccionesShow
+              object DBGAcciones: THYTDBGrid
+                Left = 0
+                Top = 0
+                Width = 817
+                Height = 421
+                Align = alClient
+                DataSource = CrmDMContactos.DSQMAcciones
+                Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
+                TabOrder = 0
+                TitleFont.Charset = DEFAULT_CHARSET
+                TitleFont.Color = clWindowText
+                TitleFont.Height = -11
+                TitleFont.Name = 'MS Sans Serif'
+                TitleFont.Style = []
+                IniStorage = FSMain
+                Insercion = False
+                ColumnaInicial = 0
+                UsaDicG2K = True
+                Changed = False
+                Idioma = 'CAS'
+                AutoDeseleccionar = True
+                TabFicha = TSFichaAcciones
+                PermutaPaneles = True
+                CamposAMarcar.Strings = (
+                  'FIN_ACCION')
+                CamposChecked.Strings = (
+                  '1')
+                CamposNoChecked.Strings = (
+                  '0')
+                CamposAOrdenar.Strings = (
+                  'AGENTE'
+                  'DESCRIPCION_ACCION'
+                  'DESCRIPCION_PROX_ACCION'
+                  'DOC_ACCION'
+                  'DOC_EJERCICIO'
+                  'DOC_SERIES'
+                  'FECHA_ACCION'
+                  'FECHA_PROX_ACCION'
+                  'FIN_ACCION'
+                  'HORA_PROX_ACCION'
+                  'ID_CONTACTO'
+                  'LINEA'
+                  'TIPO_ACCION'
+                  'TIPO_PROX_ACCION')
+                CamposAOrdenarImgs = DMMain.ILOrdGrid
+                CampoAOrdenarColor = clInfoBk
+                OrdenMultiple = True
+                Columns = <
+                  item
+                    Expanded = False
+                    FieldName = 'LINEA'
+                    Width = 40
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'AGENTE'
+                    Width = 43
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'FECHA_ACCION'
+                    Width = 76
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'TIPO_ACCION'
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DESCRIPCION_ACCION'
+                    Width = 171
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'FIN_ACCION'
+                    Width = 55
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'FECHA_PROX_ACCION'
+                    Width = 100
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'TIPO_PROX_ACCION'
+                    Width = 65
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DESCRIPCION_PROX_ACCION'
+                    Width = 65
+                    Visible = True
+                  end>
+              end
+            end
+          end
+        end
+      end
+      object TSContactos: TTabSheet [2]
+        Caption = '&Contactos'
+        OnShow = TSContactosShow
+        object PCContPers: TLFPageControl
+          Left = 0
+          Top = 22
+          Width = 825
+          Height = 423
+          ActivePage = TSFichaContactos
+          Align = alClient
+          OwnerDraw = True
+          TabIndex = 0
+          TabOrder = 0
+          TabPosition = tpBottom
+          TabActiveColor = clWhite
+          TabInactiveColor = 14936298
+          object TSFichaContactos: TTabSheet
+            Caption = '&Ficha'
+            object PEditContactos: TLFPanel
+              Left = 0
+              Top = 0
+              Width = 817
+              Height = 397
+              Align = alClient
+              BevelOuter = bvNone
+              Enabled = False
+              TabOrder = 0
+              DesignSize = (
+                817
+                397)
+              object LContactoNombre: TLFLabel
+                Left = 39
+                Top = 72
+                Width = 37
+                Height = 13
+                Alignment = taRightJustify
+                Caption = 'Nombre'
+                FocusControl = DBE_C_Nombre
+              end
+              object LContactoApellido: TLFLabel
+                Left = 34
+                Top = 94
+                Width = 42
+                Height = 13
+                Alignment = taRightJustify
+                Caption = 'Apellidos'
+                FocusControl = DBE_C_Apellidos
+              end
+              object LContactoTelefono: TLFLabel
+                Left = 34
+                Top = 116
+                Width = 42
+                Height = 13
+                Alignment = taRightJustify
+                Caption = 'Tel'#233'fono'
+                FocusControl = DBE_C_Telefono
+              end
+              object LContactoTelefax: TLFLabel
+                Left = 41
+                Top = 160
+                Width = 35
+                Height = 13
+                Alignment = taRightJustify
+                Caption = 'Telefax'
+                FocusControl = DBE_C_TeleFax
+              end
+              object LContactoExt: TLFLabel
+                Left = 224
+                Top = 116
+                Width = 18
+                Height = 13
+                Alignment = taRightJustify
+                Caption = 'Ext.'
+                FocusControl = DBE_C_Extension
+              end
+              object LContactoEmail: TLFLabel
+                Left = 49
+                Top = 182
+                Width = 27
+                Height = 13
+                Alignment = taRightJustify
+                Caption = 'e-mail'
+                FocusControl = DBE_C_Email
+              end
+              object LblPersona: TLFLabel
+                Left = 37
+                Top = 50
+                Width = 39
+                Height = 13
+                Alignment = taRightJustify
+                Caption = 'Persona'
+              end
+              object LContactoMovil: TLFLabel
+                Left = 51
+                Top = 138
+                Width = 25
+                Height = 13
+                Alignment = taRightJustify
+                Caption = 'M'#243'vil'
+                FocusControl = DBE_C_Telefono
+              end
+              object LFechaEnvio: TLFLabel
+                Left = 19
+                Top = 254
+                Width = 57
+                Height = 13
+                Hint = 'Fecha de Exportacion de Email'
+                Alignment = taRightJustify
+                Caption = 'Fec. Export.'
+                FocusControl = DBDEFechaExportacion
+                ParentShowHint = False
+                ShowHint = True
+              end
+              object LCodigoBrevo: TLFLabel
+                Left = 12
+                Top = 310
+                Width = 64
+                Height = 13
+                Alignment = taRightJustify
+                Caption = 'Codigo Brevo'
+              end
+              object LCargo: TLFLabel
+                Left = 48
+                Top = 204
+                Width = 28
+                Height = 13
+                Alignment = taRightJustify
+                Caption = 'Cargo'
+                FocusControl = DBECargo
+              end
+              object DBE_C_Nombre: TLFDbedit
+                Left = 82
+                Top = 68
+                Width = 314
+                Height = 21
+                DataField = 'NOMBRE'
+                DataSource = CrmDMContactos.DSQMPersonas
+                TabOrder = 1
+              end
+              object DBE_C_Apellidos: TLFDbedit
+                Left = 82
+                Top = 90
+                Width = 314
+                Height = 21
+                DataField = 'APELLIDOS'
+                DataSource = CrmDMContactos.DSQMPersonas
+                TabOrder = 2
+              end
+              object DBE_C_Telefono: TLFDbedit
+                Left = 82
+                Top = 112
+                Width = 121
+                Height = 21
+                DataField = 'TELEFONO'
+                DataSource = CrmDMContactos.DSQMPersonas
+                TabOrder = 3
+              end
+              object DBE_C_TeleFax: TLFDbedit
+                Left = 82
+                Top = 156
+                Width = 121
+                Height = 21
+                DataField = 'FAX'
+                DataSource = CrmDMContactos.DSQMPersonas
+                TabOrder = 6
+              end
+              object DBE_C_Extension: TLFDbedit
+                Left = 247
+                Top = 112
+                Width = 49
+                Height = 21
+                DataField = 'EXTENSION'
+                DataSource = CrmDMContactos.DSQMPersonas
+                TabOrder = 4
+              end
+              object DBE_C_Email: TLFDbedit
+                Left = 82
+                Top = 178
+                Width = 314
+                Height = 21
+                DataField = 'EMAIL'
+                DataSource = CrmDMContactos.DSQMPersonas
+                TabOrder = 7
+              end
+              object DBM_Co_Notas: TLFDBMemo
+                Left = 408
+                Top = 5
+                Width = 401
+                Height = 385
+                Anchors = [akLeft, akTop, akRight, akBottom]
+                DataField = 'NOTAS'
+                DataSource = CrmDMContactos.DSQMPersonas
+                TabOrder = 13
+              end
+              object DBE_C_Contacto: TLFDbedit
+                Left = 82
+                Top = 46
+                Width = 87
+                Height = 21
+                CharCase = ecUpperCase
+                Color = clInfoBk
+                DataField = 'NUM_PERSONA'
+                DataSource = CrmDMContactos.DSQMPersonas
+                Enabled = False
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clGrayText
+                Font.Height = -11
+                Font.Name = 'MS Sans Serif'
+                Font.Style = []
+                ParentFont = False
+                TabOrder = 0
+              end
+              object DBE_C_Movil: TLFDbedit
+                Left = 82
+                Top = 134
+                Width = 121
+                Height = 21
+                DataField = 'MOVIL'
+                DataSource = CrmDMContactos.DSQMPersonas
+                TabOrder = 5
+              end
+              object DBCBEnviaEmail: TLFDBCheckBox
+                Left = 82
+                Top = 230
+                Width = 314
+                Height = 17
+                Caption = 'Exportar a lista de correo'
+                ClicksDisabled = False
+                ColorCheck = 57088
+                TabOrder = 9
+                TabStop = True
+                Alignment = taLeftJustify
+                DataField = 'ENVIO_EMAIL'
+                DataSource = CrmDMContactos.DSQMPersonas
+                ValueChecked = '1'
+                ValueUnchecked = '0'
+              end
+              object DBDEFechaExportacion: TLFDBDateEdit
+                Left = 82
+                Top = 250
+                Width = 109
+                Height = 21
+                DataField = 'FECHA_EXPORTACION_CORREO'
+                DataSource = CrmDMContactos.DSQMPersonas
+                CheckOnExit = True
+                NumGlyphs = 2
+                TabOrder = 10
+                Weekends = [Sun, Sat]
+              end
+              object DBCBBrevo: TLFDBCheckBox
+                Left = 82
+                Top = 286
+                Width = 314
+                Height = 17
+                Hint = 
+                  'Se utiliza el contacto para envio de correos en la plataforma Br' +
+                  'evo (ex SendinBlue)'
+                Caption = 'Envio de correos en la plataforma Brevo (ex SendinBlue)'
+                ClicksDisabled = False
+                ColorCheck = 57088
+                TabOrder = 11
+                TabStop = True
+                Alignment = taLeftJustify
+                DataField = 'BREVO'
+                DataSource = CrmDMContactos.DSQMPersonas
+                ValueChecked = '1'
+                ValueUnchecked = '0'
+              end
+              object DBECodigoBrevo: TLFDbedit
+                Left = 82
+                Top = 306
+                Width = 87
+                Height = 21
+                CharCase = ecUpperCase
+                Color = clInfoBk
+                DataField = 'ID_CONTACTO_PERSONA_BREVO'
+                DataSource = CrmDMContactos.DSQMPersonas
+                Enabled = False
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clGrayText
+                Font.Height = -11
+                Font.Name = 'MS Sans Serif'
+                Font.Style = []
+                ParentFont = False
+                TabOrder = 12
+              end
+              object DBECargo: TLFDbedit
+                Left = 82
+                Top = 200
+                Width = 314
+                Height = 21
+                DataField = 'CARGO'
+                DataSource = CrmDMContactos.DSQMPersonas
+                TabOrder = 8
+              end
+            end
+          end
+          object TSTablaContactos: TTabSheet
+            Caption = 'Tabla'
+            ImageIndex = 1
+            object DBGridFind20001: TDBGridFind2000
+              Left = 0
+              Top = 0
+              Width = 817
+              Height = 397
+              Align = alClient
+              DataSource = CrmDMContactos.DSQMPersonas
+              Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
+              TabOrder = 0
+              TitleFont.Charset = DEFAULT_CHARSET
+              TitleFont.Color = clWindowText
+              TitleFont.Height = -11
+              TitleFont.Name = 'MS Sans Serif'
+              TitleFont.Style = []
+              Insercion = False
+              ColumnaInicial = 0
+              UsaDicG2K = True
+              Changed = False
+              Idioma = 'CAS'
+              AutoCambiarColumna = False
+              AutoPostEnCheckBox = False
+              AutoStartDrag = False
+              AutoStartDragInterval = 0
+              IndiceBitmapOrdenable = 0
+              IndiceBitmapAscendente = 1
+              IndiceBitmapChecked = 3
+              IndiceBitmapDescendente = 2
+              BaseDeDatos = DMMain.DataBase
+              BuscarNums = False
+              CampoAOrdenarColor = clInfoBk
+              CampoAOrdenarBitmaps = DMMain.ILOrdGrid
+              CamposAOrdernar.Strings = (
+                'APELLIDOS'
+                'NOMBRE')
+              ColumnasCheckBoxes.Strings = (
+                'ENVIO_EMAIL'
+                'BREVO')
+              ColumnasChecked.Strings = (
+                '1'
+                '1')
+              ColumnasNoChecked.Strings = (
+                '0'
+                '0')
+              MensajeNoExiste = False
+              SalirSiVacio = False
+              SalirSiNoExiste = False
+              Posicion = tpCentrado
+              OrdenMultiple = True
+              Filtros = []
+              Columns = <
+                item
+                  Color = clInfoBk
+                  Expanded = False
+                  FieldName = 'NOMBRE'
+                  ReadOnly = True
+                  Width = 95
+                  Visible = True
+                end
+                item
+                  Color = clInfoBk
+                  Expanded = False
+                  FieldName = 'APELLIDOS'
+                  ReadOnly = True
+                  Width = 95
+                  Visible = True
+                end
+                item
+                  Color = clInfoBk
+                  Expanded = False
+                  FieldName = 'TELEFONO'
+                  ReadOnly = True
+                  Width = 90
+                  Visible = True
+                end
+                item
+                  Color = clInfoBk
+                  Expanded = False
+                  FieldName = 'EXTENSION'
+                  ReadOnly = True
+                  Width = 51
+                  Visible = True
+                end
+                item
+                  Color = clInfoBk
+                  Expanded = False
+                  FieldName = 'FAX'
+                  ReadOnly = True
+                  Visible = True
+                end
+                item
+                  Color = clInfoBk
+                  Expanded = False
+                  FieldName = 'EMAIL'
+                  ReadOnly = True
+                  Width = 178
+                  Visible = True
+                end
+                item
+                  Color = clInfoBk
+                  Expanded = False
+                  FieldName = 'MOVIL'
+                  ReadOnly = True
+                  Width = 65
+                  Visible = True
+                end
+                item
+                  Color = clInfoBk
+                  Expanded = False
+                  FieldName = 'BREVO'
+                  ReadOnly = True
+                  Width = 36
+                  Visible = True
+                end>
+            end
+          end
+        end
+        object TBContactosEdit: TLFToolBar
+          Left = 0
+          Top = 445
+          Width = 825
+          Height = 24
+          Align = alBottom
+          AutoSize = True
+          EdgeBorders = []
+          TabOrder = 1
+          Separators = True
+          object NavContPers: THYMNavigator
+            Left = 0
+            Top = 2
+            Width = 220
+            Height = 22
+            DataSource = CrmDMContactos.DSQMPersonas
+            Flat = True
+            ParentShowHint = False
+            PopupMenu = CEContPersPMEdit
+            ShowHint = True
+            TabOrder = 0
+            OnClick = NavContPersClick
+            ModoDeSeguridad = True
+            DelCaption = 'Informaci'#243'n'
+            DelMessage = ' '#191' Borra el registro ? '
+            EditaControl = DBE_C_Nombre
+            InsertaControl = DBE_C_Nombre
+            Exclusivo = True
+            ControlEdit = CEContPers
+            OrdenAscendente = True
+            InsertaUltimo = False
+          end
+        end
+        object PNLtituloContactos: TLFPanel
+          Left = 0
+          Top = 0
+          Width = 825
+          Height = 22
+          Align = alTop
+          BevelOuter = bvNone
+          Enabled = False
+          TabOrder = 2
+          object DBENumPersona: TLFDbedit
+            Left = 0
+            Top = 0
+            Width = 120
+            Height = 21
+            BevelInner = bvNone
+            BevelOuter = bvNone
+            Color = clInfoBk
+            DataField = 'ID_CONTACTO'
+            DataSource = CrmDMContactos.DSQMContactos
+            Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGrayText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 0
+          end
+          object DBENombrePersona: TLFDbedit
+            Left = 121
+            Top = 0
+            Width = 400
+            Height = 21
+            BevelInner = bvNone
+            BevelOuter = bvNone
+            Color = clInfoBk
+            DataField = 'NOMBRE_COMERCIAL'
+            DataSource = CrmDMContactos.DSQMContactos
+            Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGrayText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 1
+          end
+        end
+      end
+      object TSAmbito: TTabSheet [3]
+        Caption = #193'mbito'
+        object LFPanelAmbito: TLFPanel
+          Left = 0
+          Top = 0
+          Width = 825
+          Height = 469
+          Align = alClient
+          BevelOuter = bvNone
+          TabOrder = 0
+          object TBAmbito: TLFToolBar
+            Left = 0
+            Top = 0
+            Width = 825
+            Height = 22
+            AutoSize = True
+            EdgeBorders = [ebLeft, ebTop, ebRight, ebBottom]
+            EdgeInner = esNone
+            EdgeOuter = esNone
+            Flat = True
+            TabOrder = 0
+            Separators = True
+            object NavAmbito: THYMNavigator
+              Left = 0
+              Top = 0
+              Width = 180
+              Height = 22
+              DataSource = CrmDMContactos.DSRelContactoAmbito
+              VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbInsert, nbDelete, nbPost, nbCancel, nbRefresh]
+              Flat = True
+              ParentShowHint = False
+              ShowHint = True
+              TabOrder = 0
+              ModoDeSeguridad = True
+              DelCaption = 'Informaci'#243'n'
+              DelMessage = ' '#191' Borra el registro ? '
+              EditaControl = DBGRelContactAmbito
+              InsertaControl = DBGRelContactAmbito
+              Exclusivo = True
+              OrdenAscendente = True
+              InsertaUltimo = True
+            end
+          end
+          object DBGRelContactAmbito: TDBGridFind2000
+            Left = 0
+            Top = 22
+            Width = 825
+            Height = 447
+            Align = alClient
+            DataSource = CrmDMContactos.DSRelContactoAmbito
+            Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+            TabOrder = 1
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -11
+            TitleFont.Name = 'MS Sans Serif'
+            TitleFont.Style = []
+            Insercion = False
+            ColumnaInicial = 0
+            UsaDicG2K = True
+            Changed = False
+            Idioma = 'CAS'
+            AutoCambiarColumna = False
+            AutoPostEnCheckBox = False
+            AutoStartDrag = False
+            AutoStartDragInterval = 0
+            IndiceBitmapOrdenable = 0
+            IndiceBitmapAscendente = 0
+            IndiceBitmapChecked = -1
+            IndiceBitmapDescendente = 0
+            BaseDeDatos = DMMain.DataBase
+            BuscarNums = False
+            Campos.Strings = (
+              'ID_CRM_AMBITO')
+            CamposAMostrar.Strings = (
+              'ID_CRM_AMBITO'
+              '0')
+            CamposAMostrarAnchos.Strings = (
+              '0')
+            CamposADevolver.Strings = (
+              '')
+            CamposDesplegar.Strings = (
+              '1')
+            CampoAOrdenarColor = clInfoBk
+            MensajeNoExiste = False
+            Numericos.Strings = (
+              'AMBITO')
+            SalirSiVacio = False
+            SalirSiNoExiste = False
+            Tablas.Strings = (
+              'CRM_SYS_AMBITOS')
+            Acciones.Strings = (
+              '')
+            Titulos.Strings = (
+              'DESCRIPCION')
+            Posicion = tpCentrado
+            Planes.Strings = (
+              '')
+            OrdenMultiple = True
+            OrdenadosPor.Strings = (
+              '')
+            Filtros = []
+            Columns = <
+              item
+                Expanded = False
+                FieldName = 'ID_CRM_AMBITO'
+                Width = 60
+                Visible = True
+              end
+              item
+                Color = clInfoBk
+                Expanded = False
+                FieldName = 'Desc_Ambito'
+                ReadOnly = True
+                Width = 600
+                Visible = True
+              end>
+          end
+        end
+      end
+      object TSAgrupaciones: TTabSheet [4]
+        Caption = 'A&grupaciones'
+        ImageIndex = 7
+        OnResize = TSAgrupacionesResize
+        OnShow = TSAgrupacionesShow
+        object DBCGPertenece: TLFDBCtrlGrid
+          Left = 0
+          Top = 41
+          Width = 825
+          Height = 175
+          Align = alTop
+          AllowDelete = False
+          AllowInsert = False
+          ColCount = 1
+          Color = clBtnFace
+          DataSource = CrmDMContactos.DSxAgrupSon
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          PanelHeight = 25
+          PanelWidth = 809
+          ParentColor = False
+          ParentFont = False
+          TabOrder = 0
+          RowCount = 7
+          SelectedColor = clHighlight
+          OnDblClick = DBCGPerteneceDblClick
+          object DBEAgrupacionSon: TLFDbedit
+            Left = 10
+            Top = 2
+            Width = 57
+            Height = 21
+            Color = clInfoBk
+            DataField = 'AGRUPACION'
+            DataSource = CrmDMContactos.DSxAgrupSon
+            Enabled = False
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clGrayText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 0
+          end
+          object DBEAgrupacionSonTitulo: TLFDbedit
+            Left = 68
+            Top = 2
+            Width = 377
+            Height = 21
+            Color = clInfoBk
+            DataField = 'TITULO'
+            DataSource = CrmDMContactos.DSxAgrupSon
+            Enabled = False
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clGrayText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 1
+          end
+        end
+        object PPertenece: TLFPanel
+          Left = 0
+          Top = 22
+          Width = 825
+          Height = 19
+          Align = alTop
+          BevelOuter = bvNone
+          Caption = 'Agrupaciones a las que pertenece'
+          Color = clAppWorkSpace
+          Enabled = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 1
+        end
+        object DBCGDisponibles: TLFDBCtrlGrid
+          Left = 0
+          Top = 235
+          Width = 825
+          Height = 231
+          Align = alClient
+          AllowDelete = False
+          AllowInsert = False
+          ColCount = 1
+          Color = clBtnFace
+          DataSource = CrmDMContactos.DSxAgrupDisp
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          PanelHeight = 33
+          PanelWidth = 809
+          ParentColor = False
+          ParentFont = False
+          TabOrder = 2
+          RowCount = 7
+          SelectedColor = clHighlight
+          OnDblClick = DBCGDisponiblesDblClick
+          object DBEAgDentro: TLFDbedit
+            Left = 10
+            Top = 2
+            Width = 57
+            Height = 21
+            Color = clInfoBk
+            DataField = 'AGRUPACION'
+            DataSource = CrmDMContactos.DSxAgrupDisp
+            Enabled = False
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clGrayText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 0
+          end
+          object DBEAgTitDentro: TLFDbedit
+            Left = 68
+            Top = 2
+            Width = 377
+            Height = 21
+            Color = clInfoBk
+            DataField = 'TITULO'
+            DataSource = CrmDMContactos.DSxAgrupDisp
+            Enabled = False
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clGrayText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 1
+          end
+        end
+        object PDisponibles: TLFPanel
+          Left = 0
+          Top = 216
+          Width = 825
+          Height = 19
+          Align = alTop
+          BevelOuter = bvNone
+          Caption = 'Agrupaciones disponibles'
+          Color = clAppWorkSpace
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 3
+          object EFiltroAgrupacion: TLFEdit
+            Left = 0
+            Top = -2
+            Width = 300
+            Height = 21
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 0
+            OnChange = EFiltroAgrupacionChange
+          end
+        end
+        object PnlAgrup: TLFPanel
+          Left = 0
+          Top = 0
+          Width = 825
+          Height = 22
+          Align = alTop
+          BevelOuter = bvNone
+          Enabled = False
+          TabOrder = 4
+          object DBENumAgrupacion: TLFDbedit
+            Left = 0
+            Top = 0
+            Width = 120
+            Height = 21
+            Color = clInfoBk
+            DataField = 'ID_CONTACTO'
+            DataSource = CrmDMContactos.DSQMContactos
+            Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGrayText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 0
+          end
+          object DBENombreAgrupacion: TLFDbedit
+            Left = 121
+            Top = 0
+            Width = 400
+            Height = 21
+            Color = clInfoBk
+            DataField = 'NOMBRE_COMERCIAL'
+            DataSource = CrmDMContactos.DSQMContactos
+            Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGrayText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 1
+          end
+        end
+      end
+      object TSVentas: TTabSheet [5]
+        Caption = 'Ventas'
+        ImageIndex = 7
+        object LFPanelVentas: TLFPanel
+          Left = 0
+          Top = 0
+          Width = 825
+          Height = 469
+          Align = alClient
+          BevelOuter = bvNone
+          TabOrder = 0
+          object DBFContactosVentas: TDBGridFind2000
+            Left = 0
+            Top = 408
+            Width = 825
+            Height = 61
+            Align = alBottom
+            Color = clInfoBk
+            DataSource = CrmDMContactos.DSxVentasCRM
+            Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
+            ReadOnly = True
+            TabOrder = 0
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -11
+            TitleFont.Name = 'MS Sans Serif'
+            TitleFont.Style = []
+            Visible = False
+            Insercion = False
+            ColumnaInicial = 0
+            UsaDicG2K = True
+            Changed = False
+            Idioma = 'CAS'
+            AutoCambiarColumna = False
+            AutoPostEnCheckBox = False
+            AutoStartDrag = False
+            AutoStartDragInterval = 0
+            IndiceBitmapOrdenable = 0
+            IndiceBitmapAscendente = 0
+            IndiceBitmapChecked = -1
+            IndiceBitmapDescendente = 0
+            BaseDeDatos = DMMain.DataBase
+            BuscarNums = False
+            CampoAOrdenarColor = clInfoBk
+            MensajeNoExiste = False
+            SalirSiVacio = False
+            SalirSiNoExiste = False
+            Posicion = tpCentrado
+            OrdenMultiple = True
+            Filtros = []
+            Columns = <
+              item
+                Expanded = False
+                FieldName = 'CODIGO'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'DESCRIPCION'
+                Width = 200
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'CANTIDAD'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'FECHA'
+                Width = 65
+                Visible = True
+              end>
+          end
+          object TBVentas: TLFToolBar
+            Left = 0
+            Top = 0
+            Width = 825
+            Height = 22
+            AutoSize = True
+            Caption = 'Informacion Comercial'
+            EdgeBorders = [ebBottom]
+            EdgeInner = esNone
+            EdgeOuter = esNone
+            Flat = True
+            TabOrder = 1
+            Separators = True
+            object PNLInfoVentas: TLFPanel
+              Left = 0
+              Top = 0
+              Width = 419
+              Height = 22
+              Enabled = False
+              TabOrder = 0
+              object DBEInfoVentasCliente: TLFDbedit
+                Left = 2
+                Top = 1
+                Width = 66
+                Height = 21
+                Color = clInfoBk
+                DataField = 'ID_CONTACTO'
+                DataSource = CrmDMContactos.DSQMContactos
+                Enabled = False
+                TabOrder = 0
+              end
+              object DBEInfoVentasTitulo: TLFDbedit
+                Left = 67
+                Top = 1
+                Width = 350
+                Height = 21
+                Color = clInfoBk
+                DataField = 'NOMBRE_COMERCIAL'
+                DataSource = CrmDMContactos.DSQMContactos
+                Enabled = False
+                TabOrder = 1
+              end
+            end
+            object TBSep9: TToolButton
+              Left = 419
+              Top = 0
+              Width = 8
+              Style = tbsSeparator
+            end
+            object NavVentas: THYMNavigator
+              Left = 427
+              Top = 0
+              Width = 145
+              Height = 22
+              DataSource = CrmDMContactos.DSxVentas
+              VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbRefresh]
+              ParentShowHint = False
+              ShowHint = True
+              TabOrder = 1
+              ModoDeSeguridad = True
+              DelCaption = 'Informaci'#243'n'
+              DelMessage = ' '#191' Borra el registro ? '
+              Exclusivo = True
+              OrdenAscendente = True
+              InsertaUltimo = False
+            end
+            object TBSep4: TToolButton
+              Left = 572
+              Top = 0
+              Width = 8
+              ImageIndex = 0
+              Style = tbsSeparator
+            end
+          end
+          object PNLFltroVentas: TLFPanel
+            Left = 0
+            Top = 22
+            Width = 825
+            Height = 22
+            Align = alTop
+            BevelOuter = bvNone
+            TabOrder = 2
+            object LTipoDocumento: TLFLabel
+              Left = 16
+              Top = 5
+              Width = 21
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'Tipo'
+            end
+            object LSerieVenta: TLFLabel
+              Left = 107
+              Top = 4
+              Width = 24
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'Serie'
+            end
+            object LFechaVentas: TLFLabel
+              Left = 291
+              Top = 4
+              Width = 30
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'Fecha'
+            end
+            object LArticuloVentas: TLFLabel
+              Left = 524
+              Top = 3
+              Width = 16
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'Art.'
+            end
+            object LDescripcion: TLFLabel
+              Left = 648
+              Top = 4
+              Width = 28
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'Desc.'
+            end
+            object CBTipoDocumento: TLFComboBox
+              Left = 44
+              Top = 1
+              Width = 56
+              Height = 21
+              ItemHeight = 13
+              ItemIndex = 4
+              TabOrder = 0
+              Text = 'FAC'
+              OnChange = FiltroVentasChange
+              Items.Strings = (
+                'Todos'
+                'OFC'
+                'PEC'
+                'ALB'
+                'FAC')
+            end
+            object CBSerieVenta: TLFComboBox
+              Left = 136
+              Top = 0
+              Width = 145
+              Height = 21
+              ItemHeight = 0
+              TabOrder = 1
+              OnChange = FiltroVentasChange
+            end
+            object DEFechaVentasDesde: TLFDateEdit
+              Left = 326
+              Top = 0
+              Width = 89
+              Height = 21
+              CheckOnExit = True
+              NumGlyphs = 2
+              TabOrder = 2
+              OnChange = FiltroVentasChange
+            end
+            object DEFechaVentasHasta: TLFDateEdit
+              Left = 416
+              Top = 0
+              Width = 90
+              Height = 21
+              CheckOnExit = True
+              NumGlyphs = 2
+              TabOrder = 3
+              OnChange = FiltroVentasChange
+            end
+            object EFArticuloVentas: TLFEditFind2000
+              Left = 543
+              Top = 0
+              Width = 93
+              Height = 21
+              TabOrder = 4
+              OnChange = FiltroVentasChange
+              Base_de_datos = DMMain.DataBase
+              Transaction = DMMain.TLocal
+              BuscarNums = False
+              BuscarChars = True
+              AutoCambiarFoco = False
+              CampoNum = 'ARTICULO'
+              CampoStr = 'TITULO'
+              Posicion = tpCentrado
+              ReemplazarCaracter = True
+              SalirSiVacio = True
+              SalirSiNoExiste = False
+              Tabla_a_buscar = 'VER_ARTICULOS_EF'
+              Tabla_asociada.DesplegarBusqueda = False
+              OrdenadoPor.Strings = (
+                'ARTICULO')
+              Filtros = [obEmpresa, obEjercicio, obCanal]
+              Entorno = DMMain.EntornoBusqueda
+            end
+            object CBPendientes: TLFCheckBox
+              Left = 808
+              Top = 2
+              Width = 105
+              Height = 17
+              Caption = 'Pendientes'
+              ClicksDisabled = False
+              ColorCheck = 57088
+              TabOrder = 6
+              TabStop = True
+              Alignment = taLeftJustify
+              OnChange = FiltroVentasChange
+            end
+            object EDescripcion: TLFEdit
+              Left = 680
+              Top = 0
+              Width = 121
+              Height = 21
+              TabOrder = 5
+              OnChange = FiltroVentasChange
+            end
+          end
+          object PCVentas: TLFPageControl
+            Left = 0
+            Top = 44
+            Width = 825
+            Height = 364
+            ActivePage = TSVentasDocumentos
+            Align = alClient
+            OwnerDraw = True
+            TabIndex = 0
+            TabOrder = 3
+            TabActiveColor = clWhite
+            TabInactiveColor = 14936298
+            object TSVentasDocumentos: TTabSheet
+              Caption = 'Documentos'
+              object DBGVentasDocumento: THYTDBGrid
+                Left = 0
+                Top = 0
+                Width = 817
+                Height = 336
+                Align = alClient
+                Color = clInfoBk
+                DataSource = CrmDMContactos.DSxVentas
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clGrayText
+                Font.Height = -11
+                Font.Name = 'MS Sans Serif'
+                Font.Style = []
+                Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
+                ParentFont = False
+                TabOrder = 0
+                TitleFont.Charset = DEFAULT_CHARSET
+                TitleFont.Color = clWindowText
+                TitleFont.Height = -11
+                TitleFont.Name = 'MS Sans Serif'
+                TitleFont.Style = []
+                OnCellClick = DBGVentasDocumentoCellClick
+                OnDrawColumnCell = DBGVentasDocumentoDrawColumnCell
+                OnDblClick = DBGVentasDocumentoDblClick
+                Insercion = False
+                ColumnaInicial = 0
+                UsaDicG2K = False
+                Changed = False
+                Idioma = 'CAS'
+                AutoDeseleccionar = True
+                PermutaPaneles = True
+                CamposAMarcar.Strings = (
+                  'PORTES')
+                CamposAOrdenar.Strings = (
+                  'AGENTE'
+                  'ALMACEN'
+                  'B_COMISION'
+                  'B_DTO_LINEAS'
+                  'BRUTO'
+                  'BULTOS'
+                  'C_TOTAL'
+                  'CAMPANYA'
+                  'CANAL'
+                  'CHG_MONEDA'
+                  'CLIENTE'
+                  'DIRECCION'
+                  'DTO_CIAL'
+                  'DTO_PP'
+                  'EJERCICIO'
+                  'EMPRESA'
+                  'ENTRADA'
+                  'ESTADO'
+                  'FECHA'
+                  'FORMA_PAGO'
+                  'I_COMISION'
+                  'I_DTO_CIAL'
+                  'I_DTO_LINEAS'
+                  'I_DTO_PP'
+                  'I_FINANCIACION'
+                  'I_FINANCIACION_CANAL'
+                  'LINEAS'
+                  'LIQUIDO'
+                  'LIQUIDO_CANAL'
+                  'M_BRUTO'
+                  'MONEDA'
+                  'NOTAS'
+                  'POR_FINANCIACION'
+                  'PORTES'
+                  'PROCESO_AUTO'
+                  'RIG'
+                  'S_BASES'
+                  'S_BASES_CANAL'
+                  'S_CUOTA_IVA'
+                  'S_CUOTA_IVA_CANAL'
+                  'S_CUOTA_RE'
+                  'S_CUOTA_RE_CANAL'
+                  'SERIE'
+                  'SU_REFERENCIA'
+                  'TARIFA'
+                  'TERCERO'
+                  'TIPO')
+                CamposAOrdenarImgs = DMMain.ILOrdGrid
+                CampoAOrdenarColor = clInfoBk
+                OrdenMultiple = True
+                Columns = <
+                  item
+                    Expanded = False
+                    FieldName = 'EJERCICIO'
+                    Width = 45
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'FECHA'
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'SERIE'
+                    Width = 60
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'TIPO'
+                    Width = 30
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'RIG'
+                    Width = 70
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'MONEDA'
+                    Width = 60
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'LIQUIDO_CANAL'
+                    Width = 70
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'SU_REFERENCIA'
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'I_PORTES'
+                    Width = 70
+                    Visible = True
+                  end>
+              end
+            end
+            object TSVentasDetalle: TTabSheet
+              Caption = 'Detalle'
+              ImageIndex = 1
+              object DBGVentasDetalle: THYTDBGrid
+                Left = 0
+                Top = 0
+                Width = 817
+                Height = 336
+                Align = alClient
+                Color = clInfoBk
+                DataSource = CrmDMContactos.DSxVentasDetalle
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clGrayText
+                Font.Height = -11
+                Font.Name = 'MS Sans Serif'
+                Font.Style = []
+                Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
+                ParentFont = False
+                TabOrder = 0
+                TitleFont.Charset = DEFAULT_CHARSET
+                TitleFont.Color = clWindowText
+                TitleFont.Height = -11
+                TitleFont.Name = 'MS Sans Serif'
+                TitleFont.Style = []
+                OnCellClick = DBGVentasDetalleCellClick
+                OnDrawColumnCell = DBGVentasDetalleDrawColumnCell
+                OnDblClick = DBGVentasDetalleDblClick
+                OnTitleClick = DBGVentasDetalleTitleClick
+                Insercion = False
+                ColumnaInicial = 0
+                UsaDicG2K = False
+                Changed = False
+                Idioma = 'CAS'
+                AutoDeseleccionar = True
+                PermutaPaneles = True
+                CamposAOrdenar.Strings = (
+                  'AGENTE'
+                  'ALMACEN'
+                  'ARTICULO'
+                  'B_COMISION'
+                  'B_DTO_LINEA'
+                  'B_DTO_LINEAS'
+                  'B_IMPONIBLE'
+                  'BRUTO'
+                  'BULTOS'
+                  'CAMPANYA'
+                  'CUENTA'
+                  'DESCUENTO'
+                  'DESCUENTO_2'
+                  'DESCUENTO_3'
+                  'DIRECCION'
+                  'DTO_CIAL'
+                  'DTO_PP'
+                  'FECHA'
+                  'FECHA_CREACION_KRI'
+                  'FECHA_ENTREGA'
+                  'FORMA_PAGO'
+                  'LIQUIDO'
+                  'LOTE_SIMPLE'
+                  'NSERIE'
+                  'P_COSTE'
+                  'PRECIO'
+                  'PRO_NUM_PLANO'
+                  'PROYECTO'
+                  'RIG'
+                  'SERIE'
+                  'SU_REFERENCIA'
+                  'TARIFA'
+                  'TIPO'
+                  'TITULO'
+                  'TITULO_IDIOMA'
+                  'UNIDADES'
+                  'Z_CONTACTO'
+                  'Z_OBSERVACION'
+                  'PEDIDO_CLIENTE')
+                CamposAOrdenarImgs = DMMain.ILOrdGrid
+                CampoAOrdenarColor = clInfoBk
+                OrdenMultiple = True
+                Columns = <
+                  item
+                    Expanded = False
+                    FieldName = 'EJERCICIO'
+                    Width = 45
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'SERIE'
+                    Width = 60
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'TIPO'
+                    Width = 30
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'RIG'
+                    Width = 70
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'ARTICULO'
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'TITULO'
+                    Width = 242
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'UNIDADES'
+                    Width = 65
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'U_PENDIENTES'
+                    Width = 65
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'PRECIO'
+                    Width = 65
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DESCUENTO'
+                    Width = 50
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DESCUENTO_2'
+                    Width = 50
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DESCUENTO_3'
+                    Width = 50
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'B_DTO_LINEA'
+                    Width = 66
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'C_IVA'
+                    Width = 66
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'ALMACEN'
+                    Width = 44
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'MONEDA'
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'FECHA'
+                    Width = 72
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DIRECCION'
+                    Width = 50
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'SU_REFERENCIA'
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'FORMA_PAGO'
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'ESTADO'
+                    Width = 50
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'AGENTE'
+                    Width = 50
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DTO_PP'
+                    Width = 50
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'DTO_CIAL'
+                    Width = 50
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'LIQUIDO'
+                    Width = 66
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'TARIFA'
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'CODIGO_CLIENTE'
+                    Width = 105
+                    Visible = True
+                  end>
+              end
+            end
+          end
+        end
+      end
+      object TSNotas: TTabSheet [6]
+        Caption = '&Notas'
+        ImageIndex = 2
+        OnShow = TSNotasShow
+        object PNotas: TLFPanel
+          Left = 0
+          Top = 23
+          Width = 825
+          Height = 446
+          Align = alClient
+          BevelOuter = bvNone
+          Enabled = False
+          TabOrder = 0
+          object DBMNotas: TLFDBMemo
+            Left = 0
+            Top = 0
+            Width = 825
+            Height = 446
+            Align = alClient
+            BevelInner = bvNone
+            BevelOuter = bvNone
+            DataField = 'NOTAS'
+            DataSource = CrmDMContactos.DSQMContactos
+            TabOrder = 0
+          end
+        end
+        object TBInfo: TLFToolBar
+          Left = 0
+          Top = 0
+          Width = 825
+          Height = 23
+          AutoSize = True
+          ButtonHeight = 21
+          EdgeBorders = [ebLeft, ebTop, ebRight, ebBottom]
+          EdgeInner = esNone
+          EdgeOuter = esNone
+          TabOrder = 1
+          Separators = True
+          object P_I_Info: TLFPanel
+            Left = 0
+            Top = 2
+            Width = 475
+            Height = 21
+            Align = alTop
+            AutoSize = True
+            BevelOuter = bvNone
+            Enabled = False
+            TabOrder = 1
+            object DBE_I_cod: TLFDbedit
+              Left = 2
+              Top = 0
+              Width = 111
+              Height = 21
+              Color = clInfoBk
+              DataField = 'ID_CONTACTO'
+              DataSource = CrmDMContactos.DSQMContactos
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGrayText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 0
+            end
+            object DBE_I_Nom: TLFDbedit
+              Left = 114
+              Top = 0
+              Width = 352
+              Height = 21
+              Color = clInfoBk
+              DataField = 'NOMBRE_COMERCIAL'
+              DataSource = CrmDMContactos.DSQMContactos
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGrayText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 1
+            end
+          end
+          object NavNotas: THYMNavigator
+            Left = 475
+            Top = 2
+            Width = 97
+            Height = 21
+            DataSource = CrmDMContactos.DSQMContactos
+            VisibleButtons = [nbEdit, nbPost, nbCancel, nbRefresh]
+            Align = alTop
+            Flat = True
+            ParentShowHint = False
+            PopupMenu = CENotasPMEdit
+            ShowHint = True
+            TabOrder = 0
+            ModoDeSeguridad = True
+            DelCaption = 'Informaci'#243'n'
+            DelMessage = ' '#191' Borra el registro ? '
+            EditaControl = DBMNotas
+            InsertaControl = DBMNotas
+            Exclusivo = False
+            ControlEdit = CENotas
+            OrdenAscendente = True
+            InsertaUltimo = False
+          end
+        end
+      end
+      inherited TSTabla: TTabSheet
+        inherited DBGMain: THYTDBGrid
+          Width = 825
+          Height = 469
+          DataSource = CrmDMContactos.DSQMContactos
+          Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
+          CamposAMarcar.Strings = (
+            'IPAD_VISIBLE')
+          CamposAOrdenar.Strings = (
+            'CONTACTO'
+            'DIR_LOCALIDAD'
+            'DIR_NOMBRE'
+            'NOMBRE_R_SOCIAL')
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'ID_CONTACTO'
+              Width = 55
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'FECHA_ALTA'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'TERCERO'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'NOMBRE_R_SOCIAL'
+              Width = 65
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'NOMBRE_COMERCIAL'
+              Width = 65
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'NOMBRE_CORTO'
+              Width = 65
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'TELEFONO01'
+              Width = 65
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'TELEFONO02'
+              Width = 65
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'TELEFAX'
+              Width = 65
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'DIR_NOMBRE'
+              Width = 65
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'DIR_LOCALIDAD'
+              Width = 65
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'EMAIL'
+              Width = 65
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'WEB'
+              Width = 65
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'PROVINCIA'
+              Width = 65
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'CODPOSTAL'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'PAIS'
+              Width = 65
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'TITULO'
+              Width = 65
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'AGENTE'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'DESC_AGENTE'
+              Width = 65
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'FECHA_ULTIMA_VISITA'
+              Width = 74
+              Visible = True
+            end>
+        end
+      end
+    end
+    object DBEComentario: TLFDBMemo
+      Left = 0
+      Top = 523
+      Width = 552
+      Height = 120
+      Align = alLeft
+      DataField = 'COMENTARIO'
+      DataSource = CrmDMContactos.DSQMContactos
+      Enabled = False
+      ReadOnly = True
+      ScrollBars = ssVertical
+      TabOrder = 2
+    end
+    object PNLSeguimientosFicha: TLFPanel
+      Left = 552
+      Top = 523
+      Width = 281
+      Height = 120
+      Align = alClient
+      BevelOuter = bvNone
+      TabOrder = 3
+      object LSeguimientosFicha: TLFLabel
+        Left = 0
+        Top = 0
+        Width = 281
+        Height = 13
+        Align = alTop
+        Alignment = taCenter
+        Caption = 'Seguimientos'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object PNLSeguimientos: TLFPanel
+        Left = 0
+        Top = 13
+        Width = 281
+        Height = 107
+        Align = alClient
+        BevelOuter = bvNone
+        Caption = 'PNLContactos'
+        TabOrder = 0
+        object DBGFSeguimientosFicha: TDBGridFind2000
+          Left = 0
+          Top = 22
+          Width = 281
+          Height = 85
+          Align = alClient
+          DataSource = CrmDMContactos.DSQMSeguimientos
+          Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
+          ReadOnly = True
+          TabOrder = 0
+          TitleFont.Charset = DEFAULT_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -11
+          TitleFont.Name = 'MS Sans Serif'
+          TitleFont.Style = []
+          OnDblClick = DBGFSeguimientosFichaDblClick
+          Insercion = False
+          ColumnaInicial = 0
+          UsaDicG2K = True
+          Changed = False
+          Idioma = 'CAS'
+          AutoCambiarColumna = False
+          AutoPostEnCheckBox = False
+          AutoStartDrag = False
+          AutoStartDragInterval = 0
+          IndiceBitmapOrdenable = 0
+          IndiceBitmapAscendente = 1
+          IndiceBitmapChecked = 3
+          IndiceBitmapDescendente = 2
+          BaseDeDatos = DMMain.DataBase
+          BuscarNums = False
+          CampoAOrdenarColor = clInfoBk
+          CampoAOrdenarBitmaps = DMMain.ILOrdGrid
+          MensajeNoExiste = False
+          SalirSiVacio = False
+          SalirSiNoExiste = False
+          Posicion = tpCentrado
+          OrdenMultiple = True
+          Filtros = []
+          Columns = <
+            item
+              Color = clInfoBk
+              Expanded = False
+              FieldName = 'FECHA'
+              Width = 90
+              Visible = True
+            end
+            item
+              Color = clInfoBk
+              Expanded = False
+              FieldName = 'HORA_ACCION'
+              Width = 90
+              Visible = True
+            end
+            item
+              Color = clInfoBk
+              Expanded = False
+              FieldName = 'DESCRIPCION_SEGUIMIENTO'
+              Width = 300
+              Visible = True
+            end
+            item
+              Color = clInfoBk
+              Expanded = False
+              FieldName = 'TIPO_SEG'
+              Visible = True
+            end
+            item
+              Color = clInfoBk
+              Expanded = False
+              FieldName = 'DESCRIPCION_ACCION'
+              Width = 300
+              Visible = True
+            end>
+        end
+        object TBSeguimientosFicha: TLFToolBar
+          Left = 0
+          Top = 0
+          Width = 281
+          Height = 22
+          AutoSize = True
+          ButtonWidth = 22
+          EdgeBorders = []
+          EdgeInner = esNone
+          EdgeOuter = esNone
+          Flat = True
+          TabOrder = 1
+          Separators = True
+          object NavSeguimientosFicha: THYMNavigator
+            Left = 0
+            Top = 0
+            Width = 120
+            Height = 22
+            DataSource = CrmDMContactos.DSQMSeguimientos
+            VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbRefresh]
+            Flat = True
+            ParentShowHint = False
+            ShowHint = True
+            TabOrder = 0
+            ModoDeSeguridad = True
+            DelCaption = 'Informaci'#243'n'
+            DelMessage = ' '#191' Borra el registro ? '
+            Exclusivo = True
+            OrdenAscendente = True
+            InsertaUltimo = False
+          end
+        end
+      end
+    end
+  end
+  inherited TBActions: TLFToolBar
+    Top = 643
+    Width = 833
+  end
+  inherited CEMain: TControlEdit
+    EnlazadoA = CEAcciones
+    Left = 576
+    Top = 24
+  end
+  inherited CEMainPMEdit: TPopUpTeclas
+    Left = 608
+    Top = 24
+    inherited CEMainMireport: TMenuItem
+      Visible = False
+    end
+    object MISepEnlaces: TMenuItem
+      Caption = '-'
+    end
+    object MIVerDatosTercero: TMenuItem
+      Action = AATercero
+    end
+    object MIVerDatosCliente: TMenuItem
+      Action = AACliente
+    end
+    object MIVerDatosAgente: TMenuItem
+      Action = AAAgente
+    end
+  end
+  inherited ALMain: TLFActionList
+    Left = 512
+    Top = 24
+    object LFCategoryListados: TLFCategoryAction
+      Category = 'Listados'
+      Caption = 'Listados'
+      ImageIndex = 14
+    end
+    object LFCategoryActionOtros: TLFCategoryAction
+      Category = 'Otros'
+      Caption = 'Otros'
+      Hint = 'Otros'
+      ImageIndex = 99
+    end
+    object LFCategoryActionProcesos: TLFCategoryAction
+      Category = 'Procesos'
+      Caption = 'Procesos'
+      Hint = 'Procesos'
+      ImageIndex = 16
+    end
+    object LFCategoryAction1: TLFCategoryAction
+      Category = 'Adjuntos'
+      Caption = 'Adjuntos'
+      ImageIndex = 59
+    end
+    object ALstContacto: TAction
+      Category = 'Listados'
+      Caption = 'Listado Acciones Contacto'
+      ImageIndex = 14
+      OnExecute = ALstContactoExecute
+    end
+    object ATerceroCliente: TAction
+      Category = 'Procesos'
+      Caption = 'Crear Tercero + Cliente'
+      Hint = 'Crear Tercero + Cliente'
+      ImageIndex = 104
+      OnExecute = ATerceroClienteExecute
+    end
+    object ANuevoTercero: TAction
+      Category = 'Procesos'
+      Caption = 'Crear tercero'
+      Hint = 'Crear nuevo tercero de este contacto'
+      ImageIndex = 54
+      OnExecute = ANuevoTerceroExecute
+    end
+    object AAsociarCliente: TAction
+      Category = 'Procesos'
+      Caption = 'Asociar Cliente a Tercero'
+      Hint = 'Asociar Cliente a Tercero'
+      ImageIndex = 43
+      OnExecute = AAsociarClienteExecute
+    end
+    object ASep3: TAction
+      Category = 'Procesos'
+      Caption = '-'
+    end
+    object ATerceroMasivo: TAction
+      Category = 'Procesos'
+      Caption = 'Creaci'#243'n masiva tercero'
+      Hint = 'Creaci'#243'n masiva tercero'
+      ImageIndex = 54
+      OnExecute = ATerceroMasivoExecute
+    end
+    object AClienteMasivo: TAction
+      Category = 'Procesos'
+      Caption = 'Creaci'#243'n masiva cliente'
+      Hint = 'Creaci'#243'n masiva cliente'
+      ImageIndex = 104
+      OnExecute = AClienteMasivoExecute
+    end
+    object ASep1: TAction
+      Category = 'Procesos'
+      Caption = '-'
+    end
+    object AImportarTerceros: TAction
+      Category = 'Procesos'
+      Caption = 'Importar Terceros'
+      Hint = 'Importar Terceros sin contacto'
+      ImageIndex = 52
+      OnExecute = AImportarTercerosExecute
+    end
+    object AImportarClientes: TAction
+      Category = 'Procesos'
+      Caption = 'Importar Clientes'
+      Hint = 'Importar Clientes'
+      ImageIndex = 49
+      OnExecute = AImportarClientesExecute
+    end
+    object Sep2: TAction
+      Category = 'Procesos'
+      Caption = '-'
+    end
+    object AFiltroAgrup: TAction
+      Category = 'Procesos'
+      Caption = 'Filtro por Agrupaciones'
+      Hint = 'Filtro por Agrupaciones'
+      ImageIndex = 5
+      OnExecute = AFiltroAgrupExecute
+    end
+    object ALstSegAccion: TAction
+      Category = 'Listados'
+      Caption = 'Listado Seguimiento Acci'#243'n'
+      ImageIndex = 14
+      OnExecute = ALstSegAccionExecute
+    end
+    object AFiltroAmbito: TAction
+      Category = 'Procesos'
+      Caption = 'Filtro por '#193'mbitos'
+      Hint = 'Filtro por '#193'mbitos'
+      ImageIndex = 80
+      OnExecute = AFiltroAmbitoExecute
+    end
+    object ACrearCliente: TAction
+      Category = 'Procesos'
+      Caption = 'Crear Cliente'
+      Hint = 'Crear Cliente'
+      ImageIndex = 59
+      Visible = False
+      OnExecute = ACrearClienteExecute
+    end
+    object ALstContactoDetallado: TAction
+      Category = 'Listados'
+      Caption = 'Listado Completo'
+      ImageIndex = 14
+      OnExecute = ALstContactoDetalladoExecute
+    end
+    object ALstEtiquetasFiltradas: TAction
+      Category = 'Listados'
+      Caption = 'Etiquetas Filtradas'
+      Hint = 'Lista las etiquetas de los clientes filtrados'
+      ImageIndex = 95
+      OnExecute = ALstEtiquetasFiltradasExecute
+    end
+    object AAdjuntoContacto: TAction
+      Category = 'Adjuntos'
+      Caption = '&Adjuntos del Contacto'
+      Hint = 'Adjuntos del Contacto'
+      ImageIndex = 59
+      OnExecute = AAdjuntoContactoExecute
+    end
+    object AGaleria: TAction
+      Category = 'Otros'
+      Caption = 'Abrir Galeria'
+      Hint = 'Abre la galer'#237'a de im'#225'genes de este articulo'
+      ImageIndex = 28
+      OnExecute = AGaleriaExecute
+    end
+    object Sep4: TAction
+      Category = 'Procesos'
+      Caption = '-'
+    end
+    object AExportarEmail: TAction
+      Category = 'Procesos'
+      Caption = 'Exportar E-Mail'
+      Hint = 'Exportar correos de los contactos filtrados'
+      ImageIndex = 36
+      OnExecute = AExportarEmailExecute
+    end
+  end
+  inherited FSMain: TLFFibFormStorage
+    Left = 544
+    Top = 24
+  end
+  object CENotas: TControlEdit
+    EnlazadoA = CEMain
+    FichaEdicion = TSNotas
+    FichaExclusiva = TSNotas
+    PanelEdicion = PNotas
+    Complementario = TBMain
+    PopUpMenu = CENotasPMEdit
+    Teclas = DMMain.Teclas
+    Left = 576
+    Top = 120
+  end
+  object CENotasPMEdit: TPopUpTeclas
+    Teclas = DMMain.Teclas
+    Left = 608
+    Top = 120
+    object CENotasMifirst: TMenuItem
+      Caption = 'Primero'
+      Enabled = False
+      ShortCut = 16464
+      Visible = False
+    end
+    object CENotasMiprior: TMenuItem
+      Caption = 'Anterior'
+      Enabled = False
+      ShortCut = 16449
+      Visible = False
+    end
+    object CENotasMinext: TMenuItem
+      Caption = 'Siguiente'
+      Enabled = False
+      ShortCut = 16467
+      Visible = False
+    end
+    object CENotasMilast: TMenuItem
+      Caption = #218'ltimo'
+      Enabled = False
+      ShortCut = 16469
+      Visible = False
+    end
+    object CENotasMiinsert: TMenuItem
+      Caption = 'A'#241'adir'
+      Enabled = False
+      ShortCut = 16429
+      Visible = False
+    end
+    object CENotasMidelete: TMenuItem
+      Caption = 'Borrar'
+      Enabled = False
+      ShortCut = 16430
+      Visible = False
+    end
+    object CENotasMiedit: TMenuItem
+      Caption = 'Modificar'
+      Enabled = False
+      ShortCut = 16453
+    end
+    object CENotasMipost: TMenuItem
+      Caption = 'Grabar'
+      Enabled = False
+      ShortCut = 16455
+    end
+    object CENotasMicancel: TMenuItem
+      Caption = 'Cancelar'
+      Enabled = False
+      ShortCut = 16472
+    end
+    object CENotasMirefresh: TMenuItem
+      Caption = 'Refrescar'
+      Enabled = False
+      ShortCut = 16466
+    end
+  end
+  object CEContPers: TControlEdit
+    EnlazadoA = CENotas
+    FichaEdicion = TSFichaContactos
+    FichaExclusiva = TSFichaContactos
+    PanelEdicion = PEditContactos
+    PopUpMenu = CEContPersPMEdit
+    Teclas = DMMain.Teclas
+    Left = 576
+    Top = 88
+  end
+  object CEContPersPMEdit: TPopUpTeclas
+    Teclas = DMMain.Teclas
+    Left = 608
+    Top = 88
+    object CEContPersMifirst: TMenuItem
+      Caption = 'Primero'
+      Enabled = False
+      ShortCut = 16464
+    end
+    object CEContPersMiprior: TMenuItem
+      Caption = 'Anterior'
+      Enabled = False
+      ShortCut = 16449
+    end
+    object CEContPersMinext: TMenuItem
+      Caption = 'Siguiente'
+      Enabled = False
+      ShortCut = 16467
+    end
+    object CEContPersMilast: TMenuItem
+      Caption = #218'ltimo'
+      Enabled = False
+      ShortCut = 16469
+    end
+    object CEContPersMiinsert: TMenuItem
+      Caption = 'A'#241'adir'
+      Enabled = False
+      ShortCut = 16429
+    end
+    object CEContPersMidelete: TMenuItem
+      Caption = 'Borrar'
+      Enabled = False
+      ShortCut = 16430
+    end
+    object CEContPersMiedit: TMenuItem
+      Caption = 'Modificar'
+      Enabled = False
+      ShortCut = 16453
+    end
+    object CEContPersMipost: TMenuItem
+      Caption = 'Grabar'
+      Enabled = False
+      ShortCut = 16455
+    end
+    object CEContPersMicancel: TMenuItem
+      Caption = 'Cancelar'
+      Enabled = False
+      ShortCut = 16472
+    end
+    object CEContPersMirefresh: TMenuItem
+      Caption = 'Refrescar'
+      Enabled = False
+      ShortCut = 16466
+    end
+  end
+  object CEAcciones: TControlEdit
+    EnlazadoA = CEContPers
+    FichaEdicion = TSFichaAcciones
+    FichaExclusiva = TSFichaAcciones
+    PanelEdicion = PEditAcciones
+    PopUpMenu = CEAccionesPMEdit
+    Teclas = DMMain.Teclas
+    Left = 576
+    Top = 56
+  end
+  object ALContactos: TLFActionList
+    Images = DMMain.ILMain_Ac
+    Reset = False
+    Enabled = True
+    Changed = False
+    Left = 512
+    Top = 56
+    object AATercero: TAction
+      Caption = 'Ver Datos Tercero'
+      Hint = 'Ver Datos Tercero'
+      ShortCut = 49236
+      OnExecute = AATerceroExecute
+    end
+    object AACliente: TAction
+      Caption = 'Ver Datos Cliente'
+      Hint = 'Ver Datos Cliente'
+      ShortCut = 49219
+      OnExecute = AAClienteExecute
+    end
+    object AAAgente: TAction
+      Caption = 'Ver Datos Agente'
+      Hint = 'Ver Datos Agente'
+      ShortCut = 49217
+      OnExecute = AAAgenteExecute
+    end
+    object AAWeb: TAction
+      Caption = 'Web'
+      Hint = 'Web'
+      OnExecute = AAWebExecute
+    end
+    object AACorreu: TAction
+      Caption = 'Correo electronico'
+      Hint = 'Correo electronico'
+      OnExecute = AACorreuExecute
+    end
+    object AAGoogleMaps: TAction
+      Caption = 'Ver Mapa'
+      Hint = 'Ver Mapa'
+      OnExecute = AAGoogleMapsExecute
+    end
+    object AADocAsoc: TAction
+      Caption = 'Ver Documento'
+      Hint = 'Abre documento asociado'
+      ImageIndex = 97
+      OnExecute = AADocAsocExecute
+    end
+  end
+  object PMFiltroAcciones: TPopupMenu
+    AutoHotkeys = maManual
+    Images = DMMain.ILMain_Ac
+    Left = 544
+    Top = 56
+    object odas1: TMenuItem
+      Action = AFiltroAccTodas
+      ImageIndex = 5
+    end
+    object AccionesPendientes1: TMenuItem
+      Action = AFiltroAccPend
+      ImageIndex = 5
+    end
+    object AccionesFinalizadas1: TMenuItem
+      Action = AFiltroAccFinalizada
+      ImageIndex = 5
+    end
+  end
+  object LFAcciones: TLFActionList
+    Images = DMMain.ILMain_Ac
+    Reset = False
+    Enabled = True
+    Changed = False
+    Left = 512
+    Top = 88
+    object AFiltroAccTodas: TAction
+      Caption = 'Todas'
+      OnExecute = AFiltroAccTodasExecute
+    end
+    object AFiltroAccFinalizada: TAction
+      Caption = 'Acciones Finalizadas'
+      OnExecute = AFiltroAccFinalizadaExecute
+    end
+    object AFiltroAccPend: TAction
+      Caption = 'Acciones Pendientes'
+      OnExecute = AFiltroAccPendExecute
+    end
+    object ACrearOferta: TAction
+      Caption = 'ACrearOferta'
+      Hint = 'Crear Oferta'
+      ImageIndex = 72
+      OnExecute = ACrearOfertaExecute
+    end
+    object ADocs: TAction
+      Caption = 'Documentos asociados'
+      Hint = 'Documentos asociados'
+      ImageIndex = 87
+      OnExecute = ADocsExecute
+    end
+  end
+  object CEAccionesDet: TControlEdit
+    PopUpMenu = CEAccionesDetPMEdit
+    Teclas = DMMain.Teclas
+    Left = 640
+    Top = 56
+  end
+  object CEAccionesDetPMEdit: TPopUpTeclas
+    Left = 672
+    Top = 56
+    object CEAccionesDetMifirst: TMenuItem
+      Caption = 'Primero'
+      Enabled = False
+      ShortCut = 16464
+    end
+    object CEAccionesDetMiprior: TMenuItem
+      Caption = 'Anterior'
+      Enabled = False
+      ShortCut = 16449
+    end
+    object CEAccionesDetMinext: TMenuItem
+      Caption = 'Siguiente'
+      Enabled = False
+      ShortCut = 16467
+    end
+    object CEAccionesDetMilast: TMenuItem
+      Caption = #218'ltimo'
+      Enabled = False
+      ShortCut = 16469
+    end
+    object CEAccionesDetMiinsert: TMenuItem
+      Caption = 'A'#241'adir'
+      Enabled = False
+      ShortCut = 16429
+    end
+    object CEAccionesDetMidelete: TMenuItem
+      Caption = 'Borrar'
+      Enabled = False
+      ShortCut = 16430
+    end
+    object CEAccionesDetMiedit: TMenuItem
+      Caption = 'Modificar'
+      Enabled = False
+      ShortCut = 16453
+    end
+    object CEAccionesDetMipost: TMenuItem
+      Caption = 'Grabar'
+      Enabled = False
+      ShortCut = 16455
+      Visible = False
+    end
+    object CEAccionesDetMicancel: TMenuItem
+      Caption = 'Cancelar'
+      Enabled = False
+      ShortCut = 16472
+      Visible = False
+    end
+    object CEAccionesDetMirefresh: TMenuItem
+      Caption = 'Refrescar'
+      Enabled = False
+      ShortCut = 16466
+    end
+  end
+  object CEAccionesPMEdit: TPopUpTeclas
+    Left = 608
+    Top = 56
+    object CEAccionesMifirst: TMenuItem
+      Caption = 'Primero'
+      Enabled = False
+      ShortCut = 16464
+    end
+    object CEAccionesMiprior: TMenuItem
+      Caption = 'Anterior'
+      Enabled = False
+      ShortCut = 16449
+    end
+    object CEAccionesMinext: TMenuItem
+      Caption = 'Siguiente'
+      Enabled = False
+      ShortCut = 16467
+    end
+    object CEAccionesMilast: TMenuItem
+      Caption = #218'ltimo'
+      Enabled = False
+      ShortCut = 16469
+    end
+    object CEAccionesMiinsert: TMenuItem
+      Caption = 'A'#241'adir'
+      Enabled = False
+      ShortCut = 16429
+    end
+    object CEAccionesMidelete: TMenuItem
+      Caption = 'Borrar'
+      Enabled = False
+      ShortCut = 16430
+    end
+    object CEAccionesMiedit: TMenuItem
+      Caption = 'Modificar'
+      Enabled = False
+      ShortCut = 16453
+    end
+    object CEAccionesMipost: TMenuItem
+      Caption = 'Grabar'
+      Enabled = False
+      ShortCut = 16455
+    end
+    object CEAccionesMicancel: TMenuItem
+      Caption = 'Cancelar'
+      Enabled = False
+      ShortCut = 16472
+    end
+    object CEAccionesMirefresh: TMenuItem
+      Caption = 'Refrescar'
+      Enabled = False
+      ShortCut = 16466
+    end
+  end
+end

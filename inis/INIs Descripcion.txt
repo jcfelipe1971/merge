@@ -1,0 +1,308 @@
+Pasamos a describir los distintos elementos que componen el archivo INI tanto de G2K 
+como del TPV. Se incluyen además una serie de archivos INI por defecto para poder 
+utilizar de forma rápida simplemente indicando la base de datos correcta.
+
+Para poder usarlos se deben colocar en el mismo directorio y se debe renombrar con el 
+mismo nombre que el ejecutable.
+
+G2K2Plus1.INI --> Configuración por defecto. Sin cambio de look.
+G2K2Plus2.INI --> Sin cambio de look. Con opción de filtrado y guardado de filtros.
+G2K2Plus3.INI --> Configuración por defecto. Sin cambio de look. Con la ToolBar arriba.
+G2K2Plus4.INI --> Cambio de look, aspecto plano, tipo 'Papel'.
+G2K2Plus5.INI --> Cambio de look, aspecto plano, tipo 'Papel'. Con la ToolBar arriba.
+
+TPV2K.INI
+
+
+[Datos]
+
+BaseDeDatos=llus:/datosIB/g2k/basecerrada.gdb
+ClaveBD=1953718637,1701540453
+
+Datos necesarios para la conexión con la base de datos.
+
+
+Ejercicio=2003
+Canal=1
+Serie=A
+Pais=ESP
+
+Información de valores elegidos en la última entrada al programa.
+
+
+DatosAbiertos=1
+
+Con DatosAbiertos se establece si al entrar a un form estarán abiertos los
+DataSets o no lo estarán. Por defecto está a 1 si no existe la variable, si se
+pone la variable y su valor es 1 seguimos igual, si le ponemos 0, entonces
+sale por defecto el buscador a preguntarnos lo que queremos.
+
+
+GuardaFiltros=0
+
+Con GuardaFiltros se guardan los filtros que hacemos en cada Tabla de cada
+DataSet. Por defecto no los guarda si no existe la variable y si existe con
+valor 0 tampoco los guarda. Si le ponemos 1 entonces guarda dichos filtros,
+aunque sólo los guarda de una ventana de búsqueda simple.
+
+
+Matricial=LPT1:
+
+Aquí debe establecerse la impresora que se habrá de usar para imprimir informes 
+de tipo matricial (HYR).
+
+
+Laser=0
+
+Índice en la lista de impresoras instaladas en el sistema que se utilizará para 
+la impresión del resto de informes. Es la impresora por defecto.
+
+
+Exportacion=
+Importacion=
+
+Directorios que utilizará la herramienta del Diccionario para importaciones / exportaciones.
+
+
+DirBackup=c:\temp\
+
+Directorio para realización de backup / restore en G2K, Diccionario y Utils.
+
+
+Logo=E:\G2k\Imagenes\LogoG2K.bmp
+
+Ruta de la imagen a cargar como logo en el arranque del programa. Debe leerse 
+de aquí obligatoriamente debido a que la imagen se muestra antes, y durante el
+proceso de conexión con la base de datos, entre otras cosas. Si no se establece
+aquí una imagen (BMP, JPG, GIF) o bien si no se encuentra disponible la imagen 
+indicada se mostrará por defecto el logo de G2K. Se puede establecer esta imagen
+también desde el mantenimiento de imágenes en Auxiliares - Sistema - Imágenes.
+
+Disponibilidad=0
+
+En documentos de compra y venta, en el gridfind del articulo, que filtre según 
+la disponibilidad.
+
+RutaFicheros= 
+Ruta donde se guardaran los documentos en escandallos y otros formularios donde se enlaza a documentos.
+
+[Usuario]
+Nombre=ADMIN
+
+Nombre del último usuario que ha accedido al programa. Será el que aparezca por defecto 
+al iniciar G2K.
+
+
+TimerBusqueda=250
+
+Estando en los EditFind, es el tiempo máximo en milisegundos que ha de pasar entre 
+dos pulsaciones de teclas antes de que se ponga a buscar por el filtro escrito. 
+Cuanto menor es el tiempo de busqueda, antes se pone a buscar.
+
+
+FechaHoraG2k=1
+
+Establece variables de entorno windows con formatos para fechas, horas, números decimales, 
+etc. adecuados para el trabajo con G2K.
+
+
+[Ultimo Acceso]
+Fecha y Hora=04/11/2003 13:27:18
+
+Información del último acceso realizado a la aplicación.
+
+
+[Correo]
+Smtp=ServidorCorreo
+Port=25
+UserID=NombreDelUsuario
+Identificacion=0
+Password=Clave
+
+Información necesaria para poder enviar correo electrónico desde el programa.
+El check de Identificación habrá que ponerlo dependiendo del tipo de servidor, aunque 
+parece ser que normalmente no se usa.
+
+
+[News]
+News=ServidorNews
+PortNews=119
+UserIDNews=NombreDelUsuario
+IdentNews=0
+PasswordNews=Clave
+
+Información necesaria para poder enviar un mensaje a un foro desde el programa.
+
+
+[Documentos]
+Ofertas=1
+Pedidos=1
+Albaranes=1
+Facturas=1
+
+Aquí se establecerá el número de formatos (hasta 4) de impresión directa que queremos 
+tener en los documentos de ventas. Esto se podrá establecer también desde el menú 
+Útiles - Configuración del INI. Al imprimirlos saldrá en el menú una opción por cada 
+formato establecido. Cada uno de los formatos tiene su grupo de listados: "Ofertas 2" 
+es el 107, "Pedidos 2" es el 110, etc.
+
+
+[CodigosMatricial]
+pcSizePage=27;67;
+pcNewPage=12;
+pcInitDocument=
+pcFinishDocument=
+pcFontNormal=18;
+pcFontCompressed=15;
+pcFontExpanded=14;
+pcFontBold=27;71;
+pcUser=
+pcFontCompressedQuit=18;
+pcFontExpandedQuit=18;
+pcFontBoldQuit=27;72;
+pcPaperCut=
+pcAlternateSource=
+pcOpenDrawer=
+
+Existe la posibilidad de tener, además de los predefinidos, unos códigos para los listados 
+matriciales por INI, en lugar de tenerlos por aplicación tal como estaban hasta el momento. 
+Bastará con poner los códigos adecuados a la impresora matricial que tengamos instalada para 
+obtener funcionalidades adicionales. Normalmente en el manual de la propia impresora podemos 
+encontrar estos códigos adicionales.
+
+Para utilizar los códigos definidos en el INI basta con poner en un memo de un listado 
+matricial algo como esto:
+
+[COD.pcPaperCut]
+
+Este Lanza el corte de papel, así se aprovecharía el papel y los tickets saldrían lo más
+cortos posible.
+
+Estos por ejemplo son para una EPSON TMU-210:
+
+[CodigosMatricial]
+pcSizePage=
+pcNewPage=12;
+pcInitDocument=
+pcFinishDocument=
+pcFontNormal=
+pcFontCompressed=
+pcFontExpanded=27;33;32;
+pcFontBold=27;85;0;
+pcUser=
+pcFontCompressedQuit=
+pcFontExpandedQuit=27;33;0;
+pcFontBoldQuit=27;85;0;
+pcPaperCut=27;105;
+pcAlternateSource=13;27;99;48;1;
+pcOpenDrawer=13;27;112;0;1;1;
+pcUseJournal=13;27;99;48;1;
+pcUseSlip=13;27;99;48;4;
+pcUseReceipt=13;27;99;48;2;
+pcLogo=13;27;33;49;27;51;18;9;32;32;84;101;108;101;102;111;110;105;99;97;13;10;27;50;27;33;1;27;51;15;32;32;32;32;32;32;32;45;45;45;45;45;45;45;45;45;45;45;45;45;45;45;45;45;45;45;45;45;45;45;45;13;10;27;33;49;27;51;18;9;9;32;32;32;32;32
+
+
+CAMBIO DE LOOK CONFIGURABLE
+
+Es posible cambiar totalmente el look de G2K con unas simples indicaciones en el archivo INI:
+
+[LookAndFeel]
+Styles=Papel
+CurrentStyle=Papel
+
+[Papel.Tedit]
+BevelInner=bvSpace
+BevelOuter=bvSpace
+BevelKind=bkFlat
+BevelWidth=2
+BorderStyle=bsNone
+
+[Papel.TPageControl]
+Style=tsFlatButtons
+
+[Papel.THYDBDescription]
+BorderStyle=bsNone
+
+[Papel.TCheckBox]
+Flat = True
+
+Para anularlo, sólo se tiene que quitar, y seguiremos viendo el entorno básico.
+
+
+Existe la posibilidad añadida de poder poner la barra de herramientas principal en la parte 
+superior o en la parte inferior (por defecto) del formulario, independientemente del aspecto 
+del resto de componentes:
+
+Para poder configurar la ToolBar arriba sencillamente debemos de añadir las siguientes líneas: 
+
+[LookAndFeel]
+Styles=Papel
+CurrentStyle=Papel
+
+[Papel.TToolBar]
+Top = 0
+Align = AlTop
+  
+De esta manera NO cambiamos los edit para que tengan la configuración en "papel", sólo el 
+estilo de la ToolBar. Si alguien sí utiliza esa configuración de papel indicada anteriormente 
+sólo debe poner la última parte.
+
+-----------------------------------------------------------------------------
+
+Para el INI del TPV tenemos las siguientes opciones (no explicadas anteriormente):
+
+[Datos]
+Empresa=2
+
+Se entrará directamente al TPV con la empresa aquí indicada. Si se cambia con el 
+programa se almacenará aquí de nuevo.
+
+
+ClavePorTicket= 0
+
+Si se pone a 0 no pedirá la clave al hacer un nuevo ticket.
+
+
+TabStopUnidades= 0
+
+Si se pone a 0 no se parará en las unidades en caso de ser un artículo con código de barras. 
+
+
+[Usuario]
+Caja=1
+
+Valor por defecto. Almacena la última caja utilizada.
+
+
+[Impresion]
+Ticketera=
+
+Es similar a las impresoras de G2K, pero actuando a la impresora que se dedicará 
+a imprimir los tickets.
+
+
+Cajon=
+
+Indicamos el puerto del cajón, al cual está conectado.
+
+
+AbrirCajon=
+CortePapel=
+
+Estos 2 son las secuencias que hemos de mandarle al cajón para realizar esas
+funciones.  Los bytes han de ser puestos en decimal y separados por ; y
+terminados igual.
+
+Por ejemplo para una tm900:
+
+27;112;0;1;1;
+
+
+Visor=
+AbrirVisor=
+CerrarVisor=
+
+Estos campos están puestos ya en el INI, pero todavía no están desarrollados
+en la presente versión.
+
+

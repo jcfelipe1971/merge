@@ -1,0 +1,1759 @@
+unit UCrmFMContactos;
+
+interface
+
+uses {IDIOMA_CODE}gnugettext{IDIOMA_CODE},
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  Menus, UTeclas, UControlEdit, StdCtrls, UEditPanel,
+  ComCtrls, UNavigator, ToolWin, Grids, DBGrids, UHYDBGrid, ExtCtrls, Mask,
+  DBCtrls, UFIBDBEditfind, UComponentesBusquedaFiltrada, Buttons,
+  NsDBGrid, rxPlacemnt, ULFFormStorage, ActnList, ULFActionList,
+  ULFPageControl, ULFToolBar, ULFPanel, UG2kTBLoc, UFPEdit, ULFLabel,
+  ULFDBEditFind2000, ULFDBEdit, dbcgrids, ULFDBCtrlGrid, ULFDBMemo,
+  rxToolEdit, RXDBCtrl, ULFDBDateEdit, ShellApi, FIBTableDataSet, DB, ExtDlgs,
+  UHYDescription, ULFHYDBDescription, TFlatCheckBoxUnit, ULFCheckBox,
+  ULFDBCheckBox, ULFEdit, UDBDateTimePicker, RxDBComb, ULFComboBox,
+  ULFEditFind2000, ULFDateEdit;
+
+type
+  TCrmFMContactos = class(TFPEdit)
+     LblIdContacto: TLFLabel;
+     DBEIdContacto: TLFDbedit;
+     LblNombreRSocial: TLFLabel;
+     DBERazonSocial: TLFDbedit;
+     LNIF: TLFLabel;
+     DBENif: TLFDbedit;
+     LDireccion: TLFLabel;
+     LblFechaAlta: TLFLabel;
+     DBEFechaAlta: TLFDbedit;
+     LEmail: TLFLabel;
+     DBEEmail: TLFDbedit;
+     LWeb: TLFLabel;
+     DBEWeb: TLFDbedit;
+     TSNotas: TTabSheet;
+     PNotas: TLFPanel;
+     DBMNotas: TLFDBMemo;
+     TSContactos: TTabSheet;
+     TBInfo: TLFToolBar;
+     P_I_Info: TLFPanel;
+     DBE_I_cod: TLFDbedit;
+     DBE_I_Nom: TLFDbedit;
+     NavNotas: THYMNavigator;
+     CENotas: TControlEdit;
+     CENotasPMEdit: TPopUpTeclas;
+     PCContPers: TLFPageControl;
+     TSFichaContactos: TTabSheet;
+     TBContactosEdit: TLFToolBar;
+     PEditContactos: TLFPanel;
+     NavContPers: THYMNavigator;
+     CEContPers: TControlEdit;
+     CEContPersPMEdit: TPopUpTeclas;
+     DBENombreCorto: TLFDbedit;
+     TSAgrupaciones: TTabSheet;
+     DBENumAgrupacion: TLFDbedit;
+     DBENombreAgrupacion: TLFDbedit;
+     DBCGPertenece: TLFDBCtrlGrid;
+     DBEAgrupacionSon: TLFDbedit;
+     DBEAgrupacionSonTitulo: TLFDbedit;
+     PPertenece: TLFPanel;
+     DBCGDisponibles: TLFDBCtrlGrid;
+     DBEAgDentro: TLFDbedit;
+     DBEAgTitDentro: TLFDbedit;
+     PDisponibles: TLFPanel;
+     DBENumContacto: TLFDbedit;
+     DBETipoRazon: TLFDBEditFind2000;
+     DBE_TitRazones: TLFDbedit;
+     LblRazonSocial: TLFLabel;
+     DBETelefax: TLFDbedit;
+     LblFax: TLFLabel;
+     DBETelefono1: TLFDbedit;
+     DBETelefono2: TLFDbedit;
+     LblTelefonos: TLFLabel;
+     LblProvincia: TLFLabel;
+     DBEProvincia: TLFDbedit;
+     DBEPais: TLFDbedit;
+     DBECpostal: TLFDbedit;
+     DBELocalidadNombre: TLFDbedit;
+     DBEFLocalidad: TLFDBEditFind2000;
+     LblLocalidad: TLFLabel;
+     DBEDireccion: TLFDbedit;
+     DBENombreComercial: TLFDbedit;
+     LblNombreComercial: TLFLabel;
+     LblNombreCorto: TLFLabel;
+     DBEFTercero: TLFDBEditFind2000;
+     DBETituloTercero: TLFEdit;
+     LblTercero: TLFLabel;
+     LContactoNombre: TLFLabel;
+     LContactoApellido: TLFLabel;
+     LContactoTelefono: TLFLabel;
+     LContactoTelefax: TLFLabel;
+     LContactoExt: TLFLabel;
+     LContactoEmail: TLFLabel;
+     LblPersona: TLFLabel;
+     LContactoMovil: TLFLabel;
+     DBE_C_Nombre: TLFDbedit;
+     DBE_C_Apellidos: TLFDbedit;
+     DBE_C_Telefono: TLFDbedit;
+     DBE_C_TeleFax: TLFDbedit;
+     DBE_C_Extension: TLFDbedit;
+     DBE_C_Email: TLFDbedit;
+     DBM_Co_Notas: TLFDBMemo;
+     DBE_C_Contacto: TLFDbedit;
+     DBE_C_Movil: TLFDbedit;
+     PnlAgrup: TLFPanel;
+     PNLtituloContactos: TLFPanel;
+     DBENumPersona: TLFDbedit;
+     DBENombrePersona: TLFDbedit;
+     TSAcciones: TTabSheet;
+     PnlAcciones: TLFPanel;
+     PCAcciones: TLFPageControl;
+     TSFichaAcciones: TTabSheet;
+     PEditAcciones: TLFPanel;
+     LblAgente: TLFLabel;
+     LblFechaAccion: TLFLabel;
+     LblTipoAccion: TLFLabel;
+     LblLinea: TLFLabel;
+     DBELineaAccion: TLFDbedit;
+     TSTablaAcciones: TTabSheet;
+     DBGAcciones: THYTDBGrid;
+     DBEDescripcionAccion: TLFDbedit;
+     LblDescripccionAccion: TLFLabel;
+     DBChkBFinAccion: TLFDBCheckBox;
+     DBDEFechaAccion: TLFDBDateEdit;
+     DBEFTipoAccion: TLFDBEditFind2000;
+     CEAcciones: TControlEdit;
+     DBEFAgenteAccion: TLFDBEditFind2000;
+     DBETituloAgente: TLFDbedit;
+     DBreNotas: TDBRichEdit;
+     LblClienteEmp: TLFLabel;
+     DBEClienteEmp: TLFDbedit;
+     DBEDescClienteEmp: TLFEdit;
+     LblAgenteEmp: TLFLabel;
+     DBEAgenteEmp: TLFDBEditFind2000;
+     DBEDescAgenteEmp: TLFEdit;
+     LFCategoryActionOtros: TLFCategoryAction;
+     LFCategoryActionProcesos: TLFCategoryAction;
+     AImportarTerceros: TAction;
+     ANuevoTercero: TAction;
+     MISepEnlaces: TMenuItem;
+     MIVerDatosTercero: TMenuItem;
+     MIVerDatosCliente: TMenuItem;
+     MIVerDatosAgente: TMenuItem;
+     ALContactos: TLFActionList;
+     SBATercero: TSpeedButton;
+     AATercero: TAction;
+     SBACliente: TSpeedButton;
+     AACliente: TAction;
+     SBAAgente: TSpeedButton;
+     AAAgente: TAction;
+     ASep1: TAction;
+     AImportarClientes: TAction;
+     SBAWeb: TSpeedButton;
+     AAWeb: TAction;
+     SBACorreu: TSpeedButton;
+     AACorreu: TAction;
+     AFiltroAgrup: TAction;
+     TBFiltro: TToolButton;
+     PMFiltroAcciones: TPopupMenu;
+     AccionesFinalizadas1: TMenuItem;
+     AccionesPendientes1: TMenuItem;
+     odas1: TMenuItem;
+     LFAcciones: TLFActionList;
+     AFiltroAccTodas: TAction;
+     AFiltroAccFinalizada: TAction;
+     AFiltroAccPend: TAction;
+     DBEComentario: TLFDBMemo;
+     LFPanelDet: TLFPanel;
+     LSeguimientoAccionComercial: TLFLabel;
+     TBSeguimientoAccionComercial: TLFToolBar;
+     NavAccionesDet: THYMNavigator;
+     CEAccionesDet: TControlEdit;
+     CEAccionesDetPMEdit: TPopUpTeclas;
+     TBAcciones: TLFToolBar;
+     DBENumAcciones: TLFDbedit;
+     DBENombreAcciones: TLFDbedit;
+     ToolButton2: TToolButton;
+     ToolButton3: TToolButton;
+     NavAccionesCab: THYMNavigator;
+     CEAccionesPMEdit: TPopUpTeclas;
+     DBGDetallAccions: TDBGridFind2000;
+     LFCategoryListados: TLFCategoryAction;
+     ALstContacto: TAction;
+     ALstSegAccion: TAction;
+     DBNotasDet: TDBRichEdit;
+     TBCarpetas: TToolButton;
+     Imagen: TImage;
+     LOrigenContacto: TLFLabel;
+     LFDBOrRelacion: TLFDBEditFind2000;
+     DescOrigenRel: TLFHYDBDescription;
+     LMapa: TLFLabel;
+     DBELinkGoogle: TLFDbedit;
+     SBAGoogle: TSpeedButton;
+     AAGoogleMaps: TAction;
+     LActividadEconomica: TLFLabel;
+     LFDBActEco: TLFDbedit;
+     LFLabelDoc: TLFLabel;
+     LFDBDoc: TLFDBEditFind2000;
+     SBADoc: TSpeedButton;
+     AADocAsoc: TAction;
+     TBOferta: TToolButton;
+     ACrearOferta: TAction;
+     TSAmbito: TTabSheet;
+     LFPanelAmbito: TLFPanel;
+     TBAmbito: TLFToolBar;
+     NavAmbito: THYMNavigator;
+     DBGRelContactAmbito: TDBGridFind2000;
+     PNLManteniminetoContactos: TLFPanel;
+     DBGPContactos: TDBGridFind2000;
+     PNLImagen: TLFPanel;
+     LContactos: TLFLabel;
+     AFiltroAmbito: TAction;
+     ATerceroMasivo: TAction;
+     LDBEjercicio: TLFDBEditFind2000;
+     TBDocs: TToolButton;
+     ADocs: TAction;
+     ALstContactoDetallado: TAction;
+     TSTablaContactos: TTabSheet;
+     DBGridFind20001: TDBGridFind2000;
+     LCliPro: TLFLabel;
+     DBECliProv: TLFDbedit;
+     LFormaPago: TLFLabel;
+     EFFormaPago: TLFDBEditFind2000;
+     ACrearCliente: TAction;
+     AClienteMasivo: TAction;
+     Sep2: TAction;
+     ALstEtiquetasFiltradas: TAction;
+     LblPais: TLFLabel;
+     DBEFPais: TLFDBEditFind2000;
+     DBETituloPais: TLFEdit;
+     POtraInformacion: TLFPanel;
+     TSVentas: TTabSheet;
+     LFPanelVentas: TLFPanel;
+     DBFContactosVentas: TDBGridFind2000;
+     LZona: TLFLabel;
+     DBEFZona: TLFDBEditFind2000;
+     ETituloZona: TLFEdit;
+     AAsociarCliente: TAction;
+     ATerceroCliente: TAction;
+     ASep3: TAction;
+     LAccion: TLFLabel;
+     LFDBEAccion: TLFDBEditFind2000;
+     PNLDatosAccion: TLFPanel;
+     LFCategoryAction1: TLFCategoryAction;
+     AAdjuntoContacto: TAction;
+     LNivel: TLFLabel;
+     DBENivel: TLFDbedit;
+     CBIpad: TLFDBCheckBox;
+     PNLEditImagen: TLFPanel;
+     LBLImagen: TLFLabel;
+     DBEFImagen: TLFDBEditFind2000;
+     ETituloImagen: TLFEdit;
+     BCargarImagen: TButton;
+     ETituloGaleria: TLFEdit;
+     DBEFGaleria: TLFDBEditFind2000;
+     LGaleria: TLFLabel;
+     SBAGaleria: TSpeedButton;
+     AGaleria: TAction;
+     PNLMantenimientoImagen: TLFPanel;
+     PNLContactos: TLFPanel;
+     TBContactos: TLFToolBar;
+     NavContactos: THYMNavigator;
+     PNLSeguimientosFicha: TLFPanel;
+     LSeguimientosFicha: TLFLabel;
+     PNLSeguimientos: TLFPanel;
+     DBGFSeguimientosFicha: TDBGridFind2000;
+     TBSeguimientosFicha: TLFToolBar;
+     NavSeguimientosFicha: THYMNavigator;
+     LDireccionTercero: TLFLabel;
+     DBEFDireccion: TLFDBEditFind2000;
+     ETituloDireccion: TLFEdit;
+     BClipboard: TButton;
+     AbrirOferta: TToolButton;
+     LDiasEntreVisitas: TLFLabel;
+     DBEDiasEntreVisitas: TLFDbedit;
+     LFechaUltimaVisita: TLFLabel;
+     DBDEFechaUltimaVisita: TLFDBDateEdit;
+     DBDTPHorarioDesde1: TDBDateTimePicker;
+     DBDTPHorarioHasta1: TDBDateTimePicker;
+     DBDateTimePicker1: TDBDateTimePicker;
+     DBDateTimePicker2: TDBDateTimePicker;
+     LHorario: TLFLabel;
+     LRuta: TLFLabel;
+     DBCBRuta: TRxDBComboBox;
+     TBSep1: TToolButton;
+     PNLFiltro: TLFPanel;
+     LAgenteFiltro: TLFLabel;
+     EFAgenteFiltro: TLFEditFind2000;
+     EAgenteFiltro: TLFEdit;
+     LRutaFiltro: TLFLabel;
+     CBRutaFiltro: TLFComboBox;
+     PNLAsuntos: TLFPanel;
+     PNLSeguimiento: TLFPanel;
+     TBAsuntosSeguimiento: TLFToolBar;
+     NavAsuntosSeguimiento: THYMNavigator;
+     DBGFAsuntos: TDBGridFind2000;
+     DBCBEnviaEmail: TLFDBCheckBox;
+     Sep4: TAction;
+     AExportarEmail: TAction;
+     LFechaEnvio: TLFLabel;
+     DBDEFechaExportacion: TLFDBDateEdit;
+     TBVentas: TLFToolBar;
+     PNLInfoVentas: TLFPanel;
+     DBEInfoVentasCliente: TLFDbedit;
+     DBEInfoVentasTitulo: TLFDbedit;
+     TBSep9: TToolButton;
+     NavVentas: THYMNavigator;
+     TBSep4: TToolButton;
+     PNLFltroVentas: TLFPanel;
+     LTipoDocumento: TLFLabel;
+     LSerieVenta: TLFLabel;
+     LFechaVentas: TLFLabel;
+     LArticuloVentas: TLFLabel;
+     LDescripcion: TLFLabel;
+     CBTipoDocumento: TLFComboBox;
+     CBSerieVenta: TLFComboBox;
+     DEFechaVentasDesde: TLFDateEdit;
+     DEFechaVentasHasta: TLFDateEdit;
+     EFArticuloVentas: TLFEditFind2000;
+     CBPendientes: TLFCheckBox;
+     EDescripcion: TLFEdit;
+     PCVentas: TLFPageControl;
+     TSVentasDocumentos: TTabSheet;
+     DBGVentasDocumento: THYTDBGrid;
+     TSVentasDetalle: TTabSheet;
+     DBGVentasDetalle: THYTDBGrid;
+     EFiltroAgrupacion: TLFEdit;
+     DBCBBrevo: TLFDBCheckBox;
+     LCodigoBrevo: TLFLabel;
+     DBECodigoBrevo: TLFDbedit;
+     LCargo: TLFLabel;
+     DBECargo: TLFDbedit;
+     PNLProgresoAcc: TLFPanel;
+     LProgresoAcc: TLFLabel;
+     TrBProgresoAcc: TTrackBar;
+     DBEProgreso: TLFDbedit;
+     BLimpiaFiltroAgente: TButton;
+     DBEIdAccion: TLFDbedit;
+     LIdAccion: TLFLabel;
+     procedure FormCreate(Sender: TObject);
+     procedure TSFichaShow(Sender: TObject);
+     procedure TSAccionesShow(Sender: TObject);
+     procedure TSTablaAccionesShow(Sender: TObject);
+     procedure TSContactosShow(Sender: TObject);
+     procedure TSTablaContactosShow(Sender: TObject);
+     procedure TSAgrupacionesShow(Sender: TObject);
+     procedure TSNotasShow(Sender: TObject);
+     procedure EBuscaKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
+     procedure EPMainClickRango(Sender: TObject; var Continua: boolean);
+     procedure DBCGDisponiblesDblClick(Sender: TObject);
+     procedure DBCGPerteneceDblClick(Sender: TObject);
+     procedure AImportarTercerosExecute(Sender: TObject);
+     procedure ANuevoTerceroExecute(Sender: TObject);
+     procedure SBATerceroDblClick(Sender: TObject);
+     procedure AATerceroExecute(Sender: TObject);
+     procedure SBAClienteDblClick(Sender: TObject);
+     procedure AAClienteExecute(Sender: TObject);
+     procedure SBAAgenteDblClick(Sender: TObject);
+     procedure AAAgenteExecute(Sender: TObject);
+     procedure AImportarClientesExecute(Sender: TObject);
+     procedure AAWebExecute(Sender: TObject);
+     procedure SBAWebDblClick(Sender: TObject);
+     procedure AACorreuExecute(Sender: TObject);
+     procedure SBACorreuDblClick(Sender: TObject);
+     procedure AFiltroAgrupExecute(Sender: TObject);
+     procedure AFiltroAccFinalizadaExecute(Sender: TObject);
+     procedure AFiltroAccTodasExecute(Sender: TObject);
+     procedure AFiltroAccPendExecute(Sender: TObject);
+     procedure NavMainBeforeAction(Sender: TObject; Button: TNavigateBtn);
+     procedure EPMainClickBuscar(Sender: TObject; var Continua: boolean);
+     procedure DBGDetallAccionsDblClick(Sender: TObject);
+     procedure ALstContactoExecute(Sender: TObject);
+     procedure ALstSegAccionExecute(Sender: TObject);
+     procedure TBCarpetasClick(Sender: TObject);
+     procedure LFDBOrRelacionChange(Sender: TObject);
+     procedure AAGoogleMapsExecute(Sender: TObject);
+     procedure SBAGoogleDblClick(Sender: TObject);
+     procedure DBEFTipoAccionChange(Sender: TObject);
+     procedure LFDBDocBusqueda(Sender: TObject);
+     procedure AADocAsocExecute(Sender: TObject);
+     procedure SBADocDblClick(Sender: TObject);
+     procedure ACrearOfertaExecute(Sender: TObject);
+     procedure PCMainChange(Sender: TObject);
+     procedure AFiltroAmbitoExecute(Sender: TObject);
+     procedure ATerceroMasivoExecute(Sender: TObject);
+     procedure ADocsExecute(Sender: TObject);
+     procedure ALstContactoDetalladoExecute(Sender: TObject);
+     procedure ACrearClienteExecute(Sender: TObject);
+     procedure AClienteMasivoExecute(Sender: TObject);
+     procedure ALstEtiquetasFiltradasExecute(Sender: TObject);
+     procedure DBEFZonaChange(Sender: TObject);
+     procedure AAsociarClienteExecute(Sender: TObject);
+     procedure ATerceroClienteExecute(Sender: TObject);
+     procedure LFDBEAccionChange(Sender: TObject);
+     procedure AAdjuntoContactoExecute(Sender: TObject);
+     procedure NavAccionesDetClickBefore(Sender: TObject; Button: TNavigateBtn; var Continua: boolean);
+     procedure DBEFPaisChange(Sender: TObject);
+     procedure BCargarImagenClick(Sender: TObject);
+     procedure DBEFImagenChange(Sender: TObject);
+     procedure DBEFGaleriaChange(Sender: TObject);
+     procedure ETituloGaleriaDblClick(Sender: TObject);
+     procedure AGaleriaExecute(Sender: TObject);
+     procedure NavMainClick(Sender: TObject; Button: TNavigateBtn);
+     procedure NavContactosBeforeAction(Sender: TObject; Button: TNavigateBtn);
+     procedure NavContPersClick(Sender: TObject; Button: TNavigateBtn);
+     procedure PMainResize(Sender: TObject);
+     procedure DBGFSeguimientosFichaDblClick(Sender: TObject);
+     procedure DBGPContactosDblClick(Sender: TObject);
+     procedure DBEAgenteEmpChange(Sender: TObject);
+     procedure DBEClienteEmpChange(Sender: TObject);
+     procedure DBEFTerceroChange(Sender: TObject);
+     procedure DBEFDireccionChange(Sender: TObject);
+     procedure DBEFDireccionBusqueda(Sender: TObject);
+     procedure BClipboardClick(Sender: TObject);
+     procedure DBGMainDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: integer; Column: TColumn; State: TGridDrawState);
+     procedure DBEIdContactoChange(Sender: TObject);
+     procedure DBCBRutaExit(Sender: TObject);
+     procedure EFAgenteFiltroChange(Sender: TObject);
+     procedure CBRutaFiltroChange(Sender: TObject);
+     procedure AExportarEmailExecute(Sender: TObject);
+     procedure WMDropFiles(var Msg: TWMDropFiles); message WM_DROPFILES;
+     procedure FiltroVentasChange(Sender: TObject);
+     procedure DBGVentasDocumentoDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: integer; Column: TColumn; State: TGridDrawState);
+     procedure DBGVentasDetalleDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: integer; Column: TColumn; State: TGridDrawState);
+     procedure DBGVentasDocumentoDblClick(Sender: TObject);
+     procedure DBGVentasDocumentoCellClick(Column: TColumn);
+     procedure DBGVentasDetalleCellClick(Column: TColumn);
+     procedure DBGVentasDetalleDblClick(Sender: TObject);
+     procedure DBGVentasDetalleTitleClick(Column: TColumn);
+     procedure PCMainChanging(Sender: TObject; var AllowChange: boolean);
+     procedure EFiltroAgrupacionChange(Sender: TObject);
+     procedure FormActivate(Sender: TObject);
+     procedure TSAgrupacionesResize(Sender: TObject);
+     procedure DBEProgresoChange(Sender: TObject);
+     procedure TrBProgresoAccChange(Sender: TObject);
+     procedure BLimpiaFiltroAgenteClick(Sender: TObject);
+     procedure LFDBDocChange(Sender: TObject);
+     procedure FormDestroy(Sender: TObject);
+     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+     procedure FormShow(Sender: TObject);
+  private
+     { Private declarations }
+     EditandoDesdeFicha: boolean;
+     ColActual: TColumn;
+     CampoOrdenDetalleVentas: string;
+     AgenteUsuario: integer;
+     procedure FiltraVentas;
+  public
+     { Public declarations }
+     SWFil, SWEnlace: integer;
+     procedure HabilitaEnlaces;
+     procedure VisibilidadBotonOferta(Visibilidad: boolean);
+     procedure Tercero_a_Crm(Tercero: integer; Cliente: integer = 0);
+     procedure FiltroContactos(Filtro: string; AgenteFiltro: integer = -1; IdAccion: integer = -1; IdAccionDet: integer = -1);
+  end;
+
+var
+  CrmFMContactos : TCrmFMContactos;
+
+implementation
+
+uses
+  UDMMain, UFMain, UCrmDMContactos, UUtiles, UFormGest, UEntorno,
+  UCrmFMContactosDir, UCrmFFiltra_Clientes_Agr,
+  {UCrmFMContactosDetalleAcc,} UCrmFMLstAccionesContacto,
+  UCrmFMLstSegAccionesContacto, UProFMCarpetas, UFMOfertas,
+  UCrmFMFiltra_Ambitos, UProFMFicherosCliente,
+  UCrmFMLstContactoDetallado, UFMAdjunto, HYFIBQuery, DateUtils, //, FileUtil;
+  URecibeFicheros, UDMAdjunto, UFMSeleccion, UDameDato, URellenaLista, UImagenes;
+
+{$R *.DFM}
+
+procedure TCrmFMContactos.FormCreate(Sender: TObject);
+var
+  Apertura, Cierre : TDateTime;
+begin
+  inherited;
+  DragAcceptFiles(Self.Handle, True);
+  AbreData(TCrmDMContactos, CrmDMContactos);
+
+  CampoOrdenDetalleVentas := '';
+
+  NavMain.DataSource := CrmDMContactos.DSQMContactos;
+  DBGMain.DataSource := CrmDMContactos.DSQMContactos;
+  G2kTableLoc.Base_de_datos := DMMain.DataBase;
+  G2kTableLoc.DataSource := CrmDMContactos.DSQMContactos;
+  NavContPers.DataSource := CrmDMContactos.DSQMPersonas;
+
+  RellenaSeries(CBSerieVenta.Items);
+  CBSerieVenta.ItemIndex := 0;
+
+  DameMinMax('EJE', Apertura, Cierre);
+  if (DEFechaVentasDesde.Date < EncodeDate(1900, 1, 1)) then
+     DEFechaVentasDesde.Date := Apertura;
+  if (DEFechaVentasHasta.Date < EncodeDate(1900, 1, 1)) then
+     DEFechaVentasHasta.Date := Cierre;
+
+  CBTipoDocumento.Text := 'FAC';
+  CBTipoDocumento.ItemIndex := 4;
+
+  DBEComentario.Enabled := False;
+  DBEComentario.ReadOnly := True;
+
+  PCVentas.ActivePage := TSVentasDocumentos;
+
+  HabilitaEnlaces;
+
+  // De momento ocultamos el botón hasta restablecer el código.
+  TBDocs.Visible := False;
+
+  SolapaControles(SBAGaleria, ETituloGaleria);
+  ETituloGaleria.Color := REntorno.ColorEnlaceActivo;
+
+  // sfg.albert - Web
+  SolapaControles(SBAWeb, DBEWeb);
+  DBEWeb.Color := REntorno.ColorEnlaceActivo;
+
+  // sfg.albert - Mail
+  SolapaControles(SBACorreu, DBEEmail);
+  DBEEmail.Color := REntorno.ColorEnlaceActivo;
+  //DBEEMail.Font.Style:=[fsUnderline];
+
+  // sfg.albert - GoogleMaps
+  SolapaControles(SBAGoogle, DBELinkGoogle);
+  DBELinkGoogle.Color := REntorno.ColorEnlaceActivo;
+
+  // sfg.albert - Documento asociado
+  SolapaControles(SBADoc, LFDBDoc);
+  LFDBDoc.Color := REntorno.ColorEnlaceActivo;
+
+  SWFil := 0;
+  EditandoDesdeFicha := False;
+
+  // Color campo ID
+  ColorCampoID(DBEIdContacto);
+end;
+
+procedure TCrmFMContactos.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  inherited;
+  // Cierro los DataSets para evitar actualizaciones de componentes durante el cierre que toman datos del DataModule.
+  CrmDMContactos.CerrarDataSets;
+end;
+
+procedure TCrmFMContactos.FormDestroy(Sender: TObject);
+begin
+  inherited;
+  CierraData(CrmDMContactos);
+end;
+
+procedure TCrmFMContactos.FormShow(Sender: TObject);
+begin
+  inherited;
+  AgenteUsuario := DameAgenteUsuario(REntorno.Usuario);
+
+  if (AgenteUsuario <> 0) then
+     EFAgenteFiltro.Text := IntToStr(AgenteUsuario);
+
+  if (DameRestriccionAgenteUsuario(REntorno.Usuario)) then
+  begin
+     G2KTableLoc.CondicionBusqueda := 'AGENTE = ' + IntToStr(AgenteUsuario);
+
+     with DBEAgenteEmp do
+     begin
+        CondicionBusqueda := 'AGENTE = ' + IntToStr(AgenteUsuario);
+        Enabled := False;
+        ReadOnly := True;
+        Color := clInfoBK;
+     end;
+
+     with EFAgenteFiltro do
+     begin
+        CondicionBusqueda := 'AGENTE = ' + IntToStr(AgenteUsuario);
+        Enabled := False;
+        ReadOnly := True;
+        Color := clInfoBK;
+     end;
+
+     BLimpiaFiltroAgente.Visible := False;
+  end
+  else
+  begin
+     G2KTableLoc.CondicionBusqueda := '';
+
+     with DBEAgenteEmp do
+     begin
+        CondicionBusqueda := 'AGENTE = ' + IntToStr(AgenteUsuario);
+        Enabled := True;
+        ReadOnly := False;
+        Color := clInfoBK;
+     end;
+
+     with EFAgenteFiltro do
+     begin
+        CondicionBusqueda := 'AGENTE = ' + IntToStr(AgenteUsuario);
+        Enabled := True;
+        ReadOnly := False;
+        Color := clInfoBK;
+     end;
+
+     BLimpiaFiltroAgente.Visible := True;
+  end;
+
+  EFAgenteFiltroChange(Sender);
+end;
+
+procedure TCrmFMContactos.TSFichaShow(Sender: TObject);
+begin
+  inherited;
+  ControlEdit := CEMain;
+  RefrescarImagen(Imagen, CrmDMContactos.QMContactosCODIGO_IMAGEN.AsInteger);
+  ETituloImagen.Text := DameTituloImagen(StrToIntDef(DBEFImagen.Text, 0));
+end;
+
+procedure TCrmFMContactos.TSAccionesShow(Sender: TObject);
+begin
+  inherited;
+  // CrmDMContactos.AbrirAcciones;
+  ControlEdit := CEAcciones;
+  // CrmDMContactos.QMAcciones.First;
+  PCAcciones.ActivePage := TSTablaAcciones;
+end;
+
+procedure TCrmFMContactos.TSContactosShow(Sender: TObject);
+begin
+  inherited;
+  ControlEdit := CEContPers;
+end;
+
+procedure TCrmFMContactos.TSAgrupacionesShow(Sender: TObject);
+begin
+  inherited;
+  CrmDMContactos.AbrirAgrupacion;
+  DBCGPertenece.PanelHeight := 26;
+  DBCGDisponibles.RowCount := DBCGDisponibles.Height div 26;
+end;
+
+procedure TCrmFMContactos.TSNotasShow(Sender: TObject);
+begin
+  inherited;
+  ControlEdit := CENotas;
+end;
+
+procedure TCrmFMContactos.TSTablaAccionesShow(Sender: TObject);
+begin
+  inherited;
+  DBGAcciones.SetFocus;
+end;
+
+procedure TCrmFMContactos.TSTablaContactosShow(Sender: TObject);
+begin
+  inherited;
+  // DBGridContPers.SetFocus;
+end;
+
+procedure TCrmFMContactos.EBuscaKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
+begin
+  inherited;
+  // if (Key = VK_RETURN) then
+  //   CrmDMContactos.Busca(EBusca);
+end;
+
+procedure TCrmFMContactos.EPMainClickRango(Sender: TObject; var Continua: boolean);
+var
+  Resultado : integer;
+begin
+  Resultado := CrmDMContactos.BusquedaCompleja;
+  if (Resultado in [mrOk]) then
+     SWFil := 1
+  else if (Resultado in [mrAll]) then
+  begin
+     SWFil := 0;
+     SWEnlace := 1;
+  end;
+
+  Continua := False;
+end;
+
+procedure TCrmFMContactos.DBCGDisponiblesDblClick(Sender: TObject);
+begin
+  inherited;
+  CrmDMContactos.AgrupacionRellena;
+end;
+
+procedure TCrmFMContactos.DBCGPerteneceDblClick(Sender: TObject);
+begin
+  inherited;
+  CrmDMContactos.AgrupacionVacia;
+end;
+
+procedure TCrmFMContactos.AImportarTercerosExecute(Sender: TObject);
+var
+  Num : integer;
+begin
+  inherited;
+  Num := CrmDMContactos.ImportarTerceros;
+  if (Num = 0) then
+     ShowMessage(_('No hay terceros sin contacto.'))
+  else if (Num = 1) then
+     ShowMessage(_('Se ha importado 1 nuevo tercero.'))
+  else if (Num > 1) then
+     ShowMessage(Format(_('Se han importado %d nuevos terceros.'), [Num]));
+end;
+
+procedure TCrmFMContactos.ANuevoTerceroExecute(Sender: TObject);
+var
+  CrmFMContactosDir : TCrmFMContactosDir;
+begin
+  inherited;
+  CrmFMContactosDir := TCrmFMContactosDir.Create(Self);
+  CrmFMContactosDir.ShowModal;
+
+  ATerceroCliente.Enabled := False;
+  ANuevoTercero.Enabled := False;
+end;
+
+procedure TCrmFMContactos.HabilitaEnlaces;
+begin
+  if (FMain.ATerceros.Enabled = False) or (DBEFTercero.Text = '') then
+  begin
+     SBATercero.Width := 0;
+     MIVerDatosTercero.Visible := False;
+     DBETituloTercero.Color := clInfoBk;
+     // TbuttComp.Visible := False;
+     // TSepTerc.Visible := False;
+  end
+  else
+  begin
+     SolapaControles(SBATercero, DBETituloTercero);
+     DBETituloTercero.Color := REntorno.ColorEnlaceActivo;
+     // TbuttComp.Visible := True;
+     // TSepTerc.Visible := True;
+  end;
+
+  if (FMain.AClientes.Enabled = False) or (DBEClienteEmp.Text = '') then
+  begin
+     SBACliente.Width := 0;
+     MIVerDatosCliente.Visible := False;
+     DBEDescClienteEmp.Color := clInfoBk;
+  end
+  else
+  begin
+     SolapaControles(SBACliente, DBEDescClienteEmp);
+     DBEDescClienteEmp.Color := REntorno.ColorEnlaceActivo;
+  end;
+
+  if (FMain.AAgentes.Enabled = False) or (DBEAgenteEmp.Text = '') then
+  begin
+     SBAAgente.Width := 0;
+     MIVerDatosAgente.Visible := False;
+     DBEDescAgenteEmp.Color := clInfoBk;
+  end
+  else
+  begin
+     SolapaControles(SBAAgente, DBEDescAgenteEmp);
+     DBEDescAgenteEmp.Color := REntorno.ColorEnlaceActivo;
+  end;
+
+  MISepEnlaces.Visible := MIVerDatosTercero.Visible or
+     MIVerDatosCliente.Visible or
+     MIVerDatosAgente.Visible;
+
+  // Solo permito crear oferta si no hay una asociada
+  VisibilidadBotonOferta((CrmDMContactos.QMAccionesDOC_ACCION.AsInteger = 0));
+
+  if (CrmDMContactos.QMContactosCLIENTE.AsInteger = 0) or (CrmDMContactos.QMContactosCLIENTE.AsInteger = -1) then
+     AAsociarCliente.Enabled := True
+  else
+     AAsociarCliente.Enabled := False;
+
+  if (CrmDMContactos.QMContactosTERCERO.AsInteger = 0) or (CrmDMContactos.QMContactosTERCERO.AsInteger = -1) then
+     ANuevoTercero.Enabled := True
+  else
+     ANuevoTercero.Enabled := False;
+
+  if (((CrmDMContactos.QMContactosTERCERO.AsInteger = 0) or (CrmDMContactos.QMContactosTERCERO.AsInteger = -1)) and
+     ((CrmDMContactos.QMContactosCLIENTE.AsInteger = 0) or (CrmDMContactos.QMContactosCLIENTE.AsInteger = -1))) then
+     ATerceroCliente.Enabled := True
+  else
+     ATerceroCliente.Enabled := False;
+end;
+
+procedure TCrmFMContactos.SBATerceroDblClick(Sender: TObject);
+begin
+  inherited;
+  AATercero.Execute;
+end;
+
+procedure TCrmFMContactos.AATerceroExecute(Sender: TObject);
+begin
+  inherited;
+  if DBEFTercero.Text <> '' then
+     FMain.EjecutaAccion(FMain.ATerceros, 'Tercero = ' + DBEFTercero.Text);
+end;
+
+procedure TCrmFMContactos.SBAClienteDblClick(Sender: TObject);
+begin
+  inherited;
+  AACliente.Execute;
+end;
+
+procedure TCrmFMContactos.AAClienteExecute(Sender: TObject);
+begin
+  inherited;
+  if DBEClienteEmp.Text <> '' then
+     FMain.EjecutaAccion(FMain.AClientes, 'CLIENTE = ' + DBEClienteEmp.Text);
+end;
+
+procedure TCrmFMContactos.SBAAgenteDblClick(Sender: TObject);
+begin
+  inherited;
+  AAAgente.Execute;
+end;
+
+procedure TCrmFMContactos.AAAgenteExecute(Sender: TObject);
+begin
+  inherited;
+  if DBEAgenteEmp.Text <> '' then
+     FMain.EjecutaAccion(FMain.AAgentes,
+        'Agente = ' + DBEAgenteEmp.Text + ' and ' +
+        'Ejercicio = ' + REntorno.EjercicioStr);
+end;
+
+procedure TCrmFMContactos.AImportarClientesExecute(Sender: TObject);
+var
+  Num : integer;
+begin
+  inherited;
+  Num := CrmDMContactos.ImportarClientes;
+  if (Num = 0) then
+     ShowMessage(_('No hay clientes sin contacto.'))
+  else if (Num = 1) then
+     ShowMessage(_('Se ha importado 1 nuevo cliente.'))
+  else if (Num > 1) then
+     ShowMessage(Format(_('Se han importado %d nuevos clientes.'), [Num]));
+end;
+
+procedure TCrmFMContactos.AAWebExecute(Sender: TObject);
+begin
+  inherited;
+  if ShellExecute(Application.Handle, nil, PChar(DBEWeb.Text), nil, nil, SW_SHOWNA) <= 32 then
+     ShowMessage(_('Error en la Página Web'));
+end;
+
+procedure TCrmFMContactos.SBAWebDblClick(Sender: TObject);
+begin
+  inherited;
+  AAWeb.Execute;
+end;
+
+procedure TCrmFMContactos.AACorreuExecute(Sender: TObject);
+begin
+  inherited;
+  if ShellExecute(Application.Handle, nil, PChar('mailto:' + DBEEmail.Text), nil, nil, SW_SHOWNA) <= 32 then
+     ShowMessage(_('Error en el Mail'));
+end;
+
+procedure TCrmFMContactos.SBACorreuDblClick(Sender: TObject);
+begin
+  inherited;
+  AACorreu.Execute;
+end;
+
+procedure TCrmFMContactos.AFiltroAgrupExecute(Sender: TObject);
+begin
+  inherited;
+  CrmFFiltra_clientes_agr := TCrmFFiltra_clientes_agr.Create(Self);
+  CrmFFiltra_clientes_agr.ShowModal;
+end;
+
+procedure TCrmFMContactos.AFiltroAccFinalizadaExecute(Sender: TObject);
+begin
+  inherited;
+  CrmDmContactos.FiltroAcciones(3);
+end;
+
+procedure TCrmFMContactos.AFiltroAccTodasExecute(Sender: TObject);
+begin
+  inherited;
+  CrmDmContactos.FiltroAcciones(1);
+end;
+
+procedure TCrmFMContactos.AFiltroAccPendExecute(Sender: TObject);
+begin
+  inherited;
+  CrmDmContactos.FiltroAcciones(2);
+end;
+
+procedure TCrmFMContactos.NavMainBeforeAction(Sender: TObject; Button: TNavigateBtn);
+begin
+  inherited;
+  // sfg.albert - S'afageix aquest codi per simular el comportament del CEMain.
+  // Quan s'editi que es component sigui editable i quan no, doncs només lectura
+  if ((button <> nbPost) and (button <> nbCancel)) then
+  begin
+     DBEComentario.Enabled := True;
+     DBEComentario.ReadOnly := False;
+  end
+  else
+  begin
+     DBEComentario.Enabled := False;
+     DBEComentario.ReadOnly := True;
+  end;
+end;
+
+procedure TCrmFMContactos.EPMainClickBuscar(Sender: TObject; var Continua: boolean);
+begin
+  inherited;
+  G2KTableLoc.Click;
+end;
+
+procedure TCrmFMContactos.DBGDetallAccionsDblClick(Sender: TObject);
+begin
+  inherited;
+  CrmDMContactos.ObrirSeguiment('E');
+  {
+  // AbreForm(TCrmFMContactosDetAcc, CrmFMContactosDetAcc, nil);
+  CrmFMContactosDetAcc:=TCrmFMContactosdetAcc.Create(Self);
+  //AbreFormVarias (TCrmFMContactosDetAcc, CrmFMContactosDetAcc, nil, True);
+  CrmFMContactosDetAcc.taula:=CrmDMContactos.QMAccionesDet;
+  CrmDMContactos.QMAccionesDet.Edit;
+  CrmFMContactosDetAcc.ShowModal;
+  }
+end;
+
+procedure TCrmFMContactos.ALstContactoExecute(Sender: TObject);
+begin
+  inherited;
+  AbreForm(TCrmFMLstAccContactos, CrmFMLstAccContactos, Sender);
+  CrmFMLstAccContactos.EFDesdeContacto.Text := DBEIdContacto.Text;
+  CrmFMLstAccContactos.EFHastaContacto.Text := DBEIdContacto.Text;
+end;
+
+procedure TCrmFMContactos.ALstSegAccionExecute(Sender: TObject);
+begin
+  inherited;
+  AbreForm(TCrmFMLstSegAccContactos, CrmFMLstSegAccContactos, Sender);
+
+  CrmFMLstSegAccContactos.LFDesdeContacto.Text := CrmDMContactos.QMContactosID_CONTACTO.AsString;
+  CrmFMLstSegAccContactos.LFHastaContacto.Text := CrmDMContactos.QMContactosID_CONTACTO.AsString;
+
+  if (CrmFMContactos.PCMain.ActivePage = TSAcciones) then
+  begin
+     CrmFMLstSegAccContactos.LFDesdeAccion.Text := CrmDMContactos.QMAccionesID_ACCION_CAB.AsString;
+     CrmFMLstSegAccContactos.LFHastaAccion.Text := CrmDMContactos.QMAccionesID_ACCION_CAB.AsString;
+  end;
+end;
+
+procedure TCrmFMContactos.TBCarpetasClick(Sender: TObject);
+begin
+  inherited;
+  AbreForm(TProFMCarpetas, ProFMCarpetas, Sender);
+  ProFMCarpetas.Posicionar(CrmDMContactos.QMContactosID_CONTACTO.AsInteger, 'CRM');
+end;
+
+procedure TCrmFMContactos.LFDBOrRelacionChange(Sender: TObject);
+begin
+  inherited;
+  DescOrigenRel.ActualizaDatos('ORIGEN_CONTACTO', LFDBOrRelacion.Text);
+end;
+
+procedure TCrmFMContactos.AAGoogleMapsExecute(Sender: TObject);
+begin
+  inherited;
+  if ShellExecute(Application.Handle, nil, PChar(DBELinkGoogle.Text), nil, nil, SW_SHOWNA) <= 32 then
+     ShowMessage(_('Error en la Página Web'));
+end;
+
+procedure TCrmFMContactos.SBAGoogleDblClick(Sender: TObject);
+begin
+  inherited;
+  AAGoogleMaps.Execute;
+end;
+
+procedure TCrmFMContactos.DBEFTipoAccionChange(Sender: TObject);
+begin
+  inherited;
+  // Cualquier tipo de accion puede generar oferta
+  {
+  if (DBEFTipoAccion.Text = 'OFE') then
+  begin
+     LFLabelDoc.Enabled := True;
+     LFDBDoc.Enabled := True;
+     LFDBDoc.ReadOnly := True;
+     ACrearOferta.Enabled := True;
+  end
+  else
+  begin
+     LFLabelDoc.Enabled := False;
+     LFDBDoc.Enabled := False;
+     LFDBDoc.ReadOnly := False;
+     ACrearOferta.Enabled := False;
+  end;
+}
+end;
+
+procedure TCrmFMContactos.LFDBDocBusqueda(Sender: TObject);
+begin
+  inherited;
+  LFDBDoc.CondicionBusqueda := 'empresa=' + REntorno.EmpresaStr +
+     ' and ejercicio=' + CRMDMContactos.QMAccionesDOC_EJERCICIO.AsString +
+     ' and canal=' + REntorno.CanalStr +
+     ' and serie=''' + REntorno.Serie + '''' +
+     ' and tipo=''OFC''';
+end;
+
+procedure TCrmFMContactos.AADocAsocExecute(Sender: TObject);
+begin
+  inherited;
+  if (StrToIntDef(LFDBDoc.Text, 0) <> 0) then
+     FMain.MuestraDocumento(CrmDMContactos.QMAccionesDOC_EJERCICIO.AsInteger,
+        'OFC', CrmDMContactos.QMAccionesDOC_SERIES.AsString,
+        StrToInt(LFDBDoc.Text));
+end;
+
+procedure TCrmFMContactos.SBADocDblClick(Sender: TObject);
+begin
+  inherited;
+  AADocAsoc.Execute;
+end;
+
+{procedure TCrmFMContactos.ACrearOfertaExecute(Sender: TObject);
+var
+  Serie : string;
+begin
+  inherited;
+  if (CRMDMcontactos.QMAcciones.State in [dsEdit, dsInsert]) then
+     CRMDMcontactos.QMAcciones.Post;
+
+  Serie := REntorno.Serie;
+  if PideDato('SER', Serie, _('Serie para documento')) then
+  begin
+     FMain.EjecutaAccion(FMain.AOfertas);
+     FMOfertas.CrearOfertaCrm(CrmDMContactos.QMAccionesID_ACCION.AsInteger, CrmDMContactos.QMContactosID_CONTACTO.AsInteger, CrmDMContactos.QMContactosCLIENTE.AsInteger, Serie);
+
+     CrmDMContactos.RefrescarAcciones;
+  end;
+end;}
+procedure TCrmFMContactos.ACrearOfertaExecute(Sender: TObject);
+var
+  Serie : string;
+  IdAgente : integer;
+begin
+  inherited;
+  if (CRMDMcontactos.QMAcciones.State in [dsEdit, dsInsert]) then
+     CRMDMcontactos.QMAcciones.Post;
+
+  Serie := REntorno.Serie;
+  if PideDato('SER', Serie, _('Serie para documento')) then
+  begin
+     // Obtenemos de forma segura el ID del agente asignado a la acción del CRM
+     IdAgente := CrmDMContactos.QMAcciones.FieldByName('AGENTE').AsInteger;
+
+     FMain.EjecutaAccion(FMain.AOfertas);
+     
+     // Pasamos el IdAgente como nuevo parámetro
+     FMOfertas.CrearOfertaCrm(CrmDMContactos.QMAccionesID_ACCION.AsInteger, 
+                              CrmDMContactos.QMContactosID_CONTACTO.AsInteger, 
+                              CrmDMContactos.QMContactosCLIENTE.AsInteger, 
+                              IdAgente, 
+                              Serie);
+
+     CrmDMContactos.RefrescarAcciones;
+  end;
+end;
+
+
+procedure TCrmFMContactos.PCMainChange(Sender: TObject);
+begin
+  inherited;
+  if (PCMain.ActivePage = TSAcciones) then
+     AFiltroAccTodas.Execute;
+
+  if (PCMain.ActivePage = TSVentas) then
+     FiltroVentasChange(Sender);
+
+  { TODO : Parametrizar }
+  // Tecil quiere todas las acciones.
+  // AFiltroAccPend.Execute;
+end;
+
+procedure TCrmFMContactos.VisibilidadBotonOferta(Visibilidad: boolean);
+begin
+  TBOferta.Visible := Visibilidad;
+end;
+
+procedure TCrmFMContactos.AFiltroAmbitoExecute(Sender: TObject);
+begin
+  inherited;
+  CrmFMFiltraAmbitos := TCrmFMFiltraAmbitos.Create(Self);
+  CrmFMFiltraAmbitos.ShowModal;
+end;
+
+procedure TCrmFMContactos.ATerceroMasivoExecute(Sender: TObject);
+var
+  num : integer;
+begin
+  inherited;
+  if MessageDlg(_('Está seguro que quiere crear terceros masivamente?'),
+     mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+  begin
+     num := CrmDMContactos.CrearTerceroMasivo;
+     if (Num = 0) then
+        ShowMessage(_('No hay terceros para crear.'))
+     else if (Num = 1) then
+        ShowMessage(_('Se ha creado 1 nuevo tercero.'))
+     else if (Num > 1) then
+        ShowMessage(Format(_('Se han creado %d nuevos tercero.'), [Num]));
+  end;
+end;
+
+procedure TCrmFMContactos.ADocsExecute(Sender: TObject);
+begin
+  inherited;
+  AbreForm(TProFMFicherosCliente, ProFMFicherosCliente, Sender);
+  ProFMFicherosCliente.Filtra(CrmDMContactos.QMContactosID_CONTACTO.AsString, 'CRM_CONTACTOS(ID_CONTACTO)', 'DELFOS', _('Ficheros de Contactos de CRM'));
+end;
+
+procedure TCrmFMContactos.ALstContactoDetalladoExecute(Sender: TObject);
+begin
+  inherited;
+  AbreForm(TCrmFMLstContactoDetallado, CrmFMLstContactoDetallado, Sender);
+  CrmFMLstContactoDetallado.EstablecerDesdeHasta(CrmDMContactos.QMContactosID_CONTACTO.AsString, CrmDMContactos.QMContactosID_CONTACTO.AsString);
+end;
+
+procedure TCrmFMContactos.ACrearClienteExecute(Sender: TObject);
+var
+  UltimoCliente : integer;
+  FormaPago : string;
+  Tercero : integer;
+begin
+  inherited;
+  { TODO : Pasar todo este codigo a CrmDMContactos, que es donde pertenece }
+  if (CrmDMContactos.QMContactosTERCERO.AsInteger > 0) then
+  begin
+     // sfg.albert - Si el cliente existe, no hacer nada, porqué daria error de duplicidad
+     if (not CrmDMContactos.ExisteCliente) then
+     begin
+        if (StrToIntDef(CrmDMContactos.QMContactosCLI_PROV_IMP.AsString, 0) <> 0) then
+        begin
+           UltimoCliente := CrmDMContactos.QMContactosCLI_PROV_IMP.AsInteger;
+           FormaPago := Trim(CrmDMContactos.QMContactosFORMA_DE_PAGO_IMP.AsString);
+        end
+        else
+        begin
+           UltimoCliente := DMMain.Contador_E('XCL');
+           FormaPago := '';
+        end;
+
+        CRMDMContactos.CrearCliente(UltimoCliente,
+           CrmDMContactos.QMContactosTERCERO.AsInteger,
+           CrmDMContactos.QMContactosAGENTE.AsInteger,
+           FormaPago);
+
+        // Es busca l'últim número de cliente d'aquest tercer
+        with THYFIBQuery.Create(nil) do
+        begin
+           try
+              Close;
+              DataBase := DMMain.DataBase;
+              SQL.Text := 'SELECT MAX(CLIENTE) FROM VER_CLIENTES WHERE EMPRESA = :EMPRESA AND EJERCICIO = :EJERCICIO AND CANAL = :CANAL AND TERCERO = :TERCERO';
+              Params.ByName['EMPRESA'].AsInteger := REntorno.Empresa;
+              Params.ByName['EJERCICIO'].AsInteger := REntorno.Ejercicio;
+              Params.ByName['CANAL'].AsInteger := REntorno.Canal;
+              Params.ByName['TERCERO'].AsInteger := CrmDMContactos.QMContactosTERCERO.AsInteger;
+              ExecQuery;
+              UltimoCliente := FieldByName['MAX'].AsInteger;
+              FreeHandle;
+           finally
+              Free;
+           end;
+        end;
+
+        // S'assigna aquest cliente al contacte
+        with THYFIBQuery.Create(nil) do
+        begin
+           try
+              Close;
+              DataBase := DMMain.DataBase;
+              SQL.Text := 'UPDATE CRM_CONTACTOS SET CLIENTE = :CLIENTE, ZONA = :ZONA WHERE ID_CONTACTO = :ID_CONTACTO';
+              Params.ByName['CLIENTE'].AsInteger := UltimoCliente;
+              Params.ByName['ID_CONTACTO'].AsInteger := CrmDMContactos.QMContactosID_CONTACTO.AsInteger;
+              Params.ByName['ZONA'].AsString := CrmDMContactos.QMContactosZONA.AsString;
+              ExecQuery;
+              FreeHandle;
+           finally
+              Free;
+           end;
+        end;
+     end // fi not ExisteCliente
+     else
+     begin
+        with CrmDMContactos do
+        begin
+           // Busco el tercero al que pertenece el cliente imp.
+           with THYFIBQuery.Create(nil) do
+           begin
+              try
+                 Close;
+                 DataBase := DMMain.DataBase;
+                 SQL.Add(' SELECT FIRST (1) TERCERO ');
+                 SQL.Add(' FROM VER_CLIENTES ');
+                 SQL.Add(' WHERE ');
+                 SQL.Add(' EMPRESA = :EMPRESA AND ');
+                 SQL.Add(' EJERCICIO = :EJERCICIO AND ');
+                 SQL.Add(' CANAL = :CANAL AND ');
+                 SQL.Add(' CLIENTE = :CLI_PROV_IMP ');
+                 SQL.Add(' ORDER BY CLIENTE DESC ');
+                 Params.ByName['EMPRESA'].AsInteger := REntorno.Empresa;
+                 Params.ByName['EJERCICIO'].AsInteger := REntorno.Ejercicio;
+                 Params.ByName['CANAL'].AsInteger := REntorno.Canal;
+                 Params.ByName['CLI_PROV_IMP'].AsInteger := StrToIntDef(QMContactosCLI_PROV_IMP.AsString, 0);
+                 ExecQuery;
+                 Tercero := FieldByName['TERCERO'].AsInteger;
+                 FreeHandle;
+              finally
+                 Free;
+              end;
+           end;
+
+           // Pongo el tercero y el cliente en este contacto crm
+           with THYFIBQuery.Create(nil) do
+           begin
+              try
+                 Close;
+                 DataBase := DMMain.DataBase;
+                 SQL.Text := 'UPDATE CRM_CONTACTOS SET TERCERO = :TERCERO, CLIENTE = :CLIENTE WHERE ID_CONTACTO = :ID_CONTACTO';
+                 Params.ByName['TERCERO'].AsInteger := Tercero;
+                 Params.ByName['CLIENTE'].AsInteger := StrToIntDef(QMContactosCLI_PROV_IMP.AsString, 0);
+                 Params.ByName['ID_CONTACTO'].AsInteger := QMContactosID_CONTACTO.AsInteger;
+                 ExecQuery;
+                 FreeHandle;
+              finally
+                 Free;
+              end;
+           end;
+        end;
+     end;
+
+     CrmDMContactos.QMContactos.Refresh;
+  end
+  else
+  begin
+     if (CrmDMContactos.QMContactosCLIENTE.AsInteger = 0) then
+        ShowMessage(_('El tercero aún no ha sido creado.'));
+  end;
+end;
+
+procedure TCrmFMContactos.AClienteMasivoExecute(Sender: TObject);
+var
+  num : integer;
+begin
+  inherited;
+  num := CRMDMContactos.CrearClienteMasivo;
+
+  if (Num = 0) then
+     ShowMessage(_('No hay clientes a crear.'))
+  else if (Num = 1) then
+     ShowMessage(_('Se ha creado 1 nuevo cliente.'))
+  else if (Num > 1) then
+     ShowMessage(Format(_('Se han creado %d nuevos clientes.'), [Num]));
+end;
+
+procedure TCrmFMContactos.ALstEtiquetasFiltradasExecute(Sender: TObject);
+begin
+  CRMDMContactos.MuestraEtiquetasFiltradas(0, SWFil, SWEnlace);
+end;
+
+procedure TCrmFMContactos.DBEFZonaChange(Sender: TObject);
+begin
+  inherited;
+  ETituloZona.Text := DameTituloZona(DBEFZona.Text);
+end;
+
+procedure TCrmFMContactos.Tercero_a_Crm(Tercero: integer; Cliente: integer = 0);
+begin
+  CrmDMContactos.CambiarTercero(Tercero, Cliente);
+end;
+
+procedure TCrmFMContactos.AAsociarClienteExecute(Sender: TObject);
+begin
+  inherited;
+  if (CrmDMContactos.ActualizarCliente(StrToInt(Trim(DBEFTercero.Text))) = True) then
+     AAsociarCliente.Enabled := False
+  else
+  begin
+     AAsociarCliente.Enabled := True;
+     ShowMessage(_('No se ha encontrado ningun cliente asociado al tercero'));
+  end;
+end;
+
+procedure TCrmFMContactos.ATerceroClienteExecute(Sender: TObject);
+begin
+  inherited;
+  ANuevoTercero.Execute; // Creacio nou tercer
+  ACrearCliente.Execute; // Creacio nou client
+
+  ANuevoTercero.Enabled := False;
+  ATerceroCliente.Enabled := False;
+  AAsociarCliente.Enabled := False;
+end;
+
+procedure TCrmFMContactos.LFDBEAccionChange(Sender: TObject);
+begin
+  if (LFDBEAccion.Text <> '') then
+     CrmDmContactos.RecogerDatos(StrToInt(LFDBEAccion.Text));
+end;
+
+procedure TCrmFMContactos.AAdjuntoContactoExecute(Sender: TObject);
+begin
+  inherited;
+  FMain.MuestraAdunto('CON', CrmDMContactos.QMContactosID_CONTACTO.AsInteger);
+end;
+
+procedure TCrmFMContactos.NavAccionesDetClickBefore(Sender: TObject; Button: TNavigateBtn; var Continua: boolean);
+var
+  IdaccionDet : integer;
+begin
+  inherited;
+
+  IdaccionDet := CrmDMContactos.QMAccionesDetID_ACCION_DET.AsInteger;
+
+  if (Button = nbEdit) then
+  begin
+     CrmDMContactos.ObrirSeguiment('E');
+     Continua := False;
+  end;
+  if (Button = nbInsert) then
+  begin
+     CrmDMContactos.ObrirSeguiment('I');
+     Continua := False;
+  end;
+
+  Posicionar(CrmDMContactos.QMAccionesDet, 'ID_ACCION_DET', IdaccionDet, False, True);
+end;
+
+procedure TCrmFMContactos.DBEFPaisChange(Sender: TObject);
+begin
+  inherited;
+  DBETituloPais.Text := DameTituloPais(DBEFPais.Text);
+end;
+
+procedure TCrmFMContactos.BCargarImagenClick(Sender: TObject);
+begin
+  inherited;
+  CrmDMContactos.QMContactosCODIGO_IMAGEN.AsInteger := ImportarImagen('');
+end;
+
+procedure TCrmFMContactos.DBEFImagenChange(Sender: TObject);
+begin
+  inherited;
+  if (PCMain.ActivePage = TSFicha) then
+  begin
+     RefrescarImagen(Imagen, StrToIntDef(DBEFImagen.Text, 0));
+     ETituloImagen.Text := DameTituloImagen(StrToIntDef(DBEFImagen.Text, 0));
+  end;
+end;
+
+procedure TCrmFMContactos.DBEFGaleriaChange(Sender: TObject);
+begin
+  inherited;
+  ETituloGaleria.Text := DameTituloGaleria(StrToIntDef(DBEFGaleria.Text, 0));
+end;
+
+procedure TCrmFMContactos.ETituloGaleriaDblClick(Sender: TObject);
+begin
+  inherited;
+  AGaleriaExecute(Sender);
+end;
+
+procedure TCrmFMContactos.AGaleriaExecute(Sender: TObject);
+begin
+  inherited;
+  if (StrToIntDef(DBEFGaleria.Text, -1) > 0) then
+     FMain.EjecutaAccion(FMain.AGaleriaImagen, 'ID=' + DBEFGaleria.Text);
+end;
+
+procedure TCrmFMContactos.NavMainClick(Sender: TObject; Button: TNavigateBtn);
+begin
+  inherited;
+  BCargarImagen.Visible := (Button in [nbInsert, nbEdit]);
+  BClipboard.Visible := (Button in [nbInsert, nbEdit]);
+end;
+
+procedure TCrmFMContactos.NavContactosBeforeAction(Sender: TObject; Button: TNavigateBtn);
+begin
+  inherited;
+  if (Button in [nbInsert, nbEdit]) then
+  begin
+     PCMain.ActivePage := TSContactos;
+     EditandoDesdeFicha := True;
+  end;
+end;
+
+procedure TCrmFMContactos.NavContPersClick(Sender: TObject; Button: TNavigateBtn);
+begin
+  inherited;
+  if (Button in [nbPost, nbCancel]) then
+     if EditandoDesdeFicha then
+     begin
+        PCMain.ActivePage := TSFicha;
+        EditandoDesdeFicha := False;
+     end;
+end;
+
+procedure TCrmFMContactos.PMainResize(Sender: TObject);
+begin
+  inherited;
+  DBEComentario.Width := POtraInformacion.Left;
+end;
+
+procedure TCrmFMContactos.DBGFSeguimientosFichaDblClick(Sender: TObject);
+begin
+  inherited;
+  PCMain.ActivePage := TSAcciones;
+  PCAcciones.ActivePage := TSFichaAcciones;
+  CrmDmContactos.FiltroAcciones(1);
+  CrmDMContactos.PosicionarSeguimiento;
+end;
+
+procedure TCrmFMContactos.DBGPContactosDblClick(Sender: TObject);
+begin
+  inherited;
+  PCMain.ActivePage := TSContactos;
+end;
+
+procedure TCrmFMContactos.FiltroContactos(Filtro: string; AgenteFiltro: integer = -1; IdAccion: integer = -1; IdAccionDet: integer = -1);
+begin
+  if (AgenteFiltro <> -1) then
+     EFAgenteFiltro.Text := IntToStr(AgenteFiltro);
+
+  CrmDMContactos.FiltroContactos(Filtro);
+
+  if (IdAccion <> -1) then
+     PCMain.ActivePage := TSAcciones;
+
+  PCMainChange(nil);
+
+  if (IdAccion <> -1) then
+     PCAcciones.ActivePage := TSFichaAcciones;
+
+  if (IdAccion <> -1) then
+     Posicionar(CrmDMContactos.QMAcciones, 'ID_ACCION', IdAccion);
+
+  if (IdAccionDet <> -1) then
+     Posicionar(CrmDMContactos.QMAccionesDet, 'ID_ACCION_DET', IdAccionDet);
+end;
+
+procedure TCrmFMContactos.DBEAgenteEmpChange(Sender: TObject);
+var
+  i : integer;
+begin
+  inherited;
+  DBEDescAgenteEmp.Text := DameTituloAgente(StrToIntDef(DBEAgenteEmp.Text, 0));
+  RellenaRutasAgentes(StrToIntDef(DBEAgenteEmp.Text, 0), DBCBRuta.Items, False, True);
+  DBCBRuta.Values.Clear;
+  for i := 0 to DBCBRuta.Items.Count - 1 do
+     DBCBRuta.Values.Add(IntToStr(integer(DBCBRuta.Items.Objects[i])));
+end;
+
+procedure TCrmFMContactos.DBEClienteEmpChange(Sender: TObject);
+begin
+  inherited;
+  DBEDescClienteEmp.Text := DameTituloCliente(StrToIntDef(DBEClienteEmp.Text, 0));
+
+  ACrearCliente.Enabled := (CrmDMContactos.QMContactosCLIENTE.AsInteger < 0);
+end;
+
+procedure TCrmFMContactos.DBEFTerceroChange(Sender: TObject);
+begin
+  inherited;
+  DBETituloTercero.Text := DameTituloTercero(StrToIntDef(DBEFTercero.Text, 0));
+  ETituloDireccion.Text := DameTituloDireccionTercero(StrToIntDef(DBEFTercero.Text, 0), StrToIntDef(DBEFDireccion.Text, 0));
+end;
+
+procedure TCrmFMContactos.DBEFDireccionChange(Sender: TObject);
+begin
+  inherited;
+  ETituloDireccion.Text := DameTituloDireccionTercero(StrToIntDef(DBEFTercero.Text, 0), StrToIntDef(DBEFDireccion.Text, 0));
+end;
+
+procedure TCrmFMContactos.DBEFDireccionBusqueda(Sender: TObject);
+begin
+  inherited;
+  DBEFDireccion.CondicionBusqueda := 'tercero = ' + DBEFTercero.Text;
+end;
+
+procedure TCrmFMContactos.BClipboardClick(Sender: TObject);
+begin
+  inherited;
+  CrmDMContactos.QMContactosCODIGO_IMAGEN.AsInteger := ImportarImagenDesdeClipboard;
+end;
+
+procedure TCrmFMContactos.DBGMainDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: integer; Column: TColumn; State: TGridDrawState);
+begin
+  inherited;
+  with THYTDBGrid(Sender) do
+  begin
+     if (gdFocused in State) then //If the cell has the focus
+        ColorFocused(Canvas)
+     else
+     begin
+        if (UpperCase(Column.FieldName) = 'FECHA_ULTIMA_VISITA') then
+        begin
+           if ((not CrmDMContactos.QMContactosFECHA_ULTIMA_VISITA.IsNull) and (CrmDMContactos.QMContactosDIAS_ENTRE_VISITAS.AsInteger <> 0)) then
+              if ((Today - CrmDMContactos.QMContactosFECHA_ULTIMA_VISITA.AsDateTime) > CrmDMContactos.QMContactosDIAS_ENTRE_VISITAS.AsInteger) then
+                 ColorResaltado6(Canvas);
+        end;
+     end;
+
+     DefaultDrawColumnCell(Rect, DataCol, Column, State);
+  end;
+end;
+
+procedure TCrmFMContactos.DBEIdContactoChange(Sender: TObject);
+begin
+  inherited;
+  if ((not CrmDMContactos.QMContactosFECHA_ULTIMA_VISITA.IsNull) and (CrmDMContactos.QMContactosDIAS_ENTRE_VISITAS.AsInteger <> 0)) then
+  begin
+     if ((Today - CrmDMContactos.QMContactosFECHA_ULTIMA_VISITA.AsDateTime) > CrmDMContactos.QMContactosDIAS_ENTRE_VISITAS.AsInteger) then
+        ColorResaltado(DBDEFechaUltimaVisita);
+  end
+  else
+     ColorEdicion(DBDEFechaUltimaVisita);
+
+  HabilitaEnlaces;
+end;
+
+procedure TCrmFMContactos.DBCBRutaExit(Sender: TObject);
+begin
+  inherited;
+  if CrmDMContactos.QMContactos.State in [dsInsert, dsEdit] then
+     CrmDMContactos.QMContactosID_RUTA.AsInteger := integer(DBCBRuta.Items.Objects[DBCBRuta.ItemIndex]);
+end;
+
+procedure TCrmFMContactos.EFAgenteFiltroChange(Sender: TObject);
+var
+  Agente, IdRuta : integer;
+begin
+  inherited;
+  Agente := StrToIntDef(EFAgenteFiltro.Text, 0);
+  if (Agente > 0) then
+     EAgenteFiltro.Text := DameTituloAgente(Agente)
+  else
+     EAgenteFiltro.Text := _('Todos');
+
+  RellenaRutasAgentes(Agente, CBRutaFiltro.Items, True, False);
+  CBRutaFiltro.ItemIndex := 0;
+
+  IdRuta := 0;
+  if (CBRutaFiltro.ItemIndex >= 0) then
+     IdRuta := integer(CBRutaFiltro.Items.Objects[CBRutaFiltro.ItemIndex]);
+  CrmDMContactos.FiltraAgente(Agente, IdRuta);
+end;
+
+procedure TCrmFMContactos.CBRutaFiltroChange(Sender: TObject);
+var
+  Agente, IdRuta : integer;
+begin
+  inherited;
+  Agente := StrToIntDef(EFAgenteFiltro.Text, 0);
+  IdRuta := 0;
+  if (CBRutaFiltro.ItemIndex >= 0) then
+     IdRuta := integer(CBRutaFiltro.Items.Objects[CBRutaFiltro.ItemIndex]);
+  CrmDMContactos.FiltraAgente(Agente, IdRuta);
+end;
+
+procedure TCrmFMContactos.AExportarEmailExecute(Sender: TObject);
+var
+  Fichero : string;
+begin
+  inherited;
+  Fichero := Format(_('Correos_%s.csv'), [FormatDateTime('yyyymmdd_hhnnss', Now)]);
+  if MySaveDialog(Fichero, 'CSV', '', 'CrmFMContactos') then
+     CrmDMContactos.ExportarCorreos(Fichero);
+end;
+
+procedure TCrmFMContactos.WMDropFiles(var Msg: TWMDropFiles);
+var
+  i : integer;
+  DropPoint : TPoint;
+  RecibeFicheros : TRecibeFicheros;
+  Ficheros : TStrings;
+begin
+  inherited;
+  Ficheros := TStringList.Create;
+  RecibeFicheros := TRecibeFicheros.Create(Msg.Drop);
+  try
+     for i := 0 to Pred(RecibeFicheros.FileCount) do
+        Ficheros.Add(RecibeFicheros.Files[i]);
+
+     DropPoint := RecibeFicheros.DropPoint;
+
+     if ConfirmaMensaje(_('Esta seguro de importar los archivos?' + #13#10 + Ficheros.Text)) then
+     begin
+        AbreData(TDMAdjunto, DMAdjunto);
+        try
+           for i := 0 to Ficheros.Count - 1 do
+              DMAdjunto.CreaAdjunto('CON', CrmDMContactos.QMContactosID_CONTACTO.AsInteger, Ficheros[i]);
+        finally
+           CierraData(DMAdjunto);
+        end;
+
+        AAdjuntoContacto.Execute;
+     end;
+  finally
+     RecibeFicheros.Free;
+     Ficheros.Free;
+  end;
+  Msg.Result := 0;
+end;
+
+procedure TCrmFMContactos.FiltraVentas;
+var
+  TipoDocumento, Serie : string;
+begin
+  inherited;
+  if (PCMain.ActivePage = TSVentas) then
+  begin
+     CBPendientes.Visible := ((CBTipoDocumento.Text = 'OFC') or (CBTipoDocumento.Text = 'PEC') or (CBTipoDocumento.Text = 'ALB'));
+
+     if (CBSerieVenta.Text = _('Todas las Series')) then
+        Serie := ' '
+     else
+     begin
+        // Obtengo el texto del item y no de la propiedad Text, por si escribieron y no conicide (mayúsculas/minúsculas, por ejemplo)
+        Serie := CBSerieVenta.Items[CBSerieVenta.ItemIndex];
+        Serie := Copy(Serie, 1, Pos(' ', Serie) - 1);
+     end;
+
+     TipoDocumento := CBTipoDocumento.Text;
+     if (CBTipoDocumento.ItemIndex <= 0) then
+        TipoDocumento := 'ALL';
+     CrmDMContactos.FiltraVentas(TipoDocumento, Serie, DEFechaVentasDesde.Date, DEFechaVentasHasta.Date, EFArticuloVentas.Text, Trim(EDescripcion.Text), CBPendientes.Checked, CampoOrdenDetalleVentas);
+  end;
+end;
+
+procedure TCrmFMContactos.FiltroVentasChange(Sender: TObject);
+begin
+  inherited;
+  FiltraVentas;
+end;
+
+procedure TCrmFMContactos.DBGVentasDocumentoDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: integer; Column: TColumn; State: TGridDrawState);
+begin
+  inherited;
+  if ((UpperCase(Column.FieldName) = 'TIPO') or (UpperCase(Column.FieldName) = 'SERIE') or (UpperCase(Column.FieldName) = 'RIG')) then
+     CeldaEnlace(TDBGrid(Sender), Rect);
+end;
+
+procedure TCrmFMContactos.DBGVentasDetalleDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: integer; Column: TColumn; State: TGridDrawState);
+begin
+  inherited;
+  if ((UpperCase(Column.FieldName) = 'TIPO') or (UpperCase(Column.FieldName) = 'SERIE') or (UpperCase(Column.FieldName) = 'RIG')) then
+     CeldaEnlace(TDBGrid(Sender), Rect);
+end;
+
+procedure TCrmFMContactos.DBGVentasDocumentoDblClick(Sender: TObject);
+begin
+  inherited;
+  if ((UpperCase(ColActual.FieldName) = 'TIPO') or (UpperCase(ColActual.FieldName) = 'SERIE') or (UpperCase(ColActual.FieldName) = 'RIG')) then
+     if (CrmDMContactos.xVentasCANAL.AsInteger = REntorno.Canal) then
+        FMain.TraspasoDeDocumentosSalida(CrmDMContactos.xVentasID_S.AsInteger)
+     else
+        ShowMessage(_('El documento se encuentra en otro canal'));
+end;
+
+procedure TCrmFMContactos.DBGVentasDocumentoCellClick(Column: TColumn);
+begin
+  inherited;
+  ColActual := Column;
+end;
+
+procedure TCrmFMContactos.DBGVentasDetalleCellClick(Column: TColumn);
+begin
+  inherited;
+  ColActual := Column;
+end;
+
+procedure TCrmFMContactos.DBGVentasDetalleDblClick(Sender: TObject);
+begin
+  inherited;
+  if ((UpperCase(ColActual.FieldName) = 'TIPO') or (UpperCase(ColActual.FieldName) = 'SERIE') or (UpperCase(ColActual.FieldName) = 'RIG')) then
+     if (CrmDMContactos.xVentasDetalleCANAL.AsInteger = REntorno.Canal) then
+        FMain.TraspasoDeDocumentosSalida(CrmDMContactos.xVentasDetalleID_S.AsInteger)
+     else
+        ShowMessage(_('El documento se encuentra en otro canal'));
+end;
+
+procedure TCrmFMContactos.DBGVentasDetalleTitleClick(Column: TColumn);
+begin
+  inherited;
+  // inherited;
+
+  // Si el campo de orden es el mismo, lo invierto (orden descendente)
+  if (CampoOrdenDetalleVentas <> IntToStr(Column.Field.Index + 1)) then
+     CampoOrdenDetalleVentas := IntToStr(Column.Field.Index + 1)
+  else
+     CampoOrdenDetalleVentas := IntToStr((Column.Field.Index + 1) * (-1));
+
+  FiltroVentasChange(nil);
+end;
+
+procedure TCrmFMContactos.PCMainChanging(Sender: TObject; var AllowChange: boolean);
+begin
+  inherited;
+  if (PCMain.ActivePage = TSVentas) then
+     CrmDMContactos.CerrarVentas;
+end;
+
+procedure TCrmFMContactos.EFiltroAgrupacionChange(Sender: TObject);
+begin
+  inherited;
+  CrmDMContactos.FiltraAgrupacionDisponible(EFiltroAgrupacion.Text);
+end;
+
+procedure TCrmFMContactos.FormActivate(Sender: TObject);
+begin
+  inherited;
+
+  // Deshabilito para que funcione el doble click sobre estos campos para asignar agrupacion
+  DBEAgDentro.Enabled := False;
+  DBEAgTitDentro.Enabled := False;
+  DBEAgrupacionSon.Enabled := False;
+  DBEAgrupacionSonTitulo.Enabled := False;
+end;
+
+procedure TCrmFMContactos.TSAgrupacionesResize(Sender: TObject);
+begin
+  inherited;
+  DBCGPertenece.PanelHeight := 26;
+  DBCGDisponibles.RowCount := DBCGDisponibles.Height div 26;
+end;
+
+procedure TCrmFMContactos.DBEProgresoChange(Sender: TObject);
+begin
+  inherited;
+  if ((TrBProgresoAcc.Position * 10) <> CrmDMContactos.QMAccionesPROGRESO.AsInteger) then
+     TrBProgresoAcc.Position := (CrmDMContactos.QMAccionesPROGRESO.AsInteger div 10);
+end;
+
+procedure TCrmFMContactos.TrBProgresoAccChange(Sender: TObject);
+begin
+  inherited;
+  if ((TrBProgresoAcc.Position * 10) <> CrmDMContactos.QMAccionesPROGRESO.AsInteger) then
+     CrmDMContactos.QMAccionesPROGRESO.AsInteger := (TrBProgresoAcc.Position * 10);
+end;
+
+procedure TCrmFMContactos.BLimpiaFiltroAgenteClick(Sender: TObject);
+begin
+  inherited;
+  EFAgenteFiltro.Text := '';
+end;
+
+procedure TCrmFMContactos.LFDBDocChange(Sender: TObject);
+begin
+  inherited;
+  VisibilidadBotonOferta((CrmDMContactos.QMAccionesDOC_ACCION.AsInteger = 0));
+end;
+
+end.
