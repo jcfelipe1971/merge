@@ -1,0 +1,6 @@
+Para configurar Windows para usar un manifest externo:
+
+Valor decimal 1 a la clave (que hay que crear):
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide]
+"PreferExternalManifest"=dword:00000001
